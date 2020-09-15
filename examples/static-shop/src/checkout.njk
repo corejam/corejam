@@ -1,0 +1,111 @@
+---
+layout: layout.njk
+renderData:
+    title: "DerShop Checkout"
+---
+<dershop-ui-type as="h1" align="center" pt="12" pb="16">Checkout</dershop-ui-type>
+
+<dershop-ui-box max="lg" mx="auto" px="4" px-lg="0" flex justify="between" mb="24">
+    <dershop-ui-box w="8" mr="4">
+        <dershop-ui-box pb="4" mb="8" b-width-bottom="1" b-color="gray-400">
+            <dershop-ui-type as="h2" size="xl">Shipping Address</dershop-ui-type>
+        </dershop-ui-box>
+        <dershop-form-container name="shipping">
+            <dershop-ui-box flex mb="8">
+                <dershop-ui-box w="6" pr="4">
+                    <dershop-form-field
+                    name="firstname"
+                    type="text"
+                    placeholder="First name"
+                    form-id="shipping"
+                    label="First name"></dershop-form-field>
+                </dershop-ui-box>
+                <dershop-ui-box w="6" pl="4">
+                    <dershop-form-field
+                    name="lastname"
+                    type="text"
+                    placeholder="Last name"
+                    form-id="shipping"
+                    label="Last name"></dershop-form-field>
+                </dershop-ui-box>
+            </dershop-ui-box>
+            <dershop-ui-box flex mb="8">
+                <dershop-form-field
+                    name="address"
+                    type="text"
+                    placeholder="Address"
+                    form-id="shipping"
+                    label="Address"></dershop-form-field>
+            </dershop-ui-box>
+            <dershop-ui-box flex mb="8">
+                <dershop-form-field
+                    name="city"
+                    type="text"
+                    placeholder="City"
+                    form-id="shipping"
+                    label="City"></dershop-form-field>
+            </dershop-ui-box>
+            <dershop-ui-box flex mb="8">
+                <dershop-ui-box w="6" pr="4">
+                    <dershop-form-field
+                    name="country"
+                    type="text"
+                    placeholder="Country"
+                    form-id="shipping"
+                    label="Country"></dershop-form-field>
+                </dershop-ui-box>
+                <dershop-ui-box w="6" pl="4">
+                    <dershop-form-field
+                    name="zip"
+                    type="text"
+                    placeholder="Zip code"
+                    form-id="shipping"
+                    label="Zip code"></dershop-form-field>
+                </dershop-ui-box>
+            </dershop-ui-box>
+            <dershop-ui-box flex mb="8">
+                <dershop-ui-box w="6" pr="4">
+                    <dershop-form-field
+                    name="email"
+                    type="text"
+                    placeholder="Email"
+                    form-id="shipping"
+                    label="Email"></dershop-form-field>
+                </dershop-ui-box>
+                <dershop-ui-box w="6" pl="4">
+                    <dershop-form-field
+                    name="phone"
+                    type="text"
+                    placeholder="Phone"
+                    form-id="shipping"
+                    label="Phone"></dershop-form-field>
+                </dershop-ui-box>
+            </dershop-ui-box>
+            <div class="flex flex-row-reverse">
+                <a class="font-bold underline uppercase" href="#">Next</a>
+            </div>
+        </dershop-form-container>
+    </dershop-ui-box>
+    <dershop-ui-box w="3" pt="10">
+        <dershop-ui-box flex direction="col" bg="gray-300" p="4">
+            <dershop-ui-box py="4">
+                <dershop-ui-type>Order summary</dershop-ui-type>
+            </dershop-ui-box>
+            <dershop-ui-box pb="2" b-width-bottom="1" b-color="gray-600" mb="6">
+                <dershop-ui-type size="sm" color="gray-600">1 Item in Cart</dershop-ui-type>
+            </dershop-ui-box>
+            <dershop-ui-box flex justify="between">
+                <dershop-ui-box w="3">
+                    <dershop-image fit="cover" w="16" h="16" mr="6" src="https://images.unsplash.com/photo-1563903530908-afdd155d057a?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=934&amp;q=80"></dershop-image>
+                </dershop-ui-box>
+                <dershop-ui-box w="8" flex direction="col" justify="between">
+                    <dershop-ui-box flex justify="between">
+                        <dershop-ui-type size="md">Productname</dershop-ui-type>
+                        <dershop-ui-type size="sm">Qty 1</dershop-ui-type>
+                    </dershop-ui-box>
+                    <dershop-ui-type weight="bold">59,73€</dershop-ui-type>
+                </dershop-ui-box>
+            </dershop-ui-box>
+        </dershop-ui-box>
+    </dershop-ui-box>
+</dershop-ui-box>

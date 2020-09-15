@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ renderData.title or title or metadata.title }}</title>
+    <link rel="modulepreload" href="/static/@corejam/dershop.esm.js"/>
+    <script type="module" src="/static/@corejam/dershop.esm.js"></script>
+    <script nomodule src="/static/@corejam/dershop.js"></script>
+  </head>
+  <body>
+    <dershop-ui-base></dershop-ui-base>
+    <dershop-canvas canvas-id="header" canvas="{{meta.layout.header | dump}}"></dershop-canvas>
+    {{content | safe}}
+    <dershop-canvas canvas-id="footer" canvas="{{meta.layout.footer | dump}}"></dershop-canvas>
+  </body>
+</html>

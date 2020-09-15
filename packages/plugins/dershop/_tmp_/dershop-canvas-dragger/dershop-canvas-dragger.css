@@ -1,0 +1,20 @@
+dershop-canvas-dragger {
+  display: block;
+  transition: transform 0.15s cubic-bezier(0.7, 0, 0.3, 1);
+  user-select: none;
+
+  span {
+    display: block;
+    height: 100%;
+    padding: 20px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+dershop-canvas-dragger[data-state~="dragging"] {
+  cursor: grabbing;
+  transition: none;
+  pointer-events: none;
+}

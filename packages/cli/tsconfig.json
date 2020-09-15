@@ -1,0 +1,21 @@
+{
+  "include": ["src/**/*", "types.d.ts"],
+  "exclude": ["src/templates/**/*"],
+  "compilerOptions": {
+    "allowJs": true,
+    "importHelpers": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "declaration": false,
+    "module": "commonjs",
+    "rootDir": "src",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "target": "es5",
+    "resolveJsonModule": true
+  }
+}

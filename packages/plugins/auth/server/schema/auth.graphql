@@ -1,0 +1,66 @@
+extend type Query {
+  allUsers: [User]
+  paginateUsers(page: Int!, size: Int!): UserList
+  userByEmail(email: String!): User
+  userById(id: String!): User
+  userByToken: User
+}
+
+extend type Mutation {
+  userCreate(userCreateInput: UserCreateInput!): User
+  userEdit(id: String!, userInput: UserInput!): User
+  userAuthenticate(email: String!, password: String!): UserJWT
+  userRegister(data: RegisterInput!): User
+  userTokenRefresh: UserJWT
+  userDeactivate(id: String!): Boolean
+}
+
+enum userRoles {
+  user
+  admin
+}
+
+type User implements Timestamp {
+  id: String!
+  email: String!
+  password: String!
+  active: Boolean!
+  role: [userRoles]!
+  dateCreated: String!
+  dateUpdated: String!
+  #refreshToken is available to db resolvers but hidden from outgoing
+}
+
+type UserJWT {
+  user: User!
+  token: String!
+}
+
+type UserList implements Paginated {
+  totalItems: Int!
+  perPage: Int!
+  currentPage: Int!
+  lastPage: Int!
+  items: [User]
+}
+
+input UserCreateInput {
+  email: String!
+  password: String!
+  role: String!
+  active: Boolean!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+  passwordConfirm: String!
+}
+
+input UserInput {
+  id: String
+  email: String
+  password: String
+  role: String
+  active: Boolean
+}

@@ -1,0 +1,587 @@
+@define-mixin bootstrapPadding $breakpoint {
+  &(.p$(breakpoint)-0) {
+    padding: 0;
+  }
+
+  &(.p$(breakpoint)-1) {
+    padding: 0.25rem;
+  }
+
+  &(.p$(breakpoint)-2) {
+    padding: 0.5rem;
+  }
+
+  &(.p$(breakpoint)-3) {
+    padding: 0.75rem;
+  }
+
+  &(.p$(breakpoint)-4) {
+    padding: 1rem;
+  }
+
+  &(.p$(breakpoint)-5) {
+    padding: 1.25rem;
+  }
+
+  &(.p$(breakpoint)-6) {
+    padding: 1.5rem;
+  }
+
+  &(.p$(breakpoint)-8) {
+    padding: 2rem;
+  }
+
+  &(.p$(breakpoint)-10) {
+    padding: 2.5rem;
+  }
+
+  &(.p$(breakpoint)-12) {
+    padding: 3rem;
+  }
+
+  &(.p$(breakpoint)-16) {
+    padding: 4rem;
+  }
+
+  &(.p$(breakpoint)-20) {
+    padding: 5rem;
+  }
+
+  &(.p$(breakpoint)-24) {
+    padding: 6rem;
+  }
+
+  &(.p$(breakpoint)-32) {
+    padding: 8rem;
+  }
+
+  &(.p$(breakpoint)-40) {
+    padding: 10rem;
+  }
+
+  &(.p$(breakpoint)-48) {
+    padding: 12rem;
+  }
+
+  &(.p$(breakpoint)-56) {
+    padding: 14rem;
+  }
+
+  &(.p$(breakpoint)-64) {
+    padding: 16rem;
+  }
+
+  &(.p$(breakpoint)-px) {
+    padding: 1px;
+  }
+
+  &(.py$(breakpoint)-0) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  &(.px$(breakpoint)-0) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &(.py$(breakpoint)-1) {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  &(.px$(breakpoint)-1) {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  &(.py$(breakpoint)-2) {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  &(.px$(breakpoint)-2) {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  &(.py$(breakpoint)-3) {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  &(.px$(breakpoint)-3) {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  &(.py$(breakpoint)-4) {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  &(.px$(breakpoint)-4) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  &(.py$(breakpoint)-5) {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+
+  &(.px$(breakpoint)-5) {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  &(.py$(breakpoint)-6) {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  &(.px$(breakpoint)-6) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  &(.py$(breakpoint)-8) {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  &(.px$(breakpoint)-8) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  &(.py$(breakpoint)-10) {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  &(.px$(breakpoint)-10) {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  &(.py$(breakpoint)-12) {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  &(.px$(breakpoint)-12) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  &(.py$(breakpoint)-16) {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  &(.px$(breakpoint)-16) {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  &(.py$(breakpoint)-20) {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  &(.px$(breakpoint)-20) {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
+  &(.py$(breakpoint)-24) {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+
+  &(.px$(breakpoint)-24) {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+
+  &(.py$(breakpoint)-32) {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+
+  &(.px$(breakpoint)-32) {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+
+  &(.py$(breakpoint)-40) {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+  }
+
+  &(.px$(breakpoint)-40) {
+    padding-left: 10rem;
+    padding-right: 10rem;
+  }
+
+  &(.py$(breakpoint)-48) {
+    padding-top: 12rem;
+    padding-bottom: 12rem;
+  }
+
+  &(.px$(breakpoint)-48) {
+    padding-left: 12rem;
+    padding-right: 12rem;
+  }
+
+  &(.py$(breakpoint)-56) {
+    padding-top: 14rem;
+    padding-bottom: 14rem;
+  }
+
+  &(.px$(breakpoint)-56) {
+    padding-left: 14rem;
+    padding-right: 14rem;
+  }
+
+  &(.py$(breakpoint)-64) {
+    padding-top: 16rem;
+    padding-bottom: 16rem;
+  }
+
+  &(.px$(breakpoint)-64) {
+    padding-left: 16rem;
+    padding-right: 16rem;
+  }
+
+  &(.py$(breakpoint)-px) {
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+
+  &(.px$(breakpoint)-px) {
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+
+  &(.pt$(breakpoint)-0) {
+    padding-top: 0;
+  }
+
+  &(.pr$(breakpoint)-0) {
+    padding-right: 0;
+  }
+
+  &(.pb$(breakpoint)-0) {
+    padding-bottom: 0;
+  }
+
+  &(.pl$(breakpoint)-0) {
+    padding-left: 0;
+  }
+
+  &(.pt$(breakpoint)-1) {
+    padding-top: 0.25rem;
+  }
+
+  &(.pr$(breakpoint)-1) {
+    padding-right: 0.25rem;
+  }
+
+  &(.pb$(breakpoint)-1) {
+    padding-bottom: 0.25rem;
+  }
+
+  &(.pl$(breakpoint)-1) {
+    padding-left: 0.25rem;
+  }
+
+  &(.pt$(breakpoint)-2) {
+    padding-top: 0.5rem;
+  }
+
+  &(.pr$(breakpoint)-2) {
+    padding-right: 0.5rem;
+  }
+
+  &(.pb$(breakpoint)-2) {
+    padding-bottom: 0.5rem;
+  }
+
+  &(.pl$(breakpoint)-2) {
+    padding-left: 0.5rem;
+  }
+
+  &(.pt$(breakpoint)-3) {
+    padding-top: 0.75rem;
+  }
+
+  &(.pr$(breakpoint)-3) {
+    padding-right: 0.75rem;
+  }
+
+  &(.pb$(breakpoint)-3) {
+    padding-bottom: 0.75rem;
+  }
+
+  &(.pl$(breakpoint)-3) {
+    padding-left: 0.75rem;
+  }
+
+  &(.pt$(breakpoint)-4) {
+    padding-top: 1rem;
+  }
+
+  &(.pr$(breakpoint)-4) {
+    padding-right: 1rem;
+  }
+
+  &(.pb$(breakpoint)-4) {
+    padding-bottom: 1rem;
+  }
+
+  &(.pl$(breakpoint)-4) {
+    padding-left: 1rem;
+  }
+
+  &(.pt$(breakpoint)-5) {
+    padding-top: 1.25rem;
+  }
+
+  &(.pr$(breakpoint)-5) {
+    padding-right: 1.25rem;
+  }
+
+  &(.pb$(breakpoint)-5) {
+    padding-bottom: 1.25rem;
+  }
+
+  &(.pl$(breakpoint)-5) {
+    padding-left: 1.25rem;
+  }
+
+  &(.pt$(breakpoint)-6) {
+    padding-top: 1.5rem;
+  }
+
+  &(.pr$(breakpoint)-6) {
+    padding-right: 1.5rem;
+  }
+
+  &(.pb$(breakpoint)-6) {
+    padding-bottom: 1.5rem;
+  }
+
+  &(.pl$(breakpoint)-6) {
+    padding-left: 1.5rem;
+  }
+
+  &(.pt$(breakpoint)-8) {
+    padding-top: 2rem;
+  }
+
+  &(.pr$(breakpoint)-8) {
+    padding-right: 2rem;
+  }
+
+  &(.pb$(breakpoint)-8) {
+    padding-bottom: 2rem;
+  }
+
+  &(.pl$(breakpoint)-8) {
+    padding-left: 2rem;
+  }
+
+  &(.pt$(breakpoint)-10) {
+    padding-top: 2.5rem;
+  }
+
+  &(.pr$(breakpoint)-10) {
+    padding-right: 2.5rem;
+  }
+
+  &(.pb$(breakpoint)-10) {
+    padding-bottom: 2.5rem;
+  }
+
+  &(.pl$(breakpoint)-10) {
+    padding-left: 2.5rem;
+  }
+
+  &(.pt$(breakpoint)-12) {
+    padding-top: 3rem;
+  }
+
+  &(.pr$(breakpoint)-12) {
+    padding-right: 3rem;
+  }
+
+  &(.pb$(breakpoint)-12) {
+    padding-bottom: 3rem;
+  }
+
+  &(.pl$(breakpoint)-12) {
+    padding-left: 3rem;
+  }
+
+  &(.pt$(breakpoint)-16) {
+    padding-top: 4rem;
+  }
+
+  &(.pr$(breakpoint)-16) {
+    padding-right: 4rem;
+  }
+
+  &(.pb$(breakpoint)-16) {
+    padding-bottom: 4rem;
+  }
+
+  &(.pl$(breakpoint)-16) {
+    padding-left: 4rem;
+  }
+
+  &(.pt$(breakpoint)-20) {
+    padding-top: 5rem;
+  }
+
+  &(.pr$(breakpoint)-20) {
+    padding-right: 5rem;
+  }
+
+  &(.pb$(breakpoint)-20) {
+    padding-bottom: 5rem;
+  }
+
+  &(.pl$(breakpoint)-20) {
+    padding-left: 5rem;
+  }
+
+  &(.pt$(breakpoint)-24) {
+    padding-top: 6rem;
+  }
+
+  &(.pr$(breakpoint)-24) {
+    padding-right: 6rem;
+  }
+
+  &(.pb$(breakpoint)-24) {
+    padding-bottom: 6rem;
+  }
+
+  &(.pl$(breakpoint)-24) {
+    padding-left: 6rem;
+  }
+
+  &(.pt$(breakpoint)-32) {
+    padding-top: 8rem;
+  }
+
+  &(.pr$(breakpoint)-32) {
+    padding-right: 8rem;
+  }
+
+  &(.pb$(breakpoint)-32) {
+    padding-bottom: 8rem;
+  }
+
+  &(.pl$(breakpoint)-32) {
+    padding-left: 8rem;
+  }
+
+  &(.pt$(breakpoint)-40) {
+    padding-top: 10rem;
+  }
+
+  &(.pr$(breakpoint)-40) {
+    padding-right: 10rem;
+  }
+
+  &(.pb$(breakpoint)-40) {
+    padding-bottom: 10rem;
+  }
+
+  &(.pl$(breakpoint)-40) {
+    padding-left: 10rem;
+  }
+
+  &(.pt$(breakpoint)-48) {
+    padding-top: 12rem;
+  }
+
+  &(.pr$(breakpoint)-48) {
+    padding-right: 12rem;
+  }
+
+  &(.pb$(breakpoint)-48) {
+    padding-bottom: 12rem;
+  }
+
+  &(.pl$(breakpoint)-48) {
+    padding-left: 12rem;
+  }
+
+  &(.pt$(breakpoint)-56) {
+    padding-top: 14rem;
+  }
+
+  &(.pr$(breakpoint)-56) {
+    padding-right: 14rem;
+  }
+
+  &(.pb$(breakpoint)-56) {
+    padding-bottom: 14rem;
+  }
+
+  &(.pl$(breakpoint)-56) {
+    padding-left: 14rem;
+  }
+
+  &(.pt$(breakpoint)-64) {
+    padding-top: 16rem;
+  }
+
+  &(.pr$(breakpoint)-64) {
+    padding-right: 16rem;
+  }
+
+  &(.pb$(breakpoint)-64) {
+    padding-bottom: 16rem;
+  }
+
+  &(.pl$(breakpoint)-64) {
+    padding-left: 16rem;
+  }
+
+  &(.pt$(breakpoint)-px) {
+    padding-top: 1px;
+  }
+
+  &(.pr$(breakpoint)-px) {
+    padding-right: 1px;
+  }
+
+  &(.pb$(breakpoint)-px) {
+    padding-bottom: 1px;
+  }
+
+  &(.pl$(breakpoint)-px) {
+    padding-left: 1px;
+  }
+}
+
+:host {
+  @mixin bootstrapPadding;
+  @media (min-width: 640px) {
+    @mixin bootstrapPadding Sm;
+  }
+  @media (min-width: 768px) {
+    @mixin bootstrapPadding Md;
+  }
+  @media (min-width: 1024px) {
+    @mixin bootstrapPadding Lg;
+  }
+  @media (min-width: 1280px) {
+    @mixin bootstrapPadding Xl;
+  }
+}

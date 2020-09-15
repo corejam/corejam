@@ -1,0 +1,40 @@
+{
+    "include": [
+        "tests",
+    ],
+    "compilerOptions": {
+        "target": "es5",
+        "module": "esnext",
+        "lib": [
+            "dom",
+            "esnext"
+        ],
+        "rootDir": "./",
+        "moduleResolution": "node",
+        "types": [
+            "jest",
+            "node"
+        ],
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "strict": true,
+        "importHelpers": true,
+        "sourceMap": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictPropertyInitialization": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+    },
+    "esModuleInterop": true,
+    "baseUrl": "./src",
+    "paths": {
+        "@corejam/base/*": [
+            "__LINKEDPKGS__/base/src/*"
+        ],
+    }
+}

@@ -1,0 +1,13 @@
+*.log
+.DS_Store
+node_modules
+.next
+__LINKEDPKGS__
+.now
+.env
+.DerShop
+.corejam
+yarn-error.log
+.vercel
+schema.json
+resolvers.js

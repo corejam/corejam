@@ -1,0 +1,288 @@
+extend type User {
+  firstName: String!
+  lastName: String!
+  addressShipping: Address
+  addressBilling: Address
+}
+
+extend input RegisterInput {
+  firstName: String!
+  lastName: String!
+}
+
+type Address {
+  street: String!
+  street_2: String
+  city: String!
+  state: String!
+  zipCode: String
+  country: String!
+}
+
+input AddressInput {
+  street: String!
+  street_2: String
+  city: String!
+  state: String!
+  zipCode: String
+  country: String!
+}
+
+type SidebarItem {
+  name: String!
+  itemCount: Int!
+  url: String!
+}
+
+type Sidebar {
+  categories: [SidebarItem]
+  brands: [SidebarItem]
+}
+
+type Category implements Timestamp {
+  id: String!
+  name: String!
+  seo: SEO
+  parent: CategoryReference
+  active: Boolean!
+  description: String
+  products: ProductList
+  canvas: JSONObject
+  dateCreated: String!
+  dateUpdated: String!
+}
+
+input CategoryInput {
+  name: String
+}
+
+type CategoryList implements Paginated {
+  totalItems: Int!
+  perPage: Int!
+  currentPage: Int!
+  lastPage: Int!
+  items: [Category]
+}
+
+type CategoryReference {
+  id: String!
+  data: Category!
+}
+
+type Deliverability {
+  stock: Int
+  clearance_sale: Boolean!
+  delivery_time: String
+  restock_time_days: Int
+  free_shipping: Boolean!
+  min_order_qty: Int
+  max_order_qty: Int
+}
+
+input DeliverabilityInput {
+  stock: Int
+  clearance_sale: Boolean!
+  delivery_time: String
+  restock_time_days: Int
+  free_shipping: Boolean!
+  min_order_qty: Int
+  max_order_qty: Int
+}
+
+type Manufacturer implements Timestamp {
+  id: String!
+  name: String!
+  website: String
+  description: String
+  seo: SEO
+  logo: Image
+  products: ProductList
+  canvas: JSONObject
+  dateCreated: String!
+  dateUpdated: String!
+}
+
+input ManufacturerInput {
+  name: String
+  website: String
+  description: String
+}
+
+type ManufacturerList implements Paginated {
+  totalItems: Int!
+  perPage: Int!
+  currentPage: Int!
+  lastPage: Int!
+  items: [Manufacturer]
+}
+
+type ManufacturerReference {
+  id: String!
+  data: Manufacturer!
+}
+
+type Order implements Timestamp {
+  id: String!
+  status: OrderStatus!
+  items: [OrderItem]
+  user: User!
+  dateCreated: String!
+  dateUpdated: String!
+  addressBilling: Address!
+  addressShipping: Address!
+  price: Price!
+  price_shipping: Float!
+}
+
+input OrderInput {
+  status: OrderStatus!
+  items: [OrderItemInput]
+  addressBilling: AddressInput!
+  addressShipping: AddressInput!
+  price: PriceInput!
+}
+
+type OrderItem {
+  product: Product!
+  quantity: Int!
+  price: Price!
+}
+
+input OrderItemInput {
+  product: OrderItemProductInput!
+  quantity: Int!
+  price: PriceInput!
+}
+
+input OrderItemProductInput {
+  id: String!
+  name: String!
+}
+
+type OrderList implements Paginated {
+  totalItems: Int!
+  perPage: Int!
+  currentPage: Int!
+  lastPage: Int!
+  items: [Order]
+}
+
+enum OrderStatus {
+  RECEIVED
+  PROCESSING
+  SHIPPING
+  COMPLETED
+  ERROR
+}
+
+type Price {
+  tax_rate: Float
+  gross: Float
+  net: Float
+  purchase_price_gross: Float
+}
+
+input PriceInput {
+  tax_rate: Float
+  gross: Float
+  net: Float
+  purchase_price_gross: Float
+}
+
+type Product implements Timestamp {
+  id: String!
+  sku: String
+  ean: String
+  manufacturer_number: String
+  active: Boolean!
+  promoted: Boolean!
+  manufacturer: ManufacturerReference
+  categories: [Category]
+  name: String!
+  description: String
+  deliverability: Deliverability
+  seo: SEO
+  images: [Image]
+  price: Price
+  canvas: JSONObject
+  dateCreated: String!
+  dateUpdated: String!
+}
+
+input ProductCoreInput {
+  sku: String
+  ean: String
+  name: String!
+  description: String
+  manufacturer_number: String
+  active: Boolean!
+  promoted: Boolean!
+}
+
+type ProductList implements Paginated {
+  totalItems: Int!
+  perPage: Int!
+  currentPage: Int!
+  lastPage: Int!
+  sidebar: Sidebar!
+  items: [Product]
+}
+
+extend type Query {
+  allOrders: [Order]
+  paginateOrders(page: Int!, size: Int!): OrderList
+  ordersByCustomer: OrderList
+  orderById(id: String!): Order
+  allProducts: [Product]
+  paginateProducts(page: Int!, size: Int!): ProductList
+  productSearch(search: String!, page: Int!, size: Int!): ProductList
+  productByUrl(url: String!): Product
+  productById(id: String!): Product
+  allManufacturers: [Manufacturer]
+  paginateManufacturers(page: Int!, size: Int!): ManufacturerList
+  manufacturerByUrl(url: String!): Manufacturer
+  manufacturerById(id: String!): Manufacturer
+  manufacturersForSelect: [Manufacturer]
+  allCategories: [Category]
+  paginateCategories(page: Int!, size: Int!): CategoryList
+  categoryByUrl(url: String!): Category
+  categoryById(id: String!): Category
+  getSEOIndex: [String]
+}
+
+type LinkResult {
+  result: Boolean!
+}
+
+extend type Mutation {
+  productAddImage(id: String!, imageInput: ImageInput!): Product
+  orderUpdate(id: String!, order: OrderInput!): Order
+  orderCreate(orderInput: OrderInput!): Order
+  productCreate(productInput: ProductCoreInput!): Product
+  productEdit(id: String!, productInput: ProductCoreInput!): Product
+  productEditPrice(id: String!, priceInput: PriceInput!): Product
+  productEditSEO(id: String!, seoInput: SEOInput!): Product
+  productEditDeliverability(
+    id: String!
+    deliveryInput: DeliverabilityInput!
+  ): Product
+  productLinkManufacturer(id: String!, manufacturerId: String!): LinkResult
+  productLinkCategory(id: String!, categoryId: String!): LinkResult
+  manufacturerCreate(
+    id: String!
+    manufacturerInput: ManufacturerInput!
+  ): Manufacturer
+  manufacturerEditSEO(id: String!, seoInput: SEOInput!): Manufacturer
+  manufacturerEdit(
+    id: String!
+    manufacturerInput: ManufacturerInput!
+  ): Manufacturer
+  categoryEditSEO(id: String!, seoInput: SEOInput!): Category
+  categoryEdit(id: String!, categoryInput: CategoryInput!): Category
+}
+
+extend type SEODocument {
+  product: Product
+  category: Category
+  manufacturer: Manufacturer
+}

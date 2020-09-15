@@ -1,0 +1,16 @@
+{
+  "name": "@corejam/cypress",
+  "version": "0.1.2",
+  "description": "DerShop Cypress Test suite",
+  "homepage": "https://corejam.io",
+  "license": "MIT",
+  "scripts": {
+    "cy:run": "cypress run --browser chrome --headless",
+    "cy:open": "cypress open --config watchForFileChanges=true"
+  },
+  "devDependencies": {
+    "cypress": "5.1.0",
+    "cypress-file-upload": "4.0.7",
+    "faker": "5.1.0"
+  }
+}

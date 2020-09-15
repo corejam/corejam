@@ -1,0 +1,19 @@
+{
+  "name": "server-only",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "micro"
+  },
+  "repository": {
+    "url": "Corejam/Corejam",
+    "directory": "examples/api-only"
+  },
+  "dependencies": {
+    "@corejam/base": "0.0.1",
+    "micro": "9.3.4",
+    "micro-cors": "0.1.1"
+  }
+}

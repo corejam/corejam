@@ -1,0 +1,44 @@
+{
+  "name": "pluginName",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "main": "web-components/index.cjs.js",
+  "module": "web-components/custom-elements/index.js",
+  "es2015": "web-components/esm/index.js",
+  "es2017": "web-components/esm/index.js",
+  "types": "web-components/custom-elements/index.d.ts",
+  "collection": "web-components/collection/collection-manifest.json",
+  "collection:main": "web-components/collection/index.js",
+  "scripts": {
+    "dev": "corejam dev",
+    "build": "corejam build",
+    "test": "corejam test",
+    "precommit": "lint-staged",
+    "static": "corejam static",
+    "static:serve": "corejam static:serve",
+    "clean": "rimraf dist & rimraf react & rimraf web-components"
+  },
+  "files": [
+    "dist",
+    "web-components",
+    "react",
+    "vue",
+    "angular"
+  ],
+  "devDependencies": {
+    "tslib": "2.0.1",
+    "typescript": "4.0.2",
+    "@types/faker": "4.1.12",
+    "@stencil/core": "2.0.1",
+    "stencil-router-v2": "0.5.0",
+    "@corejam/base": "0.0.1",
+    "@corejam/core-components": "0.0.1",
+    "@corejam/cli": "0.0.1",
+    "faker": "5.1.0"
+  },
+  "corejam": {
+    "wrapper": [],
+    "recommendations": []
+  }
+}

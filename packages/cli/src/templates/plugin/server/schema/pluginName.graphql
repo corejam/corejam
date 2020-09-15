@@ -1,0 +1,15 @@
+type PluginName {
+  name: String
+}
+
+extend type Query {
+  allPluginName: [PluginName]
+}
+
+extend type Mutation {
+  pluginNameCreate(pluginNameCreateInput: PluginNameCreate!): PluginName
+}
+
+input PluginNameCreate {
+  name: String!
+}

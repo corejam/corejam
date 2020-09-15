@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "lib": ["dom", "es2017"],
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "es2017",
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": false,
+    "jsx": "react",
+    "jsxFactory": "h",
+    "baseUrl": ".",
+    "keyofStringsOnly": false,
+    "skipLibCheck": true,
+    "paths": {
+      "@store/*": ["store/*"],
+      "@shared/*": ["shared/*"]
+    }
+  },
+  "include": ["components", "routes", "types/jsx.d.ts", "shared", "store"],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,13 @@
+---
+layout: layout.njk
+pagination: 
+    data: products
+    size: 1
+    alias: product
+permalink: "{{ product.seo.url }}/"
+---
+<dershop-product
+    product="{{product | dump}}"
+    name="{{product.name}}"
+    main-image="{{product.images[0}.src}}"
+    price="{{product.price.net}}"></dershop-product>

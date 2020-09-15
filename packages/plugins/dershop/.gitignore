@@ -1,0 +1,8 @@
+.corejam
+node_modules
+dist/
+react
+web-components
+tests/.coverage
+.env
+static

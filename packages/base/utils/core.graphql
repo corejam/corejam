@@ -1,0 +1,162 @@
+directive @cacheControl(maxAge: Int) on FIELD_DEFINITION | OBJECT | INTERFACE
+directive @relation on FIELD_DEFINITION
+# Direct the client to resolve this field locally, either from the cache or local resolvers.
+directive @client(
+  # When true, the client will never use the cache for this value. See
+  # https://www.apollographql.com/docs/react/essentials/local-state/#forcing-resolvers-with-clientalways-true
+  always: Boolean
+) on FIELD | FRAGMENT_DEFINITION | INLINE_FRAGMENT
+# Export this locally resolved field as a variable to be used in the remainder of this query. See
+# https://www.apollographql.com/docs/react/essentials/local-state/#using-client-fields-as-variables
+directive @export(
+  # The variable name to export this field as.
+  as: String!
+) on FIELD
+# Specify a custom store key for this result. See
+# https://www.apollographql.com/docs/react/advanced/caching/#the-connection-directive
+directive @connection(
+  # Specify the store key.
+  key: String!
+  # An array of query argument names to include in the generated custom store key.
+  filter: [String!]
+) on FIELD
+
+type CanvasPeer {
+  hash: String!
+  offer: JSONObject!
+}
+
+input CanvasPeerInput {
+  hash: String!
+  offer: JSONObject!
+}
+
+# This is the room that delegates the offers to each other.
+type CanvasPeers {
+  key: String!
+  peers: [CanvasPeer!]
+}
+
+type CanvasPage implements Timestamp {
+  id: String!
+  canvas: JSONObject
+  seo: SEO
+  peers: CanvasPeers
+  dateCreated: String!
+  dateUpdated: String!
+}
+
+input CanvasPageInput {
+  seo: SEOInput
+  canvas: JSONObject
+}
+
+type CanvasPageList implements Paginated {
+  totalItems: Int!
+  perPage: Int!
+  currentPage: Int!
+  lastPage: Int!
+  items: [CanvasPage]
+}
+
+type Config {
+  seo: SEO!
+  general: ConfigGeneral!
+  layout: ConfigLayout!
+}
+
+type ConfigLayout {
+  header: JSONObject
+  footer: JSONObject
+}
+
+type ConfigGeneral {
+  admin_email: String!
+}
+
+input ConfigGeneralInput {
+  admin_email: String!
+}
+
+input ConfigInput {
+  seo: SEOInput!
+  general: ConfigGeneralInput!
+}
+
+type Image implements Timestamp {
+  src: String!
+  public_id: String!
+  alt: String
+  mimetype: String!
+  dateCreated: String!
+  dateUpdated: String!
+}
+
+input ImageInput {
+  public_id: String!
+  resource_type: String!
+  src: String!
+  alt: String
+  mime_type: String
+}
+
+# The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+scalar JSONObject
+
+type Mutation {
+  dummy: String
+  updateConfig(configInput: ConfigGeneralInput!): Config
+  updateConfigSEO(seoInput: SEOInput!): Config
+  cacheFlush: Boolean
+  canvasPageCreate(
+    canvasPageInput: CanvasPageInput!
+    seoInput: SEOInput!
+  ): CanvasPage
+  canvasPageEditSEO(id: String!, seoInput: SEOInput!): CanvasPage
+  canvasPageEdit(id: String!, canvasPage: CanvasPageInput!): CanvasPage
+  canvasOpenPeers(id: String!, peerInput: CanvasPeerInput!): CanvasPeers
+  canvasPollPeers(id: String!): CanvasPeers
+  canvasClosePeers(id: String!): CanvasPage
+}
+
+interface Paginated {
+  totalItems: Int!
+  perPage: Int!
+  currentPage: Int!
+  lastPage: Int!
+  items: [Timestamp]
+}
+
+type Query {
+  dummy: String
+  config: Config
+  objectFromURL(url: String!): SEODocument
+  allCanvasPages: [CanvasPage]
+  paginateCanvasPages(page: Int!, size: Int!): CanvasPageList
+  canvasPageById(id: String!): CanvasPage
+  canvasPollPeers(id: String!): CanvasPeers
+}
+
+
+type SEO {
+  metaTitle: String
+  metaDescription: String
+  keywords: [String]
+  url: String!
+}
+
+type SEODocument {
+  canvasPage: CanvasPage
+}
+
+input SEOInput {
+  metaTitle: String
+  metaDescription: String
+  keywords: [String]
+  url: String!
+}
+
+interface Timestamp {
+  dateCreated: String
+  dateUpdated: String
+}

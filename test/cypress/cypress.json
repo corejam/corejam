@@ -1,0 +1,10 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "chromeWebSecurity": false,
+  "videoUploadOnPasses": false,
+  "video": false,
+  "watchForFileChanges": false,
+  "numTestsKeptInMemory": 0,
+  "retries": 4,
+  "experimentalShadowDomSupport": true
+}

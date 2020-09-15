@@ -1,0 +1,133 @@
+@define-mixin bootstrapFlex $breakpoint {
+  &(.flex$(breakpoint)) {
+    display: flex;
+  }
+
+  &(.direction$(breakpoint)-row) {
+    flex-direction: row;
+  }
+
+  &(.direction$(breakpoint)-row-reverse) {
+    flex-direction: row-reverse;
+  }
+
+  &(.direction$(breakpoint)-col) {
+    flex-direction: column;
+  }
+
+  &(.direction$(breakpoint)-col-reverse) {
+    flex-direction: column-reverse;
+  }
+
+  &(.flex$(breakpoint)-wrap) {
+    flex-wrap: wrap;
+  }
+
+  &(.flex$(breakpoint)-wrap-reverse) {
+    flex-wrap: wrap-reverse;
+  }
+
+  &(.flex$(breakpoint)-no-wrap) {
+    flex-wrap: nowrap;
+  }
+
+  &(.items$(breakpoint)-start) {
+    align-items: flex-start;
+  }
+
+  &(.items$(breakpoint)-end) {
+    align-items: flex-end;
+  }
+
+  &(.items$(breakpoint)-center) {
+    align-items: center;
+  }
+
+  &(.items$(breakpoint)-baseline) {
+    align-items: baseline;
+  }
+
+  &(.items$(breakpoint)-stretch) {
+    align-items: stretch;
+  }
+
+  &(.content$(breakpoint)-center) {
+    align-content: center;
+  }
+
+  &(.content$(breakpoint)-start) {
+    align-content: flex-start;
+  }
+
+  &(.content$(breakpoint)-end) {
+    align-content: flex-end;
+  }
+
+  &(.content$(breakpoint)-between) {
+    align-content: space-between;
+  }
+
+  &(.content$(breakpoint)-around) {
+    align-content: space-around;
+  }
+
+  &(.self$(breakpoint)-auto) {
+    align-self: auto;
+  }
+
+  &(.self$(breakpoint)-start) {
+    align-self: flex-start;
+  }
+
+  &(.self$(breakpoint)-end) {
+    align-self: flex-end;
+  }
+
+  &(.self$(breakpoint)-center) {
+    align-self: center;
+  }
+
+  &(.self$(breakpoint)-stretch) {
+    align-self: stretch;
+  }
+
+  &(.justify$(breakpoint)-start) {
+    justify-content: flex-start;
+  }
+
+  &(.justify$(breakpoint)-end) {
+    justify-content: flex-end;
+  }
+
+  &(.justify$(breakpoint)-center) {
+    justify-content: center;
+  }
+
+  &(.justify$(breakpoint)-between) {
+    justify-content: space-between;
+  }
+
+  &(.justify$(breakpoint)-around) {
+    justify-content: space-around;
+  }
+
+  &(.justify$(breakpoint)-evenly) {
+    justify-content: space-evenly;
+  }
+}
+
+:host {
+  @mixin bootstrapFlex;
+  @media (min-width: 640px) {
+    @mixin bootstrapFlex Sm;
+  }
+  @media (min-width: 768px) {
+    @mixin bootstrapFlex Md;
+  }
+  @media (min-width: 1024px) {
+    @mixin bootstrapFlex L;
+  }
+  @media (min-width: 1280px) {
+    @mixin bootstrapFlex Xl;
+  }
+}
