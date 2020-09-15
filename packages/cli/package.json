@@ -1,11 +1,14 @@
 {
   "name": "@corejam/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.js",
   "license": "MIT",
   "bin": {
     "corejam": "./dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "url": "Corejam/Corejam",
     "directory": "packages/cli"
