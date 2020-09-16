@@ -9,6 +9,7 @@ import { userByIdGQL } from "../../../shared/graphql/Queries";
   tag: "auth-admin-user-form",
   shadow: true,
 })
+
 export class AuthAdminUserForm {
   @Prop() error = false;
   @Prop() formId: string;

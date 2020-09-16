@@ -44,7 +44,7 @@ describe("Basic Authentication checks", function () {
     cy.clearCookies()
     cy.clearCookie("refreshToken")
     cy.clearLocalStorage()
-    
+
     cy.visit("/login")
 
     cy.getTag("login-email").type(email)
@@ -54,4 +54,10 @@ describe("Basic Authentication checks", function () {
     cy.wait(1000)
     cy.url().should('include', '/login')
   });
+
+  it("Can see account settings", function () {
+    cy.login("test@test.com", "valid123Password@")
+    cy.visit("/account")
+    cy.get("dershop-route-account")
+  })
 });
