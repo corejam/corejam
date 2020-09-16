@@ -52,6 +52,7 @@
     "kill-port": "1.6.1",
     "log-symbols": "4.0.0",
     "micro": "9.3.4",
+    "micro-cors": "^0.1.1",
     "object-hash": "2.0.3",
     "ora": "4.0.5",
     "prepend": "1.0.2",
