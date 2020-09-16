@@ -1,6 +1,6 @@
 {
   "name": "@corejam/plugin-dershop",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "main": "dist/server/index.js",
   "module": "web-components/custom-elements/index.js",
@@ -48,15 +48,15 @@
     "angular"
   ],
   "devDependencies": {
-    "@corejam/cli": "0.0.2",
+    "@corejam/cli": "0.0.3",
     "@types/faker": "4.1.12",
     "tslib": "2.0.1",
     "typescript": "4.0.2"
   },
   "dependencies": {
-    "@corejam/base": "0.0.1",
-    "@corejam/core-components": "0.0.1",
-    "@corejam/plugin-auth": "0.0.1",
+    "@corejam/base": "0.0.2",
+    "@corejam/core-components": "0.0.2",
+    "@corejam/plugin-auth": "0.0.2",
     "@xstate/fsm": "1.5.0",
     "deep-parse-json": "1.0.1",
     "faker": "5.1.0",

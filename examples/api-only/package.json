@@ -1,7 +1,7 @@
 {
   "name": "server-only",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -12,7 +12,7 @@
     "directory": "examples/api-only"
   },
   "dependencies": {
-    "@corejam/base": "0.0.1",
+    "@corejam/base": "0.0.2",
     "micro": "9.3.4",
     "micro-cors": "0.1.1"
   }
