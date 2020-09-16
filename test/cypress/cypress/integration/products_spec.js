@@ -9,9 +9,9 @@ describe("Products", function () {
 
     cy.getTag("product-list")
     cy.getTag("produx-box").its('length').then(($lenght) => {
-     const listElementNumber = randomGenerator($lenght);
-     cy.getTag('produx-box').eq(listElementNumber).click()
-     cy.get("dershop-product", {includeShadowDom: true})
+      const listElementNumber = randomGenerator($lenght);
+      cy.getTag('produx-box').eq(listElementNumber).click()
+      cy.get("dershop-product")
     });
 
   });
@@ -21,23 +21,23 @@ describe("Products", function () {
 
     cy.visit("/products");
     cy.getTag("product-list")
-     cy.getTag("produx-box").its('length').then(($lenght) => {
+    cy.getTag("produx-box").its('length').then(($lenght) => {
       const listElementNumber = randomGenerator($lenght);
       cy.getTag('produx-box').eq(listElementNumber).click()
 
       cy.getTag("product-title").invoke("text").then((productTitle) => {
         cy.getTag("addToCart").click()
         cy.visit("/cart")
-        cy.getTag("cartItemName").invoke("text").should("be.equal",productTitle)
+        cy.getTag("cartItemName").invoke("text").should("be.equal", productTitle)
         cy.getTag("buy-now").click()
         cy.url().should("contain", "/account/order");
         cy.get("dershop-order-view")
       })
-     })
+    })
   });
 
-   //Function to generate random number 
-   const randomGenerator = (number) => {
+  //Function to generate random number 
+  const randomGenerator = (number) => {
     return Math.round(Math.random() * (number - 1))
   }
 });

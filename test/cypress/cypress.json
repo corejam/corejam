@@ -6,5 +6,5 @@
   "watchForFileChanges": false,
   "numTestsKeptInMemory": 0,
   "retries": 4,
-  "experimentalShadowDomSupport": true
+  "includeShadowDom": true
 }

@@ -26,7 +26,7 @@
 import "cypress-file-upload";
 
 Cypress.Commands.add("getTag", (tag) => {
-  return cy.get('[data-cy="' + tag + '"]', {includeShadowDom: true});
+  return cy.get('[data-cy="' + tag + '"]');
 });
 
 Cypress.Commands.add("login", (email, password) => {
