@@ -59,10 +59,9 @@ export default async function run(options: any) {
       bootSpinner.text = "Add plugin dependencies and install";
       await addDependencies();
 
-      await execa(isYarn ? "yarn" : "npm", ["install", "--frozen-lockfile"], {
-        cwd: stencilRunner,
-        stdio: logToConsole,
-      });
+      isYarn
+        ? await execa("yarn", ["install", "--frozen-lockfile"], { cwd: stencilRunner })
+        : await execa("npm", ["ci"], { cwd: stencilRunner });
       bootSpinner.text = "Updating dependencies...";
 
       bootSpinner.text = "Plugin dependencies installed";
@@ -94,10 +93,9 @@ export default async function run(options: any) {
 
         await prependNoCheckToComponents();
 
-        await execa(isYarn ? "yarn" : "npm", ["install", "--frozen-lockfile"], {
-          cwd: reactBindingsRoot,
-          stdio: logToConsole,
-        });
+        isYarn
+          ? await execa("yarn", ["install", "--frozen-lockfile"], { cwd: stencilRunner })
+          : await execa("npm", ["ci"], { cwd: stencilRunner });
 
         bootSpinner.text = "Generating react bindings";
 
@@ -153,7 +151,10 @@ export async function buildStatic(options: any) {
 
   const api = execa("corejam", ["api:serve"], { stdio: "ignore", cwd: envRoot });
 
-  await execa(isYarn ? "yarn" : "npm", ["install"], { cwd: stencilRunner });
+  isYarn
+    ? await execa("yarn", ["install", "--frozen-lockfile"], { cwd: stencilRunner })
+    : await execa("npm", ["ci"], { cwd: stencilRunner });
+
   bootSpinner.text = "Updating dependencies...";
 
   bootSpinner.text = "Plugin dependencies installed";

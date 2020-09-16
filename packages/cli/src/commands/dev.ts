@@ -34,7 +34,12 @@ export default async function run(options: any) {
     if (await jetpack.existsAsync(envRoot + "/server")) {
       await copySchemaToDist();
 
-      set("server", execa("tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot }));
+      isYarn
+        ? set("server", execa("yarn", ["tsc", "-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot }))
+        : set(
+            "server",
+            execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
+          );
       set("api", execa("corejam", ["api:serve"], { stdio: logToConsole, cwd: envRoot }));
 
       setTimeout(() => {
@@ -61,7 +66,9 @@ export default async function run(options: any) {
       bootSpinner.text = "Extracting cache...";
       await extractCache();
     } else {
-      await execa(isYarn ? "yarn" : "npm", ["install", "--frozen-lockfile"], { cwd: stencilRunner });
+      isYarn
+        ? await execa("yarn", ["install", "--frozen-lockfile"], { cwd: stencilRunner })
+        : await execa("npm", ["ci"], { cwd: stencilRunner });
       bootSpinner.text = "Updating dependencies...";
       await cache();
     }

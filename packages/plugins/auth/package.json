@@ -35,7 +35,8 @@
     "precommit": "lint-staged",
     "clean": "rimraf dist & rimraf react & rimraf web-components",
     "static": "corejam static",
-    "static:serve": "corejam static:serve"
+    "static:serve": "corejam static:serve",
+    "prepublish": "rimraf dist & rimraf react & rimraf web-components; corejam build"
   },
   "files": [
     "dist",
