@@ -38,7 +38,7 @@
     "test": "echo 1",
     "clean": "rimraf dist",
     "precommit": "lint-staged",
-    "prepublish": "rimraf dist; tsc -p tsconfig.json && tsc -p tsconfig-cjs.json"
+    "prepublish": "yarn clean && yarn build"
   },
   "devDependencies": {
     "@types/faker": "4.1.12",

@@ -33,7 +33,7 @@
     "postbuild": "shx cp -r ./src/templates ./dist",
     "test": "jest",
     "clean": "rimraf dist",
-    "prepublish": "rimraf dist; tsc && yarn --force --frozen-lockfile"
+    "prepublish": "yarn clean && yarn build"
   },
   "dependencies": {
     "@corejam/base": "0.0.1",
