@@ -3,15 +3,21 @@
 
 name: Node.js CI
 
-on: [push, pull_request]
-
+on: 
+  push:
+    paths-ignore:
+      - '**/*.md'
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
       image: 'node:14-alpine'
-       
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+
     steps:
     - uses: actions/checkout@v2
       with: 
