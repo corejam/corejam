@@ -74,7 +74,6 @@ jobs:
     - run: yarn
       if: |
         steps.cache-node-modules.outputs.cache-hit != 'true'
-    - run: chmod +x node_modules/.bin/corejam
     - run: |
           cd packages/plugins/core-components/
           yarn test        

@@ -29,7 +29,7 @@
     "static-site-generator"
   ],
   "scripts": {
-    "build": "tsc && yarn --force --frozen-lockfile",
+    "build": "tsc",
     "postbuild": "shx cp -r ./src/templates ./dist",
     "test": "jest",
     "clean": "rimraf dist"
