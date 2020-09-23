@@ -1,6 +1,6 @@
 {
   "name": "@corejam/cli",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "main": "index.js",
   "license": "MIT",
   "bin": {
@@ -29,8 +29,8 @@
     "static-site-generator"
   ],
   "scripts": {
-    "build": "tsc && yarn --force --frozen-lockfile",
-    "postbuild": "shx cp -r ./src/templates ./dist",
+    "build": "tsc",
+    "postbuild": "shx cp -r ./src/templates ./dist && lerna link",
     "test": "jest",
     "clean": "rimraf dist"
   },

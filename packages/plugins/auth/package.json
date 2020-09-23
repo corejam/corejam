@@ -54,7 +54,7 @@
     "angular"
   ],
   "devDependencies": {
-    "@corejam/cli": "0.0.3",
+    "@corejam/cli": "0.0.5",
     "@types/bcryptjs": "2.4.2",
     "@types/faker": "4.1.12",
     "@types/jsonwebtoken": "8.5.0",
