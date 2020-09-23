@@ -51,7 +51,7 @@
     "@corejam/cli": "0.0.5",
     "@types/faker": "4.1.12",
     "tslib": "2.0.1",
-    "typescript": "4.0.2"
+    "typescript": "4.0.3"
   },
   "dependencies": {
     "@corejam/base": "0.0.2",
