@@ -36,6 +36,7 @@ jobs:
           yarn build
           node ./utils/hoistPackagesForDeployment.js
           yarn --cwd examples/nextjs corejam generateSchema
+          mv packages/plugins/auth/.env.sample packages/plugins/auth/.env 
           yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
