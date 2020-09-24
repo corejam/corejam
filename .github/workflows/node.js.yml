@@ -15,7 +15,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: "docker.pkg.github.com/corejam/corejam-actions-docker/node14:0.0.1"
+      image: "ghcr.io/corejam/corejam-actions-docker/node14:0.0.1"
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
 
     steps:
@@ -46,7 +46,7 @@ jobs:
   core-components-test:
     runs-on: ubuntu-latest
     container:
-      image: "docker.pkg.github.com/corejam/corejam-actions-docker/node14:0.0.1"
+      image: "ghcr.io/corejam/corejam-actions-docker/node14:0.0.1"
 
     needs: build
     steps:
@@ -74,7 +74,7 @@ jobs:
   integration-tests:
     runs-on: ubuntu-latest
     container:
-      image: "docker.pkg.github.com/corejam/corejam-actions-docker/node14:0.0.1"
+      image: "ghcr.io/corejam/corejam-actions-docker/node14:0.0.1"
 
     needs: build
     steps:
