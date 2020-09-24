@@ -16,11 +16,7 @@ describe("Basic Authentication checks", function () {
     cy.getTag("register-submit").click()
     cy.url().should("include", "/login");
 
-    cy.login(email, password);
-    cy.url().should("eq", Cypress.config().baseUrl + "/");
-
-    cy.visit("/index")
-    cy.getTag("identity-email").invoke("text").should("be.equal", email)
+    cy.login(email, password, false);
     expect(cy.getCookie('refreshToken')).to.exist;
 
     sessionStorage.clear()
@@ -28,8 +24,8 @@ describe("Basic Authentication checks", function () {
     cy.clearCookie("refreshToken")
     cy.clearLocalStorage()
 
-    cy.login("test@test.com", "valid123Password@")
-    cy.visit("/admin/users");
+    cy.login("test@test.com", "valid123Password@", false)
+    cy.visit("/admin/users/1");
 
     cy.getTag("user-link").contains(email).click()
 

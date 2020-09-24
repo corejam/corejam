@@ -125,6 +125,46 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           directory: packages/plugins # optional
 
+  cypress-static-plugin-auth:
+    runs-on: ubuntu-latest
+    container:
+      image: "cypress/browsers:node14.7.0-chrome84"
+
+    needs: integration-tests
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: apt-get install tar #can all go into docker image
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+      - run: yarn
+        if: |
+          steps.cache-node-modules.outputs.cache-hit != 'true'
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-cypress-
+      - run: |
+        cd packages/plugins/auth && yarn corejam static
+        nohup JWT_HASH=testHash FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 yarn corejam static:serve &
+        cd ../../../test/cypress && yarn install --frozen-lockfile && yarn cypress install
+        CYPRESS_baseUrl=http://localhost:3001 yarn cy:run --spec "./cypress/integration/plugins/auth/**/*"
+
   cypress:
     runs-on: ubuntu-latest
     container:
