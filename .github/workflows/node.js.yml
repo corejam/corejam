@@ -36,6 +36,7 @@ jobs:
           yarn build
           node ./utils/hoistPackagesForDeployment.js
           yarn --cwd examples/nextjs corejam generateSchema
+          yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
       - uses: actions/upload-artifact@v2
@@ -46,6 +47,7 @@ jobs:
             packages/cli/dist
             packages/base/dist
             packages/plugins/auth/dist
+            packages/plugins/auth/static
             packages/plugins/dershop/dist
 
   core-components-test:
@@ -160,7 +162,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-cypress-
       - run: |
-          cd packages/plugins/auth && yarn corejam static
+          cd packages/plugins/auth
           nohup yarn corejam static:serve & cd ../../../test/cypress
           yarn install --frozen-lockfile && yarn cypress install
           yarn cy:run --spec "./cypress/integration/plugins/auth/**/*"
@@ -169,6 +171,7 @@ jobs:
           FAKER_MODULE: "auth"
           DEPLOYMENT_URL: "http://localhost:3000"
           CYPRESS_baseUrl: "http://localhost:3001"
+
   cypress:
     runs-on: ubuntu-latest
     container:
