@@ -39,16 +39,11 @@ jobs:
           yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
+      - run: tar -czf artifact.tar examples/nextjs packages/cli/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/static packages/plugins/dershop/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
-          path: |
-            examples/nextjs
-            packages/cli/dist
-            packages/base/dist
-            packages/plugins/auth/dist
-            packages/plugins/auth/static
-            packages/plugins/dershop/dist
+          path: artifact.tar
 
   core-components-test:
     runs-on: ubuntu-latest
@@ -64,6 +59,7 @@ jobs:
         with:
           name: dist
       - run: apk add tar #can all go into docker image
+      - run: tar -xzf artifact.tar
       - name: Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v2
@@ -94,6 +90,7 @@ jobs:
         with:
           name: dist
       - run: apk add tar curl bash #can all go into docker image
+      - run: tar -xzf artifact.tar
       - name: Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v2
@@ -141,6 +138,7 @@ jobs:
         with:
           name: dist
       - run: apt-get install tar #can all go into docker image
+      - run: tar -xzf artifact.tar
       - name: Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v2
@@ -171,6 +169,16 @@ jobs:
           FAKER_MODULE: "auth"
           DEPLOYMENT_URL: "http://localhost:3000"
           CYPRESS_baseUrl: "http://localhost:3001"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-videos
+          path: test/cypress/cypress/videos
 
   cypress:
     runs-on: ubuntu-latest
@@ -186,6 +194,7 @@ jobs:
         with:
           name: dist
       - run: apt-get install tar #can all go into docker image
+      - run: tar -xzf artifact.tar
       - name: Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v2
