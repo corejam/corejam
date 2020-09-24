@@ -15,14 +15,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: "node:14-alpine"
+      image: "docker.pkg.github.com/corejam/corejam-actions-docker/node14:0.0.1"
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          path: ""
-      - run: yarn global add lerna && apk add perl tar #can all go into docker image
       - name: Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v2
@@ -49,17 +46,14 @@ jobs:
   core-components-test:
     runs-on: ubuntu-latest
     container:
-      image: "node:14-alpine"
+      image: "docker.pkg.github.com/corejam/corejam-actions-docker/node14:0.0.1"
 
     needs: build
     steps:
       - uses: actions/checkout@v2
-        with:
-          path: ""
       - uses: actions/download-artifact@v2
         with:
           name: dist
-      - run: apk add tar #can all go into docker image
       - run: tar -xzf artifact.tar
       - name: Cache node_modules
         id: cache-node-modules
@@ -80,17 +74,14 @@ jobs:
   integration-tests:
     runs-on: ubuntu-latest
     container:
-      image: "node:14-alpine"
+      image: "docker.pkg.github.com/corejam/corejam-actions-docker/node14:0.0.1"
 
     needs: build
     steps:
       - uses: actions/checkout@v2
-        with:
-          path: ""
       - uses: actions/download-artifact@v2
         with:
           name: dist
-      - run: apk add tar curl bash #can all go into docker image
       - run: tar -xzf artifact.tar
       - name: Cache node_modules
         id: cache-node-modules
