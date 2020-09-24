@@ -161,6 +161,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.node-version }}-cypress-
       - run: |
           cd packages/plugins/auth
+          mv .env.sample .env
           nohup yarn corejam static:serve & cd ../../../test/cypress
           yarn install --frozen-lockfile && yarn cypress install
           yarn cy:run --spec "./cypress/integration/plugins/auth/**/*"
