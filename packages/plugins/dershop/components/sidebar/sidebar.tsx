@@ -23,7 +23,7 @@ export class SidebarComponent {
             <corejam-type>-</corejam-type>
           </corejam-box>
           <corejam-box px={4} flex py={8} direction="col">
-            {this.sidebar?.categories.map((category, k) => (
+            {this.sidebar?.categories.map((category) => (
               <corejam-base-link href={"/" + category.url}>
                 <corejam-type as="span" color="gray-600">
                   {category.name} ({category.itemCount})
@@ -38,7 +38,7 @@ export class SidebarComponent {
             <corejam-type>-</corejam-type>
           </corejam-box>
           <corejam-box px={4} flex py={8} direction="col">
-            {this.sidebar?.brands.map((brand, k) => (
+            {this.sidebar?.brands.map((brand) => (
               <corejam-base-link href={"/" + brand.url}>
                 <corejam-type as="span" color="gray-600">
                   {brand.name} ({brand.itemCount})

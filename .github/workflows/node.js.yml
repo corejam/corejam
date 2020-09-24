@@ -36,17 +36,15 @@ jobs:
           yarn build
           node ./utils/hoistPackagesForDeployment.js
           yarn --cwd examples/nextjs corejam generateSchema
+          mv packages/plugins/auth/.env.sample packages/plugins/auth/.env 
+          yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
+      - run: tar -czf artifact.tar examples/nextjs packages/cli/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/static packages/plugins/dershop/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
-          path: |
-            examples/nextjs
-            packages/cli/dist
-            packages/base/dist
-            packages/plugins/auth/dist
-            packages/plugins/dershop/dist
+          path: artifact.tar
 
   core-components-test:
     runs-on: ubuntu-latest
@@ -62,6 +60,7 @@ jobs:
         with:
           name: dist
       - run: apk add tar #can all go into docker image
+      - run: tar -xzf artifact.tar
       - name: Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v2
@@ -92,6 +91,7 @@ jobs:
         with:
           name: dist
       - run: apk add tar curl bash #can all go into docker image
+      - run: tar -xzf artifact.tar
       - name: Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v2
@@ -125,12 +125,12 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           directory: packages/plugins # optional
 
-  cypress:
+  cypress-static-plugin-auth:
     runs-on: ubuntu-latest
     container:
       image: "cypress/browsers:node14.7.0-chrome84"
 
-    needs: integration-tests
+    needs: build
     steps:
       - uses: actions/checkout@v2
         with:
@@ -139,6 +139,58 @@ jobs:
         with:
           name: dist
       - run: apt-get install tar #can all go into docker image
+      - run: tar -xzf artifact.tar
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+      - run: yarn
+        if: |
+          steps.cache-node-modules.outputs.cache-hit != 'true'
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-cypress-
+      - run: |
+          cd packages/plugins/auth
+          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn corejam static:serve & cd ../../../test/cypress
+          yarn install --frozen-lockfile && yarn cypress install
+          yarn cy:run --spec "./cypress/integration/plugins/auth/**/*"
+        env:
+          CYPRESS_baseUrl: "http://localhost:3001"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
+
+  cypress:
+    runs-on: ubuntu-latest
+    container:
+      image: "cypress/browsers:node14.7.0-chrome84"
+
+    needs:
+      - integration-tests
+      - cypress-static-plugin-auth
+      - core-components-test
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: apt-get install tar #can all go into docker image
+      - run: tar -xzf artifact.tar
       - name: Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v2
@@ -173,8 +225,13 @@ jobs:
           vercel alias $DEPLOYMENT $DEPLOYED_URL --token $ZEIT_TOKEN --scope dershop
           wget $DEPLOYED_URL
           cd ../../test/cypress
-          CYPRESS_baseUrl=https://$DEPLOYED_URL yarn cy:run
+          CYPRESS_baseUrl=https://$DEPLOYED_URL yarn cy:run --spec "./cypress/integration/plugins/dershop/**/*"
         env: # Or as an environment variable
           SECRET_KEY: ${{ secrets.SECRET }}
           GITHUB_SHA: ${{ github.sha }}
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
