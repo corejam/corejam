@@ -167,6 +167,7 @@ jobs:
         env:
           JWT_HASH: "test"
           FAKER_MODULE: "auth"
+          MODE: "dev"
           DEPLOYMENT_URL: "http://localhost:3000"
           CYPRESS_baseUrl: "http://localhost:3001"
       - uses: actions/upload-artifact@v1
@@ -174,18 +175,16 @@ jobs:
         with:
           name: cypress-screenshots
           path: test/cypress/cypress/screenshots
-      - uses: actions/upload-artifact@v1
-        if: failure()
-        with:
-          name: cypress-videos
-          path: test/cypress/cypress/videos
 
   cypress:
     runs-on: ubuntu-latest
     container:
       image: "cypress/browsers:node14.7.0-chrome84"
 
-    needs: integration-tests
+    needs:
+      - integration-tests
+      - cypress-static-plugin-auth
+      - core-components-test
     steps:
       - uses: actions/checkout@v2
         with:
