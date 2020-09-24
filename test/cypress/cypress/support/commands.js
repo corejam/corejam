@@ -37,6 +37,7 @@ Cypress.Commands.add("login", (email, password) => {
 
   cy.wait(500);
   cy.url().should("eq", Cypress.config().baseUrl + "/");
+
   cy.getTag("identity-email").invoke("text").should("be.equal", email)
 });
 
