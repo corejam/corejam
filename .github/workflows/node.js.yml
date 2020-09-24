@@ -161,7 +161,7 @@ jobs:
             ${{ runner.os }}-${{ matrix.node-version }}-cypress-
       - run: |
           cd packages/plugins/auth
-          nohup JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 yarn corejam static:serve & cd ../../../test/cypress
+          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn corejam static:serve & cd ../../../test/cypress
           yarn install --frozen-lockfile && yarn cypress install
           yarn cy:run --spec "./cypress/integration/plugins/auth/**/*"
         env:
