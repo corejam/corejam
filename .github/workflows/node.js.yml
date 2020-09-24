@@ -160,11 +160,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-cypress-
       - run: |
-        cd packages/plugins/auth && yarn corejam static
-        nohup JWT_HASH=testHash FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 yarn corejam static:serve &
-        cd ../../../test/cypress && yarn install --frozen-lockfile && yarn cypress install
-        CYPRESS_baseUrl=http://localhost:3001 yarn cy:run --spec "./cypress/integration/plugins/auth/**/*"
-
+          cd packages/plugins/auth && yarn corejam static
+          nohup yarn corejam static:serve & cd ../../../test/cypress
+          yarn install --frozen-lockfile && yarn cypress install
+          yarn cy:run --spec "./cypress/integration/plugins/auth/**/*"
+        env:
+          JWT_HASH: "test"
+          FAKER_MODULE: "auth"
+          DEPLOYMENT_URL: "http://localhost:3000"
+          CYPRESS_baseUrl: "http://localhost:3001"
   cypress:
     runs-on: ubuntu-latest
     container:
