@@ -164,7 +164,7 @@ jobs:
           cd packages/plugins/auth
           JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn corejam static:serve & cd ../../../test/cypress
           yarn install --frozen-lockfile && yarn cypress install
-          DEBUG=cypress:launcher yarn cy:run --spec "./cypress/integration/plugins/auth/**/*"
+          yarn cy:run --spec "./cypress/integration/plugins/auth/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
       - uses: actions/upload-artifact@v1
