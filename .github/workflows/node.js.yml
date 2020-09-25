@@ -147,6 +147,7 @@ jobs:
           cypress run --spec "./cypress/integration/plugins/auth/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
       - uses: actions/upload-artifact@v1
         if: failure()
         with:
@@ -208,6 +209,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET }}
           GITHUB_SHA: ${{ github.sha }}
           ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
       - uses: actions/upload-artifact@v1
         if: failure()
         with:
