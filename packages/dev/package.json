@@ -23,16 +23,16 @@
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@corejam/router": "^0.0.1",
+    "@corejam/router": "0.0.1",
     "@stencil/core": "2.0.3"
   },
   "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^15.1.0",
-    "@rollup/plugin-node-resolve": "^9.0.0",
-    "@rollup/plugin-typescript": "^6.0.0",
-    "fs-jetpack": "^3.1.0",
-    "rollup": "^2.28.1",
-    "shx": "^0.3.2"
+    "@rollup/plugin-commonjs": "15.1.0",
+    "@rollup/plugin-node-resolve": "9.0.0",
+    "@rollup/plugin-typescript": "6.0.0",
+    "fs-jetpack": "3.1.0",
+    "rollup": "2.28.1",
+    "shx": "0.3.2"
   }
 }

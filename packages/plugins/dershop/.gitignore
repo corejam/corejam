@@ -7,3 +7,4 @@ tests/.coverage
 .env
 static
 www
+./app/components.d.ts
