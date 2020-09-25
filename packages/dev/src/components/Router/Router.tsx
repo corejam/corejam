@@ -10,13 +10,14 @@ const Router = state.router;
 export class AppRouter {
   @Prop() routes: any;
   @Prop() docs: any;
+  @Prop() mode: string;
 
   render() {
     return (
       <Host>
         <Router.Switch>
           <Route path="/">
-            <app-welcome routes={this.routes} />
+            <app-welcome routes={this.routes} mode={this.mode} />
           </Route>
           <Route path="/liveview">
             <app-liveview />

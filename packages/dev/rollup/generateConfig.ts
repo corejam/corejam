@@ -6,6 +6,7 @@ export async function writeConfig() {
   const root = process.cwd();
 
   const config = {
+    mode: process.env.mode,
     components: {},
     routes: {},
     wrapper: [],
@@ -69,16 +70,16 @@ export async function writeConfig() {
   };
   await traverse(root + "/app/routes");
 
-  if (pluginPkg.corejam.wrapper) config.wrapper = pluginPkg.corejam.wrapper;
-  if (pluginPkg.corejam.recommendations) config.recommendations = pluginPkg.corejam.recommendations;
+  if (pluginPkg.corejam?.wrapper) config.wrapper = pluginPkg.corejam.wrapper;
+  if (pluginPkg.corejam?.recommendations) config.recommendations = pluginPkg.corejam.recommendations;
 
   const depsBlacklist = ["@corejam/base", "@corejam/dev"];
 
   for (const key of Object.keys(pluginPkg.dependencies)) {
     if (key.includes("@corejam/") && !depsBlacklist.includes(key)) {
       const pkg = require(key + "/package.json");
-      if (pkg.corejam.wrapper) config.wrapper = [...config.wrapper, ...pkg.corejam.wrapper];
-      if (pkg.corejam.recommendations)
+      if (pkg.corejam?.wrapper) config.wrapper = [...config.wrapper, ...pkg.corejam.wrapper];
+      if (pkg.corejam?.recommendations)
         config.recommendations = [...config.recommendations, ...pkg.corejam.recommendations];
     }
   }

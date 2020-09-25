@@ -6,105 +6,100 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-  interface AppLiveview {}
-  interface AppPlayground {
-    cmp: string;
-    data: any;
-  }
-  interface AppRoot {
-    static: boolean;
-  }
-  interface AppRouter {
-    docs: any;
-    routes: any;
-  }
-  interface AppStaticRouter {
-    docs: any;
-    routes: any;
-  }
-  interface AppWelcome {
-    routes: any;
-  }
+    interface AppLiveview {
+    }
+    interface AppPlayground {
+        "cmp": string;
+        "data": any;
+    }
+    interface AppRoot {
+        "static": boolean;
+    }
+    interface AppRouter {
+        "docs": any;
+        "mode": string;
+        "routes": any;
+    }
+    interface AppWelcome {
+        "mode": string;
+        "routes": any;
+    }
 }
 declare global {
-  interface HTMLAppLiveviewElement extends Components.AppLiveview, HTMLStencilElement {}
-  var HTMLAppLiveviewElement: {
-    prototype: HTMLAppLiveviewElement;
-    new (): HTMLAppLiveviewElement;
-  };
-  interface HTMLAppPlaygroundElement extends Components.AppPlayground, HTMLStencilElement {}
-  var HTMLAppPlaygroundElement: {
-    prototype: HTMLAppPlaygroundElement;
-    new (): HTMLAppPlaygroundElement;
-  };
-  interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {}
-  var HTMLAppRootElement: {
-    prototype: HTMLAppRootElement;
-    new (): HTMLAppRootElement;
-  };
-  interface HTMLAppRouterElement extends Components.AppRouter, HTMLStencilElement {}
-  var HTMLAppRouterElement: {
-    prototype: HTMLAppRouterElement;
-    new (): HTMLAppRouterElement;
-  };
-  interface HTMLAppStaticRouterElement extends Components.AppStaticRouter, HTMLStencilElement {}
-  var HTMLAppStaticRouterElement: {
-    prototype: HTMLAppStaticRouterElement;
-    new (): HTMLAppStaticRouterElement;
-  };
-  interface HTMLAppWelcomeElement extends Components.AppWelcome, HTMLStencilElement {}
-  var HTMLAppWelcomeElement: {
-    prototype: HTMLAppWelcomeElement;
-    new (): HTMLAppWelcomeElement;
-  };
-  interface HTMLElementTagNameMap {
-    "app-liveview": HTMLAppLiveviewElement;
-    "app-playground": HTMLAppPlaygroundElement;
-    "app-root": HTMLAppRootElement;
-    "app-router": HTMLAppRouterElement;
-    "app-static-router": HTMLAppStaticRouterElement;
-    "app-welcome": HTMLAppWelcomeElement;
-  }
+    interface HTMLAppLiveviewElement extends Components.AppLiveview, HTMLStencilElement {
+    }
+    var HTMLAppLiveviewElement: {
+        prototype: HTMLAppLiveviewElement;
+        new (): HTMLAppLiveviewElement;
+    };
+    interface HTMLAppPlaygroundElement extends Components.AppPlayground, HTMLStencilElement {
+    }
+    var HTMLAppPlaygroundElement: {
+        prototype: HTMLAppPlaygroundElement;
+        new (): HTMLAppPlaygroundElement;
+    };
+    interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
+    }
+    var HTMLAppRootElement: {
+        prototype: HTMLAppRootElement;
+        new (): HTMLAppRootElement;
+    };
+    interface HTMLAppRouterElement extends Components.AppRouter, HTMLStencilElement {
+    }
+    var HTMLAppRouterElement: {
+        prototype: HTMLAppRouterElement;
+        new (): HTMLAppRouterElement;
+    };
+    interface HTMLAppWelcomeElement extends Components.AppWelcome, HTMLStencilElement {
+    }
+    var HTMLAppWelcomeElement: {
+        prototype: HTMLAppWelcomeElement;
+        new (): HTMLAppWelcomeElement;
+    };
+    interface HTMLElementTagNameMap {
+        "app-liveview": HTMLAppLiveviewElement;
+        "app-playground": HTMLAppPlaygroundElement;
+        "app-root": HTMLAppRootElement;
+        "app-router": HTMLAppRouterElement;
+        "app-welcome": HTMLAppWelcomeElement;
+    }
 }
 declare namespace LocalJSX {
-  interface AppLiveview {}
-  interface AppPlayground {
-    cmp?: string;
-    data?: any;
-  }
-  interface AppRoot {
-    static?: boolean;
-  }
-  interface AppRouter {
-    docs?: any;
-    routes?: any;
-  }
-  interface AppStaticRouter {
-    docs?: any;
-    routes?: any;
-  }
-  interface AppWelcome {
-    routes?: any;
-  }
-  interface IntrinsicElements {
-    "app-liveview": AppLiveview;
-    "app-playground": AppPlayground;
-    "app-root": AppRoot;
-    "app-router": AppRouter;
-    "app-static-router": AppStaticRouter;
-    "app-welcome": AppWelcome;
-  }
+    interface AppLiveview {
+    }
+    interface AppPlayground {
+        "cmp"?: string;
+        "data"?: any;
+    }
+    interface AppRoot {
+        "static"?: boolean;
+    }
+    interface AppRouter {
+        "docs"?: any;
+        "mode"?: string;
+        "routes"?: any;
+    }
+    interface AppWelcome {
+        "mode"?: string;
+        "routes"?: any;
+    }
+    interface IntrinsicElements {
+        "app-liveview": AppLiveview;
+        "app-playground": AppPlayground;
+        "app-root": AppRoot;
+        "app-router": AppRouter;
+        "app-welcome": AppWelcome;
+    }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
-  export namespace JSX {
-    interface IntrinsicElements {
-      "app-liveview": LocalJSX.AppLiveview & JSXBase.HTMLAttributes<HTMLAppLiveviewElement>;
-      "app-playground": LocalJSX.AppPlayground & JSXBase.HTMLAttributes<HTMLAppPlaygroundElement>;
-      "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
-      "app-router": LocalJSX.AppRouter & JSXBase.HTMLAttributes<HTMLAppRouterElement>;
-      "app-static-router": LocalJSX.AppStaticRouter & JSXBase.HTMLAttributes<HTMLAppStaticRouterElement>;
-      "app-welcome": LocalJSX.AppWelcome & JSXBase.HTMLAttributes<HTMLAppWelcomeElement>;
+    export namespace JSX {
+        interface IntrinsicElements {
+            "app-liveview": LocalJSX.AppLiveview & JSXBase.HTMLAttributes<HTMLAppLiveviewElement>;
+            "app-playground": LocalJSX.AppPlayground & JSXBase.HTMLAttributes<HTMLAppPlaygroundElement>;
+            "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "app-router": LocalJSX.AppRouter & JSXBase.HTMLAttributes<HTMLAppRouterElement>;
+            "app-welcome": LocalJSX.AppWelcome & JSXBase.HTMLAttributes<HTMLAppWelcomeElement>;
+        }
     }
-  }
 }

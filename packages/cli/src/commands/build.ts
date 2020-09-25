@@ -4,7 +4,7 @@ import execa from "execa";
 import jetpack from "fs-jetpack";
 import { isYarn } from "is-npm";
 import kill from "kill-port";
-import { stencilRunner, reactBindingsRoot, envRoot } from "../config";
+import { reactBindingsRoot, envRoot } from "../config";
 import { cleanBindings } from "../helpers/resetStages";
 import { copyBindings, copyBindingsToPlugin, copySchemaToDist } from "../helpers/copy";
 import { prependNoCheckToComponents } from "../helpers/prependInFile";
@@ -81,24 +81,15 @@ export async function buildStatic(options: any) {
 
   const api = execa("corejam", ["api:serve"], { stdio: "ignore", cwd: envRoot });
 
-  isYarn
-    ? await execa("yarn", ["install", "--frozen-lockfile"], { cwd: stencilRunner })
-    : await execa("npm", ["ci"], { cwd: stencilRunner });
-
-  bootSpinner.text = "Updating dependencies...";
-
-  bootSpinner.text = "Plugin dependencies installed";
-
-  // await renameHtmlImports();
   bootSpinner.text = "Generating static files";
 
-  // await removePlaygroundFiles();
-
-  // await replaceRouterImport(true);
-
-  await execa("stencil", ["build", "--docs", "--prerender"], {
-    cwd: stencilRunner,
+  await execa("stencil", ["build", "--prerender"], {
+    cwd: envRoot,
     stdio: options.log ? "inherit" : "ignore",
+    env: {
+      mode: "static",
+      targets: "prerender",
+    },
   });
 
   api.kill();

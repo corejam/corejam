@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type  | Default     |
-| -------- | --------- | ----------- | ----- | ----------- |
-| `routes` | `routes`  |             | `any` | `undefined` |
+| Property | Attribute | Description | Type     | Default     |
+| -------- | --------- | ----------- | -------- | ----------- |
+| `mode`   | `mode`    |             | `string` | `undefined` |
+| `routes` | `routes`  |             | `any`    | `undefined` |
 
 
 ## Dependencies
@@ -17,13 +18,11 @@
 ### Used by
 
  - [app-router](../Router)
- - [app-static-router](../StaticRouter)
 
 ### Graph
 ```mermaid
 graph TD;
   app-router --> app-welcome
-  app-static-router --> app-welcome
   style app-welcome fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

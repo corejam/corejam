@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type  | Default     |
-| -------- | --------- | ----------- | ----- | ----------- |
-| `docs`   | `docs`    |             | `any` | `undefined` |
-| `routes` | `routes`  |             | `any` | `undefined` |
+| Property | Attribute | Description | Type     | Default     |
+| -------- | --------- | ----------- | -------- | ----------- |
+| `docs`   | `docs`    |             | `any`    | `undefined` |
+| `mode`   | `mode`    |             | `string` | `undefined` |
+| `routes` | `routes`  |             | `any`    | `undefined` |
 
 
 ## Dependencies

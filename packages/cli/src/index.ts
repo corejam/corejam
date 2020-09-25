@@ -97,7 +97,7 @@ prog
   .describe("Serve static folder")
   .action(async () => {
     runApi();
-    execa("serve", ["static", "-l", "3001"], { cwd: envRoot });
+    execa("serve", ["www", "-l", "3001"], { cwd: envRoot });
     console.log("Serving under: http://localhost:3001");
   });
 

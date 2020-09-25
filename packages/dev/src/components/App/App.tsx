@@ -10,7 +10,7 @@ export class AppRoot {
   @Prop() static: boolean = false;
   @State() docs: any = [];
   @State() hash: any;
-
+  @State() mode: string;
   async componentWillLoad() {
     return new Promise(async (res) => {
       try {
@@ -20,6 +20,7 @@ export class AppRoot {
           this.routes = { components: configJson.components, routes: configJson.routes };
           this.wrapper = configJson?.wrapper || [];
           this.recos = configJson?.recommendations || [];
+          this.mode = configJson.mode;
           // if (process.env.MODE !== "static") {
           //   const docs = await fetch("/assets/custom-elements.json");
           //   if (docs) {
@@ -42,19 +43,14 @@ export class AppRoot {
       return <Reco></Reco>;
     });
   }
-  renderContent() {
-    if (this.static) {
-      return <app-static-router routes={this.routes} docs={[]} />;
-    }
-    return <app-router routes={this.routes} />;
-  }
+
   render() {
     const Wrapper = this.wrapper ? this.wrapper[0] : "div";
     return (
       <Host>
         <Wrapper>
           {this.renderRecos()}
-          {this.renderContent()}
+          <app-router routes={this.routes} mode={this.mode} />
         </Wrapper>
       </Host>
     );

@@ -55,6 +55,9 @@ export default async function run(options: any) {
       execa("stencil", ["build", "--dev", "--watch", "--serve", "--docs"], {
         stdio: logToConsole,
         cwd: envRoot,
+        env: {
+          mode: "dev",
+        },
       })
     );
 
