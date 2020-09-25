@@ -1,0 +1,38 @@
+{
+  "name": "@corejam/dev",
+  "version": "0.0.1",
+  "description": "Corejam Dev Components",
+  "main": "dist/index.cjs.js",
+  "module": "dist/custom-elements/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/custom-elements/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/dev/dev.js",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "dev": "stencil build --dev --watch --serve",
+    "build": "stencil build --docs && yarn build:plugin",
+    "build:plugin": "rollup --config rollup.config.js",
+    "postbuild": "shx cp ./src/index.html ./dist",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "dependencies": {
+    "@corejam/router": "^0.0.1",
+    "@stencil/core": "2.0.1"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^15.1.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "@rollup/plugin-typescript": "^6.0.0",
+    "fs-jetpack": "^3.1.0",
+    "rollup": "^2.28.1",
+    "shx": "^0.3.2"
+  }
+}

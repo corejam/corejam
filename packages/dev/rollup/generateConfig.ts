@@ -1,0 +1,75 @@
+import { listAsync, readAsync } from "fs-jetpack";
+
+export async function writeConfig() {
+  const pluginPkg = require(process.cwd() + "/package.json");
+
+  const root = process.cwd();
+
+  const config = {
+    components: {},
+    routes: {},
+    wrapper: [],
+    recommendations: [],
+    dependencies: [],
+    external: [],
+  };
+
+  const regexTag = /tag: \"(.*)\"/;
+
+  const components = (await listAsync(root + "/app/components")) || [];
+
+  for (const component of components) {
+    if (!component.includes(".ts")) {
+      const componentLevel = (await listAsync(root + "/app/components/" + component)) || [];
+      for (const file of componentLevel) {
+        if (file.includes("tsx")) {
+          const f = await readAsync(root + "/app/components/" + component + "/" + file);
+
+          const tagMatch = f.match(regexTag);
+          if (tagMatch)
+            config["components"][tagMatch[1]] = {
+              url: "/component/" + tagMatch[1],
+              component: tagMatch[1],
+            };
+        }
+      }
+    }
+  }
+
+  const traverse = async (lookupPath) => {
+    const paths = (await listAsync(lookupPath)) || [];
+    for (const current of paths) {
+      if (current.indexOf("tsx") > -1) {
+        const segments = lookupPath
+          .replace(root + "/routes", null)
+          .split("/")
+          .filter((s) => s !== "null");
+        const isIndex = current === "index.tsx";
+        const url =
+          segments.length === 0
+            ? `/${isIndex ? "" : current.replace(".tsx", "")}`
+            : `${segments.join("/")}/${isIndex ? "" : current.replace(".tsx", "")}`;
+        const f = await readAsync(lookupPath + "/" + current);
+        const tagMatch = f.match(regexTag);
+        if (tagMatch) {
+          config["routes"][tagMatch[1]] = {
+            url,
+            component: tagMatch[1],
+          };
+        }
+      } else {
+        await traverse(lookupPath + "/" + current);
+      }
+    }
+  };
+  await traverse(root + "/app/routes");
+
+  if (pluginPkg.corejam.wrapper) config.wrapper = pluginPkg.corejam.wrapper;
+  if (pluginPkg.corejam.recommendations) config.recommendations = pluginPkg.corejam.recommendations;
+
+  if (pluginPkg.corejam.external) {
+    config.external = pluginPkg.corejam.external;
+  }
+
+  return config;
+}

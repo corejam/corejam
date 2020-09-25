@@ -14,7 +14,7 @@ async function monoCheck() {
 
 monoCheck();
 
-const rootPath = mono ? "../.." : os.tmpdir();
+const rootPath = mono ? ".." : os.tmpdir();
 
 export const envRoot = process.cwd();
 export const cliRoot = path.join(__dirname, "..");

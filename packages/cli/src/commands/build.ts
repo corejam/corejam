@@ -6,25 +6,9 @@ import { isYarn } from "is-npm";
 import kill from "kill-port";
 import { stencilRunner, reactBindingsRoot, envRoot } from "../config";
 import { cleanBindings } from "../helpers/resetStages";
-import { bootstrapPluginToRunner } from "../helpers/bootstrapPluginToRunner";
-import { addDependencies } from "../helpers/addDependencies";
-import { renameStencilToProjectName, renameHtmlImports } from "../helpers/renameStencilProject";
-import { deleteDevFiles, removePlaygroundFiles } from "../helpers/modifyStencilEnv";
-import {
-  copyStencilDistToPlugin,
-  copyBindings,
-  copyBindingsToPlugin,
-  copySchemaToDist,
-  copyStaticToPlugin,
-} from "../helpers/copy";
-import { copyStencilRunner } from "../helpers/copy";
-import { cleanActiveRunner } from "../helpers/resetStages";
+import { copyBindings, copyBindingsToPlugin, copySchemaToDist } from "../helpers/copy";
 import { prependNoCheckToComponents } from "../helpers/prependInFile";
-import { replaceWebComponentsImport, addEnvVars } from "../helpers/replaceInFile";
-import { prependImports } from "../helpers/modifyGlobal";
-import { getDependencies } from "../helpers/dependencies";
-import { writeConfig } from "../helpers/generateConfig";
-import { writeExposedObjectsToIndex, replaceRouterImport } from "../helpers/writeExports";
+import { replaceWebComponentsImport } from "../helpers/replaceInFile";
 
 export default async function run(options: any) {
   return new Promise(async (res, rej) => {
@@ -35,67 +19,32 @@ export default async function run(options: any) {
 
       const logToConsole = options.l ? "inherit" : "ignore";
 
-      if (options.server) {
-        bootSpinner.text = "Bundling server code";
-        await buildServerCode();
-        bootSpinner.text = "Bundling server code finished";
-        bootSpinner.succeed("Finished server build");
-        return res();
-      }
+      bootSpinner.text = "Bundling server code";
+      await buildServerCode();
+      bootSpinner.text = "Bundling server code finished";
+      bootSpinner.text = "Finished server build";
 
-      await cleanActiveRunner();
       await cleanBindings();
 
-      await copyStencilRunner();
       await copyBindings();
-
-      bootSpinner.text = "Copying plugin data to build environment";
-      await bootstrapPluginToRunner();
-
-      await addEnvVars();
-
-      bootSpinner.text = "Copied all relevant plugin data";
-
-      bootSpinner.text = "Add plugin dependencies and install";
-      await addDependencies();
-
-      isYarn
-        ? await execa("yarn", ["install", "--frozen-lockfile"], { cwd: stencilRunner })
-        : await execa("npm", ["ci"], { cwd: stencilRunner });
-      bootSpinner.text = "Updating dependencies...";
-
-      bootSpinner.text = "Plugin dependencies installed";
-
-      await renameStencilToProjectName();
 
       bootSpinner.text = "Generating web components build";
 
-      await deleteDevFiles();
-
-      const deps = await getDependencies();
-
-      await prependImports(deps);
-      await writeExposedObjectsToIndex();
-
       await kill(3001);
 
-      await execa(isYarn ? "yarn" : "npm", [isYarn ? "gen" : "run", isYarn ? "" : "gen"], {
-        cwd: stencilRunner,
+      await execa("stencil", ["build", "--docs"], {
         stdio: logToConsole,
+        cwd: envRoot,
+        env: {
+          mode: "prod",
+          targets: "dist,custom,hydrate,react",
+        },
       });
-
-      bootSpinner.text = "Web components build finished";
-
-      await copyStencilDistToPlugin();
 
       if (!options.wc) {
         bootSpinner.text = "Install react bindings dependencies";
 
         await prependNoCheckToComponents();
-
-        isYarn
-          ? await execa("yarn", ["install", "--frozen-lockfile"], { cwd: stencilRunner })
-          : await execa("npm", ["ci"], { cwd: stencilRunner });
 
         bootSpinner.text = "Generating react bindings";
 
@@ -114,12 +63,10 @@ export default async function run(options: any) {
         }
       }
 
-      await cleanActiveRunner();
       await cleanBindings();
       bootSpinner.succeed("Finished plugin build");
       res();
     } catch (e) {
-      await cleanActiveRunner();
       await cleanBindings();
       console.log(e);
       rej();
@@ -130,24 +77,7 @@ export default async function run(options: any) {
 export async function buildStatic(options: any) {
   const envPackageName = require(envRoot + "/package.json").name;
 
-  await cleanActiveRunner();
-  await cleanBindings();
-
-  await copyStencilRunner();
-  await copyBindings();
-
   const bootSpinner = ora(`Starting static build for ${chalk.bold.green(envPackageName)}...`).start();
-
-  await bootstrapPluginToRunner();
-
-  await addEnvVars(true);
-
-  await writeConfig();
-
-  bootSpinner.text = "Copied all relevant plugin data";
-
-  bootSpinner.text = "Add plugin dependencies and install";
-  await addDependencies();
 
   const api = execa("corejam", ["api:serve"], { stdio: "ignore", cwd: envRoot });
 
@@ -159,29 +89,17 @@ export async function buildStatic(options: any) {
 
   bootSpinner.text = "Plugin dependencies installed";
 
-  await renameStencilToProjectName();
-
-  await renameHtmlImports();
+  // await renameHtmlImports();
   bootSpinner.text = "Generating static files";
 
-  await removePlaygroundFiles();
+  // await removePlaygroundFiles();
 
-  await replaceRouterImport(true);
-
-  const deps = await getDependencies();
-
-  await prependImports(deps);
-
-  await writeExposedObjectsToIndex();
+  // await replaceRouterImport(true);
 
   await execa("stencil", ["build", "--docs", "--prerender"], {
     cwd: stencilRunner,
     stdio: options.log ? "inherit" : "ignore",
   });
-
-  await copyStaticToPlugin();
-  await cleanActiveRunner();
-  await cleanBindings();
 
   api.kill();
 
