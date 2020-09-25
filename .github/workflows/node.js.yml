@@ -134,7 +134,7 @@ jobs:
         id: cache-cypress
         uses: actions/cache@v2
         with:
-          path: node_modules
+          path: test/cypress/node_modules
           key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-cypress-
@@ -187,7 +187,7 @@ jobs:
         id: cache-cypress
         uses: actions/cache@v2
         with:
-          path: node_modules
+          path: test/cypress/node_modules
           key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-cypress-
