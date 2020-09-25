@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@corejam/router": "^0.0.1",
-    "@stencil/core": "2.0.1"
+    "@stencil/core": "2.0.3"
   },
   "license": "MIT",
   "devDependencies": {

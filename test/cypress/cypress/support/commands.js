@@ -29,7 +29,7 @@ Cypress.Commands.add("getTag", (tag) => {
   return cy.get('[data-cy="' + tag + '"]');
 });
 
-Cypress.Commands.add("login", (email, password) => {
+Cypress.Commands.add("login", (email, password, expectIdentity = true) => {
   cy.visit("/login");
   cy.getTag("login-email").type(email)
   cy.getTag("login-password").type(password)
@@ -37,7 +37,8 @@ Cypress.Commands.add("login", (email, password) => {
 
   cy.wait(500);
   cy.url().should("eq", Cypress.config().baseUrl + "/");
-  cy.getTag("identity-email").invoke("text").should("be.equal", email)
+
+  if (expectIdentity) cy.getTag("identity-email").invoke("text").should("be.equal", email)
 });
 
 Cypress.Commands.overwrite('visit', (originalFn, element, text, options) => {

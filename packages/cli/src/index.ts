@@ -87,7 +87,7 @@ prog.command("test:wc").action(async () => {
 prog
   .command("static")
   .option("-l, --log", "Log output to console", false)
-  .describe("build static html from plugin frontend")
+  .describe("build static html from app")
   .action(async (opts) => {
     await buildStatic(opts);
   });

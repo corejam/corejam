@@ -73,7 +73,7 @@ export class AuthRegister {
                 </corejam-box>
                 <corejam-box>
                   <corejam-form-submit formId={this.formId}>
-                    <button type="submit">Register</button>
+                    <button data-cy="register-submit" type="submit">Register</button>
                   </corejam-form-submit>
                 </corejam-box>
               </corejam-box>

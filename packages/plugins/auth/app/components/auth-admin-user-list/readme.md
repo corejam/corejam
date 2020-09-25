@@ -17,7 +17,7 @@
 
 ### Used by
 
- - [cj-route-admin](../../routes/admin/user)
+ - [cj-route-admin](../../routes/admin/users)
 
 ### Depends on
 

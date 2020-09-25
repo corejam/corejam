@@ -1,5 +1,5 @@
 {
-  "name": "corejam",
+  "name": "corejam-tools",
   "private": true,
   "homepage": "https://corejam.io/",
   "description": "A scaffolding for building progressive GraphQL powered jamstack applications",

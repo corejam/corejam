@@ -3,180 +3,215 @@
 
 name: Node.js CI
 
-on: 
+on:
   push:
     paths-ignore:
-      - '**/*.md'
+      - "**/*.md"
   pull_request:
     paths-ignore:
-      - '**/*.md'
+      - "**/*.md"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: 'node:14-alpine'
+      image: "corejam/ci:node14.0.0.1"
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
-
     steps:
-    - uses: actions/checkout@v2
-      with: 
-        path: ''
-    - run: yarn global add lerna && apk add perl tar #can all go into docker image
-    - name: Cache node_modules
-      id: cache-node-modules
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-    - run: |
+      - uses: actions/checkout@v2
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+      - run: |
           lerna bootstrap --no-ci
           yarn build
           node ./utils/hoistPackagesForDeployment.js
           yarn --cwd examples/nextjs corejam generateSchema
-      env: # Or as an environment variable
-        GITHUB_SHA: ${{ github.sha }}
-    - uses: actions/upload-artifact@v2
-      with:
-        name: dist
-        path: |
-          examples/nextjs
-          packages/cli/dist
-          packages/base/dist
-          packages/plugins/auth/dist
-          packages/plugins/dershop/dist
-          
-  
+          mv packages/plugins/auth/.env.sample packages/plugins/auth/.env 
+          yarn --cwd packages/plugins/auth corejam static
+        env: # Or as an environment variable
+          GITHUB_SHA: ${{ github.sha }}
+      - run: tar -czf artifact.tar examples/nextjs packages/cli/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/static packages/plugins/dershop/dist
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: artifact.tar
+
   core-components-test:
     runs-on: ubuntu-latest
     container:
-      image: 'node:14-alpine'
-      
+      image: "corejam/ci:node14.0.0.1"
     needs: build
     steps:
-    - uses: actions/checkout@v2
-      with: 
-        path: ''
-    - uses: actions/download-artifact@v2
-      with:
-        name: dist
-    - run: apk add tar #can all go into docker image
-    - name: Cache node_modules
-      id: cache-node-modules
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-    - run: yarn
-      if: |
-        steps.cache-node-modules.outputs.cache-hit != 'true'
-    - run: chmod +x node_modules/.bin/corejam
-    - run: |
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+      - run: chmod +x node_modules/.bin/corejam
+      - run: |
           cd packages/plugins/core-components/
-          yarn test        
-        
+          yarn test
+
   integration-tests:
     runs-on: ubuntu-latest
     container:
-      image: 'node:14-alpine'
-      
+      image: "corejam/ci:node14.0.0.1"
     needs: build
     steps:
-    - uses: actions/checkout@v2
-      with: 
-        path: ''
-    - uses: actions/download-artifact@v2
-      with:
-        name: dist
-    - run: apk add tar curl bash #can all go into docker image
-    - name: Cache node_modules
-      id: cache-node-modules
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-    - run: yarn
-      if: |
-        steps.cache-node-modules.outputs.cache-hit != 'true'
-    - run: chmod +x node_modules/.bin/corejam
-    - run: |
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+      - run: chmod +x node_modules/.bin/corejam
+      - run: |
           cd packages/plugins/auth && yarn corejam generateSchema
           yarn test
           export SECRET=$(COMMIT_ID=auth_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
           SECRET_KEY=$SECRET DB_DRIVER=DB_FAUNA yarn test
-      env: # Or as an environment variable
-        SECRET_KEY: ${{ secrets.SECRET }}
-        GITHUB_SHA: ${{ github.sha }}  
-    - run: |
+        env: # Or as an environment variable
+          SECRET_KEY: ${{ secrets.SECRET }}
+          GITHUB_SHA: ${{ github.sha }}
+      - run: |
           cd packages/plugins/dershop && yarn corejam generateSchema
           yarn test
           export SECRET_SHOP=$(COMMIT_ID=dershop_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
           SECRET_KEY=$SECRET_SHOP DB_DRIVER=DB_FAUNA yarn test
-      env: # Or as an environment variable
-        SECRET_KEY: ${{ secrets.SECRET }}
-        GITHUB_SHA: ${{ github.sha }}
-    - uses: codecov/codecov-action@v1
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-        directory: packages/plugins # optional
+        env: # Or as an environment variable
+          SECRET_KEY: ${{ secrets.SECRET }}
+          GITHUB_SHA: ${{ github.sha }}
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          directory: packages/plugins # optional
+
+  cypress-static-plugin-auth:
+    runs-on: ubuntu-latest
+    container:
+      image: "corejam/cypress:0.0.1"
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: apt-get install tar #can all go into docker image
+      - run: tar -xzf artifact.tar
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: test/cypress/node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-cypress-
+      - run: yarn --cwd test/cypress --frozen-lockfile
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true'
+      - run: |
+          cd packages/plugins/auth
+          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn corejam static:serve & cd ../../../test/cypress
+          cypress run --spec "./cypress/integration/plugins/auth/**/*"
+        env:
+          CYPRESS_baseUrl: "http://localhost:3001"
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
 
   cypress:
     runs-on: ubuntu-latest
     container:
-      image: 'cypress/browsers:node14.7.0-chrome84'
-      
-    needs: integration-tests
+      image: "corejam/cypress:0.0.1"
+    needs:
+      - integration-tests
+      - cypress-static-plugin-auth
+      - core-components-test
     steps:
-    - uses: actions/checkout@v2
-      with: 
-        path: ''
-    - uses: actions/download-artifact@v2
-      with:
-        name: dist
-    - run: apt-get install tar #can all go into docker image
-    - name: Cache node_modules
-      id: cache-node-modules
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-    - run: yarn
-      if: |
-        steps.cache-node-modules.outputs.cache-hit != 'true'
-    - run: chmod +x node_modules/.bin/corejam
-    - name: Cache Cypress
-      id: cache-cypress
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-${{ matrix.node-version }}-cypress-
-    - run: cd test/cypress && yarn install --frozen-lockfile && yarn cypress install
-      if: |
-        steps.cache-cache-cypress.outputs.cache-hit != 'true'
-    - run: |
-         if [ $GITHUB_REF = 'refs/heads/master' ]; then export DEPLOYED_URL="demo.dershop.dev"; else export DEPLOYED_URL="$GITHUB_SHA.pipeline.dershop.dev"; fi
-         yarn global add vercel json
-         cd packages/plugins/dershop
-         yarn corejam generateSchema
-         export SECRET=$(COMMIT_ID=cypress_$GITHUB_SHA node ./tests/bootstrap.js --faker | grep 'secret'|cut -f2 -d ":")
-         cd ../../../examples/nextjs
-         export DEPLOYMENT=$(vercel --confirm --token $ZEIT_TOKEN --scope=dershop -e JWT_HASH=gitlab -e SECRET_KEY=$SECRET -e DB_DRIVER="DB_FAUNA" -e DEPLOYMENT_URL=https://$DEPLOYED_URL)
-         vercel alias $DEPLOYMENT $DEPLOYED_URL --token $ZEIT_TOKEN --scope dershop
-         wget $DEPLOYED_URL
-         cd ../../test/cypress
-         CYPRESS_baseUrl=https://$DEPLOYED_URL yarn cy:run
-      env: # Or as an environment variable
-        SECRET_KEY: ${{ secrets.SECRET }}
-        GITHUB_SHA: ${{ github.sha }}
-        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
-        
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: apt-get install tar #can all go into docker image
+      - run: tar -xzf artifact.tar
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+      - run: yarn
+        if: |
+          steps.cache-node-modules.outputs.cache-hit != 'true'
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: test/cypress/node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-cypress-
+      - run: yarn --cwd test/cypress --frozen-lockfile
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true'
+      - run: |
+          if [ $GITHUB_REF = 'refs/heads/master' ]; then export DEPLOYED_URL="demo.dershop.dev"; else export DEPLOYED_URL="$GITHUB_SHA.pipeline.dershop.dev"; fi
+          cd packages/plugins/dershop
+          yarn corejam generateSchema
+          export SECRET=$(COMMIT_ID=cypress_$GITHUB_SHA node ./tests/bootstrap.js --faker | grep 'secret'|cut -f2 -d ":")
+          cd ../../../examples/nextjs
+          export DEPLOYMENT=$(vercel --confirm --token $ZEIT_TOKEN --scope=dershop -e JWT_HASH=gitlab -e SECRET_KEY=$SECRET -e DB_DRIVER="DB_FAUNA" -e DEPLOYMENT_URL=https://$DEPLOYED_URL)
+          vercel alias $DEPLOYMENT $DEPLOYED_URL --token $ZEIT_TOKEN --scope dershop
+          wget $DEPLOYED_URL
+          cd ../../test/cypress
+          CYPRESS_baseUrl=https://$DEPLOYED_URL cypress run --spec "./cypress/integration/plugins/dershop/**/*"
+        env: # Or as an environment variable
+          SECRET_KEY: ${{ secrets.SECRET }}
+          GITHUB_SHA: ${{ github.sha }}
+          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
