@@ -29,12 +29,12 @@ jobs:
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
       - run: |
           lerna bootstrap --no-ci
-          yarn build
-          node ./utils/hoistPackagesForDeployment.js
-          yarn --cwd examples/nextjs corejam generateSchema
           mv packages/plugins/auth/.env.sample packages/plugins/auth/.env
           mv packages/plugins/dershop/.env.sample packages/plugins/dershop/.env
           mv packages/plugins/core-components/.env.sample packages/plugins/core-components/.env 
+          yarn build
+          node ./utils/hoistPackagesForDeployment.js
+          yarn --cwd examples/nextjs corejam generateSchema
           yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
