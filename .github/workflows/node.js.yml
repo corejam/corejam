@@ -17,7 +17,6 @@ jobs:
     container:
       image: "corejam/ci:node14.0.0.1"
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
-
     steps:
       - uses: actions/checkout@v2
       - name: Cache node_modules
@@ -28,8 +27,10 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+      - run: lerna bootstrap --no-ci
+        if: |
+          steps.cache-node-modules.outputs.cache-hit != 'true'
       - run: |
-          lerna bootstrap --no-ci
           yarn build
           node ./utils/hoistPackagesForDeployment.js
           yarn --cwd examples/nextjs corejam generateSchema
@@ -47,7 +48,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: "corejam/ci:node14.0.0.1"
-
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -63,7 +63,7 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-      - run: yarn
+      - run: lerna bootstrap --no-ci
         if: |
           steps.cache-node-modules.outputs.cache-hit != 'true'
       - run: chmod +x node_modules/.bin/corejam
@@ -75,7 +75,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: "corejam/ci:node14.0.0.1"
-
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -91,7 +90,7 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-      - run: yarn
+      - run: lerna bootstrap --no-ci
         if: |
           steps.cache-node-modules.outputs.cache-hit != 'true'
       - run: chmod +x node_modules/.bin/corejam
@@ -119,8 +118,7 @@ jobs:
   cypress-static-plugin-auth:
     runs-on: ubuntu-latest
     container:
-      image: "cypress/browsers:node14.7.0-chrome84"
-
+      image: "corejam/cypress:0.0.1"
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -139,7 +137,7 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-      - run: yarn
+      - run: lerna bootstrap --no-ci
         if: |
           steps.cache-node-modules.outputs.cache-hit != 'true'
       - run: chmod +x node_modules/.bin/corejam
@@ -151,11 +149,13 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-cypress-
+      - run: yarn --cwd test/cypress --frozen-lockfile
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           cd packages/plugins/auth
           JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn corejam static:serve & cd ../../../test/cypress
-          yarn install --frozen-lockfile && yarn cypress install
-          yarn cy:run --spec "./cypress/integration/plugins/auth/**/*"
+          cypress run --spec "./cypress/integration/plugins/auth/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
       - uses: actions/upload-artifact@v1
@@ -167,8 +167,7 @@ jobs:
   cypress:
     runs-on: ubuntu-latest
     container:
-      image: "cypress/browsers:node14.7.0-chrome84"
-
+      image: "corejam/cypress:0.0.1"
     needs:
       - integration-tests
       - cypress-static-plugin-auth
@@ -202,12 +201,11 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-cypress-
-      - run: cd test/cypress && yarn install --frozen-lockfile && yarn cypress install
+      - run: yarn --cwd test/cypress --frozen-lockfile
         if: |
-          steps.cache-cache-cypress.outputs.cache-hit != 'true'
+          steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           if [ $GITHUB_REF = 'refs/heads/master' ]; then export DEPLOYED_URL="demo.dershop.dev"; else export DEPLOYED_URL="$GITHUB_SHA.pipeline.dershop.dev"; fi
-          yarn global add vercel json
           cd packages/plugins/dershop
           yarn corejam generateSchema
           export SECRET=$(COMMIT_ID=cypress_$GITHUB_SHA node ./tests/bootstrap.js --faker | grep 'secret'|cut -f2 -d ":")
@@ -216,7 +214,7 @@ jobs:
           vercel alias $DEPLOYMENT $DEPLOYED_URL --token $ZEIT_TOKEN --scope dershop
           wget $DEPLOYED_URL
           cd ../../test/cypress
-          CYPRESS_baseUrl=https://$DEPLOYED_URL yarn cy:run --spec "./cypress/integration/plugins/dershop/**/*"
+          CYPRESS_baseUrl=https://$DEPLOYED_URL cypress run --spec "./cypress/integration/plugins/dershop/**/*"
         env: # Or as an environment variable
           SECRET_KEY: ${{ secrets.SECRET }}
           GITHUB_SHA: ${{ github.sha }}
