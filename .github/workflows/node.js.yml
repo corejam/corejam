@@ -38,7 +38,7 @@ jobs:
           yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar examples/nextjs packages/cli/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/static packages/plugins/dershop/dist
+      - run: tar -czf artifact.tar examples/nextjs packages/cli/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
