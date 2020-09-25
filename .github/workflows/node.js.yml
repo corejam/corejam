@@ -27,10 +27,8 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-      - run: lerna bootstrap --no-ci
-        if: |
-          steps.cache-node-modules.outputs.cache-hit != 'true'
       - run: |
+          lerna bootstrap --no-ci
           yarn build
           node ./utils/hoistPackagesForDeployment.js
           yarn --cwd examples/nextjs corejam generateSchema
@@ -63,9 +61,6 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-      - run: lerna bootstrap --no-ci
-        if: |
-          steps.cache-node-modules.outputs.cache-hit != 'true'
       - run: chmod +x node_modules/.bin/corejam
       - run: |
           cd packages/plugins/core-components/
@@ -90,9 +85,6 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-      - run: lerna bootstrap --no-ci
-        if: |
-          steps.cache-node-modules.outputs.cache-hit != 'true'
       - run: chmod +x node_modules/.bin/corejam
       - run: |
           cd packages/plugins/auth && yarn corejam generateSchema
@@ -137,9 +129,6 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-      - run: lerna bootstrap --no-ci
-        if: |
-          steps.cache-node-modules.outputs.cache-hit != 'true'
       - run: chmod +x node_modules/.bin/corejam
       - name: Cache Cypress
         id: cache-cypress
