@@ -9,4 +9,3 @@ web-components
 tests/.coverage
 .env
 static
-./app/components.d.ts

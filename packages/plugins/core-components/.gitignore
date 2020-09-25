@@ -9,4 +9,3 @@ angular
 web-components
 .env
 static
-./app/components.d.ts
