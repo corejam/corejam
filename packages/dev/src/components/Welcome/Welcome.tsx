@@ -47,7 +47,7 @@ export class Welcome {
                   })}
               </ul>
             </div>
-            {this.routes && this.routes.routes.length > 0 && <h3>Routes</h3>}
+            {this.routes && Object.keys(this.routes.routes).length > 0 && <h3>Routes</h3>}
             <ul>
               {Object.keys(this.routes.routes).map((k) => {
                 const route = this.routes.routes[k];

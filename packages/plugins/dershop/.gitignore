@@ -6,3 +6,4 @@ web-components
 tests/.coverage
 .env
 static
+www
