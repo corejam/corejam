@@ -21,7 +21,7 @@ prog.version(pkg.version);
 prog
   .command("build")
   .describe("Build the whole plugin source")
-  .option("-l, --log", "Log output to console", false)
+  .option("-l, --log", "Log output to console", true)
   .option("-wc, --webComponents", "Web components only build", false)
   .option("-s, --server", "Build server code only", false)
   .action(async (opts) => {
