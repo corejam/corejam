@@ -68,7 +68,7 @@
     ]
   },
   "dependencies": {
-    "@corejam/router": "^0.0.1",
+    "@corejam/router": "0.0.1",
     "isomorphic-unfetch": "3.0.0"
   }
 }
