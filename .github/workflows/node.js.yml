@@ -15,7 +15,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: "corejam/ci:node14.0.0.1"
+      image: "corejam/ci:node14.0.0.2"
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
     steps:
       - uses: actions/checkout@v2
@@ -48,7 +48,7 @@ jobs:
   core-components-test:
     runs-on: ubuntu-latest
     container:
-      image: "corejam/ci:node14.0.0.1"
+      image: "corejam/ci:node14.0.0.2"
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -72,7 +72,7 @@ jobs:
   integration-tests:
     runs-on: ubuntu-latest
     container:
-      image: "corejam/ci:node14.0.0.1"
+      image: "corejam/ci:node14.0.0.2"
     needs: build
     steps:
       - uses: actions/checkout@v2
