@@ -26,7 +26,7 @@
   "scripts": {
     "lerna": "lerna",
     "clean": "lerna run clean --parallel --scope '@corejam/*'",
-    "bs": "lerna clean && lerna bootstrap --ci",
+    "bs": "lerna clean -y && lerna bootstrap --no-ci",
     "build": "lerna run build --scope '@corejam/*' --concurrency 1",
     "startShop": "yarn --cwd examples/shop dev",
     "buildShop": "yarn --cwd examples/shop build",
