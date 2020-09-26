@@ -34,7 +34,6 @@ jobs:
           mv packages/plugins/core-components/.env.sample packages/plugins/core-components/.env 
           yarn build
           yarn bs
-          yarn build
           node ./utils/hoistPackagesForDeployment.js
           yarn --cwd examples/nextjs corejam generateSchema
           yarn --cwd packages/plugins/auth corejam static
