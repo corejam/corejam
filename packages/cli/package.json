@@ -30,8 +30,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "install": "lerna link",
-    "postbuild": "shx cp -r ./src/templates ./dist",
+    "postbuild": "shx cp -r ./src/templates ./dist && lerna link",
     "test": "jest",
     "clean": "rimraf dist"
   },

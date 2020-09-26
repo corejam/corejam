@@ -20,6 +20,12 @@ export namespace Components {
     interface CjRouteAdminUserForm {
         "param": any;
     }
+    interface CjRouteIndex {
+    }
+    interface CjRouteLogin {
+    }
+    interface CjRouteRegister {
+    }
     interface CorejamAuthFormLogin {
         "error": boolean;
     }
@@ -59,6 +65,24 @@ declare global {
         prototype: HTMLCjRouteAdminUserFormElement;
         new (): HTMLCjRouteAdminUserFormElement;
     };
+    interface HTMLCjRouteIndexElement extends Components.CjRouteIndex, HTMLStencilElement {
+    }
+    var HTMLCjRouteIndexElement: {
+        prototype: HTMLCjRouteIndexElement;
+        new (): HTMLCjRouteIndexElement;
+    };
+    interface HTMLCjRouteLoginElement extends Components.CjRouteLogin, HTMLStencilElement {
+    }
+    var HTMLCjRouteLoginElement: {
+        prototype: HTMLCjRouteLoginElement;
+        new (): HTMLCjRouteLoginElement;
+    };
+    interface HTMLCjRouteRegisterElement extends Components.CjRouteRegister, HTMLStencilElement {
+    }
+    var HTMLCjRouteRegisterElement: {
+        prototype: HTMLCjRouteRegisterElement;
+        new (): HTMLCjRouteRegisterElement;
+    };
     interface HTMLCorejamAuthFormLoginElement extends Components.CorejamAuthFormLogin, HTMLStencilElement {
     }
     var HTMLCorejamAuthFormLoginElement: {
@@ -94,6 +118,9 @@ declare global {
         "auth-admin-user-list": HTMLAuthAdminUserListElement;
         "cj-route-admin": HTMLCjRouteAdminElement;
         "cj-route-admin-user-form": HTMLCjRouteAdminUserFormElement;
+        "cj-route-index": HTMLCjRouteIndexElement;
+        "cj-route-login": HTMLCjRouteLoginElement;
+        "cj-route-register": HTMLCjRouteRegisterElement;
         "corejam-auth-form-login": HTMLCorejamAuthFormLoginElement;
         "corejam-auth-form-register": HTMLCorejamAuthFormRegisterElement;
         "corejam-auth-header": HTMLCorejamAuthHeaderElement;
@@ -116,6 +143,12 @@ declare namespace LocalJSX {
     interface CjRouteAdminUserForm {
         "param"?: any;
     }
+    interface CjRouteIndex {
+    }
+    interface CjRouteLogin {
+    }
+    interface CjRouteRegister {
+    }
     interface CorejamAuthFormLogin {
         "error"?: boolean;
     }
@@ -134,6 +167,9 @@ declare namespace LocalJSX {
         "auth-admin-user-list": AuthAdminUserList;
         "cj-route-admin": CjRouteAdmin;
         "cj-route-admin-user-form": CjRouteAdminUserForm;
+        "cj-route-index": CjRouteIndex;
+        "cj-route-login": CjRouteLogin;
+        "cj-route-register": CjRouteRegister;
         "corejam-auth-form-login": CorejamAuthFormLogin;
         "corejam-auth-form-register": CorejamAuthFormRegister;
         "corejam-auth-header": CorejamAuthHeader;
@@ -149,6 +185,9 @@ declare module "@stencil/core" {
             "auth-admin-user-list": LocalJSX.AuthAdminUserList & JSXBase.HTMLAttributes<HTMLAuthAdminUserListElement>;
             "cj-route-admin": LocalJSX.CjRouteAdmin & JSXBase.HTMLAttributes<HTMLCjRouteAdminElement>;
             "cj-route-admin-user-form": LocalJSX.CjRouteAdminUserForm & JSXBase.HTMLAttributes<HTMLCjRouteAdminUserFormElement>;
+            "cj-route-index": LocalJSX.CjRouteIndex & JSXBase.HTMLAttributes<HTMLCjRouteIndexElement>;
+            "cj-route-login": LocalJSX.CjRouteLogin & JSXBase.HTMLAttributes<HTMLCjRouteLoginElement>;
+            "cj-route-register": LocalJSX.CjRouteRegister & JSXBase.HTMLAttributes<HTMLCjRouteRegisterElement>;
             "corejam-auth-form-login": LocalJSX.CorejamAuthFormLogin & JSXBase.HTMLAttributes<HTMLCorejamAuthFormLoginElement>;
             "corejam-auth-form-register": LocalJSX.CorejamAuthFormRegister & JSXBase.HTMLAttributes<HTMLCorejamAuthFormRegisterElement>;
             "corejam-auth-header": LocalJSX.CorejamAuthHeader & JSXBase.HTMLAttributes<HTMLCorejamAuthHeaderElement>;
