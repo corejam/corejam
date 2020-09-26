@@ -29,11 +29,11 @@ jobs:
             ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
       - run: |
           yarn --frozen-lockfile
-          yarn build
-          yarn bs
           mv packages/plugins/auth/.env.sample packages/plugins/auth/.env
           mv packages/plugins/dershop/.env.sample packages/plugins/dershop/.env
           mv packages/plugins/core-components/.env.sample packages/plugins/core-components/.env 
+          yarn build
+          yarn bs
           yarn build
           node ./utils/hoistPackagesForDeployment.js
           yarn --cwd examples/nextjs corejam generateSchema
