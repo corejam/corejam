@@ -13,7 +13,7 @@ export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, o
       credentials: "include",
     },
     Build.isBrowser,
-    Build.isBrowser ? null : process.env.DEPLOYMENT_URL
+    Build.isBrowser ? process.env.DEPLOYMENT_URL : null
   ),
   endpoint: "",
 });
