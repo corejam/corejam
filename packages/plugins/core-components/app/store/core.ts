@@ -7,10 +7,14 @@ import { Build } from "@stencil/core";
  * We only want absolute url for hydrate on server
  */
 export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, onChange: coreChange } = createStore({
-  client: new GraphQLClient({
-    mode: "cors",
-    credentials: "include",
-  }, Build.isBrowser, Build.isBrowser ? process.env.DEPLOYMENT_URL : null),
+  client: new GraphQLClient(
+    {
+      mode: "cors",
+      credentials: "include",
+    },
+    Build.isBrowser,
+    Build.isBrowser ? null : process.env.DEPLOYMENT_URL
+  ),
   endpoint: "",
 });
 
