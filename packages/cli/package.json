@@ -70,7 +70,7 @@
     "@types/node": "14.6.0",
     "@types/sade": "1.7.2",
     "apollo-server-testing": "2.18.0",
-    "debug": "4.1.1",
+    "debug": "4.2.0",
     "faker": "5.1.0",
     "jest": "26.4.2",
     "jest-date-mock": "1.0.8",
