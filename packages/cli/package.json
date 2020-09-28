@@ -53,7 +53,7 @@
     "log-symbols": "4.0.0",
     "micro": "9.3.4",
     "object-hash": "2.0.3",
-    "ora": "4.0.5",
+    "ora": "5.1.0",
     "prepend": "1.0.2",
     "replace-in-file": "6.1.0",
     "sade": "1.7.3",
