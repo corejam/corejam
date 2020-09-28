@@ -11,11 +11,9 @@ export class GraphQLClient {
 
   //For SSR we need the full deployment url.
   //For dev mode in stencil playground we need to overwrite
-  constructor(options?: RequestInit, browser = false, overwriteEndpoint?: string) {
+  constructor(options?: RequestInit, overwriteEndpoint?: string) {
     let url = "/api/graphql";
-    if (!browser && process.env?.DEPLOYMENT_URL) {
-      url = process.env.DEPLOYMENT_URL + url;
-    } else if (overwriteEndpoint) {
+    if (overwriteEndpoint) {
       url = overwriteEndpoint + url;
     }
 
@@ -37,7 +35,7 @@ export class GraphQLClient {
 
     const body = JSON.stringify({
       query,
-      variables: variables ? variables : undefined,
+      variables: variables ? variables : undefined
     });
 
     const response = await fetch(this.url, {
@@ -45,7 +43,7 @@ export class GraphQLClient {
       headers: { "Content-Type": "application/json", ...headers },
       body,
       credentials: "include",
-      ...others,
+      ...others
     });
 
     const result = await getResult(response);
@@ -67,7 +65,7 @@ export class GraphQLClient {
 
     const body = JSON.stringify({
       query,
-      variables: variables ? variables : undefined,
+      variables: variables ? variables : undefined
     });
 
     const response = await fetch(this.url, {
@@ -75,7 +73,7 @@ export class GraphQLClient {
       headers: { "Content-Type": "application/json", ...headers },
       body,
       credentials: "include",
-      ...others,
+      ...others
     });
 
     const result = await getResult(response);

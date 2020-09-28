@@ -36,9 +36,9 @@ export default async function run(options: any) {
         stdio: logToConsole,
         cwd: envRoot,
         env: {
-          mode: "prod",
-          targets: "dist,custom,hydrate,react",
-        },
+          NODE_ENV: process.env.NODE_ENV || "production",
+          targets: "dist,custom,hydrate,react"
+        }
       });
 
       if (!options.wc) {
@@ -87,9 +87,9 @@ export async function buildStatic(options: any) {
     cwd: envRoot,
     stdio: options.log ? "inherit" : "ignore",
     env: {
-      mode: "static",
-      targets: "prerender",
-    },
+      NODE_ENV: "static",
+      targets: "prerender"
+    }
   });
 
   api.kill();

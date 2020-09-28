@@ -46,12 +46,13 @@
   "devDependencies": {
     "@corejam/cli": "0.0.5",
     "@corejam/dev": "0.0.1",
+    "@stencil/react-output-target": "0.0.4",
     "@types/bcryptjs": "2.4.2",
     "@types/faker": "4.1.12",
     "@types/jsonwebtoken": "8.5.0",
+    "rollup-plugin-dotenv": "0.3.0",
     "tslib": "2.0.1",
-    "typescript": "4.0.3",
-    "@stencil/react-output-target": "0.0.4"
+    "typescript": "4.0.3"
   },
   "lint-staged": {
     "src/**/*.ts": [
@@ -60,7 +61,6 @@
     ]
   },
   "dependencies": {
-    "@alepop/stencil-env": "0.4.1",
     "@corejam/base": "0.0.2",
     "@corejam/core-components": "0.0.2",
     "@corejam/router": "0.0.1",

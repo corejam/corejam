@@ -25,9 +25,9 @@ export function getDataClient(identifier: string, initClient: () => object, purg
 
 export enum DATACLIENTS {
   GRAPHQL = "graphql",
-  FAUNA = "fauna",
+  FAUNA = "fauna"
 }
 
 export function getServerClient(): GraphQLClient {
-  return getDataClient(DATACLIENTS.GRAPHQL, () => new GraphQLClient()) as GraphQLClient;
+  return getDataClient(DATACLIENTS.GRAPHQL, () => new GraphQLClient({}, process.env.DEPLOYMENT_URL)) as GraphQLClient;
 }

@@ -6,13 +6,13 @@ export async function writeConfig() {
   const root = process.cwd();
 
   const config = {
-    mode: process.env.mode,
+    mode: process.env.NODE_ENV,
     components: {},
     routes: {},
     wrapper: [],
     recommendations: [],
     dependencies: [],
-    external: [],
+    external: []
   };
 
   const regexTag = /tag: \"(.*)\"/;
@@ -30,14 +30,14 @@ export async function writeConfig() {
           if (tagMatch)
             config["components"][tagMatch[1]] = {
               url: "/component/" + tagMatch[1],
-              component: tagMatch[1],
+              component: tagMatch[1]
             };
         }
       }
     }
   }
 
-  const traverse = async (lookupPath) => {
+  const traverse = async lookupPath => {
     let paths = [];
     if (!lookupPath.includes(".md")) {
       paths = (await listAsync(lookupPath)) || [];
@@ -47,20 +47,21 @@ export async function writeConfig() {
         const segments = lookupPath
           .replace(root + "/routes", null)
           .split("/")
-          .filter((s) => s !== "null");
+          .filter(s => s !== "null");
         const isIndex = current === "index.tsx";
         const url =
           segments.length === 0
             ? `/${isIndex ? "" : current.replace(root, "").replace(".tsx", "")}`
-            : `${segments.join("/").replace(root, "").replace("/app/routes", "")}/${
-                isIndex ? "" : current.replace(".tsx", "")
-              }`;
+            : `${segments
+                .join("/")
+                .replace(root, "")
+                .replace("/app/routes", "")}/${isIndex ? "" : current.replace(".tsx", "")}`;
         const f = await readAsync(lookupPath + "/" + current);
         const tagMatch = f.match(regexTag);
         if (tagMatch) {
           config["routes"][tagMatch[1]] = {
             url,
-            component: tagMatch[1],
+            component: tagMatch[1]
           };
         }
       } else {
