@@ -48,7 +48,7 @@
     "@corejam/dev": "0.0.1",
     "@stencil/react-output-target": "0.0.4",
     "@types/bcryptjs": "2.4.2",
-    "@types/faker": "4.1.12",
+    "@types/faker": "5.1.2",
     "@types/jsonwebtoken": "8.5.0",
     "rollup-plugin-dotenv": "0.3.0",
     "tslib": "2.0.1",
