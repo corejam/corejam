@@ -36,7 +36,7 @@ jobs:
           yarn --cwd examples/nextjs corejam generateSchema
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
+      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth packages/plugins/dershop/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
