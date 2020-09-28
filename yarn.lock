@@ -2821,7 +2821,7 @@
     is-module "^1.0.0"
     resolve "^1.17.0"
 
-"@rollup/plugin-replace@^2.2.1":
+"@rollup/plugin-replace@^2.2.1", "@rollup/plugin-replace@^2.3.2":
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-replace/-/plugin-replace-2.3.3.tgz#cd6bae39444de119f5d905322b91ebd4078562e7"
   integrity sha512-XPmVXZ7IlaoWaJLkSCDaa0Y6uVo5XQYHhiMFzOd5qSv5rE+t/UJToPIOE56flKIxBFQI27ONsxb7dqHnwSsjKQ==
@@ -14263,6 +14263,14 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+rollup-plugin-dotenv@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-dotenv/-/rollup-plugin-dotenv-0.3.0.tgz#32b272761c08dee68cc9ae1af5c478978824cb06"
+  integrity sha512-gI6Bo85j20DXyxV358ZtugBRTukmomRFtP9b2LOQrlsZwn9W536fBw5CfYnt137JUIeWZg52hdimO4IRqz0MTw==
+  dependencies:
+    "@rollup/plugin-replace" "^2.3.2"
+    dotenv "^8.2.0"
 
 rollup-plugin-sourcemaps@^0.6.2:
   version "0.6.2"
