@@ -57,7 +57,7 @@
     "@corejam/base": "0.0.2",
     "@corejam/core-components": "0.0.2",
     "@corejam/plugin-auth": "0.0.2",
-    "@xstate/fsm": "1.5.0",
+    "@xstate/fsm": "1.5.1",
     "deep-parse-json": "1.0.1",
     "faker": "5.1.0",
     "faunadb": "3.0.1",
