@@ -24,7 +24,7 @@ prog
   .option("-l, --log", "Log output to console", true)
   .option("-wc, --webComponents", "Web components only build", false)
   .option("-s, --server", "Build server code only", false)
-  .action(async (opts) => {
+  .action(async opts => {
     await runBuild(opts);
   });
 
@@ -32,7 +32,7 @@ prog
   .command("dev")
   .describe("Plugin dev process")
   .option("-l, --log", "Log output to console", false)
-  .action(async (opts) => {
+  .action(async opts => {
     await runDev(opts);
   });
 
@@ -56,7 +56,7 @@ prog
 
     setTimeout(() => {
       const watcher = chokidar.watch(envRoot + "/server", {
-        ignored: "*.d.ts",
+        ignored: "*.d.ts"
       });
       watcher.on("change", () => {
         api.cancel();
@@ -68,7 +68,7 @@ prog
 prog
   .command("createApp <name>")
   .describe("Bootstraps new corejam app")
-  .action(async (name) => {
+  .action(async name => {
     await newPlugin(name);
   });
 
@@ -76,7 +76,7 @@ prog.command("generateSchema").action(async () => {
   await generateSchema();
 });
 
-prog.command("test").action(async (opts) => {
+prog.command("test").action(async opts => {
   await runTest(opts);
 });
 
@@ -86,9 +86,9 @@ prog.command("test:wc").action(async () => {
 
 prog
   .command("static")
-  .option("-l, --log", "Log output to console", false)
+  .option("-l, --log", "Log output to console", true)
   .describe("build static html from app")
-  .action(async (opts) => {
+  .action(async opts => {
     await buildStatic(opts);
   });
 
