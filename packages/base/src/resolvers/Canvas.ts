@@ -1,7 +1,7 @@
 import { CanvasPageList } from "../typings/Canvas";
 import { adminAllCanvasPagesGQL } from "../queries/Admin/CanvasPages";
 import { ServerContext } from "../typings/Server";
-import { GraphQLClient } from "../client/Client";
+import { getServerClient } from "../PluginManager";
 
 export default {
   Query: {
@@ -9,7 +9,7 @@ export default {
       return models.allCanvasPages();
     },
     paginateCanvasPages: async (_obj: any, { size, page }, _ctx: ServerContext) => {
-      const client = new GraphQLClient();
+      const client = getServerClient();
       const offset = (page - 1) * size;
 
       const {

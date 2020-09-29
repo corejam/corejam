@@ -1,4 +1,4 @@
-import { GraphQLClient } from "@corejam/base";
+import { getServerClient } from "@corejam/base";
 import { allCategoriesGQL } from "../../shared/graphql/Queries/Category";
 import { CategoryList } from "../../shared/types/Category";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
@@ -9,7 +9,7 @@ export default {
       return models.allCategories();
     },
     paginateCategories: async (_obj: any, { size, page }, _ctx: MergedServerContext) => {
-      const client = new GraphQLClient();
+      const client = getServerClient();
       const offset = (page - 1) * size;
 
       const { allCategories } = await client.request(allCategoriesGQL);

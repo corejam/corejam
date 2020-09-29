@@ -5,17 +5,9 @@ import chalk from "chalk";
 import ora from "ora";
 import jetpack from "fs-jetpack";
 import kill from "kill-port";
-import { stencilRunner, envRoot } from "../config";
-import { copyStencilRunner, copySchemaToDist } from "../helpers/copy";
+import { envRoot } from "../config";
+import { copySchemaToDist } from "../helpers/copy";
 import { cleanActiveRunner } from "../helpers/resetStages";
-import { addDependencies } from "../helpers/addDependencies";
-import { bootstrapPluginToRunner } from "../helpers/bootstrapPluginToRunner";
-import { writeConfig } from "../helpers/generateConfig";
-import { initWatchers } from "../helpers/watch";
-import { hasCache, extractCache, cache } from "../helpers/archiveNodeModules";
-import { addEnvVars } from "../helpers/replaceInFile";
-import { writeExposedObjectsToIndex, replaceRouterImport } from "../helpers/writeExports";
-import { removeStaticFiles } from "../helpers/modifyStencilEnv";
 import { set, get } from "../processes";
 
 export default async function run(options: any) {
@@ -26,9 +18,6 @@ export default async function run(options: any) {
 
     const logToConsole = options.l ? "inherit" : "ignore";
 
-    await cleanActiveRunner();
-    await copyStencilRunner();
-    await addEnvVars();
     jetpack.removeAsync(envRoot + "/.corejam");
 
     if (await jetpack.existsAsync(envRoot + "/server")) {
@@ -44,7 +33,7 @@ export default async function run(options: any) {
 
       setTimeout(() => {
         const watcher = chokidar.watch(envRoot + "/server", {
-          ignored: "*.d.ts",
+          ignored: "*.d.ts"
         });
         watcher.on("change", () => {
           const api = get("api");
@@ -57,31 +46,7 @@ export default async function run(options: any) {
       set("api", execa("corejam", ["api:serve"], { stdio: logToConsole, cwd: envRoot }));
     }
 
-    bootSpinner.text = "Initializing runner...";
-
-    await addDependencies();
-    await bootstrapPluginToRunner();
-
-    if (await hasCache()) {
-      bootSpinner.text = "Extracting cache...";
-      await extractCache();
-    } else {
-      isYarn
-        ? await execa("yarn", ["install", "--frozen-lockfile"], { cwd: stencilRunner })
-        : await execa("npm", ["ci"], { cwd: stencilRunner });
-      bootSpinner.text = "Updating dependencies...";
-      await cache();
-    }
-
-    bootSpinner.text = "Writing config...";
-
-    await writeConfig();
-
     bootSpinner.text = "Booting stencil...";
-
-    await writeExposedObjectsToIndex();
-    await removeStaticFiles();
-    await replaceRouterImport();
 
     await kill(3001);
 
@@ -89,13 +54,15 @@ export default async function run(options: any) {
       "stencil",
       execa("stencil", ["build", "--dev", "--watch", "--serve", "--docs"], {
         stdio: logToConsole,
-        cwd: stencilRunner,
+        cwd: envRoot,
+        env: {
+          ...process.env,
+          NODE_ENV: process.env.NODE_ENV || "development"
+        }
       })
     );
 
     bootSpinner.stopAndPersist({ text: "Watching for file change..." });
-
-    initWatchers();
   } catch (e) {
     await cleanActiveRunner();
     console.log(e);

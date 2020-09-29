@@ -1,0 +1,13 @@
+{
+  "components": {
+    "corejam-test-comp": { "url": "/component/corejam-test", "component": "h1" },
+    "corejam-test-compo": { "url": "/component/corejam-compo", "component": "h2" }
+  },
+  "routes": {
+    "route-test": { "url": "/", "component": "div" }
+  },
+  "wrapper": [],
+  "recommendations": [],
+  "dependencies": [],
+  "external": []
+}

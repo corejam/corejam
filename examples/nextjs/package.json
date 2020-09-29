@@ -29,6 +29,7 @@
     "react-dom": "16.13.1"
   },
   "devDependencies": {
+    "@corejam/cli": "0.0.5",
     "@next/bundle-analyzer": "9.5.3"
   }
 }

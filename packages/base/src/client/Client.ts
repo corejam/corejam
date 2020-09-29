@@ -11,12 +11,10 @@ export class GraphQLClient {
 
   //For SSR we need the full deployment url.
   //For dev mode in stencil playground we need to overwrite
-  constructor(options?: RequestInit, browser = false, overwriteEndpoint?: string) {
+  constructor(options?: RequestInit, originPrefix?: string) {
     let url = "/api/graphql";
-    if (!browser && process.env?.DEPLOYMENT_URL) {
-      url = process.env.DEPLOYMENT_URL + url;
-    } else if (overwriteEndpoint) {
-      url = overwriteEndpoint + url;
+    if (originPrefix) {
+      url = originPrefix + url;
     }
 
     this.url = url;

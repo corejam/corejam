@@ -2,7 +2,6 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
-    "declaration": false,
     "experimentalDecorators": true,
     "lib": ["dom", "es2017"],
     "moduleResolution": "node",
@@ -18,6 +17,6 @@
     "keyofStringsOnly": false,
     "skipLibCheck": true
   },
-  "include": ["components", "routes", "types/jsx.d.ts", "shared", "store"],
+  "include": ["app", "types/jsx.d.ts", "shared"],
   "exclude": ["node_modules"]
 }

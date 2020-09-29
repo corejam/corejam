@@ -21,7 +21,7 @@ prog.version(pkg.version);
 prog
   .command("build")
   .describe("Build the whole plugin source")
-  .option("-l, --log", "Log output to console", false)
+  .option("-l, --log", "Log output to console", true)
   .option("-wc, --webComponents", "Web components only build", false)
   .option("-s, --server", "Build server code only", false)
   .action(async (opts) => {
@@ -97,7 +97,7 @@ prog
   .describe("Serve static folder")
   .action(async () => {
     runApi();
-    execa("serve", ["static", "-l", "3001"], { cwd: envRoot });
+    execa("serve", ["www", "-l", "3001"], { cwd: envRoot });
     console.log("Serving under: http://localhost:3001");
   });
 

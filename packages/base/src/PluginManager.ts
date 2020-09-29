@@ -29,5 +29,5 @@ export enum DATACLIENTS {
 }
 
 export function getServerClient(): GraphQLClient {
-  return getDataClient(DATACLIENTS.GRAPHQL, () => new GraphQLClient()) as GraphQLClient;
+  return getDataClient(DATACLIENTS.GRAPHQL, () => new GraphQLClient({}, process.env.DEPLOYMENT_URL)) as GraphQLClient;
 }

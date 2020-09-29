@@ -1,4 +1,4 @@
-import { GraphQLClient } from "@corejam/base";
+import { getServerClient } from "@corejam/base";
 import { allManufacturersGQL } from "../../shared/graphql/Queries/Manufacturer";
 import { ManufacturerList } from "../../shared/types/Manufacturer";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
@@ -10,7 +10,7 @@ export default {
       return models.allManufacturers();
     },
     paginateManufacturers: async (_obj: any, { size, page }, _ctx: MergedServerContext) => {
-      const client = new GraphQLClient();
+      const client = getServerClient();
       const offset = (page - 1) * size;
 
       const { allManufacturers } = await client.request(allManufacturersGQL);
