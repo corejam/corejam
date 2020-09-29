@@ -3,5 +3,5 @@ import { useRouter } from "next/router";
 
 export default () => {
   const router = useRouter();
-  return <AuthAdminUserForm id={router.query.id} />;
+  return <AuthAdminUserForm formId={router.query.id} />;
 };
