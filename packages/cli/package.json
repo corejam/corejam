@@ -56,7 +56,7 @@
     "ora": "5.1.0",
     "prepend": "1.0.2",
     "replace-in-file": "6.1.0",
-    "sade": "1.7.3",
+    "sade": "1.7.4",
     "serve": "11.3.2"
   },
   "devDependencies": {
