@@ -12,7 +12,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint pages/* components/*"
+    "lint": "eslint pages/* components/*",
+    "postinstall": "corejam init"
   },
   "license": "MIT",
   "dependencies": {

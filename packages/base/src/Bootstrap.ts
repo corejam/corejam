@@ -8,7 +8,6 @@ type introspectionResult = {
   data: any;
 };
 
-let plugins: Array<string>;
 let introspection: any;
 
 /**
@@ -40,15 +39,15 @@ function isAPlugin(packageName: null | string = null) {
 /**
  * Collect all corejam plugins that are currently active
  * so we can bootstrap them individually.
+ *
+ * @param path
  */
-export function collectPlugins(): Array<string> {
-  if (plugins) return plugins;
-
-  const packageJson = require(process.cwd() + "/package.json");
+export function collectPlugins(path = process.cwd()): Array<string> {
+  const packageJson = require(path + "/package.json");
   const deps = packageJson.dependencies ? Object.keys(packageJson.dependencies) : [];
   const devDeps = packageJson.devDependencies ? Object.keys(packageJson.devDependencies) : [];
 
-  plugins = [];
+  const plugins: Array<string> = [];
   //Check all the dependencies
   [...deps, ...devDeps].forEach((key) => {
     if (isAPlugin(key)) {

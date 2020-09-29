@@ -12,6 +12,7 @@ import { runTest, runWCTests } from "./commands/test";
 import { envRoot } from "./config";
 import { copySchemaToDist } from "./helpers/copy";
 import { killAll } from "./processes";
+import { corejamInit } from './commands/init';
 
 const pkg = require("../package.json");
 const prog = sade("corejam");
@@ -83,6 +84,12 @@ prog.command("test").action(async (opts) => {
 prog.command("test:wc").action(async () => {
   await runWCTests();
 });
+
+prog.command("init")
+  .describe("add `corejam init` as postInstall hook in your package.json")
+  .action(async () => {
+    await corejamInit()
+  });
 
 prog
   .command("static")
