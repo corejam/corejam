@@ -31,7 +31,7 @@ jobs:
           yarn bs
           node ./utils/hoistPackagesForDeployment.js
           yarn --cwd examples/nextjs corejam generateSchema
-          API_ORIGIN=http://localhost:3000 JWT_HASH=jwthash yarn --cwd packages/plugins/auth corejam static
+          API_ORIGIN=http://localhost:3000 yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
       - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
@@ -101,7 +101,6 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: dist
-      - run: apt-get install tar #can all go into docker image
       - run: tar -xzf artifact.tar
       - run: chmod +x node_modules/.bin/corejam
       - name: Cache Cypress
@@ -115,7 +114,7 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           cd packages/plugins/auth
-          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn corejam static:serve & cd ../../../test/cypress
+          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup  yarn corejam static:serve & cd ../../../test/cypress
           cypress run --spec "./cypress/integration/plugins/auth/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
@@ -141,7 +140,6 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: dist
-      - run: apt-get install tar #can all go into docker image
       - run: tar -xzf artifact.tar
       - run: chmod +x node_modules/.bin/corejam
       - name: Cache Cypress
