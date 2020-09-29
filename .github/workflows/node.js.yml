@@ -31,7 +31,7 @@ jobs:
           yarn bs
           node ./utils/hoistPackagesForDeployment.js
           yarn --cwd examples/nextjs corejam generateSchema
-          API_ORIGIN=http://localhost:3000 yarn --cwd packages/plugins/auth corejam static
+          API_ORIGIN=http://localhost:3000 JWT_HASH=jwthash yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
       - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
