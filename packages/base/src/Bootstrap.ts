@@ -109,7 +109,7 @@ export async function bootstrapSchema(hoisted = false): Promise<introspectionRes
     : false;
   if (hoistedSchema) return (introspection = hoistedSchema);
 
-  let cacheDir = path.join(process.cwd(), ".corejam");
+  let cacheDir = getCacheDir();
 
   if (hoisted) {
     cacheDir = process.cwd();
@@ -149,11 +149,20 @@ export async function bootstrapSchema(hoisted = false): Promise<introspectionRes
     })
   ).data as introspectionResult;
 
+  fs.writeFileSync(schemaCachePath, JSON.stringify(introspection), "utf8");
+
+  return introspection;
+}
+
+/**
+ * Get the current cache dir, create it if needed
+ */
+export function getCacheDir(): string {
+  const cacheDir = path.join(process.cwd(), ".corejam");
+
   if (!fs.existsSync(cacheDir)) {
     fs.mkdirSync(cacheDir);
   }
 
-  fs.writeFileSync(schemaCachePath, JSON.stringify(introspection), "utf8");
-
-  return introspection;
+  return cacheDir;
 }
