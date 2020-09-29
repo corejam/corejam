@@ -6,7 +6,7 @@ import { authStore } from "../../store/authStore";
 
 @Component({
   tag: "corejam-auth-form-register",
-  shadow: true,
+  shadow: true
 })
 export class AuthRegister {
   private formId = "register";
@@ -19,8 +19,8 @@ export class AuthRegister {
       data: {
         email: detail.email.value,
         password: detail.password.value,
-        passwordConfirm: detail.passwordConfirm.value,
-      },
+        passwordConfirm: detail.passwordConfirm.value
+      }
     });
 
     if (request.userRegister) {
@@ -73,7 +73,9 @@ export class AuthRegister {
                 </corejam-box>
                 <corejam-box>
                   <corejam-form-submit formId={this.formId}>
-                    <button data-cy="register-submit" type="submit">Register</button>
+                    <button data-cy="register-submit" type="submit">
+                      Register
+                    </button>
                   </corejam-form-submit>
                 </corejam-box>
               </corejam-box>

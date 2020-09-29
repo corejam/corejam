@@ -33,7 +33,7 @@ export default async function run(options: any) {
 
       setTimeout(() => {
         const watcher = chokidar.watch(envRoot + "/server", {
-          ignored: "*.d.ts",
+          ignored: "*.d.ts"
         });
         watcher.on("change", () => {
           const api = get("api");
@@ -56,8 +56,9 @@ export default async function run(options: any) {
         stdio: logToConsole,
         cwd: envRoot,
         env: {
-          mode: "dev",
-        },
+          ...process.env,
+          NODE_ENV: process.env.NODE_ENV || "development"
+        }
       })
     );
 

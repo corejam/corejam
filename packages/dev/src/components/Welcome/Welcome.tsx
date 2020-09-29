@@ -3,7 +3,7 @@ import { href } from "stencil-router-v2";
 import { state } from "@corejam/router";
 @Component({
   tag: "app-welcome",
-  shadow: true,
+  shadow: true
 })
 export class Welcome {
   @Prop() routes: any;
@@ -25,7 +25,7 @@ export class Welcome {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      height: "95vh",
+      height: "95vh"
     };
 
     return (
@@ -38,7 +38,7 @@ export class Welcome {
                 <h3>Components</h3>
                 <ul>
                   {this.routes &&
-                    Object.keys(this.routes.components).map((k) => {
+                    Object.keys(this.routes.components).map(k => {
                       const route = this.routes.components[k];
                       return (
                         <li>
@@ -51,7 +51,7 @@ export class Welcome {
             )}
             {this.routes && Object.keys(this.routes.routes).length > 0 && <h3>Routes</h3>}
             <ul>
-              {Object.keys(this.routes.routes).map((k) => {
+              {Object.keys(this.routes.routes).map(k => {
                 const route = this.routes.routes[k];
                 return <li>{this.renderAnchorTag(route.url)}</li>;
               })}

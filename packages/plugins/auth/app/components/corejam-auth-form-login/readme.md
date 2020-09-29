@@ -14,6 +14,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [cj-route-login](../../routes)
+
 ### Depends on
 
 - corejam-box
@@ -32,6 +36,7 @@ graph TD;
   corejam-auth-form-login --> corejam-form-submit
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
+  cj-route-login --> corejam-auth-form-login
   style corejam-auth-form-login fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
