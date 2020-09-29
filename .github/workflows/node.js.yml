@@ -27,14 +27,11 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
       - run: |
           yarn --frozen-lockfile
-          mv packages/plugins/auth/.env.sample packages/plugins/auth/.env
-          mv packages/plugins/dershop/.env.sample packages/plugins/dershop/.env
-          mv packages/plugins/core-components/.env.sample packages/plugins/core-components/.env 
           yarn build
           yarn bs
           node ./utils/hoistPackagesForDeployment.js
           yarn --cwd examples/nextjs corejam generateSchema
-          yarn --cwd packages/plugins/auth API_ORIGIN=http://localhost:3000 corejam static
+          API_ORIGIN yarn --cwd packages/plugins/auth =http://localhost:3000 corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
       - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
