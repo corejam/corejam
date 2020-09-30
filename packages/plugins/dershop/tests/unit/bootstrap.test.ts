@@ -4,7 +4,9 @@ import { readFileSync, unlinkSync } from "fs";
 describe("Bootstrap", () => {
   it("collectsPluginsCorrectly", async () => {
     //We should only get plugins back that have server side resolvers
-    expect(collectPlugins()).toHaveLength(2);
+    expect(collectPlugins()).toHaveLength(1);
+
+    //In the manifest we should have process.cwd() listed too as we are inside a plugin
     expect(loadManifest().plugins).toHaveLength(2)
   });
 
