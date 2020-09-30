@@ -53,7 +53,7 @@
     "graphql": "15.3.0",
     "graphql-tools": "6.2.3",
     "husky": "4.3.0",
-    "isomorphic-unfetch": "3.0.0",
+    "isomorphic-unfetch": "3.1.0",
     "lint-staged": "10.4.0"
   },
   "lint-staged": {
