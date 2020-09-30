@@ -3,6 +3,7 @@ import * as fs from "fs";
 import { execute, getIntrospectionQuery, parse } from "graphql";
 import * as path from "path";
 import { PluginLoadError } from "./Errors";
+import { PluginManifest } from "./typings/Plugin";
 
 type introspectionResult = {
   data: any;
@@ -96,6 +97,13 @@ export async function importPlugin(plugin: string) {
 }
 
 /**
+ * Load the manifest file from cache
+ */
+export function loadManifest(): PluginManifest {
+  return JSON.parse(fs.readFileSync(getCacheDir() + "/manifest.json", "utf-8"));
+}
+
+/**
  * Collect the schema from each corejam plugin so we can load it
  * and get a cacheable introspection result that we store to reduce future
  * requests having to build it again.
@@ -123,7 +131,7 @@ export async function bootstrapSchema(hoisted = false): Promise<introspectionRes
   const corePath = path.resolve(__dirname, "../utils/core.graphql");
   let mergedSchemas = fs.readFileSync(corePath, "utf-8");
 
-  for (const plugin of collectPlugins()) {
+  for (const plugin of loadManifest().plugins) {
     const isLocalPlugin = isAPlugin();
     const currentPlugin = await importPlugin(plugin);
 

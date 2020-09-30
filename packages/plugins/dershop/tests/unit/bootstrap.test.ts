@@ -1,10 +1,11 @@
-import { collectPlugins, bootstrapSchema } from "@corejam/base/src/Bootstrap";
+import { collectPlugins, bootstrapSchema, loadManifest } from "@corejam/base/src/Bootstrap";
 import { readFileSync, unlinkSync } from "fs";
 
 describe("Bootstrap", () => {
   it("collectsPluginsCorrectly", async () => {
     //We should only get plugins back that have server side resolvers
     expect(collectPlugins()).toHaveLength(2);
+    expect(loadManifest().plugins).toHaveLength(2)
   });
 
   /**
