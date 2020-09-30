@@ -11,9 +11,10 @@ export function corejamInit(_opts?: any) {
     const bootSpinner = ora(`Initializing Corejam App for ${chalk.bold.green(envPackageName)}...`).start();
 
     //Root packages
-    collectPluginsRecurse(collectPlugins())
+    const rootPlugins = collectPlugins();
+    collectPluginsRecurse(rootPlugins)
 
-    fs.writeFileSync(getCacheDir() + "/manifest.json", JSON.stringify({"plugins": collectedPlugins}));
+    fs.writeFileSync(getCacheDir() + "/manifest.json", JSON.stringify({ "plugins": collectedPlugins }));
 
     bootSpinner.text = "Done"
     bootSpinner.stopAndPersist();
@@ -27,8 +28,9 @@ export function corejamInit(_opts?: any) {
  */
 function collectPluginsRecurse(plugins: Array<string>) {
     return plugins.forEach(plugin => {
-        collectPluginsRecurse(collectPlugins(plugin))
-
-        if(collectedPlugins.includes(plugin) === false) collectedPlugins.push(plugin);
+        if (collectedPlugins.includes(plugin) === false) {
+            collectedPlugins.push(plugin);
+            collectPluginsRecurse(collectPlugins(plugin))
+        }
     })
 }

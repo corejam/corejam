@@ -34,6 +34,7 @@ prog
   .describe("Plugin dev process")
   .option("-l, --log", "Log output to console", false)
   .action(async (opts) => {
+    await corejamInit()
     await runDev(opts);
   });
 
@@ -41,6 +42,7 @@ prog
   .command("api:serve")
   .describe("Start graphql Server")
   .action(async () => {
+    await corejamInit()
     await runApi();
   });
 
@@ -96,6 +98,7 @@ prog
   .option("-l, --log", "Log output to console", false)
   .describe("build static html from app")
   .action(async (opts) => {
+    await corejamInit()
     await buildStatic(opts);
   });
 
@@ -103,6 +106,7 @@ prog
   .command("static:serve")
   .describe("Serve static folder")
   .action(async () => {
+    await corejamInit()
     runApi();
     execa("serve", ["www", "-l", "3001"], { cwd: envRoot });
     console.log("Serving under: http://localhost:3001");
