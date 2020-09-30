@@ -17,7 +17,7 @@ let introspection: any;
  *
  * Otherwise we default to checking current process.cwd if we are inside a package.
  */
-function isAPlugin(packageName: null | string = null) {
+export function isAPlugin(packageName: null | string = null) {
   try {
     if (!packageName) {
       packageName = process.cwd();
@@ -55,10 +55,6 @@ export function collectPlugins(path = process.cwd()): Array<string> {
       plugins.push(key);
     }
   });
-
-  if (isAPlugin()) {
-    plugins.push(process.cwd());
-  }
 
   return plugins;
 }
