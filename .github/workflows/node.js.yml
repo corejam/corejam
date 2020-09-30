@@ -19,7 +19,14 @@ jobs:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
     steps:
       - uses: actions/checkout@v2
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
       - run: |
+          rm -rf node_modules/@corejam node_modules/.bin/corejam
           yarn --frozen-lockfile
           yarn build
           yarn bs
