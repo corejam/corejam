@@ -76,6 +76,7 @@ prog
   });
 
 prog.command("generateSchema").action(async () => {
+  await corejamInit()
   await generateSchema();
 });
 
