@@ -51,7 +51,7 @@
     "faker": "5.1.0",
     "faunadb": "3.0.1",
     "graphql": "15.3.0",
-    "graphql-tools": "6.2.3",
+    "graphql-tools": "6.2.4",
     "husky": "4.3.0",
     "isomorphic-unfetch": "3.1.0",
     "lint-staged": "10.4.0"
