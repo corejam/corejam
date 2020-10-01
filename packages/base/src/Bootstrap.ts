@@ -17,13 +17,15 @@ let introspection: any;
  *
  * Otherwise we default to checking current process.cwd if we are inside a package.
  */
-export function isAPlugin(packageName: null | string = null) {
+export function isAPlugin(packageName?: string) {
   try {
     if (!packageName) {
       packageName = process.cwd();
     }
 
     const packageJson = require(packageName + "/package.json") as Object;
+    if (!packageJson.hasOwnProperty("corejam")) return false;
+
     let hasServerDir = false;
 
     if (process.env.NODE_ENV === "test") hasServerDir = typeof require.resolve(`${packageName}/server/`) === "string";
@@ -31,7 +33,7 @@ export function isAPlugin(packageName: null | string = null) {
       hasServerDir = typeof require.resolve(`${packageName}/dist/server/`) === "string";
     }
 
-    return packageJson.hasOwnProperty("corejam") && hasServerDir ? true : false;
+    return hasServerDir ? true : false;
   } catch (e) {
     return false;
   }
