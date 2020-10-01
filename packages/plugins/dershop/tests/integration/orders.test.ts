@@ -7,8 +7,8 @@ import { OrderDB, OrderEditInput } from '../../shared/types/Order';
 import { PluginResolver } from "../../shared/types/PluginResolver";
 import { ProductCoreInput, ProductDB } from '../../shared/types/Product';
 import { UserDB } from '../../shared/types/User';
-//@ts-ignore
-import { testClient } from "../../src/TestClient";
+import { testClient } from "@corejam/base/src/testClient";
+
 
 describe('Orders', () => {
 

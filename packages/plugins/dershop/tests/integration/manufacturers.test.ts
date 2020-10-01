@@ -5,9 +5,8 @@ import {
 } from "../../server/resolvers/db/faker/Generator";
 import { ManufacturerCreateInput, ManufacturerDB } from "../../shared/types/Manufacturer";
 import { PluginResolver } from "../../shared/types/PluginResolver";
+import { testClient } from "@corejam/base/src/testClient";
 
-//@ts-ignore
-import { testClient } from "../../src/TestClient";
 
 describe("Manufacturers", () => {
   advanceTo(new Date(2020, 5, 27, 0, 0, 0)); // reset to date time.

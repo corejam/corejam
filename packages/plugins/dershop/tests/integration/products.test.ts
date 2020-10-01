@@ -1,22 +1,19 @@
 import { updateDates } from "@corejam/base/src/Functions";
 import { generateImage, generateSeo } from "@corejam/base/src/resolvers/db/faker/Generator";
-import { generateCategory, generateManufacturer } from "../../server/resolvers/db/faker/Generator"
+import { testClient } from "@corejam/base/src/testClient";
 import { Deliverability } from "@corejam/base/src/typings/Utils";
 import * as faker from "faker";
 import { advanceTo } from "jest-date-mock";
-import { productLinkManufacturer, productLinkCategory } from "../../shared/graphql/Mutations/Admin/Product";
-import { paginateProductsGQL } from "../../shared/graphql/Queries/Product";
+import { generateCategory, generateManufacturer } from "../../server/resolvers/db/faker/Generator";
+import { productLinkCategory, productLinkManufacturer } from "../../shared/graphql/Mutations/Admin/Product";
 import { categoryById } from "../../shared/graphql/Queries/Category";
+import { manufacturerById } from "../../shared/graphql/Queries/Manufacturer";
+import { paginateProductsGQL } from "../../shared/graphql/Queries/Product";
+import { CategoryDB } from "../../shared/types/Category";
 import { PluginResolver as ShopResolver } from "../../shared/types/PluginResolver";
 import { PriceInput } from "../../shared/types/Price";
 import { ProductCoreInput, ProductDB, ProductList } from "../../shared/types/Product";
 import { SEO } from "../../shared/types/Seo";
-
-//@ts-ignore
-import { testClient } from "../../src/TestClient";
-import { manufacturerById } from "../../shared/graphql/Queries/Manufacturer";
-
-import { CategoryDB } from "../../shared/types/Category";
 
 describe("Products", () => {
   advanceTo(new Date(2020, 5, 27, 0, 0, 0)); // reset to date time.
@@ -151,6 +148,7 @@ describe("Products", () => {
       query: paginateProductsGQL,
       variables: { page: 1, size: 24 }
     })
+    console.log(pagination)
 
     const paginated: ProductList = pagination.data.paginateProducts;
     expect(paginated).toHaveProperty("sidebar");

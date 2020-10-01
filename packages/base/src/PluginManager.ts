@@ -17,6 +17,7 @@ export function getDataClient(identifier: string, initClient: () => object, purg
     client = initClient();
     dataClients.set(identifier, client);
   }
+  console.log(dataClients.entries.length)
 
   return client;
 }

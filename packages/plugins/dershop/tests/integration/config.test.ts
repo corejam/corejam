@@ -1,8 +1,7 @@
 import { PluginResolver } from "../../shared/types/PluginResolver";
 import { generateConfig, generateSeo } from "../../server/resolvers/db/faker/Generator";
+import { testClient } from "@corejam/base/src/testClient";
 
-//@ts-ignore
-import { testClient } from "../../src/TestClient";
 
 describe("Config", () => {
   //This is the document ID we use to run various tests against instead of reading in every test

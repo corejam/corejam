@@ -13,7 +13,7 @@ require('dotenv').config()
 
 module.exports = {
     "globals": {
-        "ts-jest": { "tsConfig": "tsconfig.json" }
+        "ts-jest": { "tsConfig": __dirname + "/tsconfig-jest.json" }
     },
     preset: "ts-jest",
     coverageReporters: ["clover", "lcov"],
@@ -25,7 +25,7 @@ module.exports = {
         `<rootDir>/server/**/*.ts`,
     ],
     moduleNameMapper: {
-        "@corejam/base/dist/(.*)": "<rootDir>/__LINKEDPKGS__/base/src/$1",
-        "@corejam/base/(.*)": "<rootDir>/__LINKEDPKGS__/base/$1",
+        "@corejam/base/dist/(.*)": __dirname + "/src/$1",
+        "@corejam/base/(.*)": __dirname + "/$1",
     }
 }

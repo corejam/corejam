@@ -33,7 +33,7 @@
     "dev": "corejam dev",
     "build": "corejam build",
     "postbuild": "perl -i -pe's|yield browser|yield fetch|g' ./web-components/hydrate/index.js",
-    "test": "corejam test",
+    "test": "jest --verbose --config=../../base/jest.config.js ./tests",
     "precommit": "lint-staged",
     "static": "corejam static",
     "static:serve": "corejam static:serve",

@@ -34,7 +34,7 @@
     "baseUrl": "./src",
     "paths": {
         "@corejam/base/*": [
-            "__LINKEDPKGS__/base/src/*"
+            "src/*"
         ],
     }
 }
