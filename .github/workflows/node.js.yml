@@ -93,7 +93,7 @@ jobs:
   cypress-static-plugin-auth:
     runs-on: ubuntu-latest
     container:
-      image: "corejam/cypress:0.0.1"
+      image: "corejam/cypress:0.0.2"
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -129,7 +129,7 @@ jobs:
   cypress:
     runs-on: ubuntu-latest
     container:
-      image: "corejam/cypress:0.0.1"
+      image: "corejam/cypress:0.0.2"
     needs:
       - integration-tests
       - cypress-static-plugin-auth
