@@ -19,8 +19,7 @@ const config: Config = {
   outputTargets: [],
   plugins: [
     replace({
-      "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
-      "process.env.JWT_HASH": JSON.stringify(process.env.JWT_HASH)
+      "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN)
     })
   ]
 };
@@ -62,7 +61,9 @@ if (targets.includes("react")) {
     reactOutputTarget({
       componentCorePackage: "@corejam/stencil-runner",
       proxiesFile: "../react-bindings/src/components.ts",
-      loaderDir: "web-components/loader"
+      loaderDir: "web-components/loader",
+      includeDefineCustomElements: true
+      // includePolyfills: true // Enable if needed
     })
   );
 }

@@ -60,7 +60,9 @@ if (targets.includes("react")) {
     reactOutputTarget({
       componentCorePackage: "@corejam/stencil-runner",
       proxiesFile: "../react-bindings/src/components.ts",
-      loaderDir: "web-components/loader"
+      loaderDir: "web-components/loader",
+      includeDefineCustomElements: true
+      // includePolyfills: true // Enable if needed
     })
   );
 }
