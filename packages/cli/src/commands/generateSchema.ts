@@ -1,4 +1,4 @@
-import { bootstrapSchema, collectPlugins } from "@corejam/base/dist/Bootstrap";
+import { bootstrapSchema, loadManifest } from "@corejam/base/dist/Bootstrap";
 import * as fs from "fs";
 import * as path from "path"
 
@@ -9,7 +9,7 @@ function generateConstName(name: string) {
 export default async function createSchema() {
   await bootstrapSchema(true);
 
-  const plugins = collectPlugins();
+  const plugins = loadManifest().plugins;
 
   const data = `
     ${plugins

@@ -28,3 +28,15 @@ export async function replaceCoveragePaths() {
     to: envRoot,
   });
 }
+
+/**
+ * Replace the paths to test runner for the generated plugins inside the 
+ * runner manifest
+ */
+export async function replaceTestingModulePaths() {
+  replace.sync({
+    files: testRunner + "/.corejam/manifest.json",
+    from: envRoot,
+    to: testRunner,
+  });
+}

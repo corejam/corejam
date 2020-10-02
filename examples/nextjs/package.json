@@ -16,9 +16,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@corejam/base": "0.0.2",
-    "@corejam/core-components": "0.0.2",
-    "@corejam/plugin-auth": "0.0.2",
     "@corejam/plugin-dershop": "0.0.2",
     "cheerio": "1.0.0-rc.3",
     "dotenv-webpack": "1.8.0",
