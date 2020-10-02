@@ -1,8 +1,9 @@
 import { coreState } from "@corejam/core-components";
 import { authStore } from "@corejam/plugin-auth";
-import { Component, h, State, Listen } from "@stencil/core";
+import { Component, h, Listen, State } from "@stencil/core";
+import { updateUserGQL } from "../../../shared/graphql/Mutations/User";
+import { currentUser } from "../../../shared/graphql/Queries/User";
 import { User } from "../../../shared/types/User";
-import { currentUser } from "../../../shared/graphql/Queries/User"
 
 @Component({
     tag: "dershop-account",
@@ -25,8 +26,21 @@ export class AccountComponent {
         this.user = request.currentUser;
     }
 
-    async updateProfile(_detail) {
-        //Todo
+    async updateProfile(detail) {
+        console.log(detail)
+
+        const userInput = {};
+
+        Object.keys(detail).map(value => {
+            if (detail[value].key) {
+                userInput[detail[value].key] = detail[value].value
+            }
+        })
+
+        await coreState.client.request(updateUserGQL, {
+            id: authStore.identity.user.id,
+            userInput
+        })
     }
 
     async componentWillRender() {
@@ -68,16 +82,16 @@ export class AccountComponent {
                                     <corejam-form-input
                                         label="First name"
                                         required
+                                        name="firstName"
                                         formId={this.profileFormId}
                                         value={this.user.firstName}
                                         type="text"
                                         placeholder="Firstname"
-                                        id="firstname"
                                     ></corejam-form-input>
                                 </corejam-box>
                                 <corejam-box w={6} pl={4}>
                                     <corejam-form-input
-                                        id="lastname"
+                                        name="lastName"
                                         required
                                         formId={this.profileFormId}
                                         value={this.user.lastName}
@@ -90,7 +104,7 @@ export class AccountComponent {
                             <corejam-box flex mb={8}>
                                 <corejam-box w={6} pr={4}>
                                     <corejam-form-input
-                                        id="birthday"
+                                        name="birthday"
                                         label="Birthday"
                                         formId={this.profileFormId}
                                         type="date"
@@ -101,7 +115,7 @@ export class AccountComponent {
                             <corejam-box flex mb={8}>
                                 <corejam-box w={6} pr={4}>
                                     <corejam-form-input
-                                        id="phonenumber"
+                                        name="phoneNumber"
                                         type="number"
                                         formId={this.profileFormId}
                                         label="Phone number"
@@ -110,7 +124,7 @@ export class AccountComponent {
                                 </corejam-box>
                                 <corejam-box w={6} pl={4}>
                                     <corejam-form-input
-                                        id="mail"
+                                        name="email"
                                         type="email"
                                         formId={this.profileFormId}
                                         required

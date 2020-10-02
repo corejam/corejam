@@ -69,7 +69,8 @@ export default {
   },
   Mutation: {
     userEdit: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
-      checkUserHasRole(await user(), roles.ADMIN);
+      const currentUser = await user();
+      if(args.id !== currentUser.id) checkUserHasRole(await user(), roles.ADMIN)
 
       return models.userEdit(args.id, args.userInput);
     },

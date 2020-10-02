@@ -18,7 +18,7 @@ export class CorejamFormSubmit implements ComponentInterface {
   }
   render() {
     return (
-      <Host onClick={(e) => this.onClick(e)}>
+      <Host onClick={(e) => this.onClick(e)} data-cy={`submit-${this.formId}`}>
         <slot></slot>
       </Host>
     );

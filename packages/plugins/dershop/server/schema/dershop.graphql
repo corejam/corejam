@@ -10,6 +10,11 @@ extend input RegisterInput {
   lastName: String!
 }
 
+extend input UserInput {
+  firstName: String
+  lastName: String
+}
+
 type Address {
   street: String!
   street_2: String
