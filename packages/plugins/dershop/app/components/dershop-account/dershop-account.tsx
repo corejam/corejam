@@ -1,8 +1,8 @@
 import { coreState } from "@corejam/core-components";
 import { authStore } from "@corejam/plugin-auth";
 import { Component, h, State, Listen } from "@stencil/core";
-import { User } from "../../shared/types/User";
-import { currentUser } from "../../shared/graphql/Queries/User"
+import { User } from "../../../shared/types/User";
+import { currentUser } from "../../../shared/graphql/Queries/User"
 
 @Component({
     tag: "dershop-account",
