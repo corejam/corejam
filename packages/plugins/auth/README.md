@@ -1,11 +1,14 @@
-# `auth`
+# @corejam/plugin-auth
 
-> TODO: description
+This package provides some basic functionality for bootstrapping Corejam applications with JWT authentication.
 
-## Usage
+## Installation
 
+### npm
+```bash
+npm i @corejam/plugin-auth
 ```
-const auth = require('auth');
-
-// TODO: DEMONSTRATE API
+### yarn
+```bash
+yarn add @corejam/plugin-auth
 ```
