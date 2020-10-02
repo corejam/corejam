@@ -21,9 +21,9 @@ GraphQL Playground: http://localhost:3000/api/graphql
 
 # CDN / Ege Caching
 
-...
+Coming soon
 
-# DB Bootstrap & Vercel Deploy
+# DB Bootstrap
 
 We currently offer a bootstrap script to launch a new FaunaDB and have it bootstrapped with the schema & sample products.
 
@@ -63,12 +63,15 @@ DB_DRIVER=DB_FAUNA
 SECRET_KEY=<new_generated_db_secret>
 ```
 
-Your local development instance should now connect to faunadB:
+Your local development instance should now connect to faunadB.
 
-```bash
-$ cd examples/nextjs
-$ yarn dev
-```
+### Netlify deploy
+Coming soon
+
+### AWS Lambda Deploy 
+Coming soon
+
+### Vercel Deploy
 
 To deploy the development shop to vercel we need to move our compiled dist/ folders from various packages into our
 next shop to be uploaded with the deployment. (This step is only required for dev setup)
