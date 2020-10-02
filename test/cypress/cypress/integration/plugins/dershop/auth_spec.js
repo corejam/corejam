@@ -15,7 +15,7 @@ describe("Basic Authentication checks", function () {
     cy.getTag("register-password").type(password)
     cy.getTag("register-passwordConfirm").type(password)
 
-    cy.getTag("register-submit").click()
+    cy.getTag("submit-register").click()
     cy.url().should("include", "/login");
 
     cy.login(email, password);
@@ -35,7 +35,7 @@ describe("Basic Authentication checks", function () {
     cy.getTag("user-link").contains(email).click()
 
     cy.getTag("userForm-active").click()
-    cy.getTag("user-form-submit").click()
+    cy.getTag("submit-userForm").click()
 
     cy.wait(1000)
 
@@ -70,7 +70,7 @@ describe("Basic Authentication checks", function () {
     cy.getTag("register-password").type(password)
     cy.getTag("register-passwordConfirm").type(password)
 
-    cy.getTag("register-submit").click()
+    cy.getTag("submit-register").click()
     cy.url().should("include", "/login");
 
     cy.login(email, password);

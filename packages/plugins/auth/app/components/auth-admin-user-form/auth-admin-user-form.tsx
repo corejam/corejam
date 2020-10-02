@@ -106,7 +106,7 @@ export class AuthAdminUserForm {
                   </corejam-box>
                   <corejam-box>
                     <corejam-form-submit formId="userForm">
-                      <button data-cy="user-form-submit" type="submit">
+                      <button type="submit">
                         Edit
                       </button>
                     </corejam-form-submit>
