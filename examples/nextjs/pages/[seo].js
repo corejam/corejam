@@ -17,20 +17,15 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const serverContext = await getServerContext({})
-  const seoObject = await serverContext.models.objectFromURL(params.seo);
-  Object.keys(seoObject).forEach(key => seoObject[key] === undefined ? delete seoObject[key] : {});
-
   return {
     props: {
       seo: params.seo,
-      seoObject: seoObject
     }
   }
 }
 
-const Url = ({seo, seoObject}) => {
-  return <DershopUrl param={JSON.stringify({url: seo})} object={JSON.stringify(seoObject)} />
+const Url = ({seo }) => {
+  return <DershopUrl param={JSON.stringify({url: seo})} />
 };
 
 export default Url;

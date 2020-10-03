@@ -10,7 +10,6 @@ import { ManufacturerDB } from "shared/types/Manufacturer";
 import { Product } from "../shared/types/Product";
 import { SEO } from "@corejam/base/dist/typings/Seo";
 import { Sidebar } from "../shared/types/Sidebar";
-import { SEODocument } from "shared/types/Seo";
 export namespace Components {
     interface DershopAccount {
     }
@@ -122,7 +121,6 @@ export namespace Components {
         "text": string;
     }
     interface DershopUrl {
-        "object": SEODocument;
         "param": any;
     }
 }
@@ -451,7 +449,6 @@ declare namespace LocalJSX {
         "text"?: string;
     }
     interface DershopUrl {
-        "object"?: SEODocument;
         "param"?: any;
     }
     interface IntrinsicElements {
