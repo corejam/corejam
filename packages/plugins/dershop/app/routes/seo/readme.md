@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type  | Default     |
-| -------- | --------- | ----------- | ----- | ----------- |
-| `param`  | `param`   |             | `any` | `undefined` |
+| Property | Attribute | Description | Type                                                                                                        | Default     |
+| -------- | --------- | ----------- | ----------------------------------------------------------------------------------------------------------- | ----------- |
+| `object` | --        |             | `{ product?: ProductDB; category?: CategoryDB; manufacturer?: ManufacturerDB; canvasPage?: CanvasPageDB; }` | `undefined` |
+| `param`  | `param`   |             | `any`                                                                                                       | `undefined` |
 
 
 ## Dependencies

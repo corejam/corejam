@@ -1,8 +1,8 @@
-import { Component, Host, h, Prop, State } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
-import { getObjectFromURL } from "../../../shared/graphql/Queries/URL";
+import { Build, Component, h, Host, Prop, State } from "@stencil/core";
 import { SEODocument } from "shared/types/Seo";
 import gql from "graphql-tag";
+import { getObjectFromURL } from "../../../shared/graphql/Queries/URL";
 
 @Component({
   tag: "dershop-url",
@@ -10,6 +10,7 @@ import gql from "graphql-tag";
 })
 export class UrlRoute {
   @Prop() param: any;
+  @Prop() object: SEODocument;
   @State() _param: any;
   @State() _data: SEODocument;
   @State() _object: any;
@@ -18,14 +19,22 @@ export class UrlRoute {
   async componentWillLoad() {
     this._param = typeof this.param === "string" ? JSON.parse(this.param) : this.param;
 
-    this._data = (
-      await coreState.client.query({
-        query: gql(getObjectFromURL), variables: {
-          url: this._param.url,
-        }
-      })
-    ).data.objectFromURL;
-    console.log(this._data);
+    if (!this.object) {
+      this._param = typeof this.param === "string" ? JSON.parse(this.param) : this.param;
+      if (Build.isBrowser) {
+        this._data = (
+          await coreState.client.query({
+            query: gql(getObjectFromURL), variables: {
+              url: this._param.url,
+            }
+          })
+        ).data.objectFromURL;
+
+      } else {
+        this._data = typeof this.object === "string" ? { ...JSON.parse(this.object) } : this.object;
+      }
+    }
+
     this._component = this.getComponentForRoute();
   }
 
