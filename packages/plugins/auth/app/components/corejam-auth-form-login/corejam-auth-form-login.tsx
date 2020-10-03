@@ -66,7 +66,7 @@ export class AuthLoginForm {
                   </corejam-box>
                   <corejam-box>
                     <corejam-form-submit formId={this.formId}>
-                      <button data-cy="submit-login" type="submit">
+                      <button type="submit">
                         Login
                       </button>
                     </corejam-form-submit>

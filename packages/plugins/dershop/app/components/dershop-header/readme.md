@@ -18,6 +18,7 @@
 
 ### Used by
 
+ - [dershop-route-account](../../routes)
  - [dershop-route-admin-order-view](../../routes/admin/order/view)
  - [dershop-route-admin-orders](../../routes/admin/order)
  - [dershop-route-cart](../../routes)
@@ -52,6 +53,7 @@ graph TD;
   corejam-identity --> corejam-button
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
+  dershop-route-account --> dershop-header
   dershop-route-admin-order-view --> dershop-header
   dershop-route-admin-orders --> dershop-header
   dershop-route-cart --> dershop-header

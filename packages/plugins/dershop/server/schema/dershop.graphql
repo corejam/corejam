@@ -10,6 +10,11 @@ extend input RegisterInput {
   lastName: String!
 }
 
+extend input UserInput {
+  firstName: String
+  lastName: String
+}
+
 type Address {
   street: String!
   street_2: String
@@ -248,6 +253,7 @@ extend type Query {
   categoryByUrl(url: String!): Category
   categoryById(id: String!): Category
   getSEOIndex: [String]
+  currentUser: User
 }
 
 type LinkResult {
