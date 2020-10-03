@@ -7,6 +7,7 @@ export class AppRoot {
   private routes: any;
   private wrapper: any;
   private recos: any;
+  private layout: any;
   @Prop() static: boolean = false;
   @State() docs: any = [];
   @State() hash: any;
@@ -21,6 +22,7 @@ export class AppRoot {
           this.wrapper = configJson?.wrapper || [];
           this.recos = configJson?.recommendations || [];
           this.mode = configJson.mode;
+          this.layout = configJson.layout;
           // if (process.env.MODE !== "static") {
           //   const docs = await fetch("/assets/custom-elements.json");
           //   if (docs) {
@@ -44,13 +46,21 @@ export class AppRoot {
     });
   }
 
+  renderLayout(children) {
+    if (this.layout) {
+      const Layout = this.layout.component;
+      return <Layout>{children}</Layout>
+    }
+    return children;
+  }
+
   render() {
     const Wrapper = this.wrapper ? this.wrapper[0] : "div";
     return (
       <Host>
         <Wrapper>
           {this.renderRecos()}
-          <app-router routes={this.routes} mode={this.mode} />
+          {this.renderLayout(<app-router routes={this.routes} mode={this.mode} />)}
         </Wrapper>
       </Host>
     );

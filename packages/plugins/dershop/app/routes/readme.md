@@ -5,24 +5,53 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property | Attribute | Description | Type  | Default     |
+| -------- | --------- | ----------- | ----- | ----------- |
+| `param`  | `param`   |             | `any` | `undefined` |
+
+
 ## Dependencies
 
 ### Depends on
 
-- [dershop-form-register](../components/dershop-form-register)
+- [dershop-product](../components/product)
+- [dershop-product-list](../components/dershop-product-list)
+- [dershop-manufacturer](../components/dershop-manufacturer)
+- [dershop-seo](../components/seo)
 
 ### Graph
 ```mermaid
 graph TD;
-  dershop-route-register --> dershop-form-register
-  dershop-form-register --> corejam-box
-  dershop-form-register --> corejam-type
-  dershop-form-register --> corejam-form-container
-  dershop-form-register --> corejam-form-input
-  dershop-form-register --> corejam-form-submit
-  corejam-form-input --> corejam-box
-  corejam-form-input --> corejam-type
-  style dershop-route-register fill:#f9f,stroke:#333,stroke-width:4px
+  dershop-url --> dershop-product
+  dershop-url --> dershop-product-list
+  dershop-url --> dershop-manufacturer
+  dershop-url --> dershop-seo
+  dershop-product --> corejam-box
+  dershop-product --> dershop-image
+  dershop-product --> corejam-type
+  dershop-product --> corejam-base-link
+  dershop-product-list --> corejam-box
+  dershop-product-list --> dershop-sidebar
+  dershop-product-list --> corejam-type
+  dershop-product-list --> corejam-grid
+  dershop-product-list --> dershop-product-box
+  dershop-product-list --> corejam-pagination
+  dershop-sidebar --> corejam-box
+  dershop-sidebar --> corejam-type
+  dershop-sidebar --> corejam-base-link
+  dershop-product-box --> corejam-box
+  dershop-product-box --> corejam-base-link
+  dershop-product-box --> corejam-image
+  dershop-product-box --> corejam-type
+  corejam-pagination --> corejam-box
+  corejam-pagination --> corejam-base-link
+  corejam-pagination --> corejam-type
+  dershop-manufacturer --> corejam-box
+  dershop-manufacturer --> corejam-type
+  dershop-manufacturer --> dershop-product-list
+  style dershop-url fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

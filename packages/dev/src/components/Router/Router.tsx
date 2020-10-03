@@ -11,12 +11,46 @@ export class AppRouter {
   @Prop() routes: any;
   @Prop() docs: any;
   @Prop() mode: string;
+ 
+
+  caculateRoutes() {
+    const wildcards = [];
+    const named = [];
+    if (this.routes.routes) {
+      Object.keys(this.routes.routes).map((k) => {
+        const route = this.routes.routes[k];
+        const Component = route.component;
+        if (route.url.indexOf("[") > -1) {
+          const dynamicMatch = route.url.match(/\[.+\]/)[0];
+          const paramName = dynamicMatch.replace("[", "").replace("]", "");
+          const raw = route.url.replace(dynamicMatch, "");
+          const newUrl = raw + ":" + paramName;
+          return wildcards.push(
+            <Route
+              path={match(newUrl, { exact: true })}
+              render={(router) => <Component param={router}></Component>}
+            />
+          );
+        }
+        return named.push (
+          <Route path={route.url}>
+            <Component></Component>
+          </Route>
+        );
+      });
+      return (
+        [...named, ...wildcards]
+      )      
+     
+    }
+    
+  }
 
   render() {
     return (
       <Host>
         <Router.Switch>
-          <Route path="/">
+          <Route path="/_corejam/">
             <app-welcome routes={this.routes} mode={this.mode} />
           </Route>
           <Route path="/liveview">
@@ -26,7 +60,7 @@ export class AppRouter {
             Object.keys(this.routes.components).map((k) => {
               const component = this.routes.components[k];
               return (
-                <Route path={component.url}>
+                <Route path={`/_corejam${component.url}`}>
                   <app-playground
                     cmp={component.component}
                     // data={this.docs.tags.filter((d) => d.name === component.component)[0]}
@@ -34,29 +68,7 @@ export class AppRouter {
                 </Route>
               );
             })}
-          {this.routes &&
-            Object.keys(this.routes.routes).map((k) => {
-              const route = this.routes.routes[k];
-              const Component = route.component;
-
-              if (route.url.indexOf("[") > -1) {
-                const dynamicMatch = route.url.match(/\[.+\]/)[0];
-                const paramName = dynamicMatch.replace("[", "").replace("]", "");
-                const raw = route.url.replace(dynamicMatch, "");
-                const newUrl = raw + ":" + paramName;
-                return (
-                  <Route
-                    path={match(newUrl, { exact: true })}
-                    render={(router) => <Component param={router}></Component>}
-                  />
-                );
-              }
-              return (
-                <Route path={route.url}>
-                  <Component></Component>
-                </Route>
-              );
-            })}
+          {this.caculateRoutes()}
         </Router.Switch>
       </Host>
     );

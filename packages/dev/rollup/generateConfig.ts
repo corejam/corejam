@@ -1,4 +1,4 @@
-import { listAsync, readAsync } from "fs-jetpack";
+import { listAsync, readAsync, existsAsync } from "fs-jetpack";
 
 export async function writeConfig() {
   const pluginPkg = require(process.cwd() + "/package.json");
@@ -12,7 +12,8 @@ export async function writeConfig() {
     wrapper: [],
     recommendations: [],
     dependencies: [],
-    external: []
+    external: [],
+    layout: null
   };
 
   const regexTag = /tag: \"(.*)\"/;
@@ -87,6 +88,22 @@ export async function writeConfig() {
 
   if (pluginPkg.corejam.external) {
     config.external = pluginPkg.corejam.external;
+  }
+
+  if (await existsAsync(root + "/app/layout")) {
+    const componentLevel = (await listAsync(root + "/app/layout")) || [];
+    for (const file of componentLevel) {
+      if (file.includes("tsx")) {
+        const f = await readAsync(root + "/app/layout/" + file);
+        const tagMatch = f.match(regexTag);
+        if (tagMatch)
+          config["layout"] = {
+            type: "layout",
+            component: tagMatch[1]
+          };
+      }
+    }
+
   }
 
   return config;

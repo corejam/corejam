@@ -1,6 +1,6 @@
 import { Component, Host, h, Prop, State } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
-import { getObjectFromURL } from "../../../shared/graphql/Queries/URL";
+import { getObjectFromURL } from "../../shared/graphql/Queries/URL";
 import { SEODocument } from "shared/types/Seo";
 
 @Component({

@@ -14,7 +14,7 @@ export class Welcome {
   renderAnchorTag(url: string) {
     if (url.indexOf("[") > -1) {
       const dynamicMatch = url.match(/\[.+\]/)[0];
-      const urlWithoutParams = url.replace(dynamicMatch, "");
+      const urlWithoutParams = "/_corejam/component/" + url.replace(dynamicMatch, "");
       return <a {...href(urlWithoutParams + "1", state.router)}>{url}</a>;
     }
     return <a {...href(url, state.router)}>{this.formatUrl(url)}</a>;
@@ -42,7 +42,7 @@ export class Welcome {
                       const route = this.routes.components[k];
                       return (
                         <li>
-                          <a {...href(route.url, state.router)}>{this.formatUrl(route.url)}</a>
+                          <a {...href("/_corejam" + route.url, state.router)}>{this.formatUrl(route.url)}</a>
                         </li>
                       );
                     })}

@@ -44,6 +44,8 @@ export namespace Components {
         "h": string;
         "src": string;
     }
+    interface DershopLayout {
+    }
     interface DershopLogo {
     }
     interface DershopManufacturer {
@@ -105,6 +107,8 @@ export namespace Components {
     interface DershopRouteIndex {
     }
     interface DershopRouteLogin {
+    }
+    interface DershopRouteProducts {
     }
     interface DershopRouteRegister {
     }
@@ -191,6 +195,12 @@ declare global {
         prototype: HTMLDershopImageElement;
         new (): HTMLDershopImageElement;
     };
+    interface HTMLDershopLayoutElement extends Components.DershopLayout, HTMLStencilElement {
+    }
+    var HTMLDershopLayoutElement: {
+        prototype: HTMLDershopLayoutElement;
+        new (): HTMLDershopLayoutElement;
+    };
     interface HTMLDershopLogoElement extends Components.DershopLogo, HTMLStencilElement {
     }
     var HTMLDershopLogoElement: {
@@ -269,6 +279,12 @@ declare global {
         prototype: HTMLDershopRouteLoginElement;
         new (): HTMLDershopRouteLoginElement;
     };
+    interface HTMLDershopRouteProductsElement extends Components.DershopRouteProducts, HTMLStencilElement {
+    }
+    var HTMLDershopRouteProductsElement: {
+        prototype: HTMLDershopRouteProductsElement;
+        new (): HTMLDershopRouteProductsElement;
+    };
     interface HTMLDershopRouteRegisterElement extends Components.DershopRouteRegister, HTMLStencilElement {
     }
     var HTMLDershopRouteRegisterElement: {
@@ -317,6 +333,7 @@ declare global {
         "dershop-icons-menu": HTMLDershopIconsMenuElement;
         "dershop-icons-spotlight": HTMLDershopIconsSpotlightElement;
         "dershop-image": HTMLDershopImageElement;
+        "dershop-layout": HTMLDershopLayoutElement;
         "dershop-logo": HTMLDershopLogoElement;
         "dershop-manufacturer": HTMLDershopManufacturerElement;
         "dershop-manufacturer-list": HTMLDershopManufacturerListElement;
@@ -330,6 +347,7 @@ declare global {
         "dershop-route-cart": HTMLDershopRouteCartElement;
         "dershop-route-index": HTMLDershopRouteIndexElement;
         "dershop-route-login": HTMLDershopRouteLoginElement;
+        "dershop-route-products": HTMLDershopRouteProductsElement;
         "dershop-route-register": HTMLDershopRouteRegisterElement;
         "dershop-seo": HTMLDershopSeoElement;
         "dershop-sidebar": HTMLDershopSidebarElement;
@@ -371,6 +389,8 @@ declare namespace LocalJSX {
         "fit"?: objectFit;
         "h"?: string;
         "src"?: string;
+    }
+    interface DershopLayout {
     }
     interface DershopLogo {
     }
@@ -434,6 +454,8 @@ declare namespace LocalJSX {
     }
     interface DershopRouteLogin {
     }
+    interface DershopRouteProducts {
+    }
     interface DershopRouteRegister {
     }
     interface DershopSeo {
@@ -463,6 +485,7 @@ declare namespace LocalJSX {
         "dershop-icons-menu": DershopIconsMenu;
         "dershop-icons-spotlight": DershopIconsSpotlight;
         "dershop-image": DershopImage;
+        "dershop-layout": DershopLayout;
         "dershop-logo": DershopLogo;
         "dershop-manufacturer": DershopManufacturer;
         "dershop-manufacturer-list": DershopManufacturerList;
@@ -476,6 +499,7 @@ declare namespace LocalJSX {
         "dershop-route-cart": DershopRouteCart;
         "dershop-route-index": DershopRouteIndex;
         "dershop-route-login": DershopRouteLogin;
+        "dershop-route-products": DershopRouteProducts;
         "dershop-route-register": DershopRouteRegister;
         "dershop-seo": DershopSeo;
         "dershop-sidebar": DershopSidebar;
@@ -499,6 +523,7 @@ declare module "@stencil/core" {
             "dershop-icons-menu": LocalJSX.DershopIconsMenu & JSXBase.HTMLAttributes<HTMLDershopIconsMenuElement>;
             "dershop-icons-spotlight": LocalJSX.DershopIconsSpotlight & JSXBase.HTMLAttributes<HTMLDershopIconsSpotlightElement>;
             "dershop-image": LocalJSX.DershopImage & JSXBase.HTMLAttributes<HTMLDershopImageElement>;
+            "dershop-layout": LocalJSX.DershopLayout & JSXBase.HTMLAttributes<HTMLDershopLayoutElement>;
             "dershop-logo": LocalJSX.DershopLogo & JSXBase.HTMLAttributes<HTMLDershopLogoElement>;
             "dershop-manufacturer": LocalJSX.DershopManufacturer & JSXBase.HTMLAttributes<HTMLDershopManufacturerElement>;
             "dershop-manufacturer-list": LocalJSX.DershopManufacturerList & JSXBase.HTMLAttributes<HTMLDershopManufacturerListElement>;
@@ -512,6 +537,7 @@ declare module "@stencil/core" {
             "dershop-route-cart": LocalJSX.DershopRouteCart & JSXBase.HTMLAttributes<HTMLDershopRouteCartElement>;
             "dershop-route-index": LocalJSX.DershopRouteIndex & JSXBase.HTMLAttributes<HTMLDershopRouteIndexElement>;
             "dershop-route-login": LocalJSX.DershopRouteLogin & JSXBase.HTMLAttributes<HTMLDershopRouteLoginElement>;
+            "dershop-route-products": LocalJSX.DershopRouteProducts & JSXBase.HTMLAttributes<HTMLDershopRouteProductsElement>;
             "dershop-route-register": LocalJSX.DershopRouteRegister & JSXBase.HTMLAttributes<HTMLDershopRouteRegisterElement>;
             "dershop-seo": LocalJSX.DershopSeo & JSXBase.HTMLAttributes<HTMLDershopSeoElement>;
             "dershop-sidebar": LocalJSX.DershopSidebar & JSXBase.HTMLAttributes<HTMLDershopSidebarElement>;
