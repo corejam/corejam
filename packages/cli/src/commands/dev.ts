@@ -8,7 +8,7 @@ import kill from "kill-port";
 import { envRoot } from "../config";
 import { copySchemaToDist } from "../helpers/copy";
 import { cleanActiveRunner } from "../helpers/resetStages";
-import { set, get } from "../processes";
+import { set, get, kill as killProcess } from "../processes";
 
 export default async function run(options: any) {
   try {
@@ -37,7 +37,7 @@ export default async function run(options: any) {
         });
         watcher.on("change", () => {
           const api = get("api");
-          if (api) api.kill();
+          if (api) killProcess("api");
           jetpack.removeAsync(envRoot + "/.corejam");
           set("api", execa("corejam", ["api:serve"], { stdio: logToConsole, cwd: envRoot }));
         });
