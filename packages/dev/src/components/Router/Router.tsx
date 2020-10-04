@@ -11,7 +11,6 @@ export class AppRouter {
   @Prop() routes: any;
   @Prop() docs: any;
   @Prop() mode: string;
- 
 
   caculateRoutes() {
     const wildcards = [];
@@ -26,24 +25,17 @@ export class AppRouter {
           const raw = route.url.replace(dynamicMatch, "");
           const newUrl = raw + ":" + paramName;
           return wildcards.push(
-            <Route
-              path={match(newUrl, { exact: true })}
-              render={(router) => <Component param={router}></Component>}
-            />
+            <Route path={match(newUrl, { exact: true })} render={(router) => <Component param={router}></Component>} />
           );
         }
-        return named.push (
+        return named.push(
           <Route path={route.url}>
             <Component></Component>
           </Route>
         );
       });
-      return (
-        [...named, ...wildcards]
-      )      
-     
+      return [...named, ...wildcards];
     }
-    
   }
 
   render() {
