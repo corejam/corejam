@@ -11,3 +11,4 @@ export { userByToken } from "./queries/User";
 export { Resolvers } from "./resolvers";
 export { CoreResolver } from "./typings/CoreResolver";
 export { GraphQLClient } from "./client/Client";
+export { collectPlugins, importPlugin, isAPlugin } from "./Bootstrap";

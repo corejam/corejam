@@ -10,8 +10,18 @@ export default async function run() {
       return send(res, 200, "ok!");
     }
 
-    const server = await CorejamServer();
-    return server.createHandler({ path: "/api/graphql" })(req, res);
+    if (req.url.indexOf("/_corejam/static/") === 0) {
+      const serveHandler = require('serve-handler');
+      return await serveHandler(req, res, {
+        "rewrites": [
+          { "source": "_corejam/static/manifest.json", "destination": ".corejam/manifest.json" },
+          { "source": "_corejam/static/schema.json", "destination": ".corejam/schema.json" }
+        ]
+      })
+    } else {
+      const server = await CorejamServer();
+      return server.createHandler({ path: "/api/graphql" })(req, res);
+    }
   };
 
   const devServer = () => cors(handler);

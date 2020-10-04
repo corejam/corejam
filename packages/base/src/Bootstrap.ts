@@ -1,16 +1,10 @@
-import { makeExecutableSchema } from "@graphql-tools/schema";
-import * as fs from "fs";
-import { execute, getIntrospectionQuery, parse } from "graphql";
 import * as path from "path";
 import { PluginLoadError } from "./Errors";
 import { PluginManifest } from "./typings/Plugin";
+import { fetchStaticFile } from "./Server";
+import { IntrospectionResult } from "./typings/Server";
 
-type introspectionResult = {
-  data: any;
-};
-
-
-let introspection: any;
+let introspection: IntrospectionResult;
 
 /**
  * Check if we are currently a plugin that needs to load server side code.
@@ -98,8 +92,8 @@ export async function importPlugin(plugin: string) {
 /**
  * Load the manifest file from cache
  */
-export function loadManifest(): PluginManifest {
-  return JSON.parse(fs.readFileSync(getCacheDir() + "/manifest.json", "utf-8"));
+export function loadManifest(): Promise<PluginManifest> {
+  return fetchStaticFile("manifest.json");
 }
 
 /**
@@ -107,69 +101,9 @@ export function loadManifest(): PluginManifest {
  * and get a cacheable introspection result that we store to reduce future
  * requests having to build it again.
  */
-export async function bootstrapSchema(hoisted = false): Promise<introspectionResult> {
-  if (introspection) return introspection; //We already have it
+export async function bootstrapSchema(): Promise<IntrospectionResult> {
+  if (introspection) return introspection;
 
   //Check do we have a hoisted schema
-  const hoistedSchema = fs.existsSync(process.cwd() + "/schema.json")
-    ? JSON.parse(fs.readFileSync(process.cwd() + "/schema.json", "utf-8"))
-    : false;
-  if (hoistedSchema) return (introspection = hoistedSchema);
-
-  let cacheDir = getCacheDir();
-
-  if (hoisted) {
-    cacheDir = process.cwd();
-  }
-
-  const schemaCachePath = cacheDir + "/schema.json";
-  if (fs.existsSync(schemaCachePath)) {
-    return (introspection = JSON.parse(fs.readFileSync(schemaCachePath, "utf-8")));
-  }
-
-  const corePath = path.resolve(__dirname, "../utils/core.graphql");
-  let mergedSchemas = fs.readFileSync(corePath, "utf-8");
-
-  for (const plugin of loadManifest().plugins) {
-    const isLocalPlugin = isAPlugin();
-    const currentPlugin = await importPlugin(plugin);
-
-    currentPlugin.default.schemas.forEach((schema: any) => {
-      const schemaRootPath = isLocalPlugin
-        ? plugin
-        : require.resolve(plugin).replace("/dist/server/index.js", "").replace("/server/index.ts", "");
-
-      let schemaPath = schemaRootPath + "/dist/schema/" + schema + ".graphql";
-      if (process.env.NODE_ENV === "test") {
-        schemaPath = schemaRootPath + "/server/schema/" + schema + ".graphql";
-      }
-
-      const schemaFile = require.resolve(schemaPath);
-      mergedSchemas += fs.readFileSync(schemaFile, "utf-8");
-    });
-  }
-
-  introspection = (
-    await execute({
-      schema: makeExecutableSchema({ typeDefs: mergedSchemas }),
-      document: parse(getIntrospectionQuery()),
-    })
-  ).data as introspectionResult;
-
-  fs.writeFileSync(schemaCachePath, JSON.stringify(introspection), "utf8");
-
-  return introspection;
-}
-
-/**
- * Get the current cache dir, create it if needed
- */
-export function getCacheDir(): string {
-  const cacheDir = path.join(process.cwd(), ".corejam");
-
-  if (!fs.existsSync(cacheDir)) {
-    fs.mkdirSync(cacheDir);
-  }
-
-  return cacheDir;
+  return (introspection = ((await fetchStaticFile("schema.json")) as unknown) as IntrospectionResult);
 }

@@ -8,3 +8,7 @@ export declare type ServerContext = {
   res: ServerResponse;
   eventEmitter: EventEmitter;
 };
+
+export declare type IntrospectionResult = {
+  __schema: any;
+};
