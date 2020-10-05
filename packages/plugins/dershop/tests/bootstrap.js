@@ -8,7 +8,7 @@ const {
   generateManufacturer,
   generateOrder,
   generateUser
-} = require("@corejam/plugin-dershop/dist/server/resolvers/db/faker/Generator");
+} = require("../dist/server/resolvers/db/faker/Generator");
 const { Client, query } = require("faunadb");
 const q = query;
 const { getDataClient } = require("@corejam/base/dist/PluginManager");
