@@ -47,10 +47,11 @@ export default async function createPlugin(name: string) {
     await jetpack.renameAsync(pluginRootPath + "/server/resolvers/pluginName.ts", name + ".ts");
     await jetpack.renameAsync(pluginRootPath + "/server/schema/pluginName.graphql", name + ".graphql");
     await jetpack.renameAsync(pluginRootPath + "/server/types/pluginName.ts", name + ".ts");
-    await jetpack.renameAsync(pluginRootPath + "/components/pluginName", name);
-    await jetpack.renameAsync(pluginRootPath + "/components/" + name + "/pluginName.tsx", name + ".tsx");
+    await jetpack.renameAsync(pluginRootPath + "/app/components/pluginName", name);
+    await jetpack.renameAsync(pluginRootPath + "/app/components/" + name + "/pluginName.tsx", name + ".tsx");
+    await jetpack.removeAsync(pluginRootPath + "/app/pluginName");
+    await jetpack.renameAsync(pluginRootPath + "/app/store/pluginName.ts", name + ".ts");
     await jetpack.renameAsync(pluginRootPath + "/shared/pluginName.ts", name + ".ts");
-    await jetpack.renameAsync(pluginRootPath + "/store/pluginName.ts", name + ".ts");
 
     spinner.stopAndPersist({ text: "Renaming finished", symbol: logSymbol.success });
 

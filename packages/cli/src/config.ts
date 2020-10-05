@@ -1,18 +1,14 @@
 import path from "path";
 import os from "os";
-import execa from "execa";
 
-let mono = true;
-
-async function monoCheck() {
-  try {
-    await execa("yarn", ["workspaces", "info"]);
-  } catch (e) {
-    mono = false;
+let mono = false;
+try {
+  const packageJson = require(process.cwd() + "/package.json")
+  if (Object.keys(packageJson).includes("workspaces")) {
+    mono = true;
   }
 }
-
-monoCheck();
+catch (e) { }
 
 const rootPath = mono ? ".." : os.tmpdir();
 
