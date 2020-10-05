@@ -3,7 +3,7 @@ const { bootstrapSchema } = require("@corejam/base/dist/Bootstrap");
 const { getServerContext } = require("@corejam/base/dist/Server");
 const {
   generateUser
-} = require("@corejam/plugin-auth/dist/server/resolvers/db/faker/Generator");
+} = require("../dist/server/resolvers/db/faker/Generator");
 const { Client, query } = require("faunadb");
 const q = query;
 const { getDataClient } = require("@corejam/base/dist/PluginManager");

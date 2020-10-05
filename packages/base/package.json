@@ -47,6 +47,7 @@
     "typescript": "4.0.3"
   },
   "dependencies": {
+    "@graphql-tools/schema": "6.2.4",
     "apollo-server-micro": "2.18.1",
     "faker": "5.1.0",
     "faunadb": "3.0.1",

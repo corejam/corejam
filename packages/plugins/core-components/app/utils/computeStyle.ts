@@ -2,7 +2,7 @@ import { hashCode } from "./utils";
 import { breakpointValues } from "./style";
 
 export function computeStyle(styles, onHost = false) {
-  let collecters = {
+  const collecters = {
     rules: [],
     hover: [],
     focus: [],

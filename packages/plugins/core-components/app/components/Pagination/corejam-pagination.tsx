@@ -24,7 +24,7 @@ export class CorejamPagination {
   renderPaginate() {
     const elements = [];
 
-    for (var i = 1; i <= this._paginator.lastPage; i++) {
+    for (let i = 1; i <= this._paginator.lastPage; i++) {
       const props = {
         color: "gray-400",
       };
