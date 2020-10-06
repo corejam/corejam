@@ -4045,10 +4045,10 @@ apollo-server-caching@^0.5.2:
   dependencies:
     lru-cache "^5.0.0"
 
-apollo-server-core@^2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-2.18.1.tgz#1dc057ae693bcce9aeeb6e7450a734a676674d53"
-  integrity sha512-Bv08AyJ3WSms59loE31haVRBctDn6MGyjtaPnfLlQV5//wMdwS5MXX8RcMCmXxv0Utp5TlhoD+pHLO5Ool+LRw==
+apollo-server-core@^2.18.1, apollo-server-core@^2.18.2:
+  version "2.18.2"
+  resolved "https://registry.yarnpkg.com/apollo-server-core/-/apollo-server-core-2.18.2.tgz#1b8a625531a92e137f68c730bc42b9e3f7d7fcbb"
+  integrity sha512-phz57BFBukMa3Ta7ZVW7pj1pdUne9KYLbcBdEcITr+I0+nbhy+YM8gcgpOnjrokWYiEZgIe52XeM3m4BMLw5dg==
   dependencies:
     "@apollographql/apollo-tools" "^0.4.3"
     "@apollographql/graphql-playground-html" "1.6.26"
@@ -4071,6 +4071,7 @@ apollo-server-core@^2.18.1:
     graphql-tools "^4.0.0"
     graphql-upload "^8.0.2"
     loglevel "^1.6.7"
+    lru-cache "^5.0.0"
     sha.js "^2.4.11"
     subscriptions-transport-ws "^0.9.11"
     uuid "^8.0.0"
@@ -4107,12 +4108,12 @@ apollo-server-plugin-base@^0.10.1:
   dependencies:
     apollo-server-types "^0.6.0"
 
-apollo-server-testing@2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/apollo-server-testing/-/apollo-server-testing-2.18.1.tgz#a14c760610edf553e9f5cc928ecfc82fa13f1f0d"
-  integrity sha512-O6kaBSTCsuorElz0v03ukUssedL0Gd46tbHdvyedTAhM3yEgCCX5IqvgkEH6zK8olc2tp3XyvWatnHwICrswuw==
+apollo-server-testing@2.18.2:
+  version "2.18.2"
+  resolved "https://registry.yarnpkg.com/apollo-server-testing/-/apollo-server-testing-2.18.2.tgz#7b72e73d6ea21b5a6e24fac6e07b5408daa728fa"
+  integrity sha512-4qoJ8AYUKolqV397G7XXRjOCM1ADQB66ReL/B5NxdoROWTvxIOW2m1NOrmvMX1w6AmpSUD5APRM27I7fC3f65g==
   dependencies:
-    apollo-server-core "^2.18.1"
+    apollo-server-core "^2.18.2"
 
 apollo-server-types@^0.6.0:
   version "0.6.0"
