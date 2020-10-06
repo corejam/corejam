@@ -32,7 +32,6 @@ module.exports = {
         "@typescript-eslint/no-empty-function": 0,
         "no-empty": 0,
         "no-cond-assign": 0,
-        "@typescript-eslint/no-namespace": 0,
-        "no-self-assign": 0
+        "@typescript-eslint/no-namespace": 0
     },
 };

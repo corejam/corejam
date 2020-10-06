@@ -29,7 +29,7 @@ describe("Test Auth Plugin", () => {
   //Bootstrap
   beforeAll(async () => {
     client = await testClient();
-    (models = models), ({ models } = client);
+    models = client.models;
 
     const insertedResponse = (await models.userCreate(testValues)) as UserDB;
 
