@@ -5,7 +5,7 @@ import { writeConfig } from "./generateConfig";
 
 export async function initWatchers() {
   const removePath = async (path: string, folder: string) => {
-    const relFilePath = path.replace(envRoot + "/ + folder +/", "");
+    const relFilePath = path.replace(envRoot + "/app/" + folder +"/", "");
     jetpack.removeAsync(stencilRunner + "/src/" + folder + "/" + relFilePath);
     await writeConfig();
   };
@@ -19,19 +19,19 @@ export async function initWatchers() {
   sharedWatcher.on("unlink", (p) => removePath(p, "shared"));
   sharedWatcher.on("unlinkDir", (p) => removePath(p, "shared"));
 
-  const storeWatcher = chokidar.watch(envRoot + "/store");
+  const storeWatcher = chokidar.watch(envRoot + "/app/store");
   storeWatcher.on("change", (changedFile) => {
-    const relFilePath = changedFile.replace(envRoot + "/store", "");
+    const relFilePath = changedFile.replace(envRoot + "/app/store", "");
     jetpack.copyAsync(changedFile, stencilRunner + "/src/store/" + relFilePath, { overwrite: true });
   });
 
   sharedWatcher.on("unlink", (p) => removePath(p, "store"));
   sharedWatcher.on("unlinkDir", (p) => removePath(p, "store"));
 
-  const compWatcher = chokidar.watch(envRoot + "/components");
+  const compWatcher = chokidar.watch(envRoot + "/app/components");
 
   compWatcher.on("change", async (changedFile) => {
-    const relFilePath = changedFile.replace(envRoot + "/components", "");
+    const relFilePath = changedFile.replace(envRoot + "/app/components", "");
     jetpack.copyAsync(changedFile, stencilRunner + "/src/components/" + relFilePath, { overwrite: true });
     await writeConfig();
   });
@@ -39,14 +39,14 @@ export async function initWatchers() {
   compWatcher.on("unlink", (p) => removePath(p, "components"));
   compWatcher.on("unlinkDir", (p) => removePath(p, "components"));
 
-  const routesWatcher = chokidar.watch(envRoot + "/routes");
+  const routesWatcher = chokidar.watch(envRoot + "/app/routes");
 
   routesWatcher.on("change", async (changedFile) => {
     const splits = changedFile.split("/");
     const nameWithoutExtension = splits[splits.length - 1].replace(".tsx", "");
 
     const relPath = changedFile
-      .replace(envRoot + "/routes", "")
+      .replace(envRoot + "/app/routes", "")
       .replace(splits[splits.length - 1], "")
       .split("/")
       .join("-");

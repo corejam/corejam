@@ -45,7 +45,7 @@ export async function writeConfig() {
     for (const current of paths) {
       if (current.indexOf("tsx") > -1) {
         const segments = lookupPath
-          .replace(root + "/routes", null)
+          .replace(root + "/app/routes", null)
           .split("/")
           .filter(s => s !== "null");
         const isIndex = current === "index.tsx";
