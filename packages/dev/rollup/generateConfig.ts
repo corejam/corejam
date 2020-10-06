@@ -53,9 +53,9 @@ export async function writeConfig() {
           segments.length === 0
             ? `/${isIndex ? "" : current.replace(root, "").replace(".tsx", "")}`
             : `${segments
-                .join("/")
-                .replace(root, "")
-                .replace("/app/routes", "")}/${isIndex ? "" : current.replace(".tsx", "")}`;
+              .join("/")
+              .replace(root, "")
+              .replace("/app/routes", "")}/${isIndex ? "" : current.replace(".tsx", "")}`;
         const f = await readAsync(lookupPath + "/" + current);
         const tagMatch = f.match(regexTag);
         if (tagMatch) {
@@ -76,16 +76,19 @@ export async function writeConfig() {
 
   const depsBlacklist = ["@corejam/base", "@corejam/dev"];
 
-  for (const key of Object.keys(pluginPkg.dependencies)) {
-    if (key.includes("@corejam/") && !depsBlacklist.includes(key)) {
-      const pkg = require(key + "/package.json");
-      if (pkg.corejam?.wrapper) config.wrapper = [...config.wrapper, ...pkg.corejam.wrapper];
-      if (pkg.corejam?.recommendations)
-        config.recommendations = [...config.recommendations, ...pkg.corejam.recommendations];
+  //TODO should this be both dev and normal dependancies?
+  if (pluginPkg?.dependencies) {
+    for (const key of Object.keys(pluginPkg?.dependencies)) {
+      if (key.includes("@corejam/") && !depsBlacklist.includes(key)) {
+        const pkg = require(key + "/package.json");
+        if (pkg.corejam?.wrapper) config.wrapper = [...config.wrapper, ...pkg.corejam.wrapper];
+        if (pkg.corejam?.recommendations)
+          config.recommendations = [...config.recommendations, ...pkg.corejam.recommendations];
+      }
     }
   }
 
-  if (pluginPkg.corejam.external) {
+  if (pluginPkg.corejam?.external) {
     config.external = pluginPkg.corejam.external;
   }
 

@@ -52,7 +52,7 @@ export default async function run(options: any) {
 
     set(
       "stencil",
-      execa("stencil", ["build", "--dev", "--watch", "--serve", "--docs"], {
+      execa("node_modules/.bin/stencil", ["build", "--dev", "--watch", "--serve", "--docs"], {
         stdio: logToConsole,
         cwd: envRoot,
         env: {

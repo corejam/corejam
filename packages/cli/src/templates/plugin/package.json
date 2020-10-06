@@ -21,10 +21,7 @@
   },
   "files": [
     "dist",
-    "web-components",
-    "react",
-    "vue",
-    "angular"
+    "web-components"
   ],
   "devDependencies": {
     "tslib": "2.0.2",
@@ -32,8 +29,8 @@
     "@types/faker": "4.1.12",
     "@stencil/core": "2.0.3",
     "stencil-router-v2": "0.5.0",
-    "@corejam/base": "0.0.1",
-    "@corejam/core-components": "0.0.1",
+    "@corejam/base": "0.0.3",
+    "@corejam/core-components": "0.0.3",
     "@corejam/cli": "0.0.5",
     "faker": "5.1.0",
     "@corejam/dev": "0.0.2",
