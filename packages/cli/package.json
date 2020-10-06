@@ -68,7 +68,7 @@
     "apollo-server-testing": "2.18.1",
     "debug": "4.2.0",
     "faker": "5.1.0",
-    "jest": "26.4.2",
+    "jest": "26.5.0",
     "jest-date-mock": "1.0.8",
     "shx": "0.3.2",
     "ts-jest": "26.4.1",
