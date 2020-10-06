@@ -28,9 +28,6 @@ module.exports = {
         "@typescript-eslint/no-non-null-assertion": 0,
         "no-prototype-builtins": 0,
         "@typescript-eslint/no-unused-vars": 0,
-        "@typescript-eslint/no-inferrable-types": 0,
-        "@typescript-eslint/no-empty-function": 0,
-        "no-empty": 0,
         "@typescript-eslint/no-namespace": 0
     },
 };
