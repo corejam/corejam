@@ -39,7 +39,8 @@ export default async function run(options: any) {
         env: {
           ...process.env,
           NODE_ENV: process.env.NODE_ENV || "production",
-          targets: "dist,custom,hydrate,react"
+          targets: "dist,custom,hydrate,react",
+          REACT_BINDINGS_ROOT: reactBindingsRoot
         }
       });
 
