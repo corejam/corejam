@@ -22,7 +22,7 @@ describe('Orders', () => {
     //Bootstrap
     beforeAll(async () => {
         client = await testClient();
-        models = models, { models } = client;
+        models = client.models;
 
         const testProduct: ProductCoreInput = {
             active: true,

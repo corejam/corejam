@@ -24,7 +24,7 @@ describe("SEO", () => {
     //Bootstrap
     beforeAll(async () => {
         client = await testClient();
-        (models = models), ({ models } = client);
+        models = client.models;
 
         const insertedResponse = (await models.productCreate(testValues)) as ProductDB;
         testID = insertedResponse.id;

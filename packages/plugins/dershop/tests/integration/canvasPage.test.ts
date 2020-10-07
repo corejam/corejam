@@ -54,7 +54,7 @@ describe("CanvasPages", () => {
   //Bootstrap
   beforeAll(async () => {
     client = await testClient();
-    (models = models), ({ models } = client);
+    models = client.models;
 
     const insertedResponse = (await models.canvasPageCreate(testValues)) as CanvasPageDB;
     expect(insertedResponse).toMatchObject(testValues);

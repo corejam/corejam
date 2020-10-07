@@ -18,7 +18,7 @@ describe("Categories", () => {
   //Bootstrap
   beforeAll(async () => {
     client = await testClient();
-    (models = models), ({ models } = client);
+    models = client.models;
 
     const insertedResponse = (await models.categoryCreate(testCategoryValues)) as CategoryDB;
     expect(insertedResponse).toMatchObject(testCategoryValues);

@@ -1,5 +1,5 @@
 module.exports = {
-    "ignorePatterns": ["node_modules", "dist", "coverage"],
+    "ignorePatterns": ["node_modules", "dist", "coverage", "www"],
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
@@ -26,13 +26,7 @@ module.exports = {
         "no-async-promise-executor": 0,
         "@typescript-eslint/ban-types": 0,
         "@typescript-eslint/no-non-null-assertion": 0,
-        "no-prototype-builtins": 0,
         "@typescript-eslint/no-unused-vars": 0,
-        "@typescript-eslint/no-inferrable-types": 0,
-        "@typescript-eslint/no-empty-function": 0,
-        "no-empty": 0,
-        "no-cond-assign": 0,
-        "@typescript-eslint/no-namespace": 0,
-        "no-self-assign": 0
+        "@typescript-eslint/no-namespace": 0
     },
 };
