@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 import { Config } from "@stencil/core";
 import { reactOutputTarget } from "@stencil/react-output-target";
 import corejam from "@corejam/dev/dist/rollup";
@@ -8,7 +9,7 @@ import replace from "@rollup/plugin-replace";
 const targets = process.env.targets?.split(",") || [];
 
 const config: Config = {
-  namespace: process.env.NODE_ENV === "production" ? "corejam-plugin-auth" : "corejam-dev",
+  namespace: process.env.NODE_ENV === "production" ? require("package.json").name : "corejam-dev",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
   srcIndexHtml: require.resolve("@corejam/dev/dist/index.html"),
@@ -51,14 +52,11 @@ if (targets.includes("prerender")) {
     type: "www",
     empty: false,
     serviceWorker: null,
-    baseUrl: "http://localhost:3000"
+    baseUrl: "http://localhost:3001"
   });
 }
 if (targets.includes("react")) {
-  if (!fs.existsSync("./react")) {
-    fs.mkdirSync("./react");
-  }
-
+  if (!fs.existsSync("./react")) fs.mkdirSync("./react");
   config.outputTargets.push(
     reactOutputTarget({
       componentCorePackage: "@corejam/stencil-runner",

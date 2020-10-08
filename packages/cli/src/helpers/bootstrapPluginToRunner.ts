@@ -3,41 +3,6 @@ import debug from "debug";
 
 import { envRoot, stencilRunner, testRunner, cliRoot } from "../config";
 
-async function staticCopy() {
-  await jetpack.copyAsync(envRoot + "/shared", stencilRunner + "/src/shared", { overwrite: true });
-  await jetpack.copyAsync(envRoot + "/store", stencilRunner + "/src/store", { overwrite: true });
-  await jetpack.copyAsync(envRoot + "/components", stencilRunner + "/src/components", { overwrite: true });
-  if (await jetpack.existsAsync(envRoot + "/.env")) {
-    await jetpack.copyAsync(envRoot + "/.env", stencilRunner + "/.env", { overwrite: true });
-  } else {
-    await jetpack.writeAsync(stencilRunner + "/.env", "");
-  }
-}
-
-async function copyAndTransformRoutes() {
-  const traverse = (lookupPath: string) => {
-    const paths = jetpack.list(lookupPath);
-    if (paths)
-      paths.forEach((current) => {
-        const relPath = lookupPath
-          .replace(envRoot + "/routes", "")
-          .split("/")
-          .join("-");
-        const normalizedRelPath = relPath.length > 1 ? relPath : "";
-        if (current.indexOf("tsx") > -1) {
-          const nameWithoutExtension = current.replace(".tsx", "");
-          jetpack.copy(
-            lookupPath + "/" + current,
-            `${stencilRunner}/src/components/route${normalizedRelPath}-${nameWithoutExtension}/${current}`
-          );
-        } else {
-          traverse(lookupPath + "/" + current);
-        }
-      });
-  };
-  traverse(envRoot + "/routes");
-}
-
 function collectGlobalsImports(): string[] {
   const pkgJson = require(envRoot + "/package.json");
 
@@ -63,11 +28,6 @@ export async function addImportsToGlobalScript() {
   }
 }
 
-export async function bootstrapPluginToRunner() {
-  await staticCopy();
-  await copyAndTransformRoutes();
-  await addImportsToGlobalScript();
-}
 
 /**
  * - Copy base/ to src/

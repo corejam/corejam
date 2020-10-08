@@ -15,27 +15,28 @@
     "build": "corejam build",
     "test": "corejam test",
     "precommit": "lint-staged",
-    "static": "corejam static",
+    "static": "corejam static -l",
     "static:serve": "corejam static:serve",
     "clean": "rimraf dist & rimraf react & rimraf web-components"
   },
   "files": [
     "dist",
-    "web-components",
-    "react",
-    "vue",
-    "angular"
+    "web-components"
   ],
   "devDependencies": {
     "tslib": "2.0.2",
     "typescript": "4.0.3",
-    "@types/faker": "4.1.12",
+    "@types/faker": "5.1.2",
     "@stencil/core": "2.0.3",
     "stencil-router-v2": "0.5.0",
-    "@corejam/base": "0.0.1",
-    "@corejam/core-components": "0.0.1",
-    "@corejam/cli": "0.0.5",
-    "faker": "5.1.0"
+    "@corejam/base": "0.0.3",
+    "@corejam/core-components": "0.0.3",
+    "@corejam/cli": "0.0.6",
+    "faker": "5.1.0",
+    "dotenv": "8.2.0",
+    "@corejam/dev": "0.0.2",
+    "@rollup/plugin-replace": "2.3.3",
+    "@stencil/react-output-target": "0.0.9"
   },
   "corejam": {
     "wrapper": [],

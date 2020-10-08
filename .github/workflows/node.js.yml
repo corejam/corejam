@@ -37,7 +37,7 @@ jobs:
           API_ORIGIN=http://localhost:3000 yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
+      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -117,8 +117,89 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           cd packages/plugins/auth
-          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup  yarn corejam static:serve & cd ../../../test/cypress
+          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../../test/cypress
           cypress run --spec "./cypress/integration/plugins/auth/**/*"
+        env:
+          CYPRESS_baseUrl: "http://localhost:3001"
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
+
+  cypress-generateApp-monorepo:
+    runs-on: ubuntu-latest
+    container:
+      image: "corejam/cypress:0.0.2"
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: test/cypress/node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+      - run: yarn --cwd test/cypress --frozen-lockfile
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true'
+      - run: |
+          yarn bs
+          cd examples
+          yarn corejam createApp test
+          cd test && yarn static
+          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
+          cypress run --spec "./cypress/integration/generateApp/**/*"
+        env:
+          CYPRESS_baseUrl: "http://localhost:3001"
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
+
+  cypress-generateApp-standalone:
+    runs-on: ubuntu-latest
+    container:
+      image: "corejam/cypress:0.0.2"
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: test/cypress/node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+      - run: yarn --cwd test/cypress --frozen-lockfile
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true'
+      - run: |
+          yarn bs
+          cd packages/base && yarn link
+          cd ../cli && yarn link
+          cd ../dev && yarn link
+          cd ../plugins/core-components && yarn link
+          cd /github/home && corejam createApp test
+          cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components && yarn static
+          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
+          cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
           CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
@@ -136,6 +217,8 @@ jobs:
       - integration-tests
       - cypress-static-plugin-auth
       - core-components-test
+      - cypress-generateApp-monorepo
+      - cypress-generateApp-standalone
     steps:
       - uses: actions/checkout@v2
         with:

@@ -4,7 +4,7 @@ import { generateCategory, generateManufacturer } from "../../server/resolvers/d
 import { Deliverability } from "@corejam/base/src/typings/Utils";
 import * as faker from "faker";
 import { advanceTo } from "jest-date-mock";
-import { productLinkManufacturer , productLinkCategory } from "../../shared/graphql/Mutations/Admin/Product";
+import { productLinkManufacturer, productLinkCategory } from "../../shared/graphql/Mutations/Admin/Product";
 import { paginateProductsGQL } from "../../shared/graphql/Queries/Product";
 import { categoryById } from "../../shared/graphql/Queries/Category";
 import { PluginResolver as ShopResolver } from "../../shared/types/PluginResolver";
@@ -243,4 +243,5 @@ describe("Products", () => {
 
     expect(product).toMatchObject(returnedItem)
   });
+
 });

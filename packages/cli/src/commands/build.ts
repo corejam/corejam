@@ -13,7 +13,8 @@ import { replaceWebComponentsImport } from "../helpers/replaceInFile";
 export default async function run(options: any) {
   return new Promise(async (res, rej) => {
     try {
-      const envPackageName = require(envRoot + "/package.json").name;
+      const envPackage = require(envRoot + "/package.json")
+      const envPackageName = envPackage.name;
 
       const bootSpinner = ora(`Starting build for ${chalk.bold.green(envPackageName)}...`).start();
 
@@ -32,23 +33,25 @@ export default async function run(options: any) {
 
       await kill(3001);
 
-      await execa("stencil", ["build", "--docs"], {
+      await execa("node_modules/.bin/stencil", ["build", "--docs"], {
         stdio: logToConsole,
         cwd: envRoot,
         env: {
           ...process.env,
           NODE_ENV: process.env.NODE_ENV || "production",
-          targets: "dist,custom,hydrate,react"
+          targets: "dist,custom,hydrate,react",
+          REACT_BINDINGS_ROOT: reactBindingsRoot
         }
       });
 
-      if (!options.wc) {
+      if (!options.wc && envPackage.files.includes("react")) {
         bootSpinner.text = "Install react bindings dependencies";
 
         await prependNoCheckToComponents();
 
         bootSpinner.text = "Generating react bindings";
 
+        await execa(isYarn ? "yarn" : "npm", ["install"], { cwd: reactBindingsRoot, stdio: logToConsole });
         await execa(isYarn ? "yarn" : "npm", ["build"], { cwd: reactBindingsRoot, stdio: logToConsole });
 
         bootSpinner.text = "React bindings finished";
@@ -103,7 +106,7 @@ async function buildServerCode() {
   if (jetpack.exists(envRoot + "/server")) {
     await copySchemaToDist();
 
-    await execa("tsc", ["-p", "tsconfig-mjs.json"], { cwd: envRoot });
-    await execa("tsc", ["-p", "tsconfig-cjs.json"], { cwd: envRoot });
+    await execa("node_modules/.bin/tsc", ["-p", "tsconfig-mjs.json"], { cwd: envRoot });
+    await execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json"], { cwd: envRoot });
   }
 }

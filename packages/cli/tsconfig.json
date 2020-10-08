@@ -15,7 +15,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "target": "es5",
-    "resolveJsonModule": true
+    "target": "es5"
   }
 }
