@@ -9,7 +9,7 @@ import replace from "@rollup/plugin-replace";
 const targets = process.env.targets?.split(",") || [];
 
 const config: Config = {
-  namespace: process.env.NODE_ENV === "production" ? "corejam-plugin-dershop" : "corejam-dev",
+  namespace: process.env.NODE_ENV === "production" ? require("package.json").name : "corejam-dev",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
   srcIndexHtml: require.resolve("@corejam/dev/dist/index.html"),
