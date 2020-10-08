@@ -27,6 +27,6 @@
   },
   "devDependencies": {
     "@corejam/cli": "0.0.6",
-    "@next/bundle-analyzer": "9.5.3"
+    "@next/bundle-analyzer": "9.5.4"
   }
 }
