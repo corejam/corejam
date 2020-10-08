@@ -52,7 +52,7 @@ export async function writeConfig() {
         const url =
           segments.length === 0
             ? `/${isIndex ? "" : current.replace(root, "").replace(".tsx", "")}`
-            : `${segments
+            : `/${segments
               .join("/")
               .replace(root, "")
               .replace("/app/routes", "")}/${isIndex ? "" : current.replace(".tsx", "")}`;
