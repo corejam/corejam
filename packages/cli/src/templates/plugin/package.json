@@ -15,7 +15,7 @@
     "build": "corejam build",
     "test": "corejam test",
     "precommit": "lint-staged",
-    "static": "corejam static",
+    "static": "corejam static -l",
     "static:serve": "corejam static:serve",
     "clean": "rimraf dist & rimraf react & rimraf web-components"
   },
