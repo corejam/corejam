@@ -8,10 +8,12 @@ import jetpack from "fs-jetpack";
 import execa from "execa";
 import { cliRoot } from "../config";
 
-export default async function createPlugin(name: string) {
+export default async function createApp(name: string) {
   return new Promise(async (res: any) => {
-    const spinner = ora(`Creating new corejam plugin ${name}`).start();
-    const pluginRootPath = process.env.INIT_CWD + "/" + name;
+    const spinner = ora(`Creating new Corejam application: ${name}`).start();
+    const pluginRootPath = process.env.INIT_CWD ?? process.cwd() + "/" + name;
+
+    console.log("Path:", pluginRootPath)
 
     spinner.text = "Copy templates";
 
