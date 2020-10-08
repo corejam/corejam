@@ -45,7 +45,7 @@ export class AppRoot {
   }
 
   render() {
-    const Wrapper = this.wrapper ? this.wrapper[0] : "div";
+    const Wrapper = this.wrapper?.length > 0 ? this.wrapper[0] : "div";
     return (
       <Host>
         <Wrapper>

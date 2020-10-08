@@ -52,7 +52,7 @@ if (targets.includes("prerender")) {
     type: "www",
     empty: false,
     serviceWorker: null,
-    baseUrl: "http://localhost:3000"
+    baseUrl: "http://localhost:3001"
   });
 }
 if (targets.includes("react")) {
