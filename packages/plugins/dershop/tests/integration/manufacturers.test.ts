@@ -22,7 +22,7 @@ describe("Manufacturers", () => {
   //Bootstrap
   beforeAll(async () => {
     client = await testClient();
-    (models = models), ({ models } = client);
+    models = client.models;
 
     const insertedResponse = await models.manufacturerCreate(testValues);
     expect(insertedResponse).toEqual(expect.objectContaining(testValues));

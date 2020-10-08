@@ -11,7 +11,7 @@ type CollectedPluginType = {
 
 const collectedPlugins: Array<CollectedPluginType> = []
 
-export function corejamInit(_opts?: any) {
+export function corejamInit() {
     console.log(envRoot)
     const envPackageName = require(envRoot + "/package.json").name;
     const bootSpinner = ora(`Initializing Corejam App for ${chalk.bold.green(envPackageName)}...`).start();

@@ -22,7 +22,7 @@ describe('Orders', () => {
     //Bootstrap
     beforeAll(async () => {
         client = await testClient();
-        models = models, { models } = client;
+        models = client.models;
 
         const testProduct: ProductCoreInput = {
             active: true,
@@ -39,7 +39,7 @@ describe('Orders', () => {
         //@ts-ignore
         user = await models.userCreate(generateUser());
 
-        let testValues = await generateOrder([insertedProduct], [user]);
+        const testValues = await generateOrder([insertedProduct], [user]);
 
         inserted = await models.orderCreate(testValues, user) as OrderDB;
         expect(inserted).toMatchObject(testValues)

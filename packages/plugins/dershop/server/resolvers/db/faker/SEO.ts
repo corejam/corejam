@@ -1,8 +1,8 @@
 import { canvasPageByUrl } from "@corejam/base/dist/resolvers/db/faker/CanvasPage";
 import type { SEODocument } from "../../../../shared/types/Seo";
-import { allProducts } from "./Product";
+import { allProducts , productByUrl } from "./Product";
 import { manufacturerByUrl } from "./Manufacturer";
-import { productByUrl } from "./Product";
+
 import { categoryByUrl } from "./Category";
 
 export async function objectFromURL(url: string): Promise<SEODocument> {

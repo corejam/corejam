@@ -8,7 +8,7 @@ export class AppRoot {
   private wrapper: any;
   private recos: any;
   private layout: any;
-  @Prop() static: boolean = false;
+  @Prop() static = false;
   @State() docs: any = [];
   @State() hash: any;
   @State() mode: string;

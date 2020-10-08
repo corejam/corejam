@@ -16,9 +16,9 @@ export class DershopHeader implements ComponentInterface {
   ];
   private _secondaryLinks: Link[] = [{ href: "/contact", title: "Contact" }];
 
-  @Prop() maxScreen: string = "xl";
-  @Prop() cartLink: string = "/cart/";
-  @Prop() xAlign: string = "auto";
+  @Prop() maxScreen = "xl";
+  @Prop() cartLink = "/cart/";
+  @Prop() xAlign = "auto";
   @Prop() mainLinks: string | any;
   @Prop() secondaryLinks: string | any;
 

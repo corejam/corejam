@@ -205,7 +205,7 @@ export async function productLinkManufacturer(
       };
 
       //Update the manufacturer item list
-      let items = manufacturer.products ? manufacturer.products : []
+      const items = manufacturer.products ? manufacturer.products : []
       items.push(product)
 
       await manufacturerEdit(manufacturer.id, {
@@ -239,7 +239,7 @@ export async function productLinkCategory(
       };
 
       //Update the manufacturer item list
-      let items = category.products ? category.products.concat(product) : [product]
+      const items = category.products ? category.products.concat(product) : [product]
       await categoryEdit(category.id, {
         products: items
       })

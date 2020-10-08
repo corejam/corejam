@@ -27,7 +27,7 @@ export class ThemeProvider {
     if (this.theme) {
       const userConfig = typeof this.theme === "string" ? JSON.parse(this.theme) : this.theme;
       const keys = Object.keys(userConfig);
-      let userRules = [];
+      const userRules = [];
       keys.forEach((k) => {
         const varName = `--cj-${k}`;
         if (definedVars.includes(varName)) {

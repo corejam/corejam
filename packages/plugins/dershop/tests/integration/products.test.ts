@@ -4,7 +4,7 @@ import { generateCategory, generateManufacturer } from "../../server/resolvers/d
 import { Deliverability } from "@corejam/base/src/typings/Utils";
 import * as faker from "faker";
 import { advanceTo } from "jest-date-mock";
-import { productLinkManufacturer } from "../../shared/graphql/Mutations/Admin/Product";
+import { productLinkManufacturer , productLinkCategory } from "../../shared/graphql/Mutations/Admin/Product";
 import { paginateProductsGQL } from "../../shared/graphql/Queries/Product";
 import { categoryById } from "../../shared/graphql/Queries/Category";
 import { PluginResolver as ShopResolver } from "../../shared/types/PluginResolver";
@@ -15,7 +15,7 @@ import { SEO } from "../../shared/types/Seo";
 //@ts-ignore
 import { testClient } from "../../src/TestClient";
 import { manufacturerById } from "../../shared/graphql/Queries/Manufacturer";
-import { productLinkCategory } from "../../shared/graphql/Mutations/Admin/Product";
+
 import { CategoryDB } from "../../shared/types/Category";
 
 describe("Products", () => {
@@ -37,7 +37,7 @@ describe("Products", () => {
   //Bootstrap
   beforeAll(async () => {
     client = await testClient();
-    (models = models), ({ models } = client);
+    models = client.models;
 
     const insertedResponse = (await models.productCreate(testValues)) as ProductDB;
     expect(insertedResponse).toMatchObject(testValues);
