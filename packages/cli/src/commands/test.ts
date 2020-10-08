@@ -7,7 +7,8 @@ import { bootstrapPluginForTests } from "../helpers/bootstrapPluginToRunner";
 import { testRunner, envRoot } from "../config";
 import { copyTestRunner, copyCoverageToPlugin } from "../helpers/copy";
 import { cleanActiveTestRunner } from "../helpers/resetStages";
-import { replaceCoveragePaths } from "../helpers/replaceInFile";
+import { replaceCoveragePaths, replaceTestingModulePaths } from "../helpers/replaceInFile";
+import { corejamInit } from './init';
 
 export async function runTest(opts: any) {
   try {
@@ -21,8 +22,10 @@ export async function runTest(opts: any) {
     bootSpinner.text = "Initializing tests...";
 
     await addTestDependencies();
+    await corejamInit();
     await bootstrapPluginForTests();
 
+    await replaceTestingModulePaths()
     await execa(isYarn ? "yarn" : "npm", ["install", "--frozen-lockfile"], { cwd: testRunner });
     bootSpinner.text = "Updating dependencies...";
 
@@ -43,9 +46,5 @@ export async function runTest(opts: any) {
 }
 
 export async function runWCTests() {
-  try {
-    await execa("stencil", ["test", "--spec"], { stdio: "inherit", cwd: envRoot });
-  } catch (e) {
-    throw e;
-  }
+  await execa("stencil", ["test", "--spec"], { stdio: "inherit", cwd: envRoot });
 }

@@ -1,4 +1,4 @@
-import { GraphQLClient } from "@corejam/base";
+import { getServerClient } from "@corejam/base";
 import { adminAllOrdersGQL } from "../../shared/graphql/Queries/Admin/Order";
 import { OrderList } from "../../shared/types/Order";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
@@ -24,7 +24,7 @@ export default {
       return ctx.models.allOrders();
     },
     paginateOrders: async (_obj: any, { size, page }, _ctx: any) => {
-      const client = new GraphQLClient();
+      const client = getServerClient();
       const offset = (page - 1) * size;
 
       const { allOrders } = await client.request(adminAllOrdersGQL);

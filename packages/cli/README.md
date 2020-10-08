@@ -47,3 +47,10 @@ corejam dev                 # start the corejam dev playground
    
 ```
 
+### Env vars (move to correct package)
+
+We need to define different env variables for the following use cases: dev, pre-render (static html), ssr (production)
+
+Dev, static: client url has to be prefixed because we are running on 2 different ports (3001 stenciljs, 3000 api). Client url has to be prefixed for client bundle + hydration. 
+
+Production: url has to be prefixed with absolute url for hydration. Client bundle without prefix due to same origin

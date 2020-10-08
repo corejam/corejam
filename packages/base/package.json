@@ -1,6 +1,6 @@
 {
   "name": "@corejam/base",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://corejam.io/",
   "description": "A scaffolding for building progressive GraphQL powered jamstack applications",
   "bugs": {
@@ -41,20 +41,21 @@
     "prepublish": "yarn clean && yarn build"
   },
   "devDependencies": {
-    "@types/faker": "4.1.12",
-    "@types/node": "14.6.0",
-    "tslib": "2.0.1",
+    "@types/faker": "5.1.2",
+    "@types/node": "14.11.5",
+    "tslib": "2.0.2",
     "typescript": "4.0.3"
   },
   "dependencies": {
-    "apollo-server-micro": "2.17.0",
+    "@graphql-tools/schema": "6.2.4",
+    "apollo-server-micro": "2.18.2",
     "faker": "5.1.0",
     "faunadb": "3.0.1",
     "graphql": "15.3.0",
-    "graphql-tools": "6.2.0",
-    "husky": "4.2.5",
-    "isomorphic-unfetch": "3.0.0",
-    "lint-staged": "10.2.11"
+    "graphql-tools": "6.2.4",
+    "husky": "4.3.0",
+    "isomorphic-unfetch": "3.1.0",
+    "lint-staged": "10.4.0"
   },
   "lint-staged": {
     "src/**/*.ts": [

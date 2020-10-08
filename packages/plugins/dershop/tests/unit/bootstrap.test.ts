@@ -1,10 +1,13 @@
-import { collectPlugins, bootstrapSchema } from "@corejam/base/src/Bootstrap";
+import { collectPlugins, bootstrapSchema, loadManifest } from "@corejam/base/src/Bootstrap";
 import { readFileSync, unlinkSync } from "fs";
 
 describe("Bootstrap", () => {
   it("collectsPluginsCorrectly", async () => {
     //We should only get plugins back that have server side resolvers
-    expect(collectPlugins()).toHaveLength(2);
+    expect(collectPlugins()).toHaveLength(1);
+
+    //In the manifest we should have process.cwd() listed too as we are inside a plugin
+    expect(loadManifest().plugins).toHaveLength(2)
   });
 
   /**
@@ -22,7 +25,7 @@ describe("Bootstrap", () => {
     const result = (await bootstrapSchema()) as any;
     expect(result).toHaveProperty("__schema");
 
-    let types: Array<string> = [];
+    const types: Array<string> = [];
 
     result.__schema.types.map((type) => {
       types.push(type.name);

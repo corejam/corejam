@@ -15,7 +15,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: "corejam/ci:node14.0.0.1"
+      image: "corejam/ci:node14.0.0.2"
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
     steps:
       - uses: actions/checkout@v2
@@ -25,18 +25,19 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
       - run: |
-          lerna bootstrap --no-ci
+          rm -rf node_modules/@corejam node_modules/.bin/corejam
+          yarn --frozen-lockfile
+          yarn lint
           yarn build
+          yarn bs
           node ./utils/hoistPackagesForDeployment.js
+          yarn --cwd examples/nextjs corejam init
           yarn --cwd examples/nextjs corejam generateSchema
-          mv packages/plugins/auth/.env.sample packages/plugins/auth/.env 
-          yarn --cwd packages/plugins/auth corejam static
+          API_ORIGIN=http://localhost:3000 yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar examples/nextjs packages/cli/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/static packages/plugins/dershop/dist
+      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -45,7 +46,7 @@ jobs:
   core-components-test:
     runs-on: ubuntu-latest
     container:
-      image: "corejam/ci:node14.0.0.1"
+      image: "corejam/ci:node14.0.0.2"
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -53,14 +54,6 @@ jobs:
         with:
           name: dist
       - run: tar -xzf artifact.tar
-      - name: Cache node_modules
-        id: cache-node-modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
       - run: chmod +x node_modules/.bin/corejam
       - run: |
           cd packages/plugins/core-components/
@@ -69,7 +62,7 @@ jobs:
   integration-tests:
     runs-on: ubuntu-latest
     container:
-      image: "corejam/ci:node14.0.0.1"
+      image: "corejam/ci:node14.0.0.2"
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -77,14 +70,6 @@ jobs:
         with:
           name: dist
       - run: tar -xzf artifact.tar
-      - name: Cache node_modules
-        id: cache-node-modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
       - run: chmod +x node_modules/.bin/corejam
       - run: |
           cd packages/plugins/auth && yarn corejam generateSchema
@@ -110,7 +95,7 @@ jobs:
   cypress-static-plugin-auth:
     runs-on: ubuntu-latest
     container:
-      image: "corejam/cypress:0.0.1"
+      image: "corejam/cypress:0.0.2"
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -119,16 +104,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: dist
-      - run: apt-get install tar #can all go into docker image
       - run: tar -xzf artifact.tar
-      - name: Cache node_modules
-        id: cache-node-modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
       - run: chmod +x node_modules/.bin/corejam
       - name: Cache Cypress
         id: cache-cypress
@@ -136,14 +112,12 @@ jobs:
         with:
           path: test/cypress/node_modules
           key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-cypress-
       - run: yarn --cwd test/cypress --frozen-lockfile
         if: |
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           cd packages/plugins/auth
-          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn corejam static:serve & cd ../../../test/cypress
+          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup  yarn corejam static:serve & cd ../../../test/cypress
           cypress run --spec "./cypress/integration/plugins/auth/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
@@ -157,7 +131,7 @@ jobs:
   cypress:
     runs-on: ubuntu-latest
     container:
-      image: "corejam/cypress:0.0.1"
+      image: "corejam/cypress:0.0.2"
     needs:
       - integration-tests
       - cypress-static-plugin-auth
@@ -169,19 +143,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: dist
-      - run: apt-get install tar #can all go into docker image
       - run: tar -xzf artifact.tar
-      - name: Cache node_modules
-        id: cache-node-modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-      - run: yarn
-        if: |
-          steps.cache-node-modules.outputs.cache-hit != 'true'
       - run: chmod +x node_modules/.bin/corejam
       - name: Cache Cypress
         id: cache-cypress
@@ -189,8 +151,6 @@ jobs:
         with:
           path: test/cypress/node_modules
           key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-cypress-
       - run: yarn --cwd test/cypress --frozen-lockfile
         if: |
           steps.cache-cypress.outputs.cache-hit != 'true'

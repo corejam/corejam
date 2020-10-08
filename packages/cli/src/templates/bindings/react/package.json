@@ -10,15 +10,11 @@
   ],
   "scripts": {
     "dev": "tsdx watch --verbose",
-    "copy": "copyfiles ./src/monkeyFix/createComponent.tsx ./src/react-component-lib -f",
     "build": "tsdx build",
-    "prebuild": "yarn copy",
     "prepublish": "tsdx build"
   },
   "license": "MIT",
   "devDependencies": {
-    "@corejam/stencil-runner": "0.0.1",
-    "copyfiles": "2.2.0",
     "tsdx": "0.12.3",
     "@types/react": "16.9.43"
   }

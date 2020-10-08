@@ -3,12 +3,12 @@ import * as fs from "fs";
 import { execute, getIntrospectionQuery, parse } from "graphql";
 import * as path from "path";
 import { PluginLoadError } from "./Errors";
+import { PluginManifest } from "./typings/Plugin";
 
 type introspectionResult = {
   data: any;
 };
 
-let plugins: Array<string>;
 let introspection: any;
 
 /**
@@ -17,13 +17,15 @@ let introspection: any;
  *
  * Otherwise we default to checking current process.cwd if we are inside a package.
  */
-function isAPlugin(packageName: null | string = null) {
+export function isAPlugin(packageName?: string) {
   try {
     if (!packageName) {
       packageName = process.cwd();
     }
 
     const packageJson = require(packageName + "/package.json") as Object;
+    if (!Object.prototype.hasOwnProperty.call(packageJson, "corejam")) return false;
+
     let hasServerDir = false;
 
     if (process.env.NODE_ENV === "test") hasServerDir = typeof require.resolve(`${packageName}/server/`) === "string";
@@ -31,7 +33,7 @@ function isAPlugin(packageName: null | string = null) {
       hasServerDir = typeof require.resolve(`${packageName}/dist/server/`) === "string";
     }
 
-    return packageJson.hasOwnProperty("corejam") && hasServerDir ? true : false;
+    return hasServerDir ? true : false;
   } catch (e) {
     return false;
   }
@@ -40,25 +42,21 @@ function isAPlugin(packageName: null | string = null) {
 /**
  * Collect all corejam plugins that are currently active
  * so we can bootstrap them individually.
+ *
+ * @param path
  */
-export function collectPlugins(): Array<string> {
-  if (plugins) return plugins;
-
-  const packageJson = require(process.cwd() + "/package.json");
+export function collectPlugins(path = process.cwd()): Array<string> {
+  const packageJson = require(path + "/package.json");
   const deps = packageJson.dependencies ? Object.keys(packageJson.dependencies) : [];
   const devDeps = packageJson.devDependencies ? Object.keys(packageJson.devDependencies) : [];
 
-  plugins = [];
+  const plugins: Array<string> = [];
   //Check all the dependencies
   [...deps, ...devDeps].forEach((key) => {
     if (isAPlugin(key)) {
       plugins.push(key);
     }
   });
-
-  if (isAPlugin()) {
-    plugins.push(process.cwd());
-  }
 
   return plugins;
 }
@@ -97,6 +95,13 @@ export async function importPlugin(plugin: string) {
 }
 
 /**
+ * Load the manifest file from cache
+ */
+export function loadManifest(): PluginManifest {
+  return JSON.parse(fs.readFileSync(getCacheDir() + "/manifest.json", "utf-8"));
+}
+
+/**
  * Collect the schema from each corejam plugin so we can load it
  * and get a cacheable introspection result that we store to reduce future
  * requests having to build it again.
@@ -110,7 +115,7 @@ export async function bootstrapSchema(hoisted = false): Promise<introspectionRes
     : false;
   if (hoistedSchema) return (introspection = hoistedSchema);
 
-  let cacheDir = path.join(process.cwd(), ".corejam");
+  let cacheDir = getCacheDir();
 
   if (hoisted) {
     cacheDir = process.cwd();
@@ -124,7 +129,7 @@ export async function bootstrapSchema(hoisted = false): Promise<introspectionRes
   const corePath = path.resolve(__dirname, "../utils/core.graphql");
   let mergedSchemas = fs.readFileSync(corePath, "utf-8");
 
-  for (const plugin of collectPlugins()) {
+  for (const plugin of loadManifest().plugins) {
     const isLocalPlugin = isAPlugin();
     const currentPlugin = await importPlugin(plugin);
 
@@ -150,11 +155,20 @@ export async function bootstrapSchema(hoisted = false): Promise<introspectionRes
     })
   ).data as introspectionResult;
 
+  fs.writeFileSync(schemaCachePath, JSON.stringify(introspection), "utf8");
+
+  return introspection;
+}
+
+/**
+ * Get the current cache dir, create it if needed
+ */
+export function getCacheDir(): string {
+  const cacheDir = path.join(process.cwd(), ".corejam");
+
   if (!fs.existsSync(cacheDir)) {
     fs.mkdirSync(cacheDir);
   }
 
-  fs.writeFileSync(schemaCachePath, JSON.stringify(introspection), "utf8");
-
-  return introspection;
+  return cacheDir;
 }

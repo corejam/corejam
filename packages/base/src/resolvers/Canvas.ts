@@ -1,15 +1,15 @@
 import { CanvasPageList } from "../typings/Canvas";
 import { adminAllCanvasPagesGQL } from "../queries/Admin/CanvasPages";
 import { ServerContext } from "../typings/Server";
-import { GraphQLClient } from "../client/Client";
+import { getServerClient } from "../PluginManager";
 
 export default {
   Query: {
     allCanvasPages: (_obj: any, _args: any, { models }: ServerContext) => {
       return models.allCanvasPages();
     },
-    paginateCanvasPages: async (_obj: any, { size, page }, _ctx: ServerContext) => {
-      const client = new GraphQLClient();
+    paginateCanvasPages: async (_obj: any, { size, page }) => {
+      const client = getServerClient();
       const offset = (page - 1) * size;
 
       const {
@@ -35,7 +35,7 @@ export default {
     },
   },
   Mutation: {
-    canvasPageEditSEO: (_obj: any, _args: any, _ctx: ServerContext) => {
+    canvasPageEditSEO: () => {
       //return ctx.models.canvasPageEditSEO(args.id, args.seoInput);
     },
     canvasPageEdit: (_obj: any, { id, canvasPage }, { models }: ServerContext) => {

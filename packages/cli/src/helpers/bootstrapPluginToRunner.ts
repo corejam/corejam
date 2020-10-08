@@ -77,13 +77,14 @@ export async function bootstrapPluginToRunner() {
 export async function bootstrapPluginForTests() {
   await Promise.all([
     jetpack.copyAsync(cliRoot + "/../base", testRunner + "/__LINKEDPKGS__/base", { overwrite: true }),
+    jetpack.copyAsync(envRoot + "/.corejam", testRunner + "/.corejam", { overwrite: true }),
     jetpack.copyAsync(envRoot + "/shared", testRunner + "/shared", { overwrite: true }),
     jetpack.copyAsync(envRoot + "/server", testRunner + "/server", { overwrite: true }),
     jetpack.copyAsync(envRoot + "/tests", testRunner + "/tests", { overwrite: true }),
     jetpack.copyAsync(envRoot + "/index.ts", testRunner + "/index.ts", { overwrite: true }),
   ]);
-  
-  if(await jetpack.existsAsync(envRoot + "/.env") !== false) {
+
+  if (await jetpack.existsAsync(envRoot + "/.env") !== false) {
     await jetpack.copyAsync(envRoot + "/.env", testRunner + "/.env", { overwrite: true })
   }
 }

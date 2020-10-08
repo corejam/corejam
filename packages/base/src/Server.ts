@@ -1,7 +1,7 @@
 import { ApolloServer } from "apollo-server-micro";
 import { buildClientSchema, printSchema } from "graphql";
 import { makeExecutableSchema } from "graphql-tools";
-import { collectPlugins, importPlugin } from "./Bootstrap";
+import { importPlugin, loadManifest } from "./Bootstrap";
 import { Resolvers } from "./resolvers";
 import { ServerContext } from "./typings/Server";
 import { models as faunaModels } from "./resolvers/db/fauna";
@@ -52,8 +52,8 @@ export async function getServerContext({ req, res }): Promise<ServerContext> {
   } else {
     //We need to merge all plugin context for any additional context items they add
     //TODO needs to get generated from cli for all the requires on plugins
-    for (const plugin of collectPlugins()) {
-      let currentPlugin = await importPlugin(plugin);
+    for (const plugin of loadManifest().plugins) {
+      const currentPlugin = await importPlugin(plugin);
       const res = await currentPlugin.getPluginContext({ req, models: context.models, eventEmitter });
       context = { ...context, ...res };
 
@@ -96,8 +96,8 @@ export async function CorejamServer(context = ({ req, res }) => getServerContext
     });
   } else {
     //We need to merge all plugin resolvers into our core
-    for (const plugin of collectPlugins()) {
-      let currentPlugin = await importPlugin(plugin);
+    for (const plugin of loadManifest().plugins) {
+      const currentPlugin = await importPlugin(plugin);
 
       if (currentPlugin.default.resolvers) {
         resolvers = Object.values({

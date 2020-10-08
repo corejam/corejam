@@ -12,7 +12,7 @@ describe("Config", () => {
   //Bootstrap
   beforeAll(async () => {
     client = await testClient();
-    (models = models), ({ models } = client);
+    models = client.models;
 
     const insertedResponse = await models.configCreate(testValues);
     expect(insertedResponse).toMatchObject(testValues);

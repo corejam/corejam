@@ -1,5 +1,7 @@
 import { DershopRouteAccount } from "@corejam/plugin-dershop/react";
 
-export default () => {
+const Account = () => {
   return <DershopRouteAccount />;
 };
+
+export default Account;
