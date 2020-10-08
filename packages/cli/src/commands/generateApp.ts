@@ -6,14 +6,12 @@ import replace from "replace-in-file";
 import { isYarn } from "is-npm";
 import jetpack from "fs-jetpack";
 import execa from "execa";
-import { cliRoot } from "../config";
+import { cliRoot, mono } from "../config";
 
 export default async function createApp(name: string) {
   return new Promise(async (res: any) => {
     const spinner = ora(`Creating new Corejam application: ${name}`).start();
-    const pluginRootPath = process.env.INIT_CWD ?? process.cwd() + "/" + name;
-
-    console.log("Path:", pluginRootPath)
+    const pluginRootPath = (mono ? process.env.INIT_CWD : process.cwd()) + "/" + name;
 
     spinner.text = "Copy templates";
 
