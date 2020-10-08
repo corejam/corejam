@@ -152,6 +152,7 @@ jobs:
         if: |
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
+          yarn bs
           cd examples
           yarn corejam createApp test
           cd test && yarn static
