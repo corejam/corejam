@@ -32,7 +32,8 @@
     "build": "tsc",
     "postbuild": "shx cp -r ./src/templates ./dist && lerna link",
     "test": "jest",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "prepublish": "yarn clean && yarn build"
   },
   "dependencies": {
     "@corejam/base": "0.0.5",
