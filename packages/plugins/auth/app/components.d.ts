@@ -14,6 +14,8 @@ export namespace Components {
         "data": any;
         "page": number;
     }
+    interface AuthResetPasswordForm {
+    }
     interface CjRouteAdmin {
         "param": any;
     }
@@ -54,6 +56,12 @@ declare global {
     var HTMLAuthAdminUserListElement: {
         prototype: HTMLAuthAdminUserListElement;
         new (): HTMLAuthAdminUserListElement;
+    };
+    interface HTMLAuthResetPasswordFormElement extends Components.AuthResetPasswordForm, HTMLStencilElement {
+    }
+    var HTMLAuthResetPasswordFormElement: {
+        prototype: HTMLAuthResetPasswordFormElement;
+        new (): HTMLAuthResetPasswordFormElement;
     };
     interface HTMLCjRouteAdminElement extends Components.CjRouteAdmin, HTMLStencilElement {
     }
@@ -124,6 +132,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "auth-admin-user-form": HTMLAuthAdminUserFormElement;
         "auth-admin-user-list": HTMLAuthAdminUserListElement;
+        "auth-reset-password-form": HTMLAuthResetPasswordFormElement;
         "cj-route-admin": HTMLCjRouteAdminElement;
         "cj-route-admin-user-form": HTMLCjRouteAdminUserFormElement;
         "cj-route-index": HTMLCjRouteIndexElement;
@@ -145,6 +154,8 @@ declare namespace LocalJSX {
     interface AuthAdminUserList {
         "data"?: any;
         "page"?: number;
+    }
+    interface AuthResetPasswordForm {
     }
     interface CjRouteAdmin {
         "param"?: any;
@@ -176,6 +187,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "auth-admin-user-form": AuthAdminUserForm;
         "auth-admin-user-list": AuthAdminUserList;
+        "auth-reset-password-form": AuthResetPasswordForm;
         "cj-route-admin": CjRouteAdmin;
         "cj-route-admin-user-form": CjRouteAdminUserForm;
         "cj-route-index": CjRouteIndex;
@@ -195,6 +207,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "auth-admin-user-form": LocalJSX.AuthAdminUserForm & JSXBase.HTMLAttributes<HTMLAuthAdminUserFormElement>;
             "auth-admin-user-list": LocalJSX.AuthAdminUserList & JSXBase.HTMLAttributes<HTMLAuthAdminUserListElement>;
+            "auth-reset-password-form": LocalJSX.AuthResetPasswordForm & JSXBase.HTMLAttributes<HTMLAuthResetPasswordFormElement>;
             "cj-route-admin": LocalJSX.CjRouteAdmin & JSXBase.HTMLAttributes<HTMLCjRouteAdminElement>;
             "cj-route-admin-user-form": LocalJSX.CjRouteAdminUserForm & JSXBase.HTMLAttributes<HTMLCjRouteAdminUserFormElement>;
             "cj-route-index": LocalJSX.CjRouteIndex & JSXBase.HTMLAttributes<HTMLCjRouteIndexElement>;

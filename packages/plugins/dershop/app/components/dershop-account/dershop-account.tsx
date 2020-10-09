@@ -142,46 +142,7 @@ export class AccountComponent {
                                 </corejam-form-submit>
                             </corejam-base-link>
                         </corejam-form-container>
-                        <corejam-box bWidthBottom={1} bColor="gray-400" mb={8} mt={12}>
-                            <corejam-type as="h3" size="xl">
-                                Password
-                        </corejam-type>
-                        </corejam-box>
-                        <corejam-box flex mb={8}>
-                            <corejam-box w={6}>
-                                <corejam-form-input
-                                    id="currentpassword"
-                                    type="password"
-                                    label="Current Password"
-                                    placeholder="Current password"
-                                ></corejam-form-input>
-                            </corejam-box>
-                        </corejam-box>
-                        <corejam-box flex mb={8}>
-                            <corejam-box w={6}>
-                                <corejam-form-input
-                                    id="newpasswor"
-                                    type="password"
-                                    label="New Password"
-                                    placeholder="New password"
-                                ></corejam-form-input>
-                            </corejam-box>
-                        </corejam-box>
-                        <corejam-box flex mb={8}>
-                            <corejam-box w={6}>
-                                <corejam-form-input
-                                    id="confirmpassword"
-                                    type="password"
-                                    label="Confirm Password"
-                                    placeholder="Confirm password"
-                                ></corejam-form-input>
-                            </corejam-box>
-                        </corejam-box>
-                        <corejam-base-link href="#">
-                            <corejam-type size="sm" weight="bold" transform="uppercase" decoration="underline">
-                                Save
-                        </corejam-type>
-                        </corejam-base-link>
+                        <auth-reset-password-form></auth-reset-password-form>
                     </corejam-box>
                 </corejam-box>
             </corejam-box >

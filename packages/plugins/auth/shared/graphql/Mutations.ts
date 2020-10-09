@@ -54,9 +54,7 @@ export const userAddMutationGQL = `
 
 export const userUpdatePasswordMutationGQL = `
   mutation UserUpdatePassword($userPasswordInput: UserPasswordInput!) {
-    userUpdatePassword(userPasswordInput: $userPasswordInput) {
-      res
-    }
+    userUpdatePassword(passwordInput: $userPasswordInput)
   }
 `;
 
