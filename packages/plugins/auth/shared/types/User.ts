@@ -49,3 +49,13 @@ export type RegisterInput = {
   password: string;
   passwordConfirm: string;
 };
+
+export type UpdateUserInput = {
+  email: string;
+}
+
+export type UpdatePasswordInput = {
+  oldPassword: string,
+  password: string,
+  passwordConfirm: string
+}

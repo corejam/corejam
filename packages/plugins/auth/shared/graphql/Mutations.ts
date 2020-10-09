@@ -51,3 +51,20 @@ export const userAddMutationGQL = `
     }
   }
 `;
+
+export const userUpdatePasswordMutationGQL = `
+  mutation UserUpdatePassword($userPasswordInput: UserPasswordInput!) {
+    userUpdatePassword(userPasswordInput: $userPasswordInput) {
+      res
+    }
+  }
+`;
+
+export const userUpdateGQL = `
+  mutation userUpdate($userInput: UserUpdateInput!) {
+    userUpdate(userUpdateInput: $userInput) {
+      id
+      email
+    }
+  }
+`;

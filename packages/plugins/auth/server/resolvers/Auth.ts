@@ -70,9 +70,14 @@ export default {
   Mutation: {
     userEdit: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
       const currentUser = await user();
-      if(args.id !== currentUser.id) checkUserHasRole(await user(), roles.ADMIN)
+      if (args.id !== currentUser.id) checkUserHasRole(await user(), roles.ADMIN)
 
       return models.userEdit(args.id, args.userInput);
+    },
+    userUpdate: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
+      const currentUser = await user();
+
+      return models.userEdit(currentUser.id, args.userUpdateInput);
     },
     userRegister: async (_obj: any, args: any, { models }: MergedServerContext) => {
       validateAuthInput(args.data.email);
@@ -98,7 +103,7 @@ export default {
     userTokenRefresh: async (_obj: any, _args: any, { req, res, models }: MergedServerContext) => {
       const rx = /([^;=\s]*)=([^;]*)/g;
       const obj = {};
-      for (let m; (m = rx.exec(req?.headers.cookie ?? "")); ) {
+      for (let m; (m = rx.exec(req?.headers.cookie ?? ""));) {
         obj[m[1]] = decodeURIComponent(m[2]);
       }
 
