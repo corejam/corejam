@@ -6,10 +6,11 @@ import { AccountExistsError, AuthenticationError } from "../../server/Errors";
 import {
   userAuthenticateMutationGQL,
   userEditMutationGQL,
-  userRegisterMutationGQL
+  userRegisterMutationGQL,
+  userUpdatePasswordMutationGQL
 } from "../../shared/graphql/Mutations";
 import { userByTokenGQL } from "../../shared/graphql/Queries";
-import { RegisterInput, UserCreateInput, UserDB, UserInput } from "../../shared/types/User";
+import { RegisterInput, UpdatePasswordInput, UserCreateInput, UserDB, UserInput } from "../../shared/types/User";
 
 //@ts-ignore
 import { testClient } from "../../src/TestClient";
@@ -204,5 +205,73 @@ describe("Test Auth Plugin", () => {
     });
 
     expect(expectFail.errors[0]).toEqual(new AccountExistsError());
+  });
+
+  it.only("update password", async () => {
+    const updatePassword: UpdatePasswordInput = {
+      oldPassword: "valid123Password@",
+      password: "newPass",
+      passwordConfirm: "newPass",
+    };
+
+    const registerValues: RegisterInput = {
+      email: faker.internet.email(),
+      password: "valid123Password@",
+      passwordConfirm: "valid123Password@",
+    };
+
+    console.log(registerValues)
+
+    const mockResponse = new ServerResponse(new IncomingMessage(new Socket()));
+
+    const { mutate } = await testClient({
+      req: { headers: {} },
+      res: mockResponse,
+    });
+
+    await mutate({
+      mutation: userRegisterMutationGQL,
+      variables: {
+        data: registerValues,
+      },
+    });
+
+    const loginResponse = await mutate({
+      mutation: userAuthenticateMutationGQL,
+      variables: {
+        email: registerValues.email,
+        password: registerValues.password,
+      },
+    });
+
+    //Make a request with token in header
+    const authClient = await testClient({
+      req: {
+        headers: {
+          authorization: loginResponse.data.userAuthenticate.token,
+        },
+      },
+      res: new ServerResponse(new IncomingMessage(new Socket())),
+    });
+
+    const updatePasswordRequest = await authClient.mutate({
+      mutation: userUpdatePasswordMutationGQL,
+      variables: {
+        userPasswordInput: updatePassword
+      },
+    });
+
+    expect(updatePasswordRequest.data.userUpdatePassword).toBe(true)
+
+    const loginResponse2 = await (await testClient()).mutate({
+      mutation: userAuthenticateMutationGQL,
+      variables: {
+        email: registerValues.email,
+        password: registerValues.password,
+      },
+    });
+
+    console.log(loginResponse2)
+    expect(loginResponse2.errors[0]).toEqual(new AuthenticationError());
   });
 });

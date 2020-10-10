@@ -3,7 +3,7 @@ import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 import { query as q } from "faunadb";
 import { AuthenticationError } from "../../../Errors";
 import { decodeJWT, generateTokensForUser } from "../../../Functions";
-import type { JWT, RegisterInput, UserCreateInput, UserDB, UserInput } from "../../../../shared/types/User";
+import type { JWT, RegisterInput, UpdatePasswordInput, UserCreateInput, UserDB, UserInput } from "../../../../shared/types/User";
 import { roles } from "../../../../shared/types/User";
 
 export function allUsers(): Promise<UserDB[]> {
@@ -126,4 +126,8 @@ export async function userTokenRefresh(refreshToken: string): Promise<JWT> {
   }
 
   return await generateTokensForUser(user, userEdit);
+}
+
+export async function userUpdatePassword(_user: UserDB, _passwordInput: UpdatePasswordInput): Promise<Boolean> {
+  return new Promise(res => res(true))
 }

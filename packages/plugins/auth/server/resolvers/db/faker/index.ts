@@ -10,6 +10,7 @@ import {
   userCreate,
   userEdit,
   userTokenRefresh,
+  userUpdatePassword,
 } from "./User";
 
 export const models: PluginResolver = {
@@ -22,4 +23,5 @@ export const models: PluginResolver = {
   userCreate,
   userEdit,
   userTokenRefresh,
+  userUpdatePassword
 };

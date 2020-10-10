@@ -116,5 +116,8 @@ export default {
 
       return models.userCreate(args.userCreateInput);
     },
+    userUpdatePassword: async (_obj: any, args: any, { user, models }: MergedServerContext) => {
+      return models.userUpdatePassword(await user(), args.passwordInput)
+    }
   },
 };

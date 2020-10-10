@@ -24,7 +24,7 @@ input UserUpdateInput {
 input UserPasswordInput {
   oldPassword: String!
   password: String!
-  confirmPassword: String!
+  passwordConfirm: String!
 }
 
 enum userRoles {
