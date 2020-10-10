@@ -1,7 +1,5 @@
-import { ApolloServer } from "apollo-server-micro";
-import { buildClientSchema, printSchema } from "graphql";
-import { makeExecutableSchema } from "graphql-tools";
-import { importPlugin, loadManifest } from "./Bootstrap";
+import { ApolloServer, gql } from "apollo-server-micro";
+import { bootstrapSchema, importPlugin, loadManifest } from "./Bootstrap";
 import { Resolvers } from "./resolvers";
 import { ServerContext } from "./typings/Server";
 import { models as faunaModels } from "./resolvers/db/fauna";
@@ -79,9 +77,6 @@ export async function getServerContext({ req, res }): Promise<ServerContext> {
  * @param context
  */
 export async function CorejamServer(context = ({ req, res }) => getServerContext({ req, res })): Promise<ApolloServer> {
-  const schemaFromModels = await getServerModels().schema();
-  const sdl = printSchema(buildClientSchema(schemaFromModels));
-
   let resolvers = Object.values(Resolvers);
 
   if (fs.existsSync(process.cwd() + "/resolvers.js")) {
@@ -108,14 +103,6 @@ export async function CorejamServer(context = ({ req, res }) => getServerContext
     }
   }
 
-  const schema = makeExecutableSchema({
-    typeDefs: sdl,
-    resolvers,
-    resolverValidationOptions: {
-      requireResolversForResolveType: false,
-    },
-  });
-
   //Do we have any events inside the /events dir?
   if (fs.existsSync(process.cwd() + "/events")) {
     try {
@@ -132,10 +119,8 @@ export async function CorejamServer(context = ({ req, res }) => getServerContext
   }
 
   return new ApolloServer({
-    schema,
+    typeDefs: gql(await bootstrapSchema()),
+    resolvers,
     context,
-    /*cacheControl: {
-      defaultMaxAge: 60
-    }*/
   });
 }

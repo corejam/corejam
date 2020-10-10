@@ -1,16 +1,7 @@
-import { makeExecutableSchema } from "@graphql-tools/schema";
 import * as fs from "fs";
-import { execute, getIntrospectionQuery, parse } from "graphql";
 import * as path from "path";
 import { PluginLoadError } from "./Errors";
 import { PluginManifest } from "./typings/Plugin";
-
-type introspectionResult = {
-  data: any;
-};
-
-
-let introspection: any;
 
 /**
  * Check if we are currently a plugin that needs to load server side code.
@@ -103,28 +94,14 @@ export function loadManifest(): PluginManifest {
 }
 
 /**
- * Collect the schema from each corejam plugin so we can load it
- * and get a cacheable introspection result that we store to reduce future
- * requests having to build it again.
+ * Collect the schemas from each plugin and write it out to one large schema.
+ * Doing it this way temporarily due to us loosing caching functionality using
+ * executableSchema()
  */
-export async function bootstrapSchema(hoisted = false): Promise<introspectionResult> {
-  if (introspection) return introspection; //We already have it
-
-  //Check do we have a hoisted schema
-  const hoistedSchema = fs.existsSync(process.cwd() + "/schema.json")
-    ? JSON.parse(fs.readFileSync(process.cwd() + "/schema.json", "utf-8"))
-    : false;
-  if (hoistedSchema) return (introspection = hoistedSchema);
-
-  let cacheDir = getCacheDir();
-
-  if (hoisted) {
-    cacheDir = process.cwd();
-  }
-
-  const schemaCachePath = cacheDir + "/schema.json";
+export async function bootstrapSchema(): Promise<string> {
+  const schemaCachePath = getCacheDir() + "/schema.graphql";
   if (fs.existsSync(schemaCachePath)) {
-    return (introspection = JSON.parse(fs.readFileSync(schemaCachePath, "utf-8")));
+    return fs.readFileSync(schemaCachePath, "utf-8");
   }
 
   const corePath = path.resolve(__dirname, "../utils/core.graphql");
@@ -149,16 +126,9 @@ export async function bootstrapSchema(hoisted = false): Promise<introspectionRes
     });
   }
 
-  introspection = (
-    await execute({
-      schema: makeExecutableSchema({ typeDefs: mergedSchemas }),
-      document: parse(getIntrospectionQuery()),
-    })
-  ).data as introspectionResult;
+  fs.writeFileSync(schemaCachePath, mergedSchemas, "utf8");
 
-  fs.writeFileSync(schemaCachePath, JSON.stringify(introspection), "utf8");
-
-  return introspection;
+  return mergedSchemas;
 }
 
 /**
