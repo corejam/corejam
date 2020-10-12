@@ -1,4 +1,4 @@
-import { ApolloServer, gql } from "apollo-server-micro";
+import { ApolloServer, gql } from "apollo-server";
 import { bootstrapSchema, importPlugin, loadManifest } from "./Bootstrap";
 import { Resolvers } from "./resolvers";
 import { ServerContext } from "./typings/Server";
@@ -7,7 +7,6 @@ import { models as fakerModels } from "./resolvers/db/faker";
 import { EventEmitter } from "events";
 import * as fs from "fs";
 import nRequire from "./nativeRequire";
-import { InMemoryLRUCache } from "apollo-server-caching";
 
 export const eventEmitter: EventEmitter = new EventEmitter();
 const eventFiles: Array<string> = [];
@@ -122,7 +121,7 @@ export async function CorejamServer(context = ({ req, res }) => getServerContext
   return new ApolloServer({
     typeDefs: gql(await bootstrapSchema()),
     resolvers,
+    cors: { origin: "http://localhost:3001" },
     context,
-    cache: new InMemoryLRUCache(),
   });
 }

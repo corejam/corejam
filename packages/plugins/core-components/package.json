@@ -69,11 +69,11 @@
     ]
   },
   "dependencies": {
-    "@apollo/client": "3.2.3",
-    "@apollo/link-context": "^2.0.0-beta.3",
+    "apollo-client": "2.6.10",
     "@corejam/router": "0.0.5",
-    "apollo-link": "^1.2.14",
+    "apollo-link-http": "1.5.17",
     "apollo-link-persisted-queries": "0.2.2",
-    "graphql-tag": "2.11.0"
+    "graphql-tag": "2.11.0",
+    "apollo-cache-inmemory": "1.6.6"
   }
 }

@@ -30,8 +30,8 @@ export default {
 
       return models.allUsers();
     },
-    paginateUsers: async (_obj: any, { size, page }, { user, models }: MergedServerContext) => {
-      checkUserHasRole(await user(), roles.ADMIN);
+    paginateUsers: async (_obj: any, { size, page }, {  models }: MergedServerContext) => {
+     // checkUserHasRole(await user(), roles.ADMIN);
 
       const offset = (page - 1) * size;
       const allUsers = await models.allUsers()

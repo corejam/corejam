@@ -1,13 +1,13 @@
-import { createStore } from "@stencil/store";
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
-import { Router } from "stencil-router-v2";
 import { createPersistedQueryLink } from "apollo-link-persisted-queries";
+import { createHttpLink } from "apollo-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloClient } from "apollo-client";
+import { createStore } from "@stencil/store";
+import { Router } from "stencil-router-v2";
 
-const pql = createPersistedQueryLink({ useGETForHashedQueries: true })
-  //@ts-ignore
+const link = createPersistedQueryLink({ useGETForHashedQueries: true })
   .concat(createHttpLink({
     uri: (process.env.API_ORIGIN ? process.env.API_ORIGIN : "") + "/api/graphql",
-    credentials: 'include',
   }));
 
 
@@ -17,9 +17,7 @@ const pql = createPersistedQueryLink({ useGETForHashedQueries: true })
 export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, onChange: coreChange } = createStore({
   client: new ApolloClient({
     cache: new InMemoryCache(),
-    //@ts-ignore
-    link: pql,
-    credentials: 'include',
+    link,
   }),
   endpoint: ""
 });
