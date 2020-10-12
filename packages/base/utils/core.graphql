@@ -36,18 +36,18 @@ type CanvasPageList implements Paginated {
   items: [CanvasPage]
 }
 
-type Config @cacheControl(maxAge: 60) {
+type Config @cacheControl(maxAge: 3600) {
   seo: SEO!
   general: ConfigGeneral!
   layout: ConfigLayout!
 }
 
-type ConfigLayout {
+type ConfigLayout @cacheControl(maxAge: 3600) {
   header: JSONObject
   footer: JSONObject
 }
 
-type ConfigGeneral {
+type ConfigGeneral @cacheControl(maxAge: 3600) {
   admin_email: String!
 }
 
@@ -115,7 +115,7 @@ type Query {
 }
 
 
-type SEO {
+type SEO @cacheControl(maxAge: 3600) {
   metaTitle: String
   metaDescription: String
   keywords: [String]
