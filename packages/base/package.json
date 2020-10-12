@@ -50,6 +50,7 @@
     "apollo-server-micro": "2.18.2",
     "faker": "5.1.0",
     "faunadb": "3.0.1",
+    "@apollo/client": "3.2.3",
     "graphql": "15.3.0",
     "husky": "4.3.0",
     "isomorphic-unfetch": "3.1.0",
