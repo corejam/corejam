@@ -1,21 +1,20 @@
 import { createStore } from "@stencil/store";
-import { GraphQLClient } from "@corejam/base";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloClient } from "apollo-client";
+import { createHttpLink } from "apollo-link-http";
+import { createPersistedQueryLink } from "apollo-link-persisted-queries";
 import { Router } from "stencil-router-v2";
-import { Build } from "@stencil/core";
+
+const link = createPersistedQueryLink().concat(createHttpLink({ uri: "/api/graphql" }));
 
 /**
  * We only want absolute url for hydrate on server
  */
 export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, onChange: coreChange } = createStore({
-  client: Build.isBrowser
-    ? new GraphQLClient(
-        {
-          mode: "cors",
-          credentials: "include"
-        },
-        process.env.API_ORIGIN ? process.env.API_ORIGIN : null
-      )
-    : new GraphQLClient({ mode: "cors", credentials: "include" }, process.env.DEPLOYMENT_URL),
+  client: new ApolloClient({
+    cache: new InMemoryCache(),
+    link: link,
+  }),
   endpoint: ""
 });
 

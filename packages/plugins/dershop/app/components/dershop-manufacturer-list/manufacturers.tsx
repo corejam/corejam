@@ -1,5 +1,6 @@
 import { coreState } from "@corejam/core-components";
 import { Component, Host, h } from "@stencil/core";
+import gql from "graphql-tag";
 import { ManufacturerDB } from "shared/types/Manufacturer";
 import { allManufacturersGQL } from "../../../shared/graphql/Queries/Manufacturer";
 
@@ -11,7 +12,7 @@ export class IndexRoute {
   private _data;
 
   async componentWillLoad() {
-    this._data = await coreState.client.request(allManufacturersGQL);
+    this._data = await coreState.client.query({ query: gql(allManufacturersGQL) });
   }
 
   render() {

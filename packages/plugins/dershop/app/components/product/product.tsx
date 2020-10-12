@@ -3,6 +3,7 @@ import { basketService } from "../../../shared/store/basket";
 import { productByUrlGQL } from "../../../shared/graphql/Queries/Product";
 import { coreState } from "@corejam/core-components";
 import { Product } from "../../../shared/types/Product";
+import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-product",
@@ -40,8 +41,8 @@ export class ProductDetail {
       const variables = {
         url: this.url,
       };
-      const data = await coreState.client.request(productByUrlGQL, variables);
-      this._product = data.productByUrl;
+      const data = await coreState.client.query({ query: gql(productByUrlGQL), variables });
+      this._product = data.data.productByUrl;
     } else {
       this._product = this.product
         ? typeof this.product === "string"

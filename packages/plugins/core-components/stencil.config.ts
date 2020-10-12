@@ -59,7 +59,7 @@ if (targets.includes("react")) {
   config.outputTargets.push(
     reactOutputTarget({
       componentCorePackage: "@corejam/stencil-runner",
-      proxiesFile: process.env.REACT_BINDINGS_ROOT + "/src/components.ts", 
+      proxiesFile: process.env.REACT_BINDINGS_ROOT + "/src/components.ts",
       loaderDir: "web-components/loader",
       includeDefineCustomElements: true
       // includePolyfills: true // Enable if needed
