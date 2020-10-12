@@ -1,5 +1,3 @@
-import { GraphQLClient } from "./client/Client";
-
 const dataClients: Map<string, object> = new Map();
 
 /**
@@ -26,8 +24,4 @@ export function getDataClient(identifier: string, initClient: () => object, purg
 export enum DATACLIENTS {
   GRAPHQL = "graphql",
   FAUNA = "fauna",
-}
-
-export function getServerClient(): GraphQLClient {
-  return getDataClient(DATACLIENTS.GRAPHQL, () => new GraphQLClient()) as GraphQLClient;
 }

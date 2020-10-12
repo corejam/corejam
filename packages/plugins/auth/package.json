@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "@alepop/stencil-env": "0.4.1",
+    "@apollo/client": "3.2.3",
     "@corejam/base": "0.0.6",
     "@corejam/core-components": "0.0.6",
     "@corejam/router": "0.0.5",

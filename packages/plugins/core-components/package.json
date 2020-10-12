@@ -69,9 +69,11 @@
     ]
   },
   "dependencies": {
-    "@corejam/router": "0.0.5",
     "@apollo/client": "3.2.3",
-    "graphql-tag": "2.11.0",
-    "isomorphic-unfetch": "3.1.0"
+    "@apollo/link-context": "^2.0.0-beta.3",
+    "@corejam/router": "0.0.5",
+    "apollo-link": "^1.2.14",
+    "apollo-link-persisted-queries": "0.2.2",
+    "graphql-tag": "2.11.0"
   }
 }

@@ -7,6 +7,7 @@ import { models as fakerModels } from "./resolvers/db/faker";
 import { EventEmitter } from "events";
 import * as fs from "fs";
 import nRequire from "./nativeRequire";
+import { InMemoryLRUCache } from "apollo-server-caching";
 
 export const eventEmitter: EventEmitter = new EventEmitter();
 const eventFiles: Array<string> = [];
@@ -122,5 +123,6 @@ export async function CorejamServer(context = ({ req, res }) => getServerContext
     typeDefs: gql(await bootstrapSchema()),
     resolvers,
     context,
+    cache: new InMemoryLRUCache(),
   });
 }

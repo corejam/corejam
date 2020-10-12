@@ -1,9 +1,7 @@
-import { getServerClient } from "@corejam/base";
-import { allUsersGQL } from "../../shared/graphql/Queries";
-import { UserList, roles } from "../../shared/types/User";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
+import { roles, UserList } from "../../shared/types/User";
 import { AccountExistsError } from "../Errors";
-import { validateAuthInput, validatePasswordCreate, checkUserHasRole } from "../Functions";
+import { checkUserHasRole, validateAuthInput, validatePasswordCreate } from "../Functions";
 
 function setRefreshHeaders(jwt, { req, res }) {
   const JWT_REFRESH_EXPIRES = process.env.JWT_REFRESH_EXPIRES as string;
@@ -32,13 +30,11 @@ export default {
 
       return models.allUsers();
     },
-    paginateUsers: async (_obj: any, { size, page }, { user }: MergedServerContext) => {
+    paginateUsers: async (_obj: any, { size, page }, { user, models }: MergedServerContext) => {
       checkUserHasRole(await user(), roles.ADMIN);
 
-      const client = getServerClient();
       const offset = (page - 1) * size;
-
-      const { allUsers } = await client.request(allUsersGQL);
+      const allUsers = await models.allUsers()
 
       const items = allUsers.slice(offset, offset + size);
 
