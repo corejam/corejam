@@ -13,12 +13,13 @@ export namespace Components {
         "data": any;
     }
     interface AppRoot {
-        "static": boolean;
     }
     interface AppRouter {
         "docs": any;
         "mode": string;
         "routes": any;
+    }
+    interface AppTestComp {
     }
     interface AppWelcome {
         "mode": string;
@@ -50,6 +51,12 @@ declare global {
         prototype: HTMLAppRouterElement;
         new (): HTMLAppRouterElement;
     };
+    interface HTMLAppTestCompElement extends Components.AppTestComp, HTMLStencilElement {
+    }
+    var HTMLAppTestCompElement: {
+        prototype: HTMLAppTestCompElement;
+        new (): HTMLAppTestCompElement;
+    };
     interface HTMLAppWelcomeElement extends Components.AppWelcome, HTMLStencilElement {
     }
     var HTMLAppWelcomeElement: {
@@ -61,6 +68,7 @@ declare global {
         "app-playground": HTMLAppPlaygroundElement;
         "app-root": HTMLAppRootElement;
         "app-router": HTMLAppRouterElement;
+        "app-test-comp": HTMLAppTestCompElement;
         "app-welcome": HTMLAppWelcomeElement;
     }
 }
@@ -72,12 +80,13 @@ declare namespace LocalJSX {
         "data"?: any;
     }
     interface AppRoot {
-        "static"?: boolean;
     }
     interface AppRouter {
         "docs"?: any;
         "mode"?: string;
         "routes"?: any;
+    }
+    interface AppTestComp {
     }
     interface AppWelcome {
         "mode"?: string;
@@ -88,6 +97,7 @@ declare namespace LocalJSX {
         "app-playground": AppPlayground;
         "app-root": AppRoot;
         "app-router": AppRouter;
+        "app-test-comp": AppTestComp;
         "app-welcome": AppWelcome;
     }
 }
@@ -99,6 +109,7 @@ declare module "@stencil/core" {
             "app-playground": LocalJSX.AppPlayground & JSXBase.HTMLAttributes<HTMLAppPlaygroundElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "app-router": LocalJSX.AppRouter & JSXBase.HTMLAttributes<HTMLAppRouterElement>;
+            "app-test-comp": LocalJSX.AppTestComp & JSXBase.HTMLAttributes<HTMLAppTestCompElement>;
             "app-welcome": LocalJSX.AppWelcome & JSXBase.HTMLAttributes<HTMLAppWelcomeElement>;
         }
     }

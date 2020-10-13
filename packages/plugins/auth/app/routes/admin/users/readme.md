@@ -5,13 +5,6 @@
 <!-- Auto Generated Below -->
 
 
-## Properties
-
-| Property | Attribute | Description | Type  | Default     |
-| -------- | --------- | ----------- | ----- | ----------- |
-| `param`  | `param`   |             | `any` | `undefined` |
-
-
 ## Dependencies
 
 ### Depends on
@@ -22,8 +15,8 @@
 ### Graph
 ```mermaid
 graph TD;
-  cj-route-admin --> corejam-auth-header
-  cj-route-admin --> auth-admin-user-list
+  cj-route-admin-index --> corejam-auth-header
+  cj-route-admin-index --> auth-admin-user-list
   corejam-auth-header --> corejam-box
   corejam-auth-header --> corejam-base-link
   corejam-auth-header --> corejam-identity
@@ -43,7 +36,7 @@ graph TD;
   corejam-pagination --> corejam-box
   corejam-pagination --> corejam-base-link
   corejam-pagination --> corejam-type
-  style cj-route-admin fill:#f9f,stroke:#333,stroke-width:4px
+  style cj-route-admin-index fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

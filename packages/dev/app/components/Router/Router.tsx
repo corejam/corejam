@@ -52,7 +52,7 @@ export class AppRouter {
             Object.keys(this.routes.components).map((k) => {
               const component = this.routes.components[k];
               return (
-                <Route path={`/_corejam${component.url}`}>
+                <Route path={component.url}>
                   <app-playground
                     cmp={component.component}
                     // data={this.docs.tags.filter((d) => d.name === component.component)[0]}

@@ -7,5 +7,5 @@ export default {
     format: "cjs",
     exports: "auto",
   },
-  plugins: [typescript({ include: "rollup" })],
+  plugins: [typescript({ tsconfig: "./tsconfig.rollup.json" })],
 };

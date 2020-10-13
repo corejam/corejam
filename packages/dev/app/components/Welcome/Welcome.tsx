@@ -42,7 +42,7 @@ export class Welcome {
                       const route = this.routes.components[k];
                       return (
                         <li>
-                          <a {...href("/_corejam" + route.url, state.router)}>{this.formatUrl(route.url)}</a>
+                          <a {...href(route.url, state.router)}>{this.formatUrl(route.url)}</a>
                         </li>
                       );
                     })}

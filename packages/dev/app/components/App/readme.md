@@ -5,13 +5,6 @@
 <!-- Auto Generated Below -->
 
 
-## Properties
-
-| Property | Attribute | Description | Type      | Default |
-| -------- | --------- | ----------- | --------- | ------- |
-| `static` | `static`  |             | `boolean` | `false` |
-
-
 ## Dependencies
 
 ### Depends on
