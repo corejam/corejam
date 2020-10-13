@@ -1,5 +1,3 @@
-import { getServerClient } from "@corejam/base";
-import { adminAllOrdersGQL } from "../../shared/graphql/Queries/Admin/Order";
 import { OrderList } from "../../shared/types/Order";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { UserDB } from "../../shared/types/User";
@@ -23,11 +21,10 @@ export default {
     allOrders: (_obj: any, _args: any, ctx: MergedServerContext) => {
       return ctx.models.allOrders();
     },
-    paginateOrders: async (_obj: any, { size, page }, _ctx: any) => {
-      const client = getServerClient();
+    paginateOrders: async (_obj: any, { size, page }, { models }: any) => {
       const offset = (page - 1) * size;
 
-      const { allOrders } = await client.request(adminAllOrdersGQL);
+      const { allOrders } = await models.allOrders();
       const items = allOrders.slice(offset, offset + size);
 
       const paginated: OrderList = {

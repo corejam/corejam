@@ -14,7 +14,7 @@ type CanvasPeers {
   peers: [CanvasPeer!]
 }
 
-type CanvasPage implements Timestamp {
+type CanvasPage implements Timestamp @cacheControl(maxAge: 300) {
   id: String!
   canvas: JSONObject
   seo: SEO
@@ -60,7 +60,7 @@ input ConfigInput {
   general: ConfigGeneralInput!
 }
 
-type Image implements Timestamp {
+type Image implements Timestamp @cacheControl(maxAge: 3600) {
   src: String!
   public_id: String!
   alt: String
@@ -107,7 +107,7 @@ interface Paginated {
 type Query {
   dummy: String
   config: Config
-  objectFromURL(url: String!): SEODocument
+  objectFromURL(url: String!): SEODocument @cacheControl(maxAge: 300)
   allCanvasPages: [CanvasPage]
   paginateCanvasPages(page: Int!, size: Int!): CanvasPageList
   canvasPageById(id: String!): CanvasPage
