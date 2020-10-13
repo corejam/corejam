@@ -71,7 +71,7 @@
   "dependencies": {
     "@apollo/client": "3.2.3",
     "@corejam/router": "0.0.5",
-    "@apollo/link-persisted-queries": "https://github.com/corejam/apollo-link-persisted-queries.git",
+    "@apollo/link-persisted-queries": "https://github.com/corejam/apollo-link-persisted-queries/tarball/master",
     "graphql-tag": "2.11.0"
   }
 }
