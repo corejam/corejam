@@ -19,7 +19,8 @@ const webpack = withBundleAnalyzer({
     ];
     return config;
   },
-  distDir: ".corejam"
+  distDir: ".corejam",
+  outputDir: ".corejam"
 });
 
 module.exports = webpack;
