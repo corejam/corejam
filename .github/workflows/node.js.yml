@@ -26,6 +26,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
       - run: |
+          apk add --no-cache git
           rm -rf node_modules/@corejam node_modules/.bin/corejam
           yarn --frozen-lockfile
           yarn lint
