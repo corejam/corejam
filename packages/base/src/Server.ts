@@ -121,7 +121,10 @@ export async function CorejamServer(context = ({ req, res }) => getServerContext
   return new ApolloServer({
     typeDefs: gql(await bootstrapSchema()),
     resolvers,
-    cors: { origin: "http://localhost:3001" },
+    cors: {
+      origin: "http://localhost:3001",
+      credentials: true,
+    },
     context,
   });
 }

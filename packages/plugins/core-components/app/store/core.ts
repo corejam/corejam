@@ -1,15 +1,13 @@
-import { createPersistedQueryLink } from "apollo-link-persisted-queries";
-import { createHttpLink } from "apollo-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { ApolloClient } from "apollo-client";
+import { createPersistedQueryLink } from "@apollo/link-persisted-queries";
 import { createStore } from "@stencil/store";
 import { Router } from "stencil-router-v2";
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 
 const link = createPersistedQueryLink({ useGETForHashedQueries: true })
   .concat(createHttpLink({
     uri: (process.env.API_ORIGIN ? process.env.API_ORIGIN : "") + "/api/graphql",
+    credentials: "include"
   }));
-
 
 /**
  * We only want absolute url for hydrate on server

@@ -33,10 +33,12 @@ export class AuthAdminUserList {
   private tableHeader = ["Email", "Role", "Status", "Date Created"];
 
   async componentWillRender() {
-   await this.queryData();
+    if (authStore.identity) await this.queryData();
   }
 
   render() {
+    if (!authStore.identity) return <corejam-box mx="auto">Not authorized</corejam-box>;
+
     return (
       <Host>
         <corejam-box max="xl" flex direction="col" mx="auto">
