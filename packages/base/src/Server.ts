@@ -1,4 +1,4 @@
-import { ApolloServer, gql } from "apollo-server";
+import { ApolloServer, gql } from "apollo-server-micro";
 import { bootstrapSchema, importPlugin, loadManifest } from "./Bootstrap";
 import { Resolvers } from "./resolvers";
 import { ServerContext } from "./typings/Server";
@@ -121,10 +121,6 @@ export async function CorejamServer(context = ({ req, res }) => getServerContext
   return new ApolloServer({
     typeDefs: gql(await bootstrapSchema()),
     resolvers,
-    cors: {
-      origin: "http://localhost:3001",
-      credentials: true,
-    },
     context,
   });
 }
