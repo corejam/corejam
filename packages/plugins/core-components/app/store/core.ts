@@ -3,8 +3,6 @@ import { createStore } from "@stencil/store";
 import { Router } from "stencil-router-v2";
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { Build } from "@stencil/core";
-import { ServerClient } from "@corejam/base/dist/client/ServerClient"
-
 
 /**
  * Check if we are on the browser or in server. 
@@ -31,10 +29,13 @@ if (Build.isBrowser) {
     //@ts-ignore
     link,
   })
-} else {
+}
+if (Build.isServer) {
   //We cant do top level awaits so we need to wrap this
-  client = async () => {
-    return await ServerClient.Create()
+  client = () => {
+    const { ServerClient } = require("@corejam/base/dist/client/ServerClient")
+    //@ts-ignore
+    return  ServerClient.Create()
   }
 }
 export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, onChange: coreChange } = createStore({

@@ -1,22 +1,24 @@
 import { ApolloServer } from "apollo-server-micro";
+import { ASTNode, print } from "graphql";
 import { CorejamServer } from "../Server";
-import { Variables } from "./types";
+
+export type Variables = { [key: string]: any };
 
 export class ServerClient {
   //@ts-ignore
-  private server: ApolloServer;
+  private server: Promise<ApolloServer>;
 
-  public static Create = async () => {
+  public static Create() {
     const me = new ServerClient();
-    me.server = await CorejamServer();
+    me.server = CorejamServer();
 
     return me;
-  };
+  }
 
-  async request(query: string, variables?: Variables): Promise<any> {
-    return this.server.executeOperation({
-      query: query,
-      variables,
+  public async query(input: { query: ASTNode; variables?: Variables }): Promise<any> {
+    return (await this.server).executeOperation({
+      query: print(input.query),
+      variables: input.variables,
     });
   }
 }
