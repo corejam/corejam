@@ -13,6 +13,7 @@ extend type Mutation {
   userRegister(data: RegisterInput!): User
   userTokenRefresh: UserJWT
   userDeactivate(id: String!): Boolean
+  me: User
 }
 
 enum userRoles {

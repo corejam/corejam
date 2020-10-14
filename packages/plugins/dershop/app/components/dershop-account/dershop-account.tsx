@@ -1,8 +1,9 @@
 import { coreState } from "@corejam/core-components";
 import { authStore } from "@corejam/plugin-auth";
-import { Component, h, Listen } from "@stencil/core";
+import { Component, h, Listen, State } from "@stencil/core";
 import gql from "graphql-tag";
-import { updateUserGQL } from "../../../shared/graphql/Mutations/User";
+import { meGQL, updateUserGQL } from "../../../shared/graphql/Mutations/User";
+import { User } from "../../../shared/types/User";
 
 @Component({
     tag: "dershop-account",
@@ -10,6 +11,7 @@ import { updateUserGQL } from "../../../shared/graphql/Mutations/User";
 })
 export class AccountComponent {
 
+    @State() user: User;
     private profileFormId = "profile";
 
     @Listen("sendForm", { target: "window" })
@@ -17,6 +19,11 @@ export class AccountComponent {
         if (detail.formId != this.profileFormId) return;
 
         return this.updateProfile(detail)
+    }
+
+    async queryData() {
+        const request = await coreState.client.mutate({ mutation: gql(meGQL) });
+        this.user = request.data.me;
     }
 
     async updateProfile(detail) {
@@ -36,6 +43,10 @@ export class AccountComponent {
                 userInput
             }
         })
+    }
+
+    async componentWillRender() {
+        if (authStore.identity) await this.queryData();
     }
 
     render() {
@@ -75,7 +86,7 @@ export class AccountComponent {
                                         required
                                         name="firstName"
                                         formId={this.profileFormId}
-                                        value={authStore.identity.user.firstName}
+                                        value={this.user.firstName}
                                         type="text"
                                         placeholder="Firstname"
                                     ></corejam-form-input>
@@ -85,7 +96,7 @@ export class AccountComponent {
                                         name="lastName"
                                         required
                                         formId={this.profileFormId}
-                                        value={authStore.identity.user.lastName}
+                                        value={this.user.lastName}
                                         type="text"
                                         placeholder="Lastname"
                                         label="Last name"
@@ -120,7 +131,7 @@ export class AccountComponent {
                                         formId={this.profileFormId}
                                         required
                                         label="Email Address"
-                                        value={authStore.identity.user.email}
+                                        value={this.user.email}
                                         placeholder="Email"
                                     ></corejam-form-input>
                                 </corejam-box>

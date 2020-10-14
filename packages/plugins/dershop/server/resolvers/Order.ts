@@ -24,7 +24,7 @@ export default {
     paginateOrders: async (_obj: any, { size, page }, { models }: any) => {
       const offset = (page - 1) * size;
 
-      const { allOrders } = await models.allOrders();
+      const allOrders = await models.allOrders();
       const items = allOrders.slice(offset, offset + size);
 
       const paginated: OrderList = {

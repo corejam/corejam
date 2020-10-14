@@ -253,7 +253,6 @@ extend type Query {
   categoryByUrl(url: String!): Category
   categoryById(id: String!): Category
   getSEOIndex: [String]
-  currentUser: User
 }
 
 type LinkResult {
