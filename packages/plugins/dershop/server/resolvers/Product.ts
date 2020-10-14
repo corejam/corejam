@@ -12,16 +12,17 @@ export function generateSidebar(products: ProductDB[] = []): Sidebar {
   products.forEach((product: ProductDB) => {
     //Check for brands
     const manufacturer = product.manufacturer?.data
-    let brand;
 
     if (manufacturer) {
       //If it exists update it
-      if (brand = sidebar.brands?.filter((item) => {
+      const brand = sidebar.brands?.filter((item) => {
         if (item.name === manufacturer.name) {
           return item;
         }
         return
-      })[0]) {
+      })[0]
+
+      if (brand) {
         brand.itemCount++;
       } else {
         //Create new item
@@ -33,16 +34,17 @@ export function generateSidebar(products: ProductDB[] = []): Sidebar {
       }
     }
 
-    let category;
     //Check for categories
     product.categories?.forEach((productCategory) => {
-      //If it exists update it
-      if (category = sidebar.categories?.filter((item) => {
+      const category = sidebar.categories?.filter((item) => {
         if (item.name === productCategory.name) {
           return item;
         }
         return
-      })[0]) {
+      })[0]
+
+      //If it exists update it
+      if (category) {
         category.itemCount++;
       } else {
         //Create new item

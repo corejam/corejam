@@ -28,6 +28,7 @@ jobs:
       - run: |
           rm -rf node_modules/@corejam node_modules/.bin/corejam
           yarn --frozen-lockfile
+          yarn lint
           yarn build
           yarn bs
           node ./utils/hoistPackagesForDeployment.js

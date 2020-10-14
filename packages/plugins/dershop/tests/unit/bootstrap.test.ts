@@ -25,7 +25,7 @@ describe("Bootstrap", () => {
     const result = (await bootstrapSchema()) as any;
     expect(result).toHaveProperty("__schema");
 
-    let types: Array<string> = [];
+    const types: Array<string> = [];
 
     result.__schema.types.map((type) => {
       types.push(type.name);

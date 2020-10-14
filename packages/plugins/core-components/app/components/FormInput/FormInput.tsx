@@ -29,18 +29,18 @@ export class CorejamFormInput implements ComponentInterface {
   @Prop() placeholder: string;
   @Prop() label: string;
   @Prop() formId: string;
-  @Prop() autocomplete: string = "off";
-  @Prop() required: boolean = false;
+  @Prop() autocomplete = "off";
+  @Prop() required = false;
   @Prop() value: string | number;
   @Prop() checked = false;
 
-  @Prop() w: number = 12;
-  @Prop() bg: string = "gray-100";
-  @Prop() hoverBg: string = "gray-300";
-  @Prop() focusBg: string = "gray-300";
-  @Prop() bWidth: number = 0;
-  @Prop() p: number = 4;
-  @Prop() focusOutline: string = "none";
+  @Prop() w = 12;
+  @Prop() bg = "gray-100";
+  @Prop() hoverBg = "gray-300";
+  @Prop() focusBg = "gray-300";
+  @Prop() bWidth = 0;
+  @Prop() p = 4;
+  @Prop() focusOutline = "none";
 
   @Event() formEvent: EventEmitter;
 

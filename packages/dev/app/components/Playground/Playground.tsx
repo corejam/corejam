@@ -119,7 +119,7 @@ export class AppRouter {
       },
     },
   ];
-  @State() max: boolean = false;
+  @State() max = false;
   @State() markup: string;
   @State() device: any = this.devices.filter((d) => d.name === "Laptop")[0];
   @Prop() cmp: string;

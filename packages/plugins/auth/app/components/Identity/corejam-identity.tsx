@@ -16,9 +16,9 @@ export class CorejamIdentity {
   private formId = "identity";
 
   @Element() element: HTMLElement;
-  @Prop() loginLink: string = "/login/";
-  @Prop() registerLink: string = "/register/";
-  @State() dropdown: boolean = false;
+  @Prop() loginLink = "/login/";
+  @Prop() registerLink = "/register/";
+  @State() dropdown = false;
 
   @Listen("click", { target: "document" })
   handleClick(ev: MouseEvent) {

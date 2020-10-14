@@ -24,7 +24,7 @@ export function isAPlugin(packageName?: string) {
     }
 
     const packageJson = require(packageName + "/package.json") as Object;
-    if (!packageJson.hasOwnProperty("corejam")) return false;
+    if (!Object.prototype.hasOwnProperty.call(packageJson, "corejam")) return false;
 
     let hasServerDir = false;
 

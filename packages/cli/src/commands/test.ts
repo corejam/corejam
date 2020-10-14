@@ -46,9 +46,5 @@ export async function runTest(opts: any) {
 }
 
 export async function runWCTests() {
-  try {
-    await execa("stencil", ["test", "--spec"], { stdio: "inherit", cwd: envRoot });
-  } catch (e) {
-    throw e;
-  }
+  await execa("stencil", ["test", "--spec"], { stdio: "inherit", cwd: envRoot });
 }

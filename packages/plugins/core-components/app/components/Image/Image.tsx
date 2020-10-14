@@ -13,8 +13,8 @@ export class Image {
   @Element() el: HTMLElement;
   @Prop() src: string;
   @Prop() alt: string;
-  @Prop() w: number = 12;
-  @Prop() maxWidth: number = 100;
+  @Prop() w = 12;
+  @Prop() maxWidth = 100;
   @Prop() h: string;
   @Prop() fit: "cover";
   @Prop() rounded: "full";

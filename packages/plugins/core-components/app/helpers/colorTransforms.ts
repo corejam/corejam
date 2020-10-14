@@ -2,16 +2,15 @@ export function rgbToHsl(value) {
   let [r, g, b] = value.replace("rgb(", "").replace(")", "").split(",");
   (r /= 255), (g /= 255), (b /= 255);
 
-  var max = Math.max(r, g, b),
+  const max = Math.max(r, g, b),
     min = Math.min(r, g, b);
-  var h,
-    s,
-    l = (max + min) / 2;
+  const l = (max + min) / 2
+  let h, s = l;
 
   if (max == min) {
     h = s = 0; // achromatic
   } else {
-    var d = max - min;
+    const d = max - min;
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
     switch (max) {
@@ -33,20 +32,20 @@ export function rgbToHsl(value) {
 }
 
 export function hexToHSL(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   let r = parseInt(result[1], 16);
   let g = parseInt(result[2], 16);
   let b = parseInt(result[3], 16);
   (r /= 255), (g /= 255), (b /= 255);
-  var max = Math.max(r, g, b),
+  const max = Math.max(r, g, b),
     min = Math.min(r, g, b);
-  var h,
-    s,
-    l = (max + min) / 2;
+  const l = (max + min) / 2;
+  let h, s = l
+
   if (max == min) {
     h = s = 0; // achromatic
   } else {
-    var d = max - min;
+    const d = max - min;
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
     switch (max) {
       case r:

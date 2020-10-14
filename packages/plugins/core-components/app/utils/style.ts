@@ -23,12 +23,12 @@ export const breakpointValues = {
 
 const normalizeResponsiveProp = (key) => {
   const groups = ["sm", "md", "lg", "xl", "hover", "focus"];
-  let normalizedSplitted = key.split(/(?=[A-Z])/).map((v) => v.toLowerCase());
+  const normalizedSplitted = key.split(/(?=[A-Z])/).map((v) => v.toLowerCase());
   // no group
   if (normalizedSplitted.length === 1) return [null, normalizedSplitted[0]];
   // dash in prop, so check
 
-  let collectedGroups = [];
+  const collectedGroups = [];
   if (groups.includes(normalizedSplitted[0])) {
     collectedGroups.push(normalizedSplitted[0]);
     normalizedSplitted.splice(0, 1);
