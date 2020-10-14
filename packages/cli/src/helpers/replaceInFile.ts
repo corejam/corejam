@@ -11,8 +11,8 @@ export async function replaceWebComponentsImport(name: string) {
 }
 
 export async function addEnvVars(staticBuild = false) {
-  if (process.env.DEPLOYMENT_URL) {
-    await appendAsync(stencilRunner + "/.env", `DEPLOYMENT_URL=${process.env.DEPLOYMENT_URL}`);
+  if (process.env.API_ORIGIN) {
+    await appendAsync(stencilRunner + "/.env", `API_ORIGIN=${process.env.API_ORIGIN}`);
   }
   if (staticBuild) await appendAsync(stencilRunner + "/.env", `\nMODE=static`);
 }

@@ -117,7 +117,7 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           cd packages/plugins/auth
-          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../../test/cypress
+          JWT_HASH=test FAKER_MODULE=auth API_ORIGIN=http://localhost:3000 nohup yarn static:serve & cd ../../../test/cypress
           cypress run --spec "./cypress/integration/plugins/auth/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
@@ -156,7 +156,7 @@ jobs:
           cd examples
           yarn corejam createApp test
           cd test && yarn static
-          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
+          API_ORIGIN=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
@@ -198,7 +198,7 @@ jobs:
           cd ../plugins/core-components && yarn link
           cd /github/home && corejam createApp test
           cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components && yarn static
-          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
+          API_ORIGIN=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
@@ -243,7 +243,7 @@ jobs:
           yarn corejam generateSchema
           export SECRET=$(COMMIT_ID=cypress_$GITHUB_SHA node ./tests/bootstrap.js --faker | grep 'secret'|cut -f2 -d ":")
           cd ../../../examples/nextjs
-          export DEPLOYMENT=$(vercel --confirm --token $ZEIT_TOKEN --scope=dershop -e JWT_HASH=gitlab -e SECRET_KEY=$SECRET -e DB_DRIVER="DB_FAUNA" -e DEPLOYMENT_URL=https://$DEPLOYED_URL)
+          export DEPLOYMENT=$(vercel --confirm --token $ZEIT_TOKEN --scope=dershop -e JWT_HASH=gitlab -e SECRET_KEY=$SECRET -e DB_DRIVER="DB_FAUNA" -e API_ORIGIN=https://$DEPLOYED_URL)
           vercel alias $DEPLOYMENT $DEPLOYED_URL --token $ZEIT_TOKEN --scope dershop
           wget $DEPLOYED_URL
           cd ../../test/cypress

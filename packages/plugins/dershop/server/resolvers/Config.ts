@@ -18,8 +18,8 @@ export default {
       let serverUrl = "/api/graphql"; //Client can have relative
 
       //SSR needs absolute
-      if (process.env.DEPLOYMENT_URL) {
-        serverUrl = `${process.env.DEPLOYMENT_URL}/api/graphql`;
+      if (process.env.API_ORIGIN) {
+        serverUrl = `${process.env.API_ORIGIN}/api/graphql`;
       }
 
       const link = ApolloLink.from([
