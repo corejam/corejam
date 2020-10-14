@@ -108,7 +108,7 @@ export async function bootstrapSchema(hoisted = false): Promise<string> {
    * We need to hoist the schema into the root of the project for it to be readable.
    */
   const hoistedSchema = fs.existsSync(process.cwd() + "/schema.graphql")
-    ? JSON.parse(fs.readFileSync(process.cwd() + "/schema.graphql", "utf-8"))
+    ? fs.readFileSync(process.cwd() + "/schema.graphql", "utf-8")
     : false;
   if (hoistedSchema) return (schema = hoistedSchema);
 
