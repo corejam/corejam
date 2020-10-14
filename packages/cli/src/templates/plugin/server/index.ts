@@ -1,12 +1,7 @@
 import { CustomError } from "./Errors";
-import { pluginNameCreate } from "./graphql/Mutations";
-import { allPluginNameGQL } from "./graphql/Queries";
-import { getPluginContext } from "./resolvers";
 import * as resolvers from "./resolvers/pluginName";
 
 export const pluginProperties = {
-  queries: { allPluginNameGQL },
-  mutations: { pluginNameCreate },
   errors: {
     CustomError,
   },
@@ -15,4 +10,5 @@ export const pluginProperties = {
   schemas: ["pluginName"],
 };
 
-export default getPluginContext;
+export { getPluginContext } from "./resolvers";
+export default pluginProperties;

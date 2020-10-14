@@ -6,7 +6,7 @@ import chokidar from "chokidar";
 import runBuild, { buildStatic } from "./commands/build";
 import runDev from "./commands/dev";
 import runApi from "./commands/apiServer";
-import newPlugin from "./commands/generatePlugin";
+import createApp from "./commands/generateApp";
 import generateSchema from "./commands/generateSchema";
 import { runTest, runWCTests } from "./commands/test";
 import { envRoot } from "./config";
@@ -72,7 +72,7 @@ prog
   .command("createApp <name>")
   .describe("Bootstraps new corejam app")
   .action(async (name) => {
-    await newPlugin(name);
+    await createApp(name);
   });
 
 prog.command("generateSchema").action(async () => {

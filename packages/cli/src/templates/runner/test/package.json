@@ -12,7 +12,7 @@
         "@types/node": "14.6.0",
         "apollo-server-testing": "2.18.0",
         "faker": "5.1.0",
-        "jest": "26.4.2",
+        "jest": "26.5.3",
         "jest-date-mock": "1.0.8",
         "ts-jest": "26.3.0",
         "ts-sinon": "1.2.1",

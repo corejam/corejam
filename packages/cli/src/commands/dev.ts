@@ -26,9 +26,9 @@ export default async function run(options: any) {
       isYarn
         ? set("server", execa("yarn", ["tsc", "-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot }))
         : set(
-            "server",
-            execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
-          );
+          "server",
+          execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
+        );
       set("api", execa("corejam", ["api:serve"], { stdio: logToConsole, cwd: envRoot }));
 
       setTimeout(() => {
@@ -52,7 +52,7 @@ export default async function run(options: any) {
 
     set(
       "stencil",
-      execa("stencil", ["build", "--dev", "--watch", "--serve", "--docs"], {
+      execa("node_modules/.bin/stencil", ["build", "--dev", "--watch", "--serve", "--docs"], {
         stdio: logToConsole,
         cwd: envRoot,
         env: {
