@@ -1,6 +1,7 @@
 import { settingsGQL } from "@corejam/base";
 import { coreState } from "@corejam/core-components";
 import { Component, Host, h } from "@stencil/core";
+import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-route-index",
@@ -10,7 +11,7 @@ export class IndexRoute {
   private _data;
 
   async componentWillLoad() {
-    this._data = await coreState.client.request(settingsGQL);
+    this._data = await (await coreState.client.query({ query: gql(settingsGQL) })).data;
   }
 
   render() {

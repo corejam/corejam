@@ -2,6 +2,7 @@ import { Component, Host, h, Prop, State } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
 import { getObjectFromURL } from "../../../shared/graphql/Queries/URL";
 import { SEODocument } from "shared/types/Seo";
+import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-url",
@@ -18,10 +19,12 @@ export class UrlRoute {
     this._param = typeof this.param === "string" ? JSON.parse(this.param) : this.param;
 
     this._data = (
-      await coreState.client.request(getObjectFromURL, {
-        url: this._param.url,
+      await coreState.client.query({
+        query: gql(getObjectFromURL), variables: {
+          url: this._param.url,
+        }
       })
-    ).objectFromURL;
+    ).data.objectFromURL;
     console.log(this._data);
     this._component = this.getComponentForRoute();
   }

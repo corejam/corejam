@@ -1,5 +1,3 @@
-import { getServerClient } from "@corejam/base";
-import { allManufacturersGQL } from "../../shared/graphql/Queries/Manufacturer";
 import { ManufacturerList } from "../../shared/types/Manufacturer";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { resolveProductListFromReferences } from "./Product";
@@ -9,11 +7,10 @@ export default {
     allManufacturers: (_obj: any, _args: any, { models }: MergedServerContext) => {
       return models.allManufacturers();
     },
-    paginateManufacturers: async (_obj: any, { size, page }, _ctx: MergedServerContext) => {
-      const client = getServerClient();
+    paginateManufacturers: async (_obj: any, { size, page }, { models }: MergedServerContext) => {
       const offset = (page - 1) * size;
 
-      const { allManufacturers } = await client.request(allManufacturersGQL);
+      const allManufacturers = await models.allManufacturers();
       const items = allManufacturers.slice(offset, offset + size);
 
       const paginated: ManufacturerList = {

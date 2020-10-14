@@ -3,6 +3,7 @@ import { coreState } from "@corejam/core-components";
 import { state as routerState } from "@corejam/router";
 import { userRegisterMutationGQL } from "../../../shared/graphql/Mutations";
 import { authStore } from "../../store/authStore";
+import gql from "graphql-tag";
 
 @Component({
   tag: "corejam-auth-form-register",
@@ -15,15 +16,17 @@ export class AuthRegister {
   async formEventHandler({ detail }) {
     if (detail.formId != this.formId) return;
 
-    const request = await coreState.client.request(userRegisterMutationGQL, {
-      data: {
-        email: detail.email.value,
-        password: detail.password.value,
-        passwordConfirm: detail.passwordConfirm.value
+    const request = await coreState.client.mutate({
+      mutation: gql(userRegisterMutationGQL), variables: {
+        data: {
+          email: detail.email.value,
+          password: detail.password.value,
+          passwordConfirm: detail.passwordConfirm.value
+        }
       }
     });
 
-    if (request.userRegister) {
+    if (request.data.userRegister) {
       routerState.router.push("/login");
     }
   }

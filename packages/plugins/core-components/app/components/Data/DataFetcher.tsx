@@ -1,4 +1,5 @@
 import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
+import gql from "graphql-tag";
 import { coreState } from "../../store/core";
 
 @Component({
@@ -17,7 +18,7 @@ export class DataFetcher {
 
   @Watch("query")
   async fetchData() {
-    this.data = await coreState.client.request(this.query);
+    this.data = await coreState.client.query({ query: gql(this.query) });
   }
 
   renderData() {

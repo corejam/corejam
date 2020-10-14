@@ -4,6 +4,7 @@ import { state as routerState } from "@corejam/router";
 import basket from "../../../shared/store/basket";
 import { orderCreateGQL } from "../../../shared/graphql/Mutations/Order";
 import { OrderCreateInput } from "../../../shared/types/Order";
+import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-cart",
@@ -53,12 +54,14 @@ export class DershopCart implements ComponentInterface {
     };
 
     //TODO move this to the order confirmation page.
-    const request = await coreState.client.request(orderCreateGQL, {
-      orderInput: input,
+    const request = await coreState.client.mutate({
+      mutation: gql(orderCreateGQL), variables: {
+        orderInput: input,
+      }
     });
 
-    if (request.orderCreate) {
-      routerState.router.push(`/account/order/${request.orderCreate.id}`);
+    if (request.data.orderCreate) {
+      routerState.router.push(`/account/order/${request.data.orderCreate.id}`);
     }
   }
 

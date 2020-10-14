@@ -1,5 +1,5 @@
 import { collectPlugins, bootstrapSchema, loadManifest } from "@corejam/base/src/Bootstrap";
-import { readFileSync, unlinkSync } from "fs";
+import { unlinkSync } from "fs";
 
 describe("Bootstrap", () => {
   it("collectsPluginsCorrectly", async () => {
@@ -16,28 +16,14 @@ describe("Bootstrap", () => {
   it("creates .corejam/ cache file", async () => {
     //Clean
     try {
-      unlinkSync(process.cwd() + "/schema.json")
       unlinkSync(process.cwd() + "/resolvers.js")
     } catch (e) {
       //Nothing to clean
     }
 
     const result = (await bootstrapSchema()) as any;
-    expect(result).toHaveProperty("__schema");
-
-    const types: Array<string> = [];
-
-    result.__schema.types.map((type) => {
-      types.push(type.name);
-    });
-
-    expect(types).toEqual(expect.arrayContaining(["User", "UserJWT", "Paginated", "userRoles"]));
-
-    //We expect cache to have been written
-    expect(readFileSync(process.cwd() + "/.corejam/schema.json", "utf-8")).toEqual(JSON.stringify(result));
-
-    //Get it from cache this time
-    const cachedResult = (await bootstrapSchema()) as any;
-    expect(cachedResult).toHaveProperty("__schema");
+    expect(result).toContain("extend type User")
+    expect(result).toContain("type Deliverability")
+    expect(result).toContain("input OrderItemInput")
   });
 });

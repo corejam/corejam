@@ -4,4 +4,14 @@ export default {
       return ctx.models.objectFromURL(args.url);
     },
   },
+  Paginated: {
+    __resolveType() {
+      return null;
+    },
+  },
+  Timestamp: {
+    __resolveType() {
+      return null;
+    },
+  },
 };

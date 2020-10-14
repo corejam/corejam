@@ -33,7 +33,6 @@ async function go() {
   const { models } = await getServerContext({ req: { headers: {} } });
 
   let client = new Client({ secret: flags.dbSecret });
-  const schema = await bootstrapSchema();
 
   await client
     .query(q.CreateDatabase({ name: COMMIT_ID }))
@@ -121,15 +120,6 @@ async function go() {
           field: ["data", "id"],
         },
       ],
-    })
-  );
-
-  await newClient.query(
-    q.Create(q.Collection("config"), {
-      data: {
-        id: "schema",
-        ...schema,
-      },
     })
   );
 
