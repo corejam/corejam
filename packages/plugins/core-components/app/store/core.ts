@@ -12,7 +12,7 @@ const httpLink = Build.isBrowser ? createHttpLink({
   uri: (process.env.API_ORIGIN ?? "") + "/api/graphql",
   credentials: "include"
 }) : createHttpLink({
-  uri: process.env.API_ORIGIN + "/api/graphql",
+  uri: process.env.DEPLOYMENT_URL + "/api/graphql",
   credentials: "include"
 })
 
