@@ -16,9 +16,6 @@ const config: Config = {
   devServer: {
     port: 3001
   },
-  nodeResolve: {
-    browser: true
-  },
   outputTargets: [],
   plugins: [
     replace({

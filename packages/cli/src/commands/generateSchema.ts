@@ -7,7 +7,7 @@ function generateConstName(name: string) {
 }
 
 export default async function createSchema() {
-  await bootstrapSchema();
+  await bootstrapSchema(true);
 
   const plugins = loadManifest().plugins;
 

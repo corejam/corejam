@@ -93,13 +93,32 @@ export function loadManifest(): PluginManifest {
   return JSON.parse(fs.readFileSync(getCacheDir() + "/manifest.json", "utf-8"));
 }
 
+let schema: string;
+
 /**
  * Collect the schemas from each plugin and write it out to one large schema.
  * Doing it this way temporarily due to us loosing caching functionality using
  * executableSchema()
  */
-export async function bootstrapSchema(): Promise<string> {
-  const schemaCachePath = getCacheDir() + "/schema.graphql";
+export async function bootstrapSchema(hoisted = false): Promise<string> {
+  if (schema) return schema; //We already have it
+
+  /**
+   * In cases like next.js we cant include extra files into our lambdas.
+   * We need to hoist the schema into the root of the project for it to be readable.
+   */
+  const hoistedSchema = fs.existsSync(process.cwd() + "/schema.graphql")
+    ? JSON.parse(fs.readFileSync(process.cwd() + "/schema.graphql", "utf-8"))
+    : false;
+  if (hoistedSchema) return (schema = hoistedSchema);
+
+  let cacheDir = getCacheDir();
+
+  if (hoisted) {
+    cacheDir = process.cwd();
+  }
+
+  const schemaCachePath = path.join(cacheDir, "schema.graphql");
   if (fs.existsSync(schemaCachePath)) {
     return fs.readFileSync(schemaCachePath, "utf-8");
   }
