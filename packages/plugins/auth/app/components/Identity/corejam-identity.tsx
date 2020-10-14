@@ -3,6 +3,7 @@ import { coreState } from "@corejam/core-components";
 import { state as routerState } from "@corejam/router";
 import { authStore } from "../../store/authStore";
 import { userAuthenticateMutationGQL } from "../../../shared/graphql/Mutations";
+import gql from "graphql-tag";
 
 /**
  * Component to handle authentication state / refresh.
@@ -67,15 +68,16 @@ export class CorejamIdentity {
   async formEventHandler({ detail }) {
     if (detail.formId != this.formId || authStore.identity) return;
 
-    //@ts-ignore
-    const request = await coreState.client.request(userAuthenticateMutationGQL, {
-      email: detail.email.value,
-      password: detail.password.value,
+    const request = await coreState.client.mutate({
+      mutation: gql(userAuthenticateMutationGQL), variables: {
+        email: detail.email.value,
+        password: detail.password.value,
+      }
     });
 
-    if (request.userAuthenticate) {
+    if (request.data.userAuthenticate) {
       this.toggleMenu();
-      authStore.identity = request.userAuthenticate;
+      authStore.identity = request.data.userAuthenticate;
       routerState.router.push("/");
     }
   }
@@ -111,23 +113,23 @@ export class CorejamIdentity {
                 </corejam-box>
               </corejam-box>
             ) : (
-              <corejam-form-container name={this.formId}>
-                <corejam-box pb={5} flex direction="col">
-                  <corejam-box w={12}>
-                    <corejam-form-input name="email" type="text" formId={this.formId} label="Email" />
-                    <corejam-form-input name="password" type="password" formId={this.formId} label="Password" />
-                  </corejam-box>
-                  <corejam-box w={12} mt={8}>
-                    <corejam-form-submit formId={this.formId}>
-                      <corejam-button type="submit" bg="black-900" color="white" pl="5" pr="5" pt="3" pb="3">
-                        Login
+                <corejam-form-container name={this.formId}>
+                  <corejam-box pb={5} flex direction="col">
+                    <corejam-box w={12}>
+                      <corejam-form-input name="email" type="text" formId={this.formId} label="Email" />
+                      <corejam-form-input name="password" type="password" formId={this.formId} label="Password" />
+                    </corejam-box>
+                    <corejam-box w={12} mt={8}>
+                      <corejam-form-submit formId={this.formId}>
+                        <corejam-button type="submit" bg="black-900" color="white" pl="5" pr="5" pt="3" pb="3">
+                          Login
                       </corejam-button>{" "}
                       or Register
                     </corejam-form-submit>
+                    </corejam-box>
                   </corejam-box>
-                </corejam-box>
-              </corejam-form-container>
-            )}
+                </corejam-form-container>
+              )}
           </corejam-box>
         </corejam-box>
       </Host>

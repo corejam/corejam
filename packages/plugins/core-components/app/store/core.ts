@@ -9,7 +9,7 @@ import { Build } from "@stencil/core";
  * Server needs full endpoint path
  */
 const httpLink = Build.isBrowser ? createHttpLink({
-  uri: "/api/graphql",
+  uri: (process.env.API_ORIGIN ?? "") + "/api/graphql",
   credentials: "include"
 }) : createHttpLink({
   uri: process.env.API_ORIGIN + "/api/graphql",
