@@ -86,5 +86,5 @@ This will move packages into `/examples/nextjs` to allow us to deploy everything
 We still have some manual steps for zeit, first run `vercel` inside your example shop to get a custom `my.project.now.sh` domain assigned. We will then use this to give the deployment environment variables for graphql:
 
 ```bash
-$ now -e DB_DRIVER=fauna -e SECRET_KEY=<new_generated_db_secret> -e API_ORIGIN="https://my.project.now.sh"
+$ now -e DB_DRIVER=fauna -e SECRET_KEY=<new_generated_db_secret> -e DEPLOYMENT_URL="https://my.project.now.sh"
 ```
