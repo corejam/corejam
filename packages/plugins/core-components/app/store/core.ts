@@ -2,17 +2,24 @@ import { createPersistedQueryLink } from "@apollo/link-persisted-queries";
 import { createStore } from "@stencil/store";
 import { Router } from "stencil-router-v2";
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { Build } from "@stencil/core";
+
+/**
+ * Check if we are on the browser or in server. 
+ * Server needs full endpoint path
+ */
+const httpLink = Build.isBrowser ? createHttpLink({
+  uri: "/api/graphql",
+  credentials: "include"
+}) : createHttpLink({
+  uri: process.env.API_ORIGIN + "/api/graphql",
+  credentials: "include"
+})
 
 const link = createPersistedQueryLink({ useGETForHashedQueries: true })
   //@ts-ignore
-  .concat(createHttpLink({
-    uri: (process.env.API_ORIGIN ? process.env.API_ORIGIN : "") + "/api/graphql",
-    credentials: "include"
-  }));
+  .concat(httpLink);
 
-/**
- * We only want absolute url for hydrate on server
- */
 export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, onChange: coreChange } = createStore({
   client: new ApolloClient({
     cache: new InMemoryCache(),
