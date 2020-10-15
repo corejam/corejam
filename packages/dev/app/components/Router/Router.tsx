@@ -12,7 +12,7 @@ export class AppRouter {
   @Prop() docs: any;
   @Prop() mode: string;
 
-  caculateRoutes() {
+  calculateRoutes() {
     const wildcards = [];
     const named = [];
     if (this.routes.routes) {
@@ -60,7 +60,7 @@ export class AppRouter {
                 </Route>
               );
             })}
-          {this.caculateRoutes()}
+          {this.calculateRoutes()}
         </Router.Switch>
       </Host>
     );

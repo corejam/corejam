@@ -14,28 +14,30 @@ export class AppRoot {
   @State() mode: string;
 
   async componentWillLoad() {
-    try {
-      const config = await fetch("/build/config.json");
-      const configJson = await config.json();
-      console.log(configJson);
-      if (config) {
-        this.routes = { components: configJson.components, routes: configJson.routes };
-        this.wrapper = configJson?.wrapper || [];
-        this.recos = configJson?.recommendations || [];
-        this.mode = configJson.mode;
-        this.layout = configJson.layout;
-        // if (process.env.MODE !== "static") {
-        //   const docs = await fetch("/assets/custom-elements.json");
-        //   if (docs) {
-        //     const data = await docs.json();
-        //     this.docs = data;
-        //     res();
-        //   }
-        // }
+    return new Promise(async (res) => {
+      try {
+        const config = await fetch("/build/config.json");
+        const configJson = await config.json();
+        if (configJson) {
+          this.routes = { components: configJson.components, routes: configJson.routes };
+          this.wrapper = configJson?.wrapper || [];
+          this.recos = configJson?.recommendations || [];
+          this.mode = configJson.mode;
+          this.layout = configJson.layout;
+          res();
+          // if (process.env.MODE !== "static") {
+          //   const docs = await fetch("/assets/custom-elements.json");
+          //   if (docs) {
+          //     const data = await docs.json();
+          //     this.docs = data;
+          //     res();
+          //   }
+          // }
+        }
+      } catch (e) {
+        console.log(e);
       }
-    } catch (e) {
-      console.log(e);
-    }
+    });
   }
 
   renderRecos() {
