@@ -17,13 +17,13 @@ export class UrlRoute {
 
   async componentWillLoad() {
     this._param = typeof this.param === "string" ? JSON.parse(this.param) : this.param;
-    this._data = (
+    this._data = await (
       await coreState.client.query({
         query: gql(getObjectFromURL), variables: {
           url: this._param.url,
         }
       })
-    ).data.objectFromURL;
+    ).data?.objectFromURL;
 
     this._component = this.getComponentForRoute();
   }
