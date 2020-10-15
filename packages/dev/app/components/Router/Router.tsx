@@ -42,7 +42,7 @@ export class AppRouter {
     return (
       <Host>
         <Router.Switch>
-          <Route path="/_corejam/">
+          <Route path="/_corejam">
             <app-welcome routes={this.routes} mode={this.mode} />
           </Route>
           <Route path="/liveview">
