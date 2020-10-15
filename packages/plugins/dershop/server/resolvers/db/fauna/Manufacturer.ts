@@ -48,7 +48,7 @@ export function manufacturerByID(id: string): Promise<ManufacturerDB | null> {
 
 export function manufacturerByUrl(slug: string): Promise<ManufacturerDB | null> {
   return FaunaClient()
-    .query(q.Get(q.Match(q.Index("seo"), slug)))
+    .query(q.Get(q.Match(q.Index("seoSearch"), slug)))
     .then((response: any) => {
       return manufacturerByID(response.ref.id)
     });
