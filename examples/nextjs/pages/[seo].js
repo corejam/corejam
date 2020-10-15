@@ -1,6 +1,10 @@
 import { DershopUrl } from "@corejam/plugin-dershop/react"
 import { getServerContext } from "@corejam/base/dist/Server";
 
+/**
+ * Get all currently available urls from 
+ * our SEO index and pass them to our DershopUrl component for rendering.
+ */
 export async function getStaticPaths() {
   const serverContext = await getServerContext({})
 

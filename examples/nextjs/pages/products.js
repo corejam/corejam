@@ -6,6 +6,9 @@ const Products = ({ list }) => {
   return <DershopProductList default={true} list={JSON.stringify(list)} />;
 };
 
+/**
+ * TODO get paginated static paths for this to render through pages. 
+ */
 export async function getStaticProps() {
   const request = await (await CorejamServer()).executeOperation({
     query: paginateProductsGQL,

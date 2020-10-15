@@ -30,14 +30,19 @@ if (Build.isBrowser) {
     link,
   })
 }
+
 if (Build.isServer) {
-  //We cant do top level awaits so we need to wrap this
+  /**
+   * When we are on the server we want to use the ServerClient instance
+   * so we can fetch directly on our resolvers instead of launching another lambda
+   * process to resolve over http.
+   */
   client = () => {
     const { ServerClient } = require("@corejam/base/dist/client/ServerClient")
-    //@ts-ignore
     return  ServerClient.Create()
   }
 }
+
 export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, onChange: coreChange } = createStore({
   client: Build.isBrowser ? client : client(),
   endpoint: ""
