@@ -1,9 +1,7 @@
-import { getServerClient } from "@corejam/base";
-import { allUsersGQL } from "../../shared/graphql/Queries";
-import { UserList, roles } from "../../shared/types/User";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
+import { roles, UserList } from "../../shared/types/User";
 import { AccountExistsError } from "../Errors";
-import { validateAuthInput, validatePasswordCreate, checkUserHasRole } from "../Functions";
+import { checkUserHasRole, validateAuthInput, validatePasswordCreate } from "../Functions";
 
 function setRefreshHeaders(jwt, { req, res }) {
   const JWT_REFRESH_EXPIRES = process.env.JWT_REFRESH_EXPIRES as string;
@@ -32,13 +30,11 @@ export default {
 
       return models.allUsers();
     },
-    paginateUsers: async (_obj: any, { size, page }, { user }: MergedServerContext) => {
-      checkUserHasRole(await user(), roles.ADMIN);
+    paginateUsers: async (_obj: any, { size, page }, { models }: MergedServerContext) => {
+      // checkUserHasRole(await user(), roles.ADMIN);
 
-      const client = getServerClient();
       const offset = (page - 1) * size;
-
-      const { allUsers } = await client.request(allUsersGQL);
+      const allUsers = await models.allUsers()
 
       const items = allUsers.slice(offset, offset + size);
 
@@ -70,7 +66,7 @@ export default {
   Mutation: {
     userEdit: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
       const currentUser = await user();
-      if(args.id !== currentUser.id) checkUserHasRole(await user(), roles.ADMIN)
+      if (args.id !== currentUser.id) checkUserHasRole(await user(), roles.ADMIN)
 
       return models.userEdit(args.id, args.userInput);
     },
@@ -98,7 +94,7 @@ export default {
     userTokenRefresh: async (_obj: any, _args: any, { req, res, models }: MergedServerContext) => {
       const rx = /([^;=\s]*)=([^;]*)/g;
       const obj = {};
-      for (let m; (m = rx.exec(req?.headers.cookie ?? "")); ) {
+      for (let m; (m = rx.exec(req?.headers.cookie ?? ""));) {
         obj[m[1]] = decodeURIComponent(m[2]);
       }
 
@@ -111,5 +107,8 @@ export default {
 
       return models.userCreate(args.userCreateInput);
     },
-  },
+    me: async (_obj: any, _args: any, { user }: MergedServerContext) => {
+      return await user();
+    }
+  }
 };

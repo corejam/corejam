@@ -18,7 +18,7 @@ const webpack = withBundleAnalyzer({
       }),
     ];
     return config;
-  },
+  }
 });
 
 module.exports = webpack;

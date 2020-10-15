@@ -1,8 +1,8 @@
 import { coreState } from "@corejam/core-components";
 import { authStore } from "@corejam/plugin-auth";
 import { Component, h, Listen, State } from "@stencil/core";
-import { updateUserGQL } from "../../../shared/graphql/Mutations/User";
-import { currentUser } from "../../../shared/graphql/Queries/User";
+import gql from "graphql-tag";
+import { meGQL, updateUserGQL } from "../../../shared/graphql/Mutations/User";
 import { User } from "../../../shared/types/User";
 
 @Component({
@@ -22,8 +22,8 @@ export class AccountComponent {
     }
 
     async queryData() {
-        const request = await coreState.client.request(currentUser);
-        this.user = request.currentUser;
+        const request = await coreState.client.mutate({ mutation: gql(meGQL) });
+        this.user = request.data.me;
     }
 
     async updateProfile(detail) {
@@ -37,9 +37,11 @@ export class AccountComponent {
             }
         })
 
-        await coreState.client.request(updateUserGQL, {
-            id: authStore.identity.user.id,
-            userInput
+        await coreState.client.mutate({
+            mutation: gql(updateUserGQL), variables: {
+                id: authStore.identity.user.id,
+                userInput
+            }
         })
     }
 

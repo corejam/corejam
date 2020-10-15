@@ -7,3 +7,12 @@ export const updateUserGQL = `
         }
     }
 `
+export const meGQL = `
+    mutation {
+        me {
+            firstName
+            lastName
+            email
+        }
+    }
+`

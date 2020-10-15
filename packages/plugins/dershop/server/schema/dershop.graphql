@@ -33,18 +33,18 @@ input AddressInput {
   country: String!
 }
 
-type SidebarItem {
+type SidebarItem @cacheControl(maxAge: 300) {
   name: String!
   itemCount: Int!
   url: String!
 }
 
-type Sidebar {
+type Sidebar @cacheControl(maxAge: 300) {
   categories: [SidebarItem]
   brands: [SidebarItem]
 }
 
-type Category implements Timestamp {
+type Category implements Timestamp @cacheControl(maxAge: 300) {
   id: String!
   name: String!
   seo: SEO
@@ -61,7 +61,7 @@ input CategoryInput {
   name: String
 }
 
-type CategoryList implements Paginated {
+type CategoryList implements Paginated @cacheControl(maxAge: 300) {
   totalItems: Int!
   perPage: Int!
   currentPage: Int!
@@ -69,12 +69,12 @@ type CategoryList implements Paginated {
   items: [Category]
 }
 
-type CategoryReference {
+type CategoryReference @cacheControl(maxAge: 300) {
   id: String!
   data: Category!
 }
 
-type Deliverability {
+type Deliverability @cacheControl(maxAge: 300) {
   stock: Int
   clearance_sale: Boolean!
   delivery_time: String
@@ -94,7 +94,7 @@ input DeliverabilityInput {
   max_order_qty: Int
 }
 
-type Manufacturer implements Timestamp {
+type Manufacturer implements Timestamp @cacheControl(maxAge: 300) {
   id: String!
   name: String!
   website: String
@@ -121,7 +121,7 @@ type ManufacturerList implements Paginated {
   items: [Manufacturer]
 }
 
-type ManufacturerReference {
+type ManufacturerReference @cacheControl(maxAge: 300) {
   id: String!
   data: Manufacturer!
 }
@@ -180,7 +180,7 @@ enum OrderStatus {
   ERROR
 }
 
-type Price {
+type Price @cacheControl(maxAge: 300) {
   tax_rate: Float
   gross: Float
   net: Float
@@ -194,7 +194,7 @@ input PriceInput {
   purchase_price_gross: Float
 }
 
-type Product implements Timestamp {
+type Product implements Timestamp @cacheControl(maxAge: 300) {
   id: String!
   sku: String
   ean: String
@@ -224,7 +224,7 @@ input ProductCoreInput {
   promoted: Boolean!
 }
 
-type ProductList implements Paginated {
+type ProductList implements Paginated @cacheControl(maxAge: 300) {
   totalItems: Int!
   perPage: Int!
   currentPage: Int!
@@ -239,7 +239,7 @@ extend type Query {
   ordersByCustomer: OrderList
   orderById(id: String!): Order
   allProducts: [Product]
-  paginateProducts(page: Int!, size: Int!): ProductList
+  paginateProducts(page: Int!, size: Int!): ProductList @cacheControl(maxAge: 300)
   productSearch(search: String!, page: Int!, size: Int!): ProductList
   productByUrl(url: String!): Product
   productById(id: String!): Product
@@ -253,7 +253,6 @@ extend type Query {
   categoryByUrl(url: String!): Category
   categoryById(id: String!): Category
   getSEOIndex: [String]
-  currentUser: User
 }
 
 type LinkResult {
@@ -287,7 +286,7 @@ extend type Mutation {
   categoryEdit(id: String!, categoryInput: CategoryInput!): Category
 }
 
-extend type SEODocument {
+extend type SEODocument @cacheControl(maxAge: 3600) {
   product: Product
   category: Category
   manufacturer: Manufacturer

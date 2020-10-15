@@ -1,9 +1,7 @@
 import Fuse from "fuse.js";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { ProductDB, ProductList } from "../../shared/types/Product";
-import { allProductsGQL } from "../../shared/graphql/Queries/Product";
 import { Sidebar } from "../../shared/types/Sidebar";
-import { getServerClient } from "@corejam/base"
 
 export function generateSidebar(products: ProductDB[] = []): Sidebar {
   const sidebar: Sidebar = { categories: [], brands: [] }
@@ -103,16 +101,14 @@ export default {
       return models.allProducts();
     },
     paginateProducts: async (_obj: any, params, ctx: MergedServerContext) => {
-      const client = getServerClient();
-      const { allProducts } = await client.request(allProductsGQL);
+      const allProducts = await ctx.models.allProducts();
 
       return resolveProductListFromReferences(allProducts, params, ctx)
     },
-    productSearch: async (_obj: any, { search, size, page }, _ctx: MergedServerContext) => {
-      const client = getServerClient();
+    productSearch: async (_obj: any, { search, size, page }, { models }: MergedServerContext) => {
       const offset = (page - 1) * size;
 
-      const allProducts = await client.request(allProductsGQL);
+      const allProducts = await models.allProducts();
       const sidebar = generateSidebar(allProducts)
       const searchOptions = {
         includeScore: true,

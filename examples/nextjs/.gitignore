@@ -9,5 +9,5 @@ __LINKEDPKGS__
 .corejam
 yarn-error.log
 .vercel
-schema.json
+schema.graphql
 resolvers.js
