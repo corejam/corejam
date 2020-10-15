@@ -155,8 +155,8 @@ jobs:
           yarn bs
           cd examples
           yarn corejam createApp test
-          cd test && yarn static
-          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
+          cd test
+          DEPLOYMENT_URL=http://localhost:3000 nohup yarn dev & cd ../../test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
@@ -197,8 +197,8 @@ jobs:
           cd ../dev && yarn link
           cd ../plugins/core-components && yarn link
           cd /github/home && corejam createApp test
-          cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components && yarn static
-          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
+          cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components
+          DEPLOYMENT_URL=http://localhost:3000 nohup yarn dev & cd /__w/corejam/corejam/test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
