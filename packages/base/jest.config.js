@@ -1,6 +1,16 @@
+const { fstat } = require("fs/promises");
 const path = require("path")
+const fs = require("fs")
+
+/**
+ * Prevent hoisted files hanging around
+ */
+if(fs.existsSync(process.cwd() + "/resolvers.js")) {
+    fs.unlinkSync(process.cwd() + "/resolvers.js")
+}
 
 DB_DRIVER = process.env.DB_DRIVER ? process.env.DB_DRIVER : "DB_FAKER";
+
 
 const DBDriverPaths = {
     DB_FAUNA: {
