@@ -1,7 +1,9 @@
+import { collectPlugins } from "../src/Bootstrap";
 
 describe("Bootstrap", () => {
   it("collectsPluginsCorrectly", async () => {
     //Mock some plugins here
+    expect(collectPlugins()).toEqual([])
   });
 
   /**

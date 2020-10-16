@@ -33,6 +33,7 @@ module.exports = {
     rootDir: process.cwd(),
     coverageDirectory: `<rootDir>/tests/.coverage/db/${DBDriverPaths[DB_DRIVER].coverageDirectory}`,
     collectCoverageFrom: [
+        `<rootDir>/src/**/*.ts`,
         `<rootDir>/server/**/*.ts`,
     ],
     moduleNameMapper: {
