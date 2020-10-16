@@ -1,17 +1,17 @@
 import { DershopUrl } from "@corejam/plugin-dershop/react"
-//import { GraphQLClient, } from "@corejam/base"
+import { getServerContext } from "@corejam/base/dist/Server";
 
-const Url = ({ seo }) => {
-  return <DershopUrl param={JSON.stringify({url: seo})} />
-};
-
-/*
+/**
+ * Get all currently available urls from 
+ * our SEO index and pass them to our DershopUrl component for rendering.
+ */
 export async function getStaticPaths() {
+  const serverContext = await getServerContext({})
+
   const paths = [];
 
-  const request = await new GraphQLClient().request('query {getSEOIndex}')
-  request.getSEOIndex.map((url) => {
-    paths.push({ params: { url } })
+  (await serverContext.models.getSEOIndex()).map((url) => {
+    paths.push({ params: { seo: url } })
   })
 
   return {
@@ -22,16 +22,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   return {
-
     props: {
-      url: params.url
+      seo: params.seo,
     }
   }
-}*/
+}
 
-
-Url.getInitialProps = async function ({ query }) {
-  return query
+const Url = ({seo }) => {
+  return <DershopUrl param={JSON.stringify({url: seo})} />
 };
 
 export default Url;

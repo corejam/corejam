@@ -12,13 +12,13 @@ export class IndexRoute {
   private _data;
 
   async componentWillLoad() {
-    this._data = await coreState.client.query({ query: gql(allManufacturersGQL) });
+    this._data = await (await coreState.client.query({ query: gql(allManufacturersGQL) })).data;
   }
 
   render() {
     return (
       <Host>
-        {this._data.allManufacturers.map((manu: ManufacturerDB) => {
+        {this._data.allManufacturers?.map((manu: ManufacturerDB) => {
           return (
             <corejam-box>
               <corejam-base-link href={manu.seo?.url}>

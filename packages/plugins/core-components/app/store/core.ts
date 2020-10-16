@@ -20,12 +20,31 @@ const link = createPersistedQueryLink({ useGETForHashedQueries: true })
   //@ts-ignore
   .concat(httpLink);
 
-export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, onChange: coreChange } = createStore({
-  client: new ApolloClient({
+
+let client;
+
+if (Build.isBrowser) {
+  client = new ApolloClient({
     cache: new InMemoryCache(),
     //@ts-ignore
     link,
-  }),
+  })
+}
+
+if (Build.isServer) {
+  /**
+   * When we are on the server we want to use the ServerClient instance
+   * so we can fetch directly on our resolvers instead of launching another lambda
+   * process to resolve over http.
+   */
+  client = () => {
+    const { ServerClient } = require("@corejam/base/dist/client/ServerClient")
+    return  ServerClient.Create()
+  }
+}
+
+export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, onChange: coreChange } = createStore({
+  client: Build.isBrowser ? client : client(),
   endpoint: ""
 });
 

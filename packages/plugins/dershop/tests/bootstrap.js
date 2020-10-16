@@ -235,7 +235,7 @@ async function go() {
   await newClient
     .query(
       q.CreateIndex({
-        name: "seo",
+        name: "seoSearch",
         active: true,
         source: [
           q.Collection("products"),
@@ -251,6 +251,21 @@ async function go() {
       })
     )
     .catch((e) => console.log(e));
+
+  await newClient
+    .query(
+      q.CreateIndex({
+        name: "seoIndex",
+        active: true,
+        source: [
+          q.Collection("products"),
+          q.Collection("manufacturers"),
+          q.Collection("categories"),
+          q.Collection("canvasPages")
+        ],
+        values: [{ field: ["data", "seo", "url"] }, { field: ["ref"] }]
+      })
+    )
 
   if (flags.faker) await generateModels();
 }

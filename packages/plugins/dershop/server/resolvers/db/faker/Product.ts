@@ -40,27 +40,25 @@ manufacturers[0].products?.push(staticProductDb);
 staticCategory.products?.push(staticProductDb)
 
 if (products.length === 1) {
-  (async () => {
-    for (let index = 0; index < 100; index++) {
-      const manufacturer: ManufacturerDB = manufacturers[Math.floor(Math.random() * manufacturers.length)];
-      const category = categories[Math.floor(Math.random() * categories.length)];
+  for (let index = 0; index < 100; index++) {
+    const manufacturer: ManufacturerDB = manufacturers[Math.floor(Math.random() * manufacturers.length)];
+    const category = categories[Math.floor(Math.random() * categories.length)];
 
-      const generated = generateProduct();
-      const generatedDb: ProductDB = {
-        id: random.uuid(),
-        ...generated,
-        categories: [category],
-        manufacturer: {
-          id: manufacturer.id,
-          data: manufacturer
-        } as ManufacturerRefence
-      };
+    const generated = generateProduct();
+    const generatedDb: ProductDB = {
+      id: random.uuid(),
+      ...generated,
+      categories: [category],
+      manufacturer: {
+        id: manufacturer.id,
+        data: manufacturer
+      } as ManufacturerRefence
+    };
 
-      products.push(generatedDb as ProductDB);
-      await productLinkManufacturer(generatedDb.id, manufacturer.id)
-      await productLinkCategory(generatedDb.id, category.id)
-    }
-  })()
+    products.push(generatedDb as ProductDB);
+    productLinkManufacturer(generatedDb.id, manufacturer.id)
+    productLinkCategory(generatedDb.id, category.id)
+  }
 }
 
 export function allProducts(): Promise<ProductDB[]> {

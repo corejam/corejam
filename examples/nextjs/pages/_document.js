@@ -32,6 +32,15 @@ export default class ShopDocument extends Document {
     let res = await renderToString(initialProps.html, {
       runtimeLogging: true,
     });
+
+    if(res.diagnostics.length) {
+      res.diagnostics.map(e => {
+        if(e.level = "error") {
+          console.log(new Error(e.messageText))
+        }
+      })
+    }
+
     let finalMarkup = initialProps.html;
     let styles = [];
     if (res.html) {

@@ -1,6 +1,6 @@
 import { canvasPageByUrl } from "@corejam/base/dist/resolvers/db/faker/CanvasPage";
 import type { SEODocument } from "../../../../shared/types/Seo";
-import { allProducts , productByUrl } from "./Product";
+import { allProducts, productByUrl } from "./Product";
 import { manufacturerByUrl } from "./Manufacturer";
 
 import { categoryByUrl } from "./Category";
@@ -19,9 +19,11 @@ export async function objectFromURL(url: string): Promise<SEODocument> {
 export async function getSEOIndex(): Promise<string[]> {
   const urls: string[] = [];
 
-  (await allProducts()).map((product) => {
+  const products = await allProducts();
+
+  for (const product of products) {
     if (product.seo?.url) urls.push(product.seo?.url);
-  });
+  }
 
   return new Promise((res) => res(urls))
 }
