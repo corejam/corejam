@@ -89,8 +89,7 @@ jobs:
           GITHUB_SHA: ${{ github.sha }}
       - uses: codecov/codecov-action@v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          directory: packages/plugins # optional
+          directory: packages # optional
 
   cypress-static-plugin-auth:
     runs-on: ubuntu-latest

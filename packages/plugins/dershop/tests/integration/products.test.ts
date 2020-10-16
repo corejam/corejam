@@ -1,6 +1,6 @@
 import { updateDates } from "@corejam/base/src/Functions";
 import { generateImage, generateSeo } from "@corejam/base/src/resolvers/db/faker/Generator";
-import { testClient } from "@corejam/base/src/testClient";
+import { testClient } from "@corejam/base/src/TestClient";
 import { Deliverability } from "@corejam/base/src/typings/Utils";
 import * as faker from "faker";
 import { advanceTo } from "jest-date-mock";
@@ -148,7 +148,6 @@ describe("Products", () => {
       query: paginateProductsGQL,
       variables: { page: 1, size: 24 }
     })
-    console.log(pagination)
 
     const paginated: ProductList = pagination.data.paginateProducts;
     expect(paginated).toHaveProperty("sidebar");

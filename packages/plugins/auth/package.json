@@ -31,7 +31,7 @@
   "scripts": {
     "dev": "corejam dev",
     "build": "corejam build",
-    "test": "corejam test",
+    "test": "jest --verbose --config=../../base/jest.config.js",
     "precommit": "lint-staged",
     "clean": "rimraf dist & rimraf react & rimraf web-components",
     "static": "corejam static",

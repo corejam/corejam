@@ -5,7 +5,7 @@ import {
 } from "../../server/resolvers/db/faker/Generator";
 import { ManufacturerCreateInput, ManufacturerDB } from "../../shared/types/Manufacturer";
 import { PluginResolver } from "../../shared/types/PluginResolver";
-import { testClient } from "@corejam/base/src/testClient";
+import { testClient } from "@corejam/base/src/TestClient";
 
 
 describe("Manufacturers", () => {

@@ -10,11 +10,8 @@ import {
 } from "../../shared/graphql/Mutations";
 import { userByTokenGQL } from "../../shared/graphql/Queries";
 import { RegisterInput, UserCreateInput, UserDB, UserInput } from "../../shared/types/User";
-
-//@ts-ignore
-import { testClient } from "../../src/TestClient";
-//@ts-ignore
-import { eventEmitter } from "../../__LINKEDPKGS__/base/src/Server";
+import { testClient } from "@corejam/base/src/TestClient"
+import { eventEmitter } from "@corejam/base/src/Server";
 
 describe("Test Auth Plugin", () => {
   //This is the document ID we use to run various tests against instead of reading in every test
