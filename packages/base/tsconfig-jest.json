@@ -30,11 +30,5 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
     },
-    "esModuleInterop": true,
-    "baseUrl": "./src",
-    "paths": {
-        "@corejam/base/*": [
-            "src/*"
-        ],
-    }
+    "esModuleInterop": true
 }

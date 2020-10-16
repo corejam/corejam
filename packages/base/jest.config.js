@@ -1,3 +1,5 @@
+const path = require("path")
+
 DB_DRIVER = process.env.DB_DRIVER ? process.env.DB_DRIVER : "DB_FAKER";
 
 const DBDriverPaths = {
@@ -26,5 +28,9 @@ module.exports = {
     moduleNameMapper: {
         "@corejam/base/dist/(.*)": __dirname + "/src/$1",
         "@corejam/base/(.*)": __dirname + "/$1",
+        "@corejam/plugin-auth/dist/(.*)": path.resolve(__dirname + "/../plugins/auth") + "/$1",
+        "@corejam/plugin-auth/(.*)": path.resolve(__dirname + "/../plugins/auth") + "/$1",
+        "@corejam/plugin-dershop/dist/(.*)": path.resolve(__dirname + "/../plugins/dershop") + "/$1",
+        "@corejam/plugin-dershop/(.*)": path.resolve(__dirname + "/../plugins/dershop") + "/$1",
     }
 }
