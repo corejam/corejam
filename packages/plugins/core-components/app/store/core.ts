@@ -4,26 +4,18 @@ import { Router } from "stencil-router-v2";
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { Build } from "@stencil/core";
 
-/**
- * Check if we are on the browser or in server. 
- * Server needs full endpoint path
- */
-const httpLink = Build.isBrowser ? createHttpLink({
-  uri: (process.env.API_ORIGIN ?? "") + "/api/graphql",
-  credentials: "include"
-}) : createHttpLink({
-  uri: process.env.DEPLOYMENT_URL + "/api/graphql",
-  credentials: "include"
-})
-
-const link = createPersistedQueryLink({ useGETForHashedQueries: true })
-  //@ts-ignore
-  .concat(httpLink);
-
-
 let client;
 
 if (Build.isBrowser) {
+  const httpLink = createHttpLink({
+    uri: (process.env.API_ORIGIN ?? "") + "/api/graphql",
+    credentials: "include"
+  });
+  
+  const link = createPersistedQueryLink({ useGETForHashedQueries: true })
+    //@ts-ignore
+    .concat(httpLink);
+  
   client = new ApolloClient({
     cache: new InMemoryCache(),
     //@ts-ignore
@@ -38,8 +30,8 @@ if (Build.isServer) {
    * process to resolve over http.
    */
   client = () => {
-    const { ServerClient } = require("@corejam/base/dist/client/ServerClient")
-    return  ServerClient.Create()
+    const { createServerClient } = require("@corejam/base/dist/client/ServerClient")
+    return createServerClient()
   }
 }
 
