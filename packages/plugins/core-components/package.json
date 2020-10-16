@@ -1,6 +1,6 @@
 {
   "name": "@corejam/core-components",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "main": "web-components/index.cjs.js",
   "module": "web-components/custom-elements/index.js",
@@ -38,9 +38,9 @@
     "react"
   ],
   "devDependencies": {
-    "@corejam/base": "0.0.6",
-    "@corejam/cli": "0.0.9",
-    "@corejam/dev": "0.0.5",
+    "@corejam/base": "0.0.7",
+    "@corejam/cli": "0.0.10",
+    "@corejam/dev": "0.0.6",
     "@rollup/plugin-replace": "2.3.3",
     "@stencil/core": "2.0.3",
     "@stencil/react-output-target": "0.0.9",
@@ -70,8 +70,8 @@
   },
   "dependencies": {
     "@apollo/client": "3.2.4",
-    "@corejam/router": "0.0.5",
     "@apollo/link-persisted-queries": "https://github.com/corejam/apollo-link-persisted-queries/tarball/master",
+    "@corejam/router": "0.0.5",
     "graphql-tag": "2.11.0"
   }
 }
