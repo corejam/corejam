@@ -5,5 +5,3 @@ coverage:
         target: 70
         threshold: 0%
     patch: off
-  fixes:
-    - "examples/nextjs/__LINKEDPKGS__/base::packages/base" # move path   e.g., "before/path" => "after/path"

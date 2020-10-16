@@ -21,7 +21,6 @@ module.exports = {
     rootDir: process.cwd(),
     coverageDirectory: `<rootDir>/tests/.coverage/db/${DBDriverPaths[DB_DRIVER].coverageDirectory}`,
     collectCoverageFrom: [
-        `<rootDir>/__LINKEDPKGS__/base/src/**/*.ts`,
         `<rootDir>/server/**/*.ts`,
     ],
     moduleNameMapper: {
