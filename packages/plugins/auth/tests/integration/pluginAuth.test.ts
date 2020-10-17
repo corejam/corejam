@@ -128,7 +128,7 @@ describe("Test Auth Plugin", () => {
     expect(loginResponse.data.userAuthenticate).toHaveProperty("token");
 
     //Expect refreshToken cookie to have been set in headers
-    const cookie = mockResponse.getHeaders()["set-cookie"]?.toString() as string
+    const cookie = mockResponse.getHeaders()["set-cookie"]
     expect(cookie).toContain("refreshToken");
 
     //We should have a loggedIn event emitted
@@ -170,7 +170,7 @@ describe("Test Auth Plugin", () => {
 
     //Expect refreshToken cookie to have been set in headers
     const headers = authResponse.getHeaders()
-    const refreshedCookie = headers["set-cookie"]?.toString() as string
+    const refreshedCookie = headers["set-cookie"]
     expect(refreshedCookie).toContain("refreshToken");
 
     const loginFailedResponse = await mutate({
