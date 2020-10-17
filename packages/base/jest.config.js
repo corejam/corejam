@@ -34,6 +34,8 @@ module.exports = {
     collectCoverageFrom: [
         `<rootDir>/src/**/*.ts`,
         `<rootDir>/server/**/*.ts`,
+        `!<rootDir>/src/mutations/**/*`,
+        `!<rootDir>/src/queries/**/*`,
     ],
     moduleNameMapper: {
         "@corejam/base/dist/(.*)": __dirname + "/src/$1",

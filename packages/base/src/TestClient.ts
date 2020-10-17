@@ -1,5 +1,4 @@
 const { createTestClient } = require("apollo-server-testing");
-import { DATACLIENTS, getDataClient } from "./PluginManager";
 import { ServerResponse, IncomingMessage } from "http";
 import { Socket } from "net";
 import { CorejamServer, getServerContext } from "./Server";
@@ -29,20 +28,5 @@ export const testClient = async (
     return fn(args);
   };
 
-  const res = { query: wrap(query), mutate: wrap(mutate), models, ...others };
-
-  //Inject request function through query for mocking internal resolver http requests
-  res.request = async (query) => {
-    const { data } = await res.query({ query: query });
-    return data;
-  };
-  getDataClient(
-    DATACLIENTS.GRAPHQL,
-    () => {
-      return res;
-    },
-    true
-  );
-
-  return res;
+  return { query: wrap(query), mutate: wrap(mutate), models, ...others };
 };
