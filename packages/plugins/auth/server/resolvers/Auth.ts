@@ -24,6 +24,13 @@ function setRefreshHeaders(jwt, { req, res }) {
  */
 export default {
   Query: {
+    userById: async (_obj: any, args: any, { models, user }: MergedServerContext) => {	
+      const currentUser = await user();	
+      if (currentUser.id === args.id || checkUserHasRole(currentUser, roles.ADMIN)) {	
+        return await models.userById(args.id);	
+      }	
+      return null;	
+    },
     paginateUsers: async (_obj: any, { size, page }, { models }: MergedServerContext) => {
       // checkUserHasRole(await user(), roles.ADMIN);
 
