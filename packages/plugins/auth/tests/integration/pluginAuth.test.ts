@@ -128,7 +128,8 @@ describe("Test Auth Plugin", () => {
     expect(loginResponse.data.userAuthenticate).toHaveProperty("token");
 
     //Expect refreshToken cookie to have been set in headers
-    expect(mockResponse.getHeaders()["set-cookie"]?.toString().indexOf("refreshToken")).toBe(0);
+    const cookie = mockResponse.getHeaders()["set-cookie"]?.toString() as string
+    expect(cookie).toContain("refreshToken");
 
     //We should have a loggedIn event emitted
     expect(spy.called).toBe(true);
@@ -167,10 +168,10 @@ describe("Test Auth Plugin", () => {
       mutation: userTokenRefreshMutationGQL,
     });
 
-
     //Expect refreshToken cookie to have been set in headers
-    expect(authResponse.getHeaders()["set-cookie"]?.toString().indexOf("refreshToken")).toBe(0);
-
+    const headers = authResponse.getHeaders()
+    const refreshedCookie = headers["set-cookie"]?.toString() as string
+    expect(refreshedCookie).toContain("refreshToken");
 
     const loginFailedResponse = await mutate({
       mutation: userAuthenticateMutationGQL,
