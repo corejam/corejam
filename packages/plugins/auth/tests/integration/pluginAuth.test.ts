@@ -10,9 +10,10 @@ import {
   userAuthenticateMutationGQL,
   userEditMutationGQL,
   userRegisterMutationGQL,
-  userTokenRefreshMutationGQL
+  userTokenRefreshMutationGQL,
 } from "../../shared/graphql/Mutations";
-import { RegisterInput, UserCreateInput, UserDB, UserInput } from "../../shared/types/User";
+import { RegisterInput, UserCreateInput, UserDB, UserInput, UserList } from "../../shared/types/User";
+import { paginateUsersGQL } from "../../shared/graphql/Queries"
 
 describe("Test Auth Plugin", () => {
   //This is the document ID we use to run various tests against instead of reading in every test
@@ -62,6 +63,20 @@ describe("Test Auth Plugin", () => {
         }));
       }
     });
+  });
+
+  it("Paginated users", async () => {
+    const { query } = client
+
+    //Test that we can retrieve the same values back
+    const pagination = await query({
+      query: paginateUsersGQL,
+      variables: { page: 1, size: 24 }
+    })
+
+    const paginated: UserList = pagination.data.paginateUsers;
+    expect(paginated.currentPage).toEqual(1)
+    expect(paginated.items.length).toEqual((await models.allUsers()).length)
   });
 
   it("updateUser", async () => {
@@ -213,4 +228,6 @@ describe("Test Auth Plugin", () => {
 
     expect(expectFail.errors[0]).toEqual(new AccountExistsError());
   });
+
+
 });

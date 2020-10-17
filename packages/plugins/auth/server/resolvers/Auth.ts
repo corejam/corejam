@@ -24,12 +24,6 @@ function setRefreshHeaders(jwt, { req, res }) {
  */
 export default {
   Query: {
-    allUsers: async (_obj: any, _args: any, { models }: MergedServerContext) => {
-      //checkUserHasRole(await user(), "admin");
-      //TODO we need to inject the users headers in the client below in paginateUsers
-
-      return models.allUsers();
-    },
     paginateUsers: async (_obj: any, { size, page }, { models }: MergedServerContext) => {
       // checkUserHasRole(await user(), roles.ADMIN);
 
