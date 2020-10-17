@@ -38,7 +38,7 @@ export async function generateTokensForUser(user: UserDB, editFn: (userId, data)
   const token = encodeJWTPayload(payload, process.env.JWT_EXPIRES);
   const refreshToken = encodeJWTPayload(payload, process.env.JWT_REFRESH_EXPIRES);
 
-  editFn(user.id, { refreshToken });
+  await editFn(user.id, { refreshToken });
 
   return new Promise((res) =>
     res({
