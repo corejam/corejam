@@ -3,7 +3,7 @@
         "tests",
     ],
     "compilerOptions": {
-        "target": "es5",
+        "target": "es6",
         "module": "esnext",
         "lib": [
             "dom",
@@ -28,7 +28,7 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
+        "noFallthroughCasesInSwitch": true
     },
     "esModuleInterop": true
 }
