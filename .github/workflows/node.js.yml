@@ -71,7 +71,7 @@ jobs:
           name: dist
       - run: tar -xzf artifact.tar
       - run: chmod +x node_modules/.bin/corejam
-      - run: cd packages/base && yarn test
+      - run: cd packages/base && yarn corejam init && yarn test
       - run: |
           cd packages/plugins/auth && yarn corejam generateSchema
           yarn test

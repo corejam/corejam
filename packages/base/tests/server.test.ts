@@ -4,12 +4,8 @@ import { testClient } from "../src/TestClient"
 import { gql } from "apollo-server-micro";
 
 describe("Server", () => {
+  
   it("CorejamServer boots correctly", async () => {
-
-    jest.mock(process.cwd() + "/.corejam/manifest.json", () => ({
-      plugins: []
-    }), { virtual: true })
-
     const corejamServer = await CorejamServer()
 
     expect(corejamServer.requestOptions).toHaveProperty("cache")
@@ -33,7 +29,8 @@ describe("Server", () => {
     const { query } = client;
 
     const test = await query({ query: gql("{__schema { types{name}}}") })
-    
+
     expect(test.data?.__schema.types).toContainEqual({ name: "Timestamp" })
-    expect(test.data?.__schema.types).toContainEqual({ name: "Paginated" })  });
+    expect(test.data?.__schema.types).toContainEqual({ name: "Paginated" })
+  });
 });
