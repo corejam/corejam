@@ -1,17 +1,18 @@
+import { eventEmitter } from "@corejam/base/src/Server";
+import { testClient } from "@corejam/base/src/TestClient";
 import * as faker from "faker";
 import { IncomingMessage, ServerResponse } from "http";
 import { Socket } from "net";
 import * as sinon from "ts-sinon";
 import { AccountExistsError, AuthenticationError } from "../../server/Errors";
 import {
+  meGQL,
   userAuthenticateMutationGQL,
   userEditMutationGQL,
-  userRegisterMutationGQL
+  userRegisterMutationGQL,
+  userTokenRefreshMutationGQL
 } from "../../shared/graphql/Mutations";
-import { userByTokenGQL } from "../../shared/graphql/Queries";
 import { RegisterInput, UserCreateInput, UserDB, UserInput } from "../../shared/types/User";
-import { testClient } from "@corejam/base/src/TestClient"
-import { eventEmitter } from "@corejam/base/src/Server";
 
 describe("Test Auth Plugin", () => {
   //This is the document ID we use to run various tests against instead of reading in every test
@@ -38,12 +39,6 @@ describe("Test Auth Plugin", () => {
 
     //We need to set JWT_HASH env
     process.env.JWT_HASH = "jest";
-  });
-
-  it("getUserById", async () => {
-    //Test that we can retrieve the same values back
-    const returnedUserById = await models.userById(testID);
-    expect(returnedUserById).toEqual(expect.objectContaining(testValues));
   });
 
   it("getUserByEmail", async () => {
@@ -80,7 +75,7 @@ describe("Test Auth Plugin", () => {
     expect(editResult).toEqual(expect.objectContaining(newValues));
   });
 
-  it("registerUserAndAuth", async () => {
+  it("Register and Auth", async () => {
     const newValues: RegisterInput = {
       email: faker.internet.email(),
       password: "valid123Password@",
@@ -126,25 +121,41 @@ describe("Test Auth Plugin", () => {
     expect(spy.calledWith({ user: newValues.email })).toBe(true);
 
     //Make a request with token in header
+    const authResponse = new ServerResponse(new IncomingMessage(new Socket()))
     const authClient = await testClient({
       req: {
         headers: {
           authorization: loginResponse.data.userAuthenticate.token,
         },
       },
-      res: new ServerResponse(new IncomingMessage(new Socket())),
+      res: authResponse,
     });
 
-    const { query } = authClient;
+    const { mutate: authenticatedMutate } = authClient;
 
-    const userByTokenResponse = await query({
-      query: userByTokenGQL,
+    const meResponse = await authenticatedMutate({
+      mutation: meGQL,
+    });
+    expect(meResponse.data.me.email).toEqual(newValues.email)
+
+    const { mutate: cookieMutate } = await testClient({
+      req: {
+        headers: {
+          cookie: `refreshToken=${loginResponse.data.userAuthenticate.token}`
+        },
+      },
+      res: authResponse,
     });
 
-    expect(userByTokenResponse.data.userByToken).toEqual(expect.objectContaining({
-      email: newValues.email,
-      id: registerResponse.data.userRegister.id
-    }));
+    //Refresh token
+    await cookieMutate({
+      mutation: userTokenRefreshMutationGQL,
+    });
+
+
+    //Expect refreshToken cookie to have been set in headers
+    expect(authResponse.getHeaders()["set-cookie"]?.toString().indexOf("refreshToken")).toBe(0);
+
 
     const loginFailedResponse = await mutate({
       mutation: userAuthenticateMutationGQL,

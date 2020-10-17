@@ -51,3 +51,11 @@ export const userAddMutationGQL = `
     }
   }
 `;
+
+export const meGQL = `
+    mutation {
+        me {
+            email
+        }
+    }
+`

@@ -47,21 +47,7 @@ export default {
       };
 
       return new Promise((res) => res(paginated));
-    },
-    userById: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
-      const currentUser = await user();
-      if (currentUser.id === args.id || checkUserHasRole(currentUser, roles.ADMIN)) {
-        return await models.userById(args.id);
-      }
-      return null;
-    },
-    //We already have the user resolved in the context. Just return it
-    userByToken: async (_obj: any, _args: any, { user }: MergedServerContext) => {
-      return await user();
-    },
-    userByEmail: (_obj: any, _args: any, _ctx: MergedServerContext) => {
-      //return models.findUserByEmail(args.email);
-    },
+    }
   },
   Mutation: {
     userEdit: async (_obj: any, args: any, { models, user }: MergedServerContext) => {

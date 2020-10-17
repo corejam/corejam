@@ -1,14 +1,3 @@
-export const userByTokenGQL = `
-  query {
-    userByToken {
-      id
-      email
-      role
-      active
-    }
-  }
-`;
-
 export const allUsersGQL = `
   query {
     allUsers {
