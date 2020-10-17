@@ -88,26 +88,43 @@ $ yarn bs
 If you are using VSCode you can use the following configuration to start debugging / hitting breakpoints inside the jest tests for each package:
 
 ```json
-        {
-            "type": "node",
-            "name": "@corejame/base",
-            "request": "launch",
-            "args": [
-                "--runInBand",
-                "--verbose"
-            ],
-            "skipFiles": [
-                "<node_internals>/**/*.js",
-                "${workspaceFolder}/**/node_modules/**/*.js",
-                "${workspaceFolder}/node_modules/**/.js",
-            ],
-            "sourceMaps": true,
-            "cwd": "${workspaceFolder}/packages/base",
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "disableOptimisticBPs": true,
-            "program": "${workspaceFolder}/node_modules/jest/bin/jest"
-        }
+    {
+        "type": "node",
+        "name": "@corejame/base",
+        "request": "launch",
+        "args": [
+            "--runInBand",
+            "--verbose"
+        ],
+        "skipFiles": [
+            "<node_internals>/**/*.js",
+            "${workspaceFolder}/**/node_modules/**/*.js",
+            "${workspaceFolder}/node_modules/**/.js",
+        ],
+        "sourceMaps": true,
+        "cwd": "${workspaceFolder}/packages/base",
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "disableOptimisticBPs": true,
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+    }
+        
 ```
 
 You will need to replicate this config for each package you want to debug and update the `name` and `cwd` attributes to match the new package.
+
+For hooking / debugging into the running corejam server boot the api in whichever package you like using `yarn corejam api:serve` and you can then run the following configuration and pick the running api process:
+
+```
+    {
+        "type": "node",
+        "name": "@corejame:api",
+        "request": "attach",
+        "skipFiles": [
+            "<node_internals>/**/*.js",
+            "${workspaceFolder}/**/node_modules/**/*.js",
+            "${workspaceFolder}/node_modules/**/.js",
+        ],
+        "processId": "${command:PickProcess}",
+    }
+```
