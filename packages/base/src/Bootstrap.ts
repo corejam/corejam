@@ -90,7 +90,7 @@ export async function importPlugin(plugin: string) {
  * Load the manifest file from cache
  */
 export function loadManifest(): PluginManifest {
-  return JSON.parse(fs.readFileSync(getCacheDir() + "/manifest.json", "utf-8"));
+  return require(getCacheDir() + "/manifest.json");
 }
 
 let schema: string;

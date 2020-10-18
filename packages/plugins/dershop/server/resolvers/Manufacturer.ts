@@ -4,8 +4,8 @@ import { resolveProductListFromReferences } from "./Product";
 
 export default {
   Query: {
-    allManufacturers: (_obj: any, _args: any, { models }: MergedServerContext) => {
-      return models.allManufacturers();
+    allManufacturers: async (_obj: any, _args: any, { models }: MergedServerContext) => {
+      return await models.allManufacturers();
     },
     paginateManufacturers: async (_obj: any, { size, page }, { models }: MergedServerContext) => {
       const offset = (page - 1) * size;

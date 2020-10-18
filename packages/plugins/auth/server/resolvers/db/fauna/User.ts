@@ -100,7 +100,7 @@ export function userAuthenticate(email: string, password: string): Promise<JWT> 
         user: q.Select(["data"], q.Get(q.Match("userByEmail", email))),
       })
     )
-    .then(async (response: any) => {
+    .then((response: any) => {
       if (!response.user.active) {
         throw new AuthenticationError();
       }
@@ -110,7 +110,7 @@ export function userAuthenticate(email: string, password: string): Promise<JWT> 
         id: response.instance.id,
       };
 
-      return await generateTokensForUser(user, userEdit);
+      return generateTokensForUser(user, userEdit);
     })
     .catch((_e) => {
       throw new AuthenticationError();

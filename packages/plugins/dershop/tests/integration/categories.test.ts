@@ -2,8 +2,8 @@ import * as faker from "faker";
 import { adminCategoryByIdGQL } from "../../shared/graphql/Queries/Admin/Category";
 import { Category, CategoryDB } from "../../shared/types/Category";
 import { PluginResolver } from "../../shared/types/PluginResolver";
-//@ts-ignore
-import { testClient } from "../../src/TestClient";
+import { testClient } from "@corejam/base/src/TestClient";
+
 
 describe("Categories", () => {
   //Init some singletons in beforeAll()

@@ -8,7 +8,7 @@ import runDev from "./commands/dev";
 import runApi from "./commands/apiServer";
 import createApp from "./commands/generateApp";
 import generateSchema from "./commands/generateSchema";
-import { runTest, runWCTests } from "./commands/test";
+import { runWCTests } from "./commands/test";
 import { envRoot } from "./config";
 import { copySchemaToDist } from "./helpers/copy";
 import { killAll } from "./processes";
@@ -78,10 +78,6 @@ prog
 prog.command("generateSchema").action(async () => {
   await corejamInit()
   await generateSchema();
-});
-
-prog.command("test").action(async (opts) => {
-  await runTest(opts);
 });
 
 prog.command("test:wc").action(async () => {

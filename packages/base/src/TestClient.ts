@@ -1,9 +1,7 @@
 const { createTestClient } = require("apollo-server-testing");
-import { getDataClient } from "@corejam/base";
-import { DATACLIENTS } from "@corejam/base/src/PluginManager"
 import { ServerResponse, IncomingMessage } from "http";
 import { Socket } from "net";
-import { CorejamServer, getServerContext } from "../__LINKEDPKGS__/base/src/Server";
+import { CorejamServer, getServerContext } from "./Server";
 
 /**
  * @credit KristianWEB https://github.com/KristianWEB/fakebooker-backend/blob/master/__tests__/util/testClient.js
@@ -30,14 +28,5 @@ export const testClient = async (
     return fn(args);
   };
 
-  const res = { query: wrap(query), mutate: wrap(mutate), models, ...others };
-
-  //Inject request function through query for mocking internal resolver http requests
-  res.request = async (query) => {
-    const { data } = await res.query({ query: query })
-    return data;
-  }
-  getDataClient(DATACLIENTS.GRAPHQL, () => res)
-
-  return res;
+  return { query: wrap(query), mutate: wrap(mutate), models, ...others };
 };

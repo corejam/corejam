@@ -3037,6 +3037,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.8.tgz#fe2012f2355e4ce08bca44aeb3abbb21cf88d33f"
   integrity sha512-KPcKqKm5UKDkaYPTuXSx8wEP7vE9GnuaXIZKijwRYcePpZFDVuy2a57LarFKiORbHOuTOOwYzxVxcUzsh2P2Pw==
 
+"@types/node@14.11.9":
+  version "14.11.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.9.tgz#8ffcae8b41606e6c8d3dfb1ab2a84c85cb20d645"
+  integrity sha512-iXuiZ65PL5c8VAlF426GVJGKcsnAb2rW2037LJe3G6eM6nz35bK9QAUOH3Ic3kF4ZcKLpM02sFkSzCflIpoIKA==
+
 "@types/node@^10.1.0":
   version "10.17.39"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.39.tgz#ce1122758d0608de8303667cebf171f44192629b"
@@ -7813,10 +7818,10 @@ fs-extra@^9.0.0:
     jsonfile "^6.0.1"
     universalify "^1.0.0"
 
-fs-jetpack@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/fs-jetpack/-/fs-jetpack-3.1.0.tgz#0fed50641fefbb8cd74fd09351300aad059e66fb"
-  integrity sha512-PZFMZKhW1AfTUHwWrSfn5rAW4a82d9a9UnfOT0pbJilm+6PWww/YAZkgBiELFaNLxxLe+NG72oqGge1RHCgIKA==
+fs-jetpack@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/fs-jetpack/-/fs-jetpack-3.2.0.tgz#4b7f375718cfe36594c9a1b5158b753c9c66122d"
+  integrity sha512-LMUQxf85b3y/IuQZM9gz7bPMH60Y+NpulmHdhv8nHvgu6daYd7DiSZJSgiHKk1h6vfv1VCOqpdJcR+ThO7sFVA==
   dependencies:
     minimatch "^3.0.2"
     rimraf "^2.6.3"
@@ -13663,10 +13668,10 @@ rollup-pluginutils@^2.8.2:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@2.30.0:
-  version "2.30.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.30.0.tgz#316a1eb0389dbda4082ef2d191b31488995e4c41"
-  integrity sha512-j4K1hUZfgFM03DUpayd3c7kZW+2wDbI6rj7ssQxpCpL1vsGpaM0vSorxBuePFwQDFq9O2DI6AOQbm174Awsq4w==
+rollup@2.31.0:
+  version "2.31.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.31.0.tgz#b845345fabb9998aed9f43b114e5cdb7f0f9bbd7"
+  integrity sha512-0d8S3XwEZ7aCP910/9SjnelgLvC+ZXziouVolzxPOM1zvKkHioGkWGJIWmlOULlmvB8BZ6S0wrgsT4yMz0eyMg==
   optionalDependencies:
     fsevents "~2.1.2"
 
