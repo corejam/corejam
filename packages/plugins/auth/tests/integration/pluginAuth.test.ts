@@ -154,13 +154,14 @@ describe("Test Auth Plugin", () => {
     });
     expect(meResponse.data.me.email).toEqual(newValues.email)
 
+    const cookieResponseHeaders = new ServerResponse(new IncomingMessage(new Socket()))
     const { mutate: cookieMutate } = await testClient({
       req: {
         headers: {
           cookie: `refreshToken=${loginResponse.data.userAuthenticate.token}`
         },
       },
-      res: authResponse,
+      res: cookieResponseHeaders,
     });
 
     //Refresh token
@@ -169,7 +170,7 @@ describe("Test Auth Plugin", () => {
     });
 
     //Expect refreshToken cookie to have been set in headers
-    const headers = authResponse.getHeaders()
+    const headers = cookieResponseHeaders.getHeaders()
     const refreshedCookie = headers["set-cookie"]
     expect(refreshedCookie).toContain("refreshToken");
 

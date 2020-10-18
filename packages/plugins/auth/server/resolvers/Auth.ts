@@ -8,10 +8,11 @@ function setRefreshHeaders(jwt, { req, res }) {
   const maxAge = Number.parseInt(JWT_REFRESH_EXPIRES);
   const secureOptions = `HttpOnly; Secure;`;
   const options = req?.headers.host?.indexOf("localhost") === 0 ? "" : secureOptions;
-  res?.setHeader("Set-Cookie", `refreshToken=${jwt.refreshToken};${options} Max-Age=${maxAge}; Path=/;`);
-  res?.setHeader("Access-Control-Allow-Credentials", "true");
-  if (req?.headers.host?.indexOf("localhost") === 0) {
-    res?.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
+  
+  res.setHeader("Set-Cookie", `refreshToken=${jwt.refreshToken};${options} Max-Age=${maxAge}; Path=/;`);
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  if (req.headers.host?.indexOf("localhost") === 0) {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
   }
 
   delete jwt.refreshToken;
