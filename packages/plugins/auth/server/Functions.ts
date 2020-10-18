@@ -29,7 +29,7 @@ export function encodeJWTPayload(payload: any, expires = JWT_EXPIRES): string {
   return jwt.sign(payload, process.env.JWT_HASH, { expiresIn: `${expires}m` });
 }
 
-export async function generateTokensForUser(user: UserDB, editFn: (userId, data) => {}): Promise<JWT> {
+export function generateTokensForUser(user: UserDB, editFn: (userId, data) => {}): JWT {
   const payload = {
     id: user.id,
     role: user.role,
@@ -38,15 +38,13 @@ export async function generateTokensForUser(user: UserDB, editFn: (userId, data)
   const token = encodeJWTPayload(payload, process.env.JWT_EXPIRES);
   const refreshToken = encodeJWTPayload(payload, process.env.JWT_REFRESH_EXPIRES);
 
-  await editFn(user.id, { refreshToken });
+  editFn(user.id, { refreshToken });
 
-  return new Promise((res) =>
-    res({
-      user: user,
-      token: token,
-      refreshToken: refreshToken,
-    })
-  );
+  return {
+    user: user,
+    token: token,
+    refreshToken: refreshToken,
+  }
 }
 
 export function validateAuthInput(email: string) {
