@@ -3,9 +3,7 @@ import { PluginResolver as ShopResolver } from "../../shared/types/PluginResolve
 import { ProductCoreInput, ProductDB, ProductEditInput } from "../../shared/types/Product";
 import { SEO } from "../../shared/types/Seo";
 import { getObjectFromURL, getSeoIndex } from "../../shared/graphql/Queries/URL"
-
-//@ts-ignore
-import { testClient } from "../../src/TestClient";
+import { testClient } from "@corejam/base/src/TestClient";
 import { generateSeo } from "../../server/resolvers/db/faker/Generator";
 
 describe("SEO", () => {

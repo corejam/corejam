@@ -82,3 +82,9 @@ $ yarn --frozen-lockfile
 $ yarn build
 $ yarn bs
 ```
+
+# Debugging configuration
+
+If you are using VSCode you can use the commited vscode configuration to jump right in. Simply choose the configuration you want and hit run.
+
+For hooking / debugging into the running corejam server boot the api in whichever package you like using `yarn corejam api:serve` and you can then run the `@corejam:api` configuration to select your running process.

@@ -8,10 +8,11 @@ function setRefreshHeaders(jwt, { req, res }) {
   const maxAge = Number.parseInt(JWT_REFRESH_EXPIRES);
   const secureOptions = `HttpOnly; Secure;`;
   const options = req?.headers.host?.indexOf("localhost") === 0 ? "" : secureOptions;
-  res?.setHeader("Set-Cookie", `refreshToken=${jwt.refreshToken};${options} Max-Age=${maxAge}; Path=/;`);
-  res?.setHeader("Access-Control-Allow-Credentials", "true");
-  if (req?.headers.host?.indexOf("localhost") === 0) {
-    res?.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
+  
+  res.setHeader("Set-Cookie", `refreshToken=${jwt.refreshToken};${options} Max-Age=${maxAge}; Path=/;`);
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  if (req.headers.host?.indexOf("localhost") === 0) {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
   }
 
   delete jwt.refreshToken;
@@ -24,11 +25,12 @@ function setRefreshHeaders(jwt, { req, res }) {
  */
 export default {
   Query: {
-    allUsers: async (_obj: any, _args: any, { models }: MergedServerContext) => {
-      //checkUserHasRole(await user(), "admin");
-      //TODO we need to inject the users headers in the client below in paginateUsers
-
-      return models.allUsers();
+    userById: async (_obj: any, args: any, { models, user }: MergedServerContext) => {	
+      const currentUser = await user();	
+      if (currentUser.id === args.id || checkUserHasRole(currentUser, roles.ADMIN)) {	
+        return await models.userById(args.id);	
+      }	
+      return null;	
     },
     paginateUsers: async (_obj: any, { size, page }, { models }: MergedServerContext) => {
       // checkUserHasRole(await user(), roles.ADMIN);
@@ -47,21 +49,7 @@ export default {
       };
 
       return new Promise((res) => res(paginated));
-    },
-    userById: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
-      const currentUser = await user();
-      if (currentUser.id === args.id || checkUserHasRole(currentUser, roles.ADMIN)) {
-        return await models.userById(args.id);
-      }
-      return null;
-    },
-    //We already have the user resolved in the context. Just return it
-    userByToken: async (_obj: any, _args: any, { user }: MergedServerContext) => {
-      return await user();
-    },
-    userByEmail: (_obj: any, _args: any, _ctx: MergedServerContext) => {
-      //return models.findUserByEmail(args.email);
-    },
+    }
   },
   Mutation: {
     userEdit: async (_obj: any, args: any, { models, user }: MergedServerContext) => {

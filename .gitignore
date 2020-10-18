@@ -2,7 +2,6 @@ node_modules
 lerna-debug.log
 yarn-error.log
 .DS_Store
-.vscode
 html.html-data.json
 /packages/web-components/--docs
 ./test/db/yarn.lock

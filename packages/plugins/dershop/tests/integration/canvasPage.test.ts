@@ -1,8 +1,7 @@
 import { CoreResolver } from "@corejam/base/src";
 import { CanvasPage, CanvasPageDB, CanvasPeer } from "@corejam/base/src/typings/Canvas";
 import { generateSeo } from "../../server/resolvers/db/faker/Generator";
-//@ts-ignore
-import { testClient } from "../../src/TestClient";
+import { testClient } from "@corejam/base/src/TestClient";
 
 describe("CanvasPages", () => {
   //Init some singletons in beforeAll()
