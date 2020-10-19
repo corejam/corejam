@@ -45,10 +45,11 @@ export default async () => {
         const manufacturer = data.manufacturers[Math.floor(Math.random() * data.manufacturers.length)];
         const category = data.categories[Math.floor(Math.random() * data.categories.length)];
 
+        //@ts-ignore
+        product.manufacturer = { ...(await models.manufacturerByID(manufacturer.id)) }
+        product.categories = [{ ...(await models.categoryById(category.id) as CategoryDB) }]
+        
         data.products.push(product)
-
-        await models.productLinkManufacturer(product.id, manufacturer.id)
-        await models.productLinkCategory(product.id, category.id)
     }
 
     for (let i = 0; i <= 5; i++) {
