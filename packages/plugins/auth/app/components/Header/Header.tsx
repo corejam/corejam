@@ -2,7 +2,6 @@ import { Component, Host, h } from "@stencil/core";
 
 @Component({
   tag: "corejam-auth-header",
-  shadow: true,
 })
 export class CorejamAuthHeader {
   render() {

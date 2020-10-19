@@ -3,7 +3,6 @@ import { serialize } from "../../shared/utils/utils";
 @Component({
   tag: "dershop-serializer",
   styleUrl: "dershop-serializer.css",
-  shadow: true,
 })
 export class DershopSerializer implements ComponentInterface {
   @Listen("keydown", { target: "document" })

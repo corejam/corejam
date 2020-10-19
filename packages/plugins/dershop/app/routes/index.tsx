@@ -5,7 +5,6 @@ import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-route-index",
-  shadow: true,
 })
 export class IndexRoute {
   private _data;

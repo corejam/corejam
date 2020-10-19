@@ -1,14 +1,11 @@
-import { Component, h, Prop, Host, Element, Build, State, Watch } from "@stencil/core";
-import { Style } from "../../helpers/Style";
-import { hashCode } from "../../utils/utils";
+import { Component, h, Prop, Host, Element, Build, State } from "@stencil/core";
+import { computeStyle } from "../../utils/computeStyle";
+import { addStyleTagToHead } from "../../helpers/Style";
 
 @Component({
   tag: "corejam-image",
-  shadow: true,
 })
 export class Image {
-  @State() style: {};
-  @State() computedStyle: string;
   @State() hash: string;
   @Element() el: HTMLElement;
   @Prop() src: string;
@@ -18,11 +15,12 @@ export class Image {
   @Prop() h: string;
   @Prop() fit: "cover";
   @Prop() rounded: "full";
+  @Prop() lazy: boolean = false;
 
   private observer: IntersectionObserver;
 
   componentDidLoad() {
-    if (Build.isBrowser) this.setupObserver();
+    if (Build.isBrowser && this.lazy) this.setupObserver();
   }
   async componentWillLoad() {
     await this.computeStyles();
@@ -30,20 +28,12 @@ export class Image {
 
   async computeStyles() {
     return new Promise(async (res) => {
-      this.style = { ...this.style, flex: (await import("../../utils/style")).generateStyleMap(this, "img") };
+      const styleMap = (await import("../../utils/style")).generateStyleMap(this, "img");
+      const [hashCode, style] = computeStyle(styleMap);
+      this.hash = hashCode;
+      addStyleTagToHead(style, hashCode);
       res();
     });
-  }
-
-  @Watch("style")
-  generateFinalStyleTags() {
-    const computedStyle = Object.keys(this.style)
-      .map((key) => this.style[key].join(" "))
-      .join("");
-    if (computedStyle.length > 0) {
-      this.hash = "cj" + hashCode(computedStyle);
-      this.computedStyle = `:host, .${this.hash} { ${computedStyle}}`;
-    }
   }
 
   private setupObserver() {
@@ -71,10 +61,11 @@ export class Image {
   _relevantProps = ["w", "maxWidth", "h", "fit", "rounded"];
 
   render() {
+    const srcProps = {};
+    this.lazy ? (srcProps["data-src"] = this.src) : (srcProps["src"] = this.src);
     return (
       <Host as="image" alt={this.alt}>
-        <img data-src={this.src} alt={this.alt} class={this.hash} />
-        <Style hash={this.hash} styles={`:host {display: block;}\n${this.computedStyle}`} />
+        <img {...srcProps} alt={this.alt} class={this.hash} />
       </Host>
     );
   }

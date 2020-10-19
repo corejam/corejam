@@ -7,7 +7,6 @@ import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-product",
-  shadow: true,
 })
 export class ProductDetail {
   @State() _product: Product;

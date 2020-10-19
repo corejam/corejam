@@ -1,5 +1,3 @@
-
-
 export const adminAllCategoriesGQL = `
   query {
     allCategories {
@@ -15,7 +13,7 @@ export const adminAllCategoriesGQL = `
 `;
 
 export const adminCategoryByIdGQL = `
-  query($id: String!) {
+  query($id: ID!) {
     categoryById(id: $id) {
       id
       name

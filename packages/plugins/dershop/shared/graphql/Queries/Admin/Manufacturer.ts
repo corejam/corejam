@@ -1,5 +1,3 @@
-
-
 export const adminAllManufacturersGQL = `
   query {
     allManufacturers {
@@ -11,7 +9,7 @@ export const adminAllManufacturersGQL = `
 `;
 
 export const adminManufacturerByIdGQL = `
-  query($id: String!) {
+  query($id: ID!) {
     manufacturerById(id: $id) {
       id
       name

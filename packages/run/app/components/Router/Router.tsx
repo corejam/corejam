@@ -5,9 +5,10 @@ import { state } from "@corejam/router";
 const Router = state.router;
 
 @Component({
-  tag: "app-router",
+  tag: "corejam-run-router",
 })
 export class AppRouter {
+  @Prop() components: any;
   @Prop() routes: any;
   @Prop() docs: any;
   @Prop() mode: string;
@@ -15,9 +16,8 @@ export class AppRouter {
   calculateRoutes() {
     const wildcards = [];
     const named = [];
-    if (this.routes.routes) {
-      Object.keys(this.routes.routes).map((k) => {
-        const route = this.routes.routes[k];
+    if (this.routes) {
+      this.routes.forEach((route) => {
         const Component = route.component;
         if (route.url.indexOf("[") > -1) {
           const dynamicMatch = route.url.match(/\[.+\]/)[0];
@@ -43,23 +43,21 @@ export class AppRouter {
       <Host>
         <Router.Switch>
           <Route path="/_corejam">
-            <app-welcome routes={this.routes} mode={this.mode} />
+            <app-welcome routes={this.routes} components={this.components} />
           </Route>
           <Route path="/liveview">
             <app-liveview />
           </Route>
-          {this.routes &&
-            Object.keys(this.routes.components).map((k) => {
-              const component = this.routes.components[k];
-              return (
-                <Route path={component.url}>
-                  <app-playground
-                    cmp={component.component}
-                    // data={this.docs.tags.filter((d) => d.name === component.component)[0]}
-                  ></app-playground>
-                </Route>
-              );
-            })}
+          {this.components.map((component) => {
+            return (
+              <Route path={component.url}>
+                <app-playground
+                  cmp={component.component}
+                  // data={this.docs.tags.filter((d) => d.name === component.component)[0]}
+                ></app-playground>
+              </Route>
+            );
+          })}
           {this.calculateRoutes()}
         </Router.Switch>
       </Host>

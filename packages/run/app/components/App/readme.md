@@ -9,16 +9,13 @@
 
 ### Depends on
 
-- [app-router](../Router)
+- [corejam-run-router](../Router)
 
 ### Graph
 ```mermaid
 graph TD;
-  app-root --> app-router
-  app-router --> app-welcome
-  app-router --> app-liveview
-  app-router --> app-playground
-  style app-root fill:#f9f,stroke:#333,stroke-width:4px
+  corejam-run-app --> corejam-run-router
+  style corejam-run-app fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

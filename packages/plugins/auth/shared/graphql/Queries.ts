@@ -12,7 +12,7 @@ export const allUsersGQL = `
 `;
 
 export const userByIdGQL = `
-  query UserById($id: String!) {
+  query UserById($id: ID!) {
     userById(id: $id) {
       id
       active

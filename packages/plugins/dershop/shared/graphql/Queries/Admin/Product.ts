@@ -1,5 +1,3 @@
-
-
 export const adminAllProductsGQL = `
   query {
     allProducts {
@@ -30,7 +28,7 @@ export const adminAllProductsGQL = `
 `;
 
 export const adminProductByIdGQL = `
-  query($id: String!) {
+  query($id: ID!) {
     productById(id: $id) {
       id
       name

@@ -6,7 +6,6 @@ import gql from "graphql-tag";
 
 @Component({
   tag: "auth-admin-user-list",
-  shadow: true,
 })
 export class AuthAdminUserList {
   @Prop() data: any;
@@ -21,10 +20,11 @@ export class AuthAdminUserList {
 
   async queryData() {
     const request = await coreState.client.query({
-      query: gql(paginateUsersGQL), variables: {
+      query: gql(paginateUsersGQL),
+      variables: {
         page: this.page,
         size: 15,
-      }
+      },
     });
 
     this._data = request.data.paginateUsers;

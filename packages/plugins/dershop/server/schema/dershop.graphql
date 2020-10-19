@@ -45,7 +45,7 @@ type Sidebar @cacheControl(maxAge: 300) {
 }
 
 type Category implements Timestamp @cacheControl(maxAge: 300) {
-  id: String!
+  id: ID!
   name: String!
   seo: SEO
   parent: CategoryReference
@@ -70,7 +70,7 @@ type CategoryList implements Paginated @cacheControl(maxAge: 300) {
 }
 
 type CategoryReference @cacheControl(maxAge: 300) {
-  id: String!
+  id: ID!
   data: Category!
 }
 
@@ -95,7 +95,7 @@ input DeliverabilityInput {
 }
 
 type Manufacturer implements Timestamp @cacheControl(maxAge: 300) {
-  id: String!
+  id: ID!
   name: String!
   website: String
   description: String
@@ -122,12 +122,12 @@ type ManufacturerList implements Paginated {
 }
 
 type ManufacturerReference @cacheControl(maxAge: 300) {
-  id: String!
+  id: ID!
   data: Manufacturer!
 }
 
 type Order implements Timestamp {
-  id: String!
+  id: ID!
   status: OrderStatus!
   items: [OrderItem]
   user: User!
@@ -160,7 +160,7 @@ input OrderItemInput {
 }
 
 input OrderItemProductInput {
-  id: String!
+  id: ID!
   name: String!
 }
 
@@ -195,7 +195,7 @@ input PriceInput {
 }
 
 type Product implements Timestamp @cacheControl(maxAge: 300) {
-  id: String!
+  id: ID!
   sku: String
   ean: String
   manufacturer_number: String
@@ -237,21 +237,21 @@ extend type Query {
   allOrders: [Order]
   paginateOrders(page: Int!, size: Int!): OrderList
   ordersByCustomer: OrderList
-  orderById(id: String!): Order
+  orderById(id: ID!): Order
   allProducts: [Product]
   paginateProducts(page: Int!, size: Int!): ProductList @cacheControl(maxAge: 300)
   productSearch(search: String!, page: Int!, size: Int!): ProductList
   productByUrl(url: String!): Product
-  productById(id: String!): Product
+  productById(id: ID!): Product
   allManufacturers: [Manufacturer]
   paginateManufacturers(page: Int!, size: Int!): ManufacturerList
   manufacturerByUrl(url: String!): Manufacturer
-  manufacturerById(id: String!): Manufacturer
+  manufacturerById(id: ID!): Manufacturer
   manufacturersForSelect: [Manufacturer]
   allCategories: [Category]
   paginateCategories(page: Int!, size: Int!): CategoryList
   categoryByUrl(url: String!): Category
-  categoryById(id: String!): Category
+  categoryById(id: ID!): Category
   getSEOIndex: [String]
 }
 
@@ -260,30 +260,21 @@ type LinkResult {
 }
 
 extend type Mutation {
-  productAddImage(id: String!, imageInput: ImageInput!): Product
-  orderUpdate(id: String!, order: OrderInput!): Order
+  productAddImage(id: ID!, imageInput: ImageInput!): Product
+  orderUpdate(id: ID!, order: OrderInput!): Order
   orderCreate(orderInput: OrderInput!): Order
   productCreate(productInput: ProductCoreInput!): Product
-  productEdit(id: String!, productInput: ProductCoreInput!): Product
-  productEditPrice(id: String!, priceInput: PriceInput!): Product
-  productEditSEO(id: String!, seoInput: SEOInput!): Product
-  productEditDeliverability(
-    id: String!
-    deliveryInput: DeliverabilityInput!
-  ): Product
-  productLinkManufacturer(id: String!, manufacturerId: String!): LinkResult
-  productLinkCategory(id: String!, categoryId: String!): LinkResult
-  manufacturerCreate(
-    id: String!
-    manufacturerInput: ManufacturerInput!
-  ): Manufacturer
-  manufacturerEditSEO(id: String!, seoInput: SEOInput!): Manufacturer
-  manufacturerEdit(
-    id: String!
-    manufacturerInput: ManufacturerInput!
-  ): Manufacturer
-  categoryEditSEO(id: String!, seoInput: SEOInput!): Category
-  categoryEdit(id: String!, categoryInput: CategoryInput!): Category
+  productEdit(id: ID!, productInput: ProductCoreInput!): Product
+  productEditPrice(id: ID!, priceInput: PriceInput!): Product
+  productEditSEO(id: ID!, seoInput: SEOInput!): Product
+  productEditDeliverability(id: ID!, deliveryInput: DeliverabilityInput!): Product
+  productLinkManufacturer(id: ID!, manufacturerid: ID!): LinkResult
+  productLinkCategory(id: ID!, categoryid: ID!): LinkResult
+  manufacturerCreate(id: ID!, manufacturerInput: ManufacturerInput!): Manufacturer
+  manufacturerEditSEO(id: ID!, seoInput: SEOInput!): Manufacturer
+  manufacturerEdit(id: ID!, manufacturerInput: ManufacturerInput!): Manufacturer
+  categoryEditSEO(id: ID!, seoInput: SEOInput!): Category
+  categoryEdit(id: ID!, categoryInput: CategoryInput!): Category
 }
 
 extend type SEODocument @cacheControl(maxAge: 3600) {

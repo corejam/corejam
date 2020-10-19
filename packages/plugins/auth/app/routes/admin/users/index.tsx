@@ -2,7 +2,6 @@ import { Component, Host, h } from "@stencil/core";
 
 @Component({
   tag: "cj-route-admin-index",
-  shadow: true,
 })
 export class AdminUser {
   render() {

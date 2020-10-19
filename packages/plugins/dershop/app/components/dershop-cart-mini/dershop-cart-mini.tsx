@@ -4,7 +4,6 @@ import basket from "../../../shared/store/basket";
 @Component({
   tag: "dershop-cart-mini",
   styleUrl: "dershop-cart-mini.css",
-  shadow: true,
 })
 export class DershopCartMini implements ComponentInterface {
   render() {

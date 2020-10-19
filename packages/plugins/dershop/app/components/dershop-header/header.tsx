@@ -6,8 +6,6 @@ type Link = {
 
 @Component({
   tag: "dershop-header",
-  styleUrl: "header.css",
-  shadow: true,
 })
 export class DershopHeader implements ComponentInterface {
   private _mainLinks: Link[] = [
@@ -17,7 +15,7 @@ export class DershopHeader implements ComponentInterface {
   private _secondaryLinks: Link[] = [{ href: "/contact", title: "Contact" }];
 
   @Prop() maxScreen = "xl";
-  @Prop() cartLink = "/cart/";
+  @Prop() cartLink = "/cart";
   @Prop() xAlign = "auto";
   @Prop() mainLinks: string | any;
   @Prop() secondaryLinks: string | any;

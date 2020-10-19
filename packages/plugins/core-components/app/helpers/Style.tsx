@@ -1,6 +1,9 @@
-import { h, FunctionalComponent } from "@stencil/core";
-
-export const Style: FunctionalComponent<{ styles: string; hash?: string }> = ({ styles, hash }) => {
-  if (styles) return <style data-hash={hash}>{styles}</style>;
-  return "";
-};
+export function addStyleTagToHead(styles: string, hash: string) {
+  if (!document.getElementById(hash)) {
+    const style = document.createElement("style");
+    style.id = hash;
+    style.setAttribute("corejamStyle", hash);
+    style.textContent = styles;
+    document.head.appendChild(style);
+  }
+}

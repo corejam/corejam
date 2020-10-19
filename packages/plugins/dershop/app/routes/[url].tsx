@@ -2,11 +2,10 @@ import { coreState } from "@corejam/core-components";
 import { Component, h, Host, Prop, State } from "@stencil/core";
 import { SEODocument } from "shared/types/Seo";
 import gql from "graphql-tag";
-import { getObjectFromURL } from "../../../shared/graphql/Queries/URL";
+import { getObjectFromURL } from "../../shared/graphql/Queries/URL";
 
 @Component({
   tag: "dershop-url",
-  shadow: true,
 })
 export class UrlRoute {
   @Prop() param: any;

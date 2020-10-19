@@ -2,7 +2,6 @@ import { Component, ComponentInterface, h, Host, Listen, State, Event, EventEmit
 
 @Component({
   tag: "corejam-form-container",
-  shadow: true,
 })
 export class CorejamFormContainer implements ComponentInterface {
   @Prop() name: string;

@@ -2,7 +2,6 @@ import { Component, h, Host } from "@stencil/core";
 
 @Component({
   tag: "route-index",
-  shadow: true,
 })
 export class Hallo {
   render() {

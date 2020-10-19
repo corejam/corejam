@@ -1,0 +1,30 @@
+{
+  "name": "@corejam/run",
+  "version": "0.0.1",
+  "description": "Corejam Runtime",
+  "main": "dist/index.cjs.js",
+  "module": "dist/custom-elements/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/custom-elements/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/dev/dev.js",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "dev": "stencil build --dev --watch --serve",
+    "build": "stencil build --docs",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "dependencies": {
+    "@corejam/dev": "0.0.5",
+    "@corejam/router": "0.0.5",
+    "@stencil/core": "2.1.0-3",
+    "stencil-router-v2": "0.5.0"
+  },
+  "license": "MIT"
+}

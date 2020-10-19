@@ -7,22 +7,23 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default     |
-| -------- | --------- | ----------- | -------- | ----------- |
-| `mode`   | `mode`    |             | `string` | `undefined` |
-| `routes` | `routes`  |             | `any`    | `undefined` |
+| Property     | Attribute    | Description | Type     | Default     |
+| ------------ | ------------ | ----------- | -------- | ----------- |
+| `components` | `components` |             | `any`    | `undefined` |
+| `mode`       | `mode`       |             | `string` | `undefined` |
+| `routes`     | `routes`     |             | `any`    | `undefined` |
 
 
 ## Dependencies
 
 ### Used by
 
- - [app-router](../Router)
+ - corejam-run-router
 
 ### Graph
 ```mermaid
 graph TD;
-  app-router --> app-welcome
+  corejam-run-router --> app-welcome
   style app-welcome fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

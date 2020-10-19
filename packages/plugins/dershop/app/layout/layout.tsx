@@ -1,18 +1,16 @@
-import { Component, Host, h } from "@stencil/core";
+import { Component, h, Fragment } from "@stencil/core";
 
 @Component({
   tag: "dershop-layout",
-  shadow: true,
 })
-export class Layout {
-
+export class DerShopLayout {
   render() {
     return (
-      <Host>
-          <dershop-header></dershop-header>
-          <slot></slot>
-          <dershop-footer></dershop-footer>
-      </Host>
+      <Fragment>
+        <dershop-header />
+        <slot />
+        <dershop-footer />
+      </Fragment>
     );
   }
 }

@@ -8,7 +8,7 @@ import gql from "graphql-tag";
 
 @Component({
   tag: "auth-admin-user-form",
-  shadow: true,
+  
 })
 
 export class AuthAdminUserForm {

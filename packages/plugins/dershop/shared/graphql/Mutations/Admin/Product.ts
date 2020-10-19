@@ -1,7 +1,5 @@
-
-
 export const productEditCoreGQL = `
-  mutation ProductEditCore($id: String!, $productInput: ProductCoreInput!) {
+  mutation ProductEditCore($id: ID!, $productInput: ProductCoreInput!) {
     productEdit(id: $id, productInput: $productInput) {
       id
       name
@@ -17,7 +15,7 @@ export const productEditCoreGQL = `
 `;
 
 export const productEditPriceGQL = `
-  mutation ProductEditPrice($id: String!, $priceInput: PriceInput!) {
+  mutation ProductEditPrice($id: ID!, $priceInput: PriceInput!) {
     productEditPrice(id: $id, priceInput: $priceInput) {
       price {
         tax_rate
@@ -30,7 +28,7 @@ export const productEditPriceGQL = `
 `;
 
 export const productEditSEOGQL = `
-  mutation ProductEditSEO($id: String!, $seoInput: SEOInput!) {
+  mutation ProductEditSEO($id: ID!, $seoInput: SEOInput!) {
     productEditSEO(id: $id, seoInput: $seoInput) {
       seo {
         metaDescription
@@ -43,7 +41,7 @@ export const productEditSEOGQL = `
 `;
 
 export const productEditDeliverabilityGQL = `
-  mutation ProductEditDeliverability($id: String!, $deliveryInput: DeliverabilityInput!) {
+  mutation ProductEditDeliverability($id: ID!, $deliveryInput: DeliverabilityInput!) {
     productEditDeliverability(id: $id, deliveryInput: $deliveryInput) {
       deliverability {
         stock
@@ -74,7 +72,7 @@ export const productAddGQL = `
 `;
 
 export const productAddImageGQL = `
-  mutation ProductAddImage($id: String!, $imageInput: ImageInput!) {
+  mutation ProductAddImage($id: ID!, $imageInput: ImageInput!) {
     productAddImage(id: $id, imageInput: $imageInput) {
       images {
         src
@@ -88,16 +86,16 @@ export const productAddImageGQL = `
 `;
 
 export const productLinkManufacturer = `
-  mutation ProductLinkManufacturer($id: String!, $manufacturerId: String!) {
+  mutation ProductLinkManufacturer($id: ID!, $manufacturerid: ID!) {
     productLinkManufacturer(id: $id, manufacturerId: $manufacturerId) {
       result
     }
   }
-`
+`;
 export const productLinkCategory = `
-  mutation ProductLinkCategory($id: String!, $categoryId: String!) {
+  mutation ProductLinkCategory($id: ID!, $categoryid: ID!) {
     productLinkCategory(id: $id, categoryId: $categoryId) {
       result
     }
   }
-`
+`;

@@ -7,7 +7,6 @@ import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-admin-order-list",
-  shadow: true,
 })
 export class AdminOrderList {
   @Prop() data: any;
@@ -26,7 +25,7 @@ export class AdminOrderList {
       variables: {
         page: this.page,
         size: 15,
-      }
+      },
     });
 
     this._data = request.data.paginateOrders;

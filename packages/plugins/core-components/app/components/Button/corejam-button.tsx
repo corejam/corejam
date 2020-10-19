@@ -1,17 +1,13 @@
-import { Component, Host, h, Prop, State, Watch } from "@stencil/core";
+import { Component, Host, h, Prop, State } from "@stencil/core";
 import { computeStyle } from "./../../utils/computeStyle";
-import { Style } from "./../../helpers/Style";
+import { addStyleTagToHead } from "./../../helpers/Style";
 import { Button } from "./types";
 
 @Component({
   tag: "corejam-button",
-  shadow: true,
 })
 export class CorejamButton {
-  @State() style: any[] = [];
-  @State() computedStyle: string;
   @State() hash: string;
-
   @Prop({ reflect: true }) bg: string;
   @Prop({ reflect: true }) type: Button.Type = "button";
   @Prop({ reflect: true }) color: string;
@@ -29,25 +25,18 @@ export class CorejamButton {
 
   async computeStyles() {
     return new Promise(async (res) => {
-      this.style = [...this.style, ...(await import("../../utils/style")).generateStyleMap(this, "")];
+      const styleMap = (await import("../../utils/style")).generateStyleMap(this, "");
+      const [hashCode, style] = computeStyle(styleMap);
+      this.hash = hashCode;
+      addStyleTagToHead(style, hashCode);
       res();
     });
-  }
-
-  @Watch("style")
-  generateFinalStyleTags() {
-    const [hashCode, style] = computeStyle(this.style);
-    if (hashCode) {
-      this.hash = hashCode;
-      this.computedStyle = style;
-    }
   }
 
   render() {
     return (
       <Host as="button" type={this.type} class={this.hash}>
         <slot></slot>
-        {this.hash && <Style styles={this.computedStyle} hash={this.hash} />}
       </Host>
     );
   }
