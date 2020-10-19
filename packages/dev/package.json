@@ -33,7 +33,7 @@
     "@rollup/plugin-node-resolve": "9.0.0",
     "@rollup/plugin-typescript": "6.0.0",
     "fs-jetpack": "3.2.0",
-    "rollup": "2.31.0",
+    "rollup": "2.32.0",
     "shx": "0.3.2"
   }
 }
