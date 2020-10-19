@@ -15,7 +15,7 @@ export class Image {
   @Prop() h: string;
   @Prop() fit: "cover";
   @Prop() rounded: "full";
-  @Prop() lazy: boolean = false;
+  @Prop() lazy = false;
 
   private observer: IntersectionObserver;
 
