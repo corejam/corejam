@@ -20,6 +20,7 @@
   },
   "include": [
     "server/**/*",
+    "cli/**/*",
     "shared/graphql/**/*",
     "shared/types/**/*",
     "index.ts"

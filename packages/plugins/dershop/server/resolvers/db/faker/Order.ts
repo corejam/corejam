@@ -5,13 +5,24 @@ import { UserDB } from "../../../../shared/types/User";
 import { generateOrder, generateUser } from "./Generator";
 import { allProducts } from "./Product";
 
-const users: UserDB[] = [{ id: random.uuid(), ...generateUser() }];
-for (let index = 0; index < 10; index++) {
-  users.push({ id: random.uuid(), ...generateUser() })
-}
 
 export let orders: OrderDB[] = [];
+
+try {
+  const staticFile = require(process.cwd() + "/.corejam/faker.json")
+  orders.push(...staticFile.orders)
+  console.log("Load from static data")
+} catch (e) {
+  //Nothing for now
+}
+
 if (orders.length === 0) {
+  const users: UserDB[] = [{ id: random.uuid(), ...generateUser() }];
+
+  for (let index = 0; index < 10; index++) {
+    users.push({ id: random.uuid(), ...generateUser() })
+  }
+
   allProducts().then(products => {
     for (let index = 0; index < 10; index++) {
       orders.push({ id: random.uuid(), ...generateOrder(products, users) })

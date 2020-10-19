@@ -13,6 +13,7 @@ import { envRoot } from "./config";
 import { copySchemaToDist } from "./helpers/copy";
 import { killAll } from "./processes";
 import { corejamInit } from './commands/init';
+import { bootstrap } from './commands/bootstrap';
 
 const pkg = require("../package.json");
 const prog = sade("corejam");
@@ -28,6 +29,15 @@ prog
   .action(async (opts) => {
     await runBuild(opts);
   });
+
+prog
+  .command("bootstrap")
+  .describe("Bootstrap data")
+  .option("-l, --log", "Log output to console", false)
+  .action(async (opts) => {
+    await bootstrap(opts);
+  });
+
 
 prog
   .command("dev")
