@@ -14,7 +14,7 @@ it("should render font size based on prop", async () => {
     components: [CorejamType],
     html: `<corejam-type size="6xl">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("font-size: var(--cj-font-size-6xl, 4rem);");
 });
 
@@ -23,7 +23,7 @@ it("should render italic font style", async () => {
     components: [CorejamType],
     html: `<corejam-type font-style="italic">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("font-style: italic");
 });
 
@@ -32,7 +32,7 @@ it("should render non-italic font style", async () => {
     components: [CorejamType],
     html: `<corejam-type font-style="non-italic">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("font-style: non-italic");
 });
 
@@ -41,7 +41,7 @@ it("should render tighter letter spacing", async () => {
     components: [CorejamType],
     html: `<corejam-type spacing="tighter">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("letter-spacing: var(--cj-font-spacing-tighter, -0.05em)");
 });
 
@@ -50,7 +50,7 @@ it("should render tight letter spacing", async () => {
     components: [CorejamType],
     html: `<corejam-type spacing="tight">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("letter-spacing: var(--cj-font-spacing-tight, -0.025em)");
 });
 
@@ -59,7 +59,7 @@ it("should render normal letter spacing", async () => {
     components: [CorejamType],
     html: `<corejam-type spacing="normal">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("letter-spacing: var(--cj-font-spacing-normal, 0)");
 });
 it("should render wide letter spacing", async () => {
@@ -67,7 +67,7 @@ it("should render wide letter spacing", async () => {
     components: [CorejamType],
     html: `<corejam-type spacing="wide">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("letter-spacing: var(--cj-font-spacing-wide, 0.025em)");
 });
 it("should render wider letter spacing", async () => {
@@ -75,7 +75,7 @@ it("should render wider letter spacing", async () => {
     components: [CorejamType],
     html: `<corejam-type spacing="wider">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("letter-spacing: var(--cj-font-spacing-wider, 0.05em)");
 });
 
@@ -84,7 +84,7 @@ it("should render widest letter spacing", async () => {
     components: [CorejamType],
     html: `<corejam-type spacing="widest">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("letter-spacing: var(--cj-font-spacing-widest, 0.1em)");
 });
 
@@ -93,7 +93,7 @@ it("should render underline text", async () => {
     components: [CorejamType],
     html: `<corejam-type decoration="underline">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-decoration: underline");
 });
 it("should render underline text", async () => {
@@ -101,7 +101,7 @@ it("should render underline text", async () => {
     components: [CorejamType],
     html: `<corejam-type decoration="underline">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-decoration: underline");
 });
 it("should render no underline text", async () => {
@@ -109,7 +109,7 @@ it("should render no underline text", async () => {
     components: [CorejamType],
     html: `<corejam-type decoration="no-underline">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-decoration: none");
 });
 it("should render line through text", async () => {
@@ -117,7 +117,7 @@ it("should render line through text", async () => {
     components: [CorejamType],
     html: `<corejam-type decoration="line-through">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-decoration: line-through");
 });
 
@@ -126,7 +126,7 @@ it("should render uppercase text", async () => {
     components: [CorejamType],
     html: `<corejam-type transform="uppercase">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-transform: uppercase");
 });
 it("should render lowercase text", async () => {
@@ -134,7 +134,7 @@ it("should render lowercase text", async () => {
     components: [CorejamType],
     html: `<corejam-type transform="lowercase">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-transform: lowercase");
 });
 it("should render normal text", async () => {
@@ -142,7 +142,7 @@ it("should render normal text", async () => {
     components: [CorejamType],
     html: `<corejam-type transform="normal-case">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-transform: none");
 });
 
@@ -151,7 +151,7 @@ it("should render text as h1", async () => {
     components: [CorejamType],
     html: `<corejam-type as="h1">Hallo</corejam-type>`,
   });
-  const target = page.root.shadowRoot.querySelector("h1");
+  const target = page.doc.querySelector("h1");
   expect(target).toBeTruthy();
 });
 it("should render text as h2", async () => {
@@ -159,7 +159,7 @@ it("should render text as h2", async () => {
     components: [CorejamType],
     html: `<corejam-type as="h2">Hallo</corejam-type>`,
   });
-  const target = page.root.shadowRoot.querySelector("h2");
+  const target = page.doc.querySelector("h2");
   expect(target).toBeTruthy();
 });
 it("should render text as h3", async () => {
@@ -167,7 +167,7 @@ it("should render text as h3", async () => {
     components: [CorejamType],
     html: `<corejam-type as="h3">Hallo</corejam-type>`,
   });
-  const target = page.root.shadowRoot.querySelector("h3");
+  const target = page.doc.querySelector("h3");
   expect(target).toBeTruthy();
 });
 it("should render text as h4", async () => {
@@ -175,7 +175,7 @@ it("should render text as h4", async () => {
     components: [CorejamType],
     html: `<corejam-type as="h4">Hallo</corejam-type>`,
   });
-  const target = page.root.shadowRoot.querySelector("h4");
+  const target = page.doc.querySelector("h4");
   expect(target).toBeTruthy();
 });
 it("should render text as h5", async () => {
@@ -183,7 +183,7 @@ it("should render text as h5", async () => {
     components: [CorejamType],
     html: `<corejam-type as="h5">Hallo</corejam-type>`,
   });
-  const target = page.root.shadowRoot.querySelector("h5");
+  const target = page.doc.querySelector("h5");
   expect(target).toBeTruthy();
 });
 it("should render text as h6", async () => {
@@ -191,7 +191,7 @@ it("should render text as h6", async () => {
     components: [CorejamType],
     html: `<corejam-type as="h6">Hallo</corejam-type>`,
   });
-  const target = page.root.shadowRoot.querySelector("h6");
+  const target = page.doc.querySelector("h6");
   expect(target).toBeTruthy();
 });
 it("should render text as p", async () => {
@@ -199,7 +199,7 @@ it("should render text as p", async () => {
     components: [CorejamType],
     html: `<corejam-type as="p">Hallo</corejam-type>`,
   });
-  const target = page.root.shadowRoot.querySelector("p");
+  const target = page.doc.querySelector("p");
   expect(target).toBeTruthy();
 });
 it("should render text as b", async () => {
@@ -207,7 +207,7 @@ it("should render text as b", async () => {
     components: [CorejamType],
     html: `<corejam-type as="b">Hallo</corejam-type>`,
   });
-  const target = page.root.shadowRoot.querySelector("b");
+  const target = page.doc.querySelector("b");
   expect(target).toBeTruthy();
 });
 it("should render text as i", async () => {
@@ -215,7 +215,7 @@ it("should render text as i", async () => {
     components: [CorejamType],
     html: `<corejam-type as="i">Hallo</corejam-type>`,
   });
-  const target = page.root.shadowRoot.querySelector("i");
+  const target = page.doc.querySelector("i");
   expect(target).toBeTruthy();
 });
 it("should render  span tag as default for text", async () => {
@@ -223,7 +223,7 @@ it("should render  span tag as default for text", async () => {
     components: [CorejamType],
     html: `<corejam-type>Hallo</corejam-type>`,
   });
-  const target = page.root.shadowRoot.querySelector("span");
+  const target = page.doc.querySelector("span");
   expect(target).toBeTruthy();
 });
 
@@ -232,7 +232,7 @@ it("should render text align left with display block", async () => {
     components: [CorejamType],
     html: `<corejam-type as="h1" align="left">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-align: left");
   expect(computedStyleRules).toContain("display: block");
 });
@@ -241,7 +241,7 @@ it("should render text align center with display block", async () => {
     components: [CorejamType],
     html: `<corejam-type as="h1" align="center">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-align: center");
   expect(computedStyleRules).toContain("display: block");
 });
@@ -250,7 +250,7 @@ it("should render text align right with display block", async () => {
     components: [CorejamType],
     html: `<corejam-type as="h1" align="right">Hallo</corejam-type>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-align: right");
   expect(computedStyleRules).toContain("display: block");
 });
