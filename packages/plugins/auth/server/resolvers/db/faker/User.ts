@@ -8,6 +8,14 @@ import { generateUser } from "./Generator";
 
 export let users = [] as UserDB[];
 
+try {
+  const staticFile = require(process.cwd() + "/.corejam/faker.json")
+  users.push(...staticFile.users)
+  console.log("Load from static data")
+} catch (e) {
+  //Nothing for now
+}
+
 export function allUsers(): Promise<UserDB[]> {
   return new Promise((res) => res(users));
 }
