@@ -6,6 +6,14 @@ import { generateManufacturer } from "./Generator";
 
 export let manufacturers = [] as ManufacturerDB[];
 
+try {
+  const staticFile = require(process.cwd() + "/.corejam/faker.json")
+  manufacturers.push(...staticFile.manufacturers)
+  console.log("Load from static data")
+} catch (e) {
+  //Nothing for now
+}
+
 if (manufacturers.length === 0) {
   for (let index = 0; index < 5; index++) {
     manufacturers.push({

@@ -10,6 +10,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "prebuild": "corejam generateSchema && corejam bootstrap",
     "build": "next build",
     "start": "next start",
     "lint": "eslint pages/* components/*"

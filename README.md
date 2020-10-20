@@ -67,11 +67,20 @@ $ corejam static
 
 Basic JWT authentication plugin for Corejam applications. [Read more](packages/plugins/auth/README.md)
 
+A hassle free plug and play JWT authentication package for your Corejam applications.
 
-## DerShop -  <a href="https://demo.dershop.dev">demo.dershop.dev</a>
+# DerShop -  <a href="https://demo.dershop.dev">demo.dershop.dev</a>
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fcorejam%2Fcorejam%2Ftree%2Fmaster%2Fexamples%2Fnextjs&env=JWT_HASH&envDescription=JWT_HASH%20can%20currently%20just%20be%20a%20random%20string.%20This%20is%20used%20to%20sign%20auth%20tokens&project-name=dershop&repository-name=dershop&redirect-url=https%3A%2F%2Fgithub.com%2Fcorejam%2Fcorejam&demo-title=DerShop%20-%20Serverless%20Ecommerce&demo-description=A%20statically%20generated%20webshop%20built%20with%20Corejam&demo-url=https%3A%2F%2Fdershop.dev&demo-image=https%3A%2F%2Fdershop.dev%2Fstatic%2Fimages%2FpreviewAlpha.jpg)
+
+<p align="center">
+<img width="50%" src="https://dershop.dev/static/logodarkHorizontal.svg" />
+<img width="50%" src="https://dershop.dev/static/images/previewAlpha.jpg" />
+</p>
 
 Serverless webshop built with Corejam. [Read more](packages/plugins/dershop/README.md)
 
+We currently only build React output targets but we plan on supporting all Stencil.js supported targets. Feel free to contact us if you want to help out.
 
 # Mono repo development setup
 
