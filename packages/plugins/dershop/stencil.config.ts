@@ -17,10 +17,6 @@ const config: Config = {
     port: 3001,
     logRequests: true,
   },
-  extras: {
-    slotChildNodesFix: true,
-    appendChildSlotFix: true,
-  },
   outputTargets: [],
   plugins: [
     replace({
