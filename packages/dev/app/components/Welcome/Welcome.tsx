@@ -52,7 +52,7 @@ export class Welcome {
             <Fragment>
               <h3>Routes</h3>
               <ul>
-                {this.routes.routes.map((route) => {
+                {this.routes.map((route) => {
                   return <li>{this.renderAnchorTag(route.url)}</li>;
                 })}
               </ul>

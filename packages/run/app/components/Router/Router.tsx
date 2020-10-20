@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from "@stencil/core";
+import { Component, Host, h, Prop, Fragment } from "@stencil/core";
 import { Route, match } from "stencil-router-v2";
 import { state } from "@corejam/router";
 
@@ -42,22 +42,26 @@ export class AppRouter {
     return (
       <Host>
         <Router.Switch>
-          <Route path="/_corejam">
-            <app-welcome routes={this.routes} components={this.components} />
-          </Route>
-          <Route path="/liveview">
-            <app-liveview />
-          </Route>
-          {this.components.map((component) => {
-            return (
-              <Route path={component.url}>
-                <app-playground
-                  cmp={component.component}
-                  // data={this.docs.tags.filter((d) => d.name === component.component)[0]}
-                ></app-playground>
+          {this.mode === "development" && (
+            <Fragment>
+              <Route path="/_corejam">
+                <app-welcome routes={this.routes} components={this.components} />
               </Route>
-            );
-          })}
+              <Route path="/liveview">
+                <app-liveview />
+              </Route>
+              {this.components.map((component) => {
+                return (
+                  <Route path={component.url}>
+                    <app-playground
+                      cmp={component.component}
+                      // data={this.docs.tags.filter((d) => d.name === component.component)[0]}
+                    ></app-playground>
+                  </Route>
+                );
+              })}
+            </Fragment>
+          )}
           {this.calculateRoutes()}
         </Router.Switch>
       </Host>

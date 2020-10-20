@@ -50,7 +50,7 @@ export class AuthLoginForm {
             max="md"
             mx="auto"
             px={4}
-            px-lg="0"
+            lgPx={0}
             flex
             justify="between"
             mb={24}

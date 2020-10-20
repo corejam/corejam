@@ -141,104 +141,103 @@ describe("Products", () => {
   });
 
   it("Paginated products", async () => {
-    const { query } = client
+    const { query } = client;
 
     //Test that we can retrieve the same values back
     const pagination = await query({
       query: paginateProductsGQL,
-      variables: { page: 1, size: 24 }
-    })
+      variables: { page: 1, size: 24 },
+    });
 
     const paginated: ProductList = pagination.data.paginateProducts;
     expect(paginated).toHaveProperty("sidebar");
-    expect(paginated.currentPage).toEqual(1)
-    expect(paginated.items.length).toBeGreaterThan(0)
+    expect(paginated.currentPage).toEqual(1);
+    expect(paginated.items.length).toBeGreaterThan(0);
   });
 
   it("Link product to manufacturer", async () => {
-    const { mutate, query } = client
+    const { mutate, query } = client;
 
     const generatedManu = generateManufacturer();
 
     //@ts-ignore
     generatedManu.products = [];
 
-    const manufacturer = await models.manufacturerCreate(generatedManu)
-    delete manufacturer.products
+    const manufacturer = await models.manufacturerCreate(generatedManu);
+    delete manufacturer.products;
 
     //Test that we can retrieve the same values back
     const linkResult = await mutate({
       query: productLinkManufacturer,
-      variables: { id: testID, manufacturerId: manufacturer.id }
-    })
+      variables: { id: testID, manufacturerid: manufacturer.id },
+    });
 
     expect(linkResult.data.productLinkManufacturer).toEqual({ result: true });
 
     //Check links working both ways
-    const product = await models.productByID(testID) as ProductDB
-    expect(product.manufacturer?.data).toMatchObject(manufacturer)
+    const product = (await models.productByID(testID)) as ProductDB;
+    expect(product.manufacturer?.data).toMatchObject(manufacturer);
 
     //Test that we can retrieve the same values back
     const manufacturerResult = await query({
       query: manufacturerById,
-      variables: { id: manufacturer.id }
-    })
+      variables: { id: manufacturer.id },
+    });
 
-    const manufacturerRes = manufacturerResult.data.manufacturerById
+    const manufacturerRes = manufacturerResult.data.manufacturerById;
 
     //Check our item is in the list
-    let returnedItem
-    manufacturerRes.products?.items?.map(item => {
+    let returnedItem;
+    manufacturerRes.products?.items?.map((item) => {
       if (item.id === product.id) {
         returnedItem = item;
       }
-    })
+    });
 
-    expect(product).toMatchObject(returnedItem)
+    expect(product).toMatchObject(returnedItem);
   });
 
   it("Link product to category", async () => {
-    const { mutate, query } = client
+    const { mutate, query } = client;
 
-    await models.productEditSEO(testID, generateSeo())
+    await models.productEditSEO(testID, generateSeo());
     const generatedCat = generateCategory();
 
     //@ts-ignore
     generatedCat.products = [];
 
-    const category = await models.categoryCreate(generatedCat)
-    delete category.products
+    const category = await models.categoryCreate(generatedCat);
+    delete category.products;
 
     //Test that we can retrieve the same values back
     const linkResult = await mutate({
       query: productLinkCategory,
-      variables: { id: testID, categoryId: category.id }
-    })
+      variables: { id: testID, categoryid: category.id },
+    });
 
     expect(linkResult.data.productLinkCategory).toEqual({ result: true });
 
     //Check links working both ways
-    const product = await models.productByID(testID) as ProductDB
-    const productCat = product.categories?.pop() as CategoryDB
-    expect(productCat).toMatchObject(category)
+    const product = (await models.productByID(testID)) as ProductDB;
+    const productCat = product.categories?.pop() as CategoryDB;
+    expect(productCat).toMatchObject(category);
 
     //Test that we can retrieve the same values back
     const categoryResult = await query({
       query: categoryById,
-      variables: { id: category.id }
-    })
+      variables: { id: category.id },
+    });
 
-    const categoryRes = categoryResult.data.categoryById
+    const categoryRes = categoryResult.data.categoryById;
 
     //Check our item is in the list
-    let returnedItem
-    categoryRes.products?.items?.map(item => {
+    let returnedItem;
+    categoryRes.products?.items?.map((item) => {
       if (item.id === product.id) {
         returnedItem = item;
       }
-    })
+    });
 
-    expect(product).toMatchObject(returnedItem)
+    expect(product).toMatchObject(returnedItem);
   });
-
 });

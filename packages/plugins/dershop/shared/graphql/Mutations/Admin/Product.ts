@@ -87,14 +87,14 @@ export const productAddImageGQL = `
 
 export const productLinkManufacturer = `
   mutation ProductLinkManufacturer($id: ID!, $manufacturerid: ID!) {
-    productLinkManufacturer(id: $id, manufacturerId: $manufacturerId) {
+    productLinkManufacturer(id: $id, manufacturerid: $manufacturerid) {
       result
     }
   }
 `;
 export const productLinkCategory = `
   mutation ProductLinkCategory($id: ID!, $categoryid: ID!) {
-    productLinkCategory(id: $id, categoryId: $categoryId) {
+    productLinkCategory(id: $id, categoryid: $categoryid) {
       result
     }
   }
