@@ -1,5 +1,3 @@
-
-
 export const ordersByCustomer = `
   query {
     ordersByCustomer {
@@ -22,7 +20,7 @@ export const ordersByCustomer = `
 `;
 
 export const orderById = `
-  query OrderById($id: String!){
+  query OrderById($id: ID!){
     orderById(id: $id) {
       id
       items {
@@ -55,4 +53,4 @@ export const orderById = `
       status
     }
   }
-`
+`;

@@ -7,7 +7,7 @@ declare var SimplePeer: any;
 
 @Component({
   tag: "dershop-peer",
-  shadow: true,
+  
 })
 export class DershopPeer {
   @State() hash: string = ((Math.random() * (10000000 - 1 + 1)) << 0).toString();

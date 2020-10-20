@@ -3,7 +3,6 @@ import { Component, ComponentInterface, Host, h, Prop, Event, EventEmitter } fro
 @Component({
   tag: "corejam-form-submit",
   // styleUrl: "form-submit.css",
-  shadow: true,
 })
 export class CorejamFormSubmit implements ComponentInterface {
   @Prop() formId: string;

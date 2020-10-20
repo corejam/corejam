@@ -11,9 +11,9 @@ const Style = ({ style }) =>
           dangerouslySetInnerHTML={{
             __html: `
           ${inline.inner
-                .split(" ")
-                .map((sub) => "." + inline.class + " " + sub)
-                .join(" ")} 
+            .split(" ")
+            .map((sub) => "." + inline.class + " " + sub)
+            .join(" ")} 
           
         `,
           }}
@@ -33,36 +33,18 @@ export default class ShopDocument extends Document {
       runtimeLogging: true,
     });
 
-    if(res.diagnostics.length) {
-      res.diagnostics.map(e => {
-        if(e.level = "error") {
-          console.log(new Error(e.messageText))
+    if (res.diagnostics.length) {
+      res.diagnostics.map((e) => {
+        if ((e.level = "error")) {
+          console.log(new Error(e.messageText));
         }
-      })
+      });
     }
 
     let finalMarkup = initialProps.html;
-    let styles = [];
-    if (res.html) {
-      let s = null;
-      s = cheerio.load(res.html);
-      s("style").each((i, el) => {
-        if (s(el).attr("data-hash")) {
-          styles.push({ inner: s(el).html(), class: s(el).attr("data-hash") });
-        } else {
-          styles.push({ inner: s(el).html(), id: s(el).attr("sty-id") });
-        }
-      });
-      const regex = new RegExp('class="hydrated"', "g");
-      finalMarkup = s("body").html().replace(regex, "");
-    }
+
     return {
-      styles: (
-        <>
-          {initialProps.styles}
-          <Style style={styles} />
-        </>
-      ),
+      styles: <>{initialProps.styles}</>,
       html: finalMarkup,
       head: initialProps.head,
     };

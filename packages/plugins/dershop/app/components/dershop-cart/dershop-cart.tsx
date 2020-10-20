@@ -8,7 +8,6 @@ import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-cart",
-  shadow: true,
 })
 export class DershopCart implements ComponentInterface {
   private formId = "cart";
@@ -55,9 +54,10 @@ export class DershopCart implements ComponentInterface {
 
     //TODO move this to the order confirmation page.
     const request = await coreState.client.mutate({
-      mutation: gql(orderCreateGQL), variables: {
+      mutation: gql(orderCreateGQL),
+      variables: {
         orderInput: input,
-      }
+      },
     });
 
     if (request.data.orderCreate) {

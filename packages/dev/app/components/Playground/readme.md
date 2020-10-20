@@ -1,4 +1,4 @@
-# app-welcome
+# app-playground
 
 
 
@@ -9,21 +9,21 @@
 
 | Property | Attribute | Description | Type     | Default     |
 | -------- | --------- | ----------- | -------- | ----------- |
-| `mode`   | `mode`    |             | `string` | `undefined` |
-| `routes` | `routes`  |             | `any`    | `undefined` |
+| `cmp`    | `cmp`     |             | `string` | `undefined` |
+| `data`   | `data`    |             | `any`    | `undefined` |
 
 
 ## Dependencies
 
 ### Used by
 
- - [app-router](../Router)
+ - corejam-run-router
 
 ### Graph
 ```mermaid
 graph TD;
-  app-router --> app-welcome
-  style app-welcome fill:#f9f,stroke:#333,stroke-width:4px
+  corejam-run-router --> app-playground
+  style app-playground fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

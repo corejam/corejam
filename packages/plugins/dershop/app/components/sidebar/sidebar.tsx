@@ -3,7 +3,6 @@ import { Sidebar } from "../../../shared/types/Sidebar";
 
 @Component({
   tag: "dershop-sidebar",
-  shadow: true,
 })
 export class SidebarComponent {
   @Prop() sidebar: Sidebar;

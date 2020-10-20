@@ -1,11 +1,11 @@
 import { Component, h, Host, Prop } from "@stencil/core";
 import { computeStyle } from "../../utils/computeStyle";
-import { Style } from "../../helpers/Style";
+import { addStyleTagToHead } from "../../helpers/Style";
 import type { GridType } from "./types";
 
 @Component({
   tag: "corejam-grid",
-  shadow: true,
+  
 })
 export class Grid {
   @Prop() templateColumns: GridType.TemplateColumns;
@@ -71,13 +71,13 @@ export class Grid {
   @Prop() grid: Boolean = true;
 
   private hash: string;
-  private computedStyle: string;
 
   async componentWillLoad() {
     const rules = (await import("../../utils/style")).generateStyleMap(this, "");
-    const [hash, style] = computeStyle(rules, true);
+    const [hash, style] = computeStyle(rules);
     this.hash = hash;
-    this.computedStyle = style;
+    addStyleTagToHead(style, hash);
+
   }
 
   _relevantProps = [
@@ -148,7 +148,6 @@ export class Grid {
     return (
       <Host class={this.hash}>
         <slot></slot>
-        {this.hash && <Style styles={this.computedStyle} hash={this.hash} />}
       </Host>
     );
   }

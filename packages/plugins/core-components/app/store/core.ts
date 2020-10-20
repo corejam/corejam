@@ -1,7 +1,7 @@
 import { createPersistedQueryLink } from "@apollo/link-persisted-queries";
 import { createStore } from "@stencil/store";
 import { Router } from "stencil-router-v2";
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { Build } from "@stencil/core";
 
 let client;
@@ -9,18 +9,18 @@ let client;
 if (Build.isBrowser) {
   const httpLink = createHttpLink({
     uri: (process.env.API_ORIGIN ?? "") + "/api/graphql",
-    credentials: "include"
+    credentials: "include",
   });
-  
+
   const link = createPersistedQueryLink({ useGETForHashedQueries: true })
     //@ts-ignore
     .concat(httpLink);
-  
+
   client = new ApolloClient({
     cache: new InMemoryCache(),
     //@ts-ignore
     link,
-  })
+  });
 }
 
 if (Build.isServer) {
@@ -30,14 +30,14 @@ if (Build.isServer) {
    * process to resolve over http.
    */
   client = () => {
-    const { createServerClient } = require("@corejam/base/dist/client/ServerClient")
-    return createServerClient()
-  }
+    const { createServerClient } = require("@corejam/base/dist/client/ServerClient");
+    return createServerClient();
+  };
 }
 
 export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, onChange: coreChange } = createStore({
   client: Build.isBrowser ? client : client(),
-  endpoint: ""
+  endpoint: "",
 });
 
 type routerStateType = {
@@ -46,5 +46,5 @@ type routerStateType = {
 export const { state: routerState, get: routerGet, reset: routerReset, set: routerSet, onChange } = createStore<
   routerStateType
 >({
-  router: null
+  router: null,
 });

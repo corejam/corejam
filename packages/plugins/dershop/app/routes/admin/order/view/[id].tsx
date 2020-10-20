@@ -2,7 +2,6 @@ import { Component, Host, h, Prop } from "@stencil/core";
 
 @Component({
   tag: "dershop-route-admin-order-view",
-  shadow: true,
 })
 export class OrderViewRoute {
   @Prop() param: any;

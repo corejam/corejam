@@ -9,12 +9,12 @@
 
 ### Used by
 
- - [app-router](../Router)
+ - corejam-run-router
 
 ### Graph
 ```mermaid
 graph TD;
-  app-router --> app-liveview
+  corejam-run-router --> app-liveview
   style app-liveview fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

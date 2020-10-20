@@ -12,15 +12,10 @@ export namespace Components {
         "cmp": string;
         "data": any;
     }
-    interface AppRoot {
-        "static": boolean;
-    }
-    interface AppRouter {
-        "docs": any;
-        "mode": string;
-        "routes": any;
+    interface AppTestComp {
     }
     interface AppWelcome {
+        "components": any;
         "mode": string;
         "routes": any;
     }
@@ -38,17 +33,11 @@ declare global {
         prototype: HTMLAppPlaygroundElement;
         new (): HTMLAppPlaygroundElement;
     };
-    interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
+    interface HTMLAppTestCompElement extends Components.AppTestComp, HTMLStencilElement {
     }
-    var HTMLAppRootElement: {
-        prototype: HTMLAppRootElement;
-        new (): HTMLAppRootElement;
-    };
-    interface HTMLAppRouterElement extends Components.AppRouter, HTMLStencilElement {
-    }
-    var HTMLAppRouterElement: {
-        prototype: HTMLAppRouterElement;
-        new (): HTMLAppRouterElement;
+    var HTMLAppTestCompElement: {
+        prototype: HTMLAppTestCompElement;
+        new (): HTMLAppTestCompElement;
     };
     interface HTMLAppWelcomeElement extends Components.AppWelcome, HTMLStencilElement {
     }
@@ -59,8 +48,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "app-liveview": HTMLAppLiveviewElement;
         "app-playground": HTMLAppPlaygroundElement;
-        "app-root": HTMLAppRootElement;
-        "app-router": HTMLAppRouterElement;
+        "app-test-comp": HTMLAppTestCompElement;
         "app-welcome": HTMLAppWelcomeElement;
     }
 }
@@ -71,23 +59,17 @@ declare namespace LocalJSX {
         "cmp"?: string;
         "data"?: any;
     }
-    interface AppRoot {
-        "static"?: boolean;
-    }
-    interface AppRouter {
-        "docs"?: any;
-        "mode"?: string;
-        "routes"?: any;
+    interface AppTestComp {
     }
     interface AppWelcome {
+        "components"?: any;
         "mode"?: string;
         "routes"?: any;
     }
     interface IntrinsicElements {
         "app-liveview": AppLiveview;
         "app-playground": AppPlayground;
-        "app-root": AppRoot;
-        "app-router": AppRouter;
+        "app-test-comp": AppTestComp;
         "app-welcome": AppWelcome;
     }
 }
@@ -97,8 +79,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-liveview": LocalJSX.AppLiveview & JSXBase.HTMLAttributes<HTMLAppLiveviewElement>;
             "app-playground": LocalJSX.AppPlayground & JSXBase.HTMLAttributes<HTMLAppPlaygroundElement>;
-            "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
-            "app-router": LocalJSX.AppRouter & JSXBase.HTMLAttributes<HTMLAppRouterElement>;
+            "app-test-comp": LocalJSX.AppTestComp & JSXBase.HTMLAttributes<HTMLAppTestCompElement>;
             "app-welcome": LocalJSX.AppWelcome & JSXBase.HTMLAttributes<HTMLAppWelcomeElement>;
         }
     }

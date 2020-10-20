@@ -2,7 +2,6 @@ import { Component, Host, h, Listen, State } from "@stencil/core";
 
 @Component({
   tag: "corejam-error",
-  shadow: true,
 })
 export class CorejamError {
   @State() error: any;

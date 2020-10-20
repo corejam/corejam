@@ -26,14 +26,14 @@ export default async function run(options: any) {
       isYarn
         ? set("server", execa("yarn", ["tsc", "-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot }))
         : set(
-          "server",
-          execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
-        );
+            "server",
+            execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
+          );
       set("api", execa("corejam", ["api:serve"], { stdio: logToConsole, cwd: envRoot }));
 
       setTimeout(() => {
         const watcher = chokidar.watch(envRoot + "/server", {
-          ignored: "*.d.ts"
+          ignored: "*.d.ts",
         });
         watcher.on("change", () => {
           const api = get("api");
@@ -50,15 +50,27 @@ export default async function run(options: any) {
 
     await kill(3001);
 
+    const args = ["build", "--dev", "--watch", "--serve", "--docs"];
+    const additionalEnv: { targets: string } = { targets: "" };
+
+    if (options.ssr) {
+      args.push("--ssr");
+      additionalEnv.targets =
+        additionalEnv.targets.length > 0
+          ? additionalEnv.targets.concat(",prerender")
+          : additionalEnv.targets.concat("prerender");
+    }
+
     set(
       "stencil",
-      execa("node_modules/.bin/stencil", ["build", "--dev", "--watch", "--serve", "--docs"], {
+      execa("node_modules/.bin/stencil", args, {
         stdio: logToConsole,
         cwd: envRoot,
         env: {
           ...process.env,
-          NODE_ENV: process.env.NODE_ENV || "development"
-        }
+          NODE_ENV: process.env.NODE_ENV || "development",
+          ...additionalEnv,
+        },
       })
     );
 

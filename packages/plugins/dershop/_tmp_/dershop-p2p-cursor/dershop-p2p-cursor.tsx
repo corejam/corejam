@@ -3,7 +3,6 @@ import { Component, Host, h, State, Listen } from "@stencil/core";
 
 @Component({
   tag: "dershop-p2p-cursor",
-  shadow: true,
 })
 export class DershopP2pCursor {
   @State() style: any = { position: "fixed" };
@@ -21,8 +20,7 @@ export class DershopP2pCursor {
     if (e.detail.receiver === "CursorMousedown") {
       this.style = {
         ...this.style,
-        filter:
-          "invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%)",
+        filter: "invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%)",
       };
     }
     if (e.detail.receiver === "CursorMouseup") {

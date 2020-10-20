@@ -11,7 +11,6 @@ import gql from "graphql-tag";
 
 @Component({
   tag: "corejam-identity",
-  shadow: true,
 })
 export class CorejamIdentity {
   private formId = "identity";
@@ -69,10 +68,11 @@ export class CorejamIdentity {
     if (detail.formId != this.formId || authStore.identity) return;
 
     const request = await coreState.client.mutate({
-      mutation: gql(userAuthenticateMutationGQL), variables: {
+      mutation: gql(userAuthenticateMutationGQL),
+      variables: {
         email: detail.email.value,
         password: detail.password.value,
-      }
+      },
     });
 
     if (request.data.userAuthenticate) {
@@ -113,23 +113,23 @@ export class CorejamIdentity {
                 </corejam-box>
               </corejam-box>
             ) : (
-                <corejam-form-container name={this.formId}>
-                  <corejam-box pb={5} flex direction="col">
-                    <corejam-box w={12}>
-                      <corejam-form-input name="email" type="text" formId={this.formId} label="Email" />
-                      <corejam-form-input name="password" type="password" formId={this.formId} label="Password" />
-                    </corejam-box>
-                    <corejam-box w={12} mt={8}>
-                      <corejam-form-submit formId={this.formId}>
-                        <corejam-button type="submit" bg="black-900" color="white" pl="5" pr="5" pt="3" pb="3">
-                          Login
+              <corejam-form-container name={this.formId}>
+                <corejam-box pb={5} flex direction="col">
+                  <corejam-box w={12}>
+                    <corejam-form-input name="email" type="text" formId={this.formId} label="Email" />
+                    <corejam-form-input name="password" type="password" formId={this.formId} label="Password" />
+                  </corejam-box>
+                  <corejam-box w={12} mt={8}>
+                    <corejam-form-submit formId={this.formId}>
+                      <corejam-button type="submit" bg="black-900" color="white" pl="5" pr="5" pt="3" pb="3">
+                        Login
                       </corejam-button>{" "}
                       or Register
                     </corejam-form-submit>
-                    </corejam-box>
                   </corejam-box>
-                </corejam-form-container>
-              )}
+                </corejam-box>
+              </corejam-form-container>
+            )}
           </corejam-box>
         </corejam-box>
       </Host>

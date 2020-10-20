@@ -1,10 +1,9 @@
-import { Component, h, Prop } from '@stencil/core';
-import { productByUrlGQL } from '@corejam/plugin-dershop/dist/esm/shared/graphql/Queries/Product';
-import { coreState } from '@corejam/core-components';
+import { Component, h, Prop } from "@stencil/core";
+import { productByUrlGQL } from "@corejam/plugin-dershop/dist/esm/shared/graphql/Queries/Product";
+import { coreState } from "@corejam/core-components";
 
 @Component({
-  tag: 'app-product',
-  shadow: true,
+  tag: "app-product",
 })
 export class AppProduct {
   @Prop() slug: string;

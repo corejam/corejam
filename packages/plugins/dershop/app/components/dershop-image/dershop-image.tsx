@@ -19,7 +19,6 @@ export type objectFit =
 @Component({
   tag: "dershop-image",
   styleUrl: "dershop-image.css",
-  shadow: true,
 })
 export class DershopImage {
   @Element() el: HTMLElement;

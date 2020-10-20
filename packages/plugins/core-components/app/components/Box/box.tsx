@@ -1,6 +1,6 @@
-import { Component, Host, h, Prop, State, Watch } from "@stencil/core";
-import { Flex, Element, Display } from "./types";
-import { Style } from "../../helpers/Style";
+import { Component, Host, h, Prop, State } from "@stencil/core";
+import { Flex, Element as ElementType, Display } from "./types";
+import { addStyleTagToHead } from "../../helpers/Style";
 import { computeStyle } from "../../utils/computeStyle";
 
 /**
@@ -11,11 +11,8 @@ import { computeStyle } from "../../utils/computeStyle";
  */
 @Component({
   tag: "corejam-box",
-  shadow: true,
 })
 export class CorejamBox {
-  @State() style: any[] = [];
-  @State() computedStyle: string;
   @State() hash: string;
 
   @Prop() flex: Flex.Flex;
@@ -199,7 +196,7 @@ export class CorejamBox {
   @Prop() bWidthLeft: number;
   @Prop() animation: string;
   @Prop() shadow: string;
-  @Prop() position: Element.Position;
+  @Prop() position: ElementType.Position;
   @Prop() top: number;
   @Prop() right: number;
   @Prop() bottom: number;
@@ -211,19 +208,14 @@ export class CorejamBox {
 
   async computeStyles() {
     return new Promise(async (res) => {
-      this.style = (await import("../../utils/style")).generateStyleMap(this, "");
+      const styleMap = (await import("../../utils/style")).generateStyleMap(this, "");
+      const [hashCode, style] = computeStyle(styleMap);
+      this.hash = hashCode;
+      addStyleTagToHead(style, hashCode);
       res();
     });
   }
 
-  @Watch("style")
-  generateFinalStyleTags() {
-    const [hashCode, style] = computeStyle(this.style, true);
-    if (hashCode) {
-      this.hash = hashCode;
-      this.computedStyle = style;
-    }
-  }
   _relevantProps = [
     "flex",
     "display",
@@ -421,7 +413,6 @@ export class CorejamBox {
     return (
       <Host class={this.hash}>
         <slot></slot>
-        {this.hash && <Style styles={this.computedStyle} hash={this.hash} />}
       </Host>
     );
   }

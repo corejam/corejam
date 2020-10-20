@@ -1,8 +1,7 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop } from "@stencil/core";
 
 @Component({
-  tag: 'app-products',
-  shadow: true,
+  tag: "app-products",
 })
 export class AppProducts {
   @Prop() page: number = 1;

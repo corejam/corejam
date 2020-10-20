@@ -14,7 +14,7 @@ it("should render grid template columns markup", async () => {
     components: [Grid],
     html: `<corejam-grid template-columns="3">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain(
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain(
     "grid-template-columns: repeat(3, minmax(0, 1fr));"
   );
 });
@@ -24,7 +24,7 @@ it("should render grid template columns markup with none prop", async () => {
     components: [Grid],
     html: `<corejam-grid template-columns="none">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-template-columns: none;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-template-columns: none;");
 });
 
 it("should render grid columns markup", async () => {
@@ -32,7 +32,7 @@ it("should render grid columns markup", async () => {
     components: [Grid],
     html: `<corejam-grid cols="auto">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column: auto;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column: auto;");
 });
 
 it("should render grid columns span markup", async () => {
@@ -40,7 +40,7 @@ it("should render grid columns span markup", async () => {
     components: [Grid],
     html: `<corejam-grid cols="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column: span 1 / span 1;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column: span 1 / span 1;");
 });
 
 it("should render grid columns start markup", async () => {
@@ -48,7 +48,7 @@ it("should render grid columns start markup", async () => {
     components: [Grid],
     html: `<corejam-grid cols-start="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column-start: 1;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column-start: 1;");
 });
 
 it("should render grid columns start markup with auto", async () => {
@@ -56,7 +56,7 @@ it("should render grid columns start markup with auto", async () => {
     components: [Grid],
     html: `<corejam-grid cols-start="auto">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column-start: auto;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column-start: auto;");
 });
 
 it("should render grid columns end markup", async () => {
@@ -64,7 +64,7 @@ it("should render grid columns end markup", async () => {
     components: [Grid],
     html: `<corejam-grid cols-end="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column-end: 1;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column-end: 1;");
 });
 
 it("should render grid columns end markup with auto", async () => {
@@ -72,7 +72,7 @@ it("should render grid columns end markup with auto", async () => {
     components: [Grid],
     html: `<corejam-grid cols-end="auto">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column-end: auto;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column-end: auto;");
 });
 
 it("should render grid row", async () => {
@@ -80,7 +80,7 @@ it("should render grid row", async () => {
     components: [Grid],
     html: `<corejam-grid template-rows="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain(
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain(
     "grid-template-rows: repeat(1, minmax(0, 1fr));"
   );
 });
@@ -90,7 +90,7 @@ it("should render grid row none", async () => {
     components: [Grid],
     html: `<corejam-grid template-rows="none">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-template-rows: none;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-template-rows: none;");
 });
 
 it("should render grid columns markup", async () => {
@@ -98,7 +98,7 @@ it("should render grid columns markup", async () => {
     components: [Grid],
     html: `<corejam-grid cols="auto">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column: auto;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column: auto;");
 });
 
 it("should render grid columns span markup", async () => {
@@ -106,7 +106,7 @@ it("should render grid columns span markup", async () => {
     components: [Grid],
     html: `<corejam-grid cols="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column: span 1 / span 1;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column: span 1 / span 1;");
 });
 
 it("should render grid columns start markup", async () => {
@@ -114,7 +114,7 @@ it("should render grid columns start markup", async () => {
     components: [Grid],
     html: `<corejam-grid cols-start="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column-start: 1;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column-start: 1;");
 });
 
 it("should render grid columns start markup with auto", async () => {
@@ -122,7 +122,7 @@ it("should render grid columns start markup with auto", async () => {
     components: [Grid],
     html: `<corejam-grid cols-start="auto">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column-start: auto;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column-start: auto;");
 });
 
 it("should render grid columns end markup", async () => {
@@ -130,7 +130,7 @@ it("should render grid columns end markup", async () => {
     components: [Grid],
     html: `<corejam-grid cols-end="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column-end: 1;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column-end: 1;");
 });
 
 it("should render grid columns end markup with auto", async () => {
@@ -138,7 +138,7 @@ it("should render grid columns end markup with auto", async () => {
     components: [Grid],
     html: `<corejam-grid cols-end="auto">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-column-end: auto;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-column-end: auto;");
 });
 
 it("should render grid rows markup with auto", async () => {
@@ -146,7 +146,7 @@ it("should render grid rows markup with auto", async () => {
     components: [Grid],
     html: `<corejam-grid rows="auto">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-rows: auto;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-rows: auto;");
 });
 
 it("should render grid rows span markup", async () => {
@@ -154,7 +154,7 @@ it("should render grid rows span markup", async () => {
     components: [Grid],
     html: `<corejam-grid rows="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-rows: span 1 / span 1;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-rows: span 1 / span 1;");
 });
 
 it("should render grid rows start markup", async () => {
@@ -162,7 +162,7 @@ it("should render grid rows start markup", async () => {
     components: [Grid],
     html: `<corejam-grid rows-start="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-rows-start: 1;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-rows-start: 1;");
 });
 
 it("should render grid rows start markup with auto", async () => {
@@ -170,7 +170,7 @@ it("should render grid rows start markup with auto", async () => {
     components: [Grid],
     html: `<corejam-grid rows-start="auto">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-rows-start: auto;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-rows-start: auto;");
 });
 
 it("should render grid rows end markup", async () => {
@@ -178,7 +178,7 @@ it("should render grid rows end markup", async () => {
     components: [Grid],
     html: `<corejam-grid rows-end="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-rows-end: 1;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-rows-end: 1;");
 });
 
 it("should render grid rows end markup with auto", async () => {
@@ -186,7 +186,7 @@ it("should render grid rows end markup with auto", async () => {
     components: [Grid],
     html: `<corejam-grid rows-end="auto">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-rows-end: auto;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-rows-end: auto;");
 });
 
 it("should render grid gap markup", async () => {
@@ -194,7 +194,7 @@ it("should render grid gap markup", async () => {
     components: [Grid],
     html: `<corejam-grid gap="0">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("gap: 0;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("gap: 0;");
 });
 
 it("should render grid gap markup", async () => {
@@ -202,7 +202,7 @@ it("should render grid gap markup", async () => {
     components: [Grid],
     html: `<corejam-grid gap="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain(
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain(
     "gap: calc(var(--cj-grid-multiplier, 0.25) * 1rem);"
   );
 });
@@ -212,7 +212,7 @@ it("should render grid gap column markup", async () => {
     components: [Grid],
     html: `<corejam-grid gap-col="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain(
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain(
     "column-gap: calc(var(--cj-grid-multiplier, 0.25) * 1rem);"
   );
 });
@@ -222,7 +222,7 @@ it("should render grid gap row markup", async () => {
     components: [Grid],
     html: `<corejam-grid gap-row="1">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain(
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain(
     "row-gap: calc(var(--cj-grid-multiplier, 0.25) * 1rem);"
   );
 });
@@ -232,7 +232,7 @@ it("should render grid flow markup", async () => {
     components: [Grid],
     html: `<corejam-grid auto-flow="row">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-auto-flow: row;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-auto-flow: row;");
 });
 
 it("should render grid flow markup", async () => {
@@ -240,7 +240,7 @@ it("should render grid flow markup", async () => {
     components: [Grid],
     html: `<corejam-grid auto-flow="column">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-auto-flow: column;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-auto-flow: column;");
 });
 
 it("should render grid flow markup", async () => {
@@ -248,7 +248,7 @@ it("should render grid flow markup", async () => {
     components: [Grid],
     html: `<corejam-grid auto-flow="row-dense">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-auto-flow: row-dense;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-auto-flow: row-dense;");
 });
 
 it("should render grid flow markup", async () => {
@@ -256,5 +256,5 @@ it("should render grid flow markup", async () => {
     components: [Grid],
     html: `<corejam-grid auto-flow="column-dense">hallo</corejam-grid>`,
   });
-  expect(page.root.shadowRoot.querySelector("style").innerText).toContain("grid-auto-flow: column-dense;");
+  expect(page.doc.head.querySelector("style[corejamstyle]").textContent).toContain("grid-auto-flow: column-dense;");
 });

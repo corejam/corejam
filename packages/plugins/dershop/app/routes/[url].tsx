@@ -2,11 +2,10 @@ import { coreState } from "@corejam/core-components";
 import { Component, h, Host, Prop, State } from "@stencil/core";
 import { SEODocument } from "shared/types/Seo";
 import gql from "graphql-tag";
-import { getObjectFromURL } from "../../../shared/graphql/Queries/URL";
+import { getObjectFromURL } from "../../shared/graphql/Queries/URL";
 
 @Component({
   tag: "dershop-url",
-  shadow: true,
 })
 export class UrlRoute {
   @Prop() param: any;
@@ -19,9 +18,10 @@ export class UrlRoute {
     this._param = typeof this.param === "string" ? JSON.parse(this.param) : this.param;
     this._data = await (
       await coreState.client.query({
-        query: gql(getObjectFromURL), variables: {
+        query: gql(getObjectFromURL),
+        variables: {
           url: this._param.url,
-        }
+        },
       })
     ).data?.objectFromURL;
 

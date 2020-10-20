@@ -7,7 +7,6 @@ import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-form-register",
-  shadow: true,
 })
 export class AuthRegister {
   private formId = "register";
@@ -26,7 +25,7 @@ export class AuthRegister {
           password: detail.password.value,
           passwordConfirm: detail.passwordConfirm.value,
         },
-      }
+      },
     });
 
     if (request.data.userRegister) {
@@ -86,9 +85,7 @@ export class AuthRegister {
                 </corejam-box>
                 <corejam-box>
                   <corejam-form-submit formId={this.formId}>
-                    <button type="submit">
-                      Register
-                    </button>
+                    <button type="submit">Register</button>
                   </corejam-form-submit>
                 </corejam-box>
               </corejam-box>

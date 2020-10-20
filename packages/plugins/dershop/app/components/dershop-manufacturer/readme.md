@@ -16,7 +16,7 @@
 
 ### Used by
 
- - [dershop-url](../../routes/seo)
+ - [dershop-url](../../routes)
 
 ### Depends on
 

@@ -1,28 +1,14 @@
-import {
-  Component,
-  ComponentInterface,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Host,
-  Prop,
-  State,
-  Watch,
-} from "@stencil/core";
+import { Component, ComponentInterface, Element, Event, EventEmitter, h, Host, Prop, State } from "@stencil/core";
 import { computeStyle } from "../../utils/computeStyle";
-import { Style } from "../../helpers/Style";
+import { addStyleTagToHead } from "../../helpers/Style";
 
 @Component({
   tag: "corejam-form-input",
-  shadow: true,
 })
 export class CorejamFormInput implements ComponentInterface {
   @Element() el: HTMLElement;
   @State() inputValue: any;
-  @State() style: any[];
   @State() hash: string;
-  @State() computedStyle: string;
 
   @Prop() name: string;
   @Prop() type: string;
@@ -54,18 +40,13 @@ export class CorejamFormInput implements ComponentInterface {
 
   async computeStyles() {
     return new Promise(async (res) => {
-      this.style = (await import("../../utils/style")).generateStyleMap(this, "");
+      const styleMap = (await import("../../utils/style")).generateStyleMap(this, "");
+      const [hashCode, style] = computeStyle(styleMap);
+      this.hash = hashCode;
+      addStyleTagToHead(style, hashCode);
+
       res();
     });
-  }
-
-  @Watch("style")
-  generateFinalStyleTags() {
-    const [hashCode, style] = computeStyle(this.style);
-    if (hashCode) {
-      this.hash = hashCode;
-      this.computedStyle = style;
-    }
   }
 
   onChange(e) {
@@ -116,7 +97,6 @@ export class CorejamFormInput implements ComponentInterface {
             {...this.extraProps}
           />
         </corejam-box>
-        {this.hash && <Style styles={this.computedStyle} hash={this.hash} />}
       </Host>
     );
   }

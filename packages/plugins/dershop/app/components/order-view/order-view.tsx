@@ -7,7 +7,6 @@ import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-order-view",
-  shadow: true,
 })
 export class OrderView {
   @Prop() orderId: string;
@@ -20,9 +19,10 @@ export class OrderView {
 
   async queryData() {
     const request = await coreState.client.query({
-      query: gql(orderById), variables: {
+      query: gql(orderById),
+      variables: {
         id: this.orderId,
-      }
+      },
     });
 
     this._data = request.data.orderById;

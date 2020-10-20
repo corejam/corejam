@@ -6,6 +6,6 @@ it("should render a basic cj-ytpe component", async () => {
     components: [Image],
     html: `<corejam-image src="https://www.google.de/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"></corejam-image>`,
   });
-  const img = page.root.shadowRoot.querySelectorAll("img");
+  const img = page.doc.querySelectorAll("img");
   expect(img).toBeDefined();
 });

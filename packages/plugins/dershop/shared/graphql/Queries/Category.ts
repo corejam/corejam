@@ -1,4 +1,3 @@
-
 export const allCategoriesGQL = `
   query {
     allCategories {
@@ -30,7 +29,7 @@ export const paginateCategoriesGQL = `
 `;
 
 export const categoryById = `
-  query CategoryById($id: String!) {
+  query CategoryById($id: ID!) {
     categoryById(id: $id) {
       id
       name
@@ -60,4 +59,4 @@ export const categoryById = `
       }
     }
   }
-`
+`;

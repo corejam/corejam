@@ -7,7 +7,6 @@ import gql from "graphql-tag";
 
 @Component({
   tag: "corejam-auth-form-register",
-  shadow: true
 })
 export class AuthRegister {
   private formId = "register";
@@ -17,13 +16,14 @@ export class AuthRegister {
     if (detail.formId != this.formId) return;
 
     const request = await coreState.client.mutate({
-      mutation: gql(userRegisterMutationGQL), variables: {
+      mutation: gql(userRegisterMutationGQL),
+      variables: {
         data: {
           email: detail.email.value,
           password: detail.password.value,
-          passwordConfirm: detail.passwordConfirm.value
-        }
-      }
+          passwordConfirm: detail.passwordConfirm.value,
+        },
+      },
     });
 
     if (request.data.userRegister) {
@@ -46,7 +46,7 @@ export class AuthRegister {
           max="md"
           mx="auto"
           px={4}
-          px-lg="0"
+          lgPx={0}
           flex
           justify="between"
           mb={24}
@@ -76,9 +76,7 @@ export class AuthRegister {
                 </corejam-box>
                 <corejam-box>
                   <corejam-form-submit formId={this.formId}>
-                    <button type="submit">
-                      Register
-                    </button>
+                    <button type="submit">Register</button>
                   </corejam-form-submit>
                 </corejam-box>
               </corejam-box>

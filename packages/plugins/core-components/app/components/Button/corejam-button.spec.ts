@@ -23,7 +23,7 @@ describe("corejam-button", () => {
       components: [CorejamButton],
       html: `<corejam-button bg="black">hallo</corejam-button>`,
     });
-    const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+    const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
     expect(computedStyleRules).toContain("background: var(--cj-color-black);");
   });
 
@@ -32,7 +32,7 @@ describe("corejam-button", () => {
       components: [CorejamButton],
       html: `<corejam-button color="white">hallo</corejam-button>`,
     });
-    const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+    const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
     expect(computedStyleRules).toContain("color: var(--cj-color-white)");
   });
 });

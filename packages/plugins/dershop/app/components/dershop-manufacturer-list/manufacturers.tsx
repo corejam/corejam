@@ -6,7 +6,6 @@ import { allManufacturersGQL } from "../../../shared/graphql/Queries/Manufacture
 
 @Component({
   tag: "dershop-manufacturer-list",
-  shadow: true,
 })
 export class IndexRoute {
   private _data;

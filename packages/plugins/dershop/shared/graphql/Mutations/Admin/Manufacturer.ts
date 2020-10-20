@@ -1,7 +1,5 @@
-
-
 export const manufacturerEditGQL = `
-  mutation ManufacturerEdit($id: String!, $manufacturerInput: ManufacturerInput!) {
+  mutation ManufacturerEdit($id: ID!, $manufacturerInput: ManufacturerInput!) {
     manufacturerEdit(id: $id, manufacturerInput: $manufacturerInput) {
       name
       website
@@ -11,7 +9,7 @@ export const manufacturerEditGQL = `
 `;
 
 export const manufacturerEditSEOGQL = `
-  mutation ManufacturerEditSEO($id: String!, $seoInput: SEOInput!) {
+  mutation ManufacturerEditSEO($id: ID!, $seoInput: SEOInput!) {
     manufacturerEditSEO(id: $id, seoInput: $seoInput) {
       seo {
         metaDescription

@@ -1,13 +1,12 @@
-import { Component, Host, h, Prop, State, Watch } from "@stencil/core";
+import { Component, Host, h, Prop, State } from "@stencil/core";
 import { href } from "stencil-router-v2";
 import { state as routerState } from "@corejam/router";
 import { computeStyle } from "../../utils/computeStyle";
-import { Style } from "../../helpers/Style";
+import { addStyleTagToHead } from "../../helpers/Style";
 import { Link } from "./Link.types";
 
 @Component({
   tag: "corejam-base-link",
-  shadow: true,
 })
 export class BaseLink {
   @State() style: any[] = [];
@@ -28,18 +27,12 @@ export class BaseLink {
 
   async computeStyles() {
     return new Promise(async (res) => {
-      this.style = (await import("../../utils/style")).generateStyleMap(this, "");
+      const styleMap = (await import("../../utils/style")).generateStyleMap(this, "");
+      const [hashCode, style] = computeStyle(styleMap);
+      this.hash = hashCode;
+      addStyleTagToHead(style, hashCode);
       res();
     });
-  }
-
-  @Watch("style")
-  generateFinalStyleTags() {
-    const [hashCode, style] = computeStyle(this.style);
-    if (hashCode) {
-      this.hash = hashCode;
-      this.computedStyle = style;
-    }
   }
 
   renderLink() {
@@ -58,11 +51,6 @@ export class BaseLink {
   }
 
   render() {
-    return (
-      <Host class={this.hash}>
-        {this.renderLink()}
-        {this.hash && <Style styles={this.computedStyle} hash={this.hash} />}
-      </Host>
-    );
+    return <Host class={this.hash}>{this.renderLink()}</Host>;
   }
 }
