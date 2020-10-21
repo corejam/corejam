@@ -19,7 +19,7 @@ export class IndexRoute {
       <Host>
         {this._data.allManufacturers?.map((manu: ManufacturerDB) => {
           return (
-            <corejam-box>
+            <corejam-box display="block" data-cy="manufacturer-list" max="xl" mx="auto" px={2} xlPx={0}>
               <corejam-base-link href={manu.seo?.url}>
                 <corejam-type>{manu.name}</corejam-type>
               </corejam-base-link>
