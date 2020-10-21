@@ -1,6 +1,5 @@
 import Document from "next/document";
 import { renderToString } from "@corejam/plugin-dershop/web-components/hydrate";
-import cheerio from "cheerio";
 
 const Style = ({ style }) =>
   style.map((inline, index) => {
@@ -11,9 +10,9 @@ const Style = ({ style }) =>
           dangerouslySetInnerHTML={{
             __html: `
           ${inline.inner
-            .split(" ")
-            .map((sub) => "." + inline.class + " " + sub)
-            .join(" ")} 
+                .split(" ")
+                .map((sub) => "." + inline.class + " " + sub)
+                .join(" ")} 
           
         `,
           }}
@@ -41,11 +40,9 @@ export default class ShopDocument extends Document {
       });
     }
 
-    let finalMarkup = initialProps.html;
-
     return {
       styles: <>{initialProps.styles}</>,
-      html: finalMarkup,
+      html: res.html,
       head: initialProps.head,
     };
   }
