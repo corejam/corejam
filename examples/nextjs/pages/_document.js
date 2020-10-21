@@ -17,7 +17,6 @@ export default class ShopDocument extends Document {
     }
 
     return {
-      styles: <>{initialProps.styles}</>,
       html: res.html,
       head: initialProps.head,
     };
