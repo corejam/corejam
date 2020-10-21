@@ -8,4 +8,22 @@ describe("Generic Tests", function () {
       "Open Source"
     );
   });
+
+  it.only("Check SSR is working", function () {
+
+    cy.request("/").its('body').then(html => {
+      cy.wrap(html).should("contain", "dershop-spotlight")
+        .should("contain", "dershop-header")
+        .should("contain", "dershop-footer")
+
+    })
+
+    cy.request("/products").its('body').then(html => {
+      cy.wrap(html).should("contain", "dershop-header")
+        .should("contain", "dershop-footer")
+        .should("contain", "dershop-product-list")
+        .should("contain", "dershop-product")
+    })
+  });
+
 });
