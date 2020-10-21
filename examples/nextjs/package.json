@@ -18,7 +18,6 @@
   "license": "MIT",
   "dependencies": {
     "@corejam/plugin-dershop": "0.0.8",
-    "cheerio": "1.0.0-rc.3",
     "dotenv-webpack": "1.8.0",
     "micro": "9.3.4",
     "micro-cors": "0.1.1",
