@@ -31,7 +31,8 @@
     "static": "corejam static",
     "static:serve": "corejam static:serve",
     "clean": "rimraf dist & rimraf react & rimraf web-components",
-    "prepublish": "yarn clean && yarn build"
+    "prepublish": "shx rm -f .env && yarn clean && yarn build",
+    "postpublish": "shx cp .env.sample .env"
   },
   "files": [
     "web-components",
@@ -49,6 +50,7 @@
     "@xstate/fsm": "1.5.1",
     "dotenv": "8.2.0",
     "stencil-router-v2": "0.5.0",
+    "shx": "0.3.2",
     "tslib": "2.0.3",
     "typescript": "4.0.3",
     "xstate": "4.13.0"
