@@ -17,7 +17,7 @@ export class DershopManufacturer {
       <Host>
         <corejam-box display="block" data-cy="product-list" max="xl" mx="auto" px={2} xlPx={0}>
           <corejam-box flex direction="col">
-            <corejam-type weight="bold" size="3xl" onClick={() => console.log("hahah")}>
+            <corejam-type weight="bold" size="3xl">
               {this.manufacturer.name}
             </corejam-type>
             <corejam-type as="p" color="gray-700">
