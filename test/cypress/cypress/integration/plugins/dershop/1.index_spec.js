@@ -9,7 +9,7 @@ describe("Generic Tests", function () {
     );
   });
 
-  it.only("Check SSR is working", function () {
+  it("Check SSR is working", function () {
 
     cy.request("/").its('body').then(html => {
       cy.wrap(html).should("contain", "dershop-spotlight")
