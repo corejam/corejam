@@ -2832,10 +2832,10 @@
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.1.tgz#8da5c6530915653f3a1f38fd5f101d8c3f8079c5"
   integrity sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==
 
-"@stencil/core@2.1.0-3":
-  version "2.1.0-3"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.1.0-3.tgz#f4a53d1b4e2c9751ea071d00ed965711603c5037"
-  integrity sha512-WRZYvqeUjtup1QggWYkJA3Ai3cJOJ4rkwGI5J8Xx7Rs50rZ2pdK+yBb5aphw8P+AJ7efiR03bkCIj8Kix26aiw==
+"@stencil/core@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.1.0.tgz#3525c9e36da775bc3c5eb01b2e070be400386c8e"
+  integrity sha512-fvDBIddSx/oU4kQvHPqjw4WG3s7uBvmlhez69oEc7Z04yhWqZivyLYdQ0XWN/MS/KgKv6JTcWmMrGH+4IzItWQ==
 
 "@stencil/react-output-target@0.0.9":
   version "0.0.9"
@@ -3214,14 +3214,6 @@
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
   integrity sha512-ewFXqrQHlFsgc09MK5jP5iR7vumV/BYayNC6PgJO2LPe8vrnNFyjQjSppfEngITi0qvfKtzFvgKymGheFM9UOA==
-
-"@types/react@16.9.52":
-  version "16.9.52"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.52.tgz#c46c72d1a1d8d9d666f4dd2066c0e22600ccfde1"
-  integrity sha512-EHRjmnxiNivwhGdMh9sz1Yw9AUxTSZFxKqdBWAAzyZx3sufWwx6ogqHYh/WB1m/I4ZpjkoZLExF5QTy2ekVi/Q==
-  dependencies:
-    "@types/prop-types" "*"
-    csstype "^3.0.2"
 
 "@types/react@16.9.53":
   version "16.9.53"

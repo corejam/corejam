@@ -42,7 +42,7 @@
     "@corejam/cli": "0.0.11",
     "@corejam/dev": "0.0.7",
     "@rollup/plugin-replace": "2.3.3",
-    "@stencil/core": "2.1.0-3",
+    "@stencil/core": "2.1.0",
     "@stencil/react-output-target": "0.0.9",
     "@stencil/store": "1.3.0",
     "@types/faker": "5.1.2",
