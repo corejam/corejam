@@ -108,7 +108,7 @@ export class ProductDetail {
             </corejam-box>
           </corejam-box>
           <corejam-box w={12} mdW={6} mt={6} mdMt={0} flex direction="col">
-            <corejam-type data-cy="product-title" weight="bold" size="3xl" onClick={() => console.log("hahah")}>
+            <corejam-type data-cy="product-title" weight="bold" size="3xl">
               {product.name}
             </corejam-type>
             <corejam-box pt={4}>
