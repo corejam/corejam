@@ -181,7 +181,7 @@ export function generateProduct({
   manufacturer_number = finance.mask(5),
   sku = lorem.slug(3),
   name = commerce.productName(),
-  images = [generateImage()] as Image[],
+  images = [generateImage(), generateImage(), generateImage(), generateImage()] as Image[],
   description = lorem.paragraph(),
   price = generatePrice(),
   seo = generateSeo(),
