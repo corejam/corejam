@@ -1,5 +1,5 @@
 import { Component, h } from '@stencil/core';
-import { routerState } from '@corejam/core-components';
+import { state as routerState } from '@corejam/router';
 import { Route, match } from 'stencil-router-v2';
 
 @Component({
@@ -13,10 +13,10 @@ export class AppLayout {
         <dershop-header></dershop-header>
         <Router.Switch>
           <Route path={match('/', { exact: true })}>
-            <dershop-spotlight></dershop-spotlight>
+            <dershop-route-index></dershop-route-index>
           </Route>
           <Route path={match('/products', { exact: true })}>
-            <app-products></app-products>
+            <dershop-route-products></dershop-route-products>
           </Route>
           <Route path={match('/products/:page', { exact: true })} render={({ page }) => <app-products page={Number(page)}></app-products>} />
 
@@ -40,8 +40,9 @@ export class AppLayout {
           <Route path={match('/admin/orders/view/:id', { exact: true })} render={({ id }) => <dershop-order-view id={id}></dershop-order-view>} />
           <Route path={match('/account/order/:id', { exact: true })} render={({ id }) => <dershop-order-view id={id}></dershop-order-view>} />
 
-          <Route path={match('/:slug')} render={({ slug }) => <app-product slug={slug}></app-product>}></Route>
+          <Route path={match('/:slug')} render={({ slug }) => <dershop-url param={{ url: slug }}></dershop-url>}></Route>
         </Router.Switch>
+        <dershop-footer></dershop-footer>
       </div>
     );
   }

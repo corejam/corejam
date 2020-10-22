@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Link } from "./components/Link/Link.types";
-import { Display, ElementType, Flex } from "./components/Box/types";
+import { Display, Flex, Position } from "./components/Box/types";
 import { Button } from "./components/Button/types";
 import { options } from "./components/FormSelect/corejam-select";
 import { GridType } from "./components/Grid/types";
@@ -123,7 +123,7 @@ export namespace Components {
         "p": number;
         "pb": number;
         "pl": number;
-        "position": ElementType.Position;
+        "position": Position;
         "pr": number;
         "pt": number;
         "px": number;
@@ -594,7 +594,7 @@ declare namespace LocalJSX {
         "p"?: number;
         "pb"?: number;
         "pl"?: number;
-        "position"?: ElementType.Position;
+        "position"?: Position;
         "pr"?: number;
         "pt"?: number;
         "px"?: number;

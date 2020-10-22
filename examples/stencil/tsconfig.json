@@ -6,25 +6,18 @@
     "experimentalDecorators": true,
     "lib": [
       "dom",
-      "es2017"
+      "es2015"
     ],
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es2017",
-    "esModuleInterop": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strictNullChecks": false,
     "jsx": "react",
-    "jsxFactory": "h",
-    "baseUrl": ".",
-    "keyofStringsOnly": false,
-    "skipLibCheck": true,
+    "jsxFactory": "h"
   },
   "include": [
-    "app",
-    "types/jsx.d.ts",
-    "shared"
+    "src"
   ],
   "exclude": [
     "node_modules"

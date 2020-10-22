@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop, State } from "@stencil/core";
-import { ManufacturerDB } from "shared/types/Manufacturer";
+import { ManufacturerDB } from "../../../shared/types/Manufacturer";
 
 @Component({
   tag: "dershop-manufacturer",

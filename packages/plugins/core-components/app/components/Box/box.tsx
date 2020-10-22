@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop, State } from "@stencil/core";
-import { Flex, Element as ElementType, Display } from "./types";
+import { Flex, Position, Display } from "./types";
 import { addStyleTagToHead } from "../../helpers/Style";
 import { computeStyle } from "../../utils/computeStyle";
 
@@ -196,7 +196,7 @@ export class CorejamBox {
   @Prop() bWidthLeft: number;
   @Prop() animation: string;
   @Prop() shadow: string;
-  @Prop() position: ElementType.Position;
+  @Prop() position: Position;
   @Prop() top: number;
   @Prop() right: number;
   @Prop() bottom: number;

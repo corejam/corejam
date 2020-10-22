@@ -2746,7 +2746,7 @@
   dependencies:
     "@rollup/pluginutils" "^3.0.8"
 
-"@rollup/plugin-node-resolve@^9.0.0":
+"@rollup/plugin-node-resolve@9.0.0", "@rollup/plugin-node-resolve@^9.0.0":
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-9.0.0.tgz#39bd0034ce9126b39c1699695f440b4b7d2b62e6"
   integrity sha512-gPz+utFHLRrd41WMP13Jq5mqqzHL3OXrfj3/MkSyB6UBIcuNt9j60GCbarzMzdf1VHFpOxfQh/ez7wyadLMqkg==
@@ -13697,10 +13697,10 @@ rollup-pluginutils@^2.8.2:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@2.32.1:
-  version "2.32.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.32.1.tgz#625a92c54f5b4d28ada12d618641491d4dbb548c"
-  integrity sha512-Op2vWTpvK7t6/Qnm1TTh7VjEZZkN8RWgf0DHbkKzQBwNf748YhXbozHVefqpPp/Fuyk/PQPAnYsBxAEtlMvpUw==
+rollup@2.32.0:
+  version "2.32.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.32.0.tgz#ac58c8e85782bea8aa2d440fc05aba345013582a"
+  integrity sha512-0FIG1jY88uhCP2yP4CfvtKEqPDRmsUwfY1kEOOM+DH/KOGATgaIFd/is1+fQOxsvh62ELzcFfKonwKWnHhrqmw==
   optionalDependencies:
     fsevents "~2.1.2"
 
@@ -13979,7 +13979,7 @@ serve-static@1.14.1:
     parseurl "~1.3.3"
     send "0.17.1"
 
-serve@11.3.2:
+serve@11.3.2, serve@^11.3.2:
   version "11.3.2"
   resolved "https://registry.yarnpkg.com/serve/-/serve-11.3.2.tgz#b905e980616feecd170e51c8f979a7b2374098f5"
   integrity sha512-yKWQfI3xbj/f7X1lTBg91fXBP0FqjJ4TEi+ilES5yzH0iKJpN5LjNb1YzIfQg9Rqn4ECUS2SOf2+Kmepogoa5w==
@@ -14525,6 +14525,13 @@ stencil-router-v2@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/stencil-router-v2/-/stencil-router-v2-0.5.0.tgz#e92561826b72b2735f3f472f7294d3f1dfe069f8"
   integrity sha512-pIciksEZ9m6yps6QMnLYdDDvuiPNKACh8gksUtitvBaoBJxyQT48IXJ02ZwMwB7gjiD3u7A50iosCdJqHJfgTQ==
+  dependencies:
+    "@stencil/store" "^1.1.0"
+
+stencil-router-v2@0.5.1-0:
+  version "0.5.1-0"
+  resolved "https://registry.yarnpkg.com/stencil-router-v2/-/stencil-router-v2-0.5.1-0.tgz#15949ceaf5a0822f4250e76df38d9a0aa0732108"
+  integrity sha512-AQPk8eomhRnYY+S5ow9bZBHM16tbKaD1bFUWoMXNrDsqObIpkpsCpeMo4eriAFPFNNTay6nAt2crDzJEbP9qdg==
   dependencies:
     "@stencil/store" "^1.1.0"
 
