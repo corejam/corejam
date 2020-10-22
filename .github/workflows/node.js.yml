@@ -35,7 +35,7 @@ jobs:
           API_ORIGIN=http://localhost:3000 yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/run/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
+      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/run/dist packages/rollup-plugin run/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -194,9 +194,10 @@ jobs:
           cd ../cli && yarn link
           cd ../dev && yarn link
           cd ../run && yarn link
+          cd ../rollup-plugin && yarn link
           cd ../plugins/core-components && yarn link
           cd /github/home && corejam createApp test
-          cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components @corejam/run && yarn static
+          cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
           DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
