@@ -19,9 +19,6 @@
   "license": "MIT",
   "dependencies": {
     "@alepop/stencil-env": "0.4.1",
-    "@corejam/base": "0.0.8",
-    "@corejam/core-components": "0.0.8",
-    "@corejam/plugin-auth": "0.0.8",
     "@corejam/plugin-dershop": "0.0.8",
     "@corejam/router": "0.0.5",
     "@rollup/plugin-node-resolve": "9.0.0",
