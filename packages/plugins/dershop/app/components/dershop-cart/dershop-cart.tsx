@@ -1,10 +1,11 @@
-import { Component, ComponentInterface, h, Host, Listen } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
 import { state as routerState } from "@corejam/router";
-import basket from "../../../shared/store/basket";
-import { orderCreateGQL } from "../../../shared/graphql/Mutations/Order";
-import { OrderCreateInput } from "../../../shared/types/Order";
+import { Component, ComponentInterface, h, Host, Listen } from "@stencil/core";
 import gql from "graphql-tag";
+import { orderCreateGQL } from "../../../shared/graphql/Mutations/Order";
+import { BasketStates } from "../../../shared/machines/basket";
+import basket, { basketService } from "../../../shared/store/basket";
+import { OrderCreateInput } from "../../../shared/types/Order";
 
 @Component({
   tag: "dershop-cart",
@@ -68,6 +69,11 @@ export class DershopCart implements ComponentInterface {
   render() {
     return (
       <Host>
+        <corejam-box max="xl" mx="auto" py={10} px={5} xlPx={0} direction="col">
+          <corejam-type weight="bold" size="3xl" align="center">
+            Cart
+          </corejam-type>
+        </corejam-box>
         <corejam-form-container name={this.formId}>
           <corejam-box max="xl" mx="auto" px={2} xlPx={0} direction="col">
             <corejam-box flex justify="between" w={12} py={4} bWidthBottom={1} bWidthTop={1} bColor="gray-300">
@@ -131,12 +137,15 @@ export class DershopCart implements ComponentInterface {
                 <corejam-type>Shipping</corejam-type>
                 <corejam-type weight="bold">{basket.state.shipping} €</corejam-type>
               </corejam-box>
-              <corejam-box flex justify="between" mb={4}>
+              <corejam-box bWidthBottom={1} py={4} bColor="gray-300" flex justify="between" mb={4}>
                 <corejam-type>Order Total</corejam-type>
                 <corejam-type weight="bold">{basket.state.orderTotal} €</corejam-type>
               </corejam-box>
               <corejam-box flex justify="between">
-                <corejam-base-link href="/checkout">
+                <corejam-base-link onClick={() => {
+                  basketService.send({ type: "ADD_ADDRESS" });
+                  routerState.router.push("/checkout")
+                }}>
                   <corejam-type weight="bold" size="sm">
                     Checkout
                   </corejam-type>

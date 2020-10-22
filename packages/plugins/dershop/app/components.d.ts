@@ -23,6 +23,8 @@ export namespace Components {
     }
     interface DershopCartMini {
     }
+    interface DershopCheckout {
+    }
     interface DershopFooter {
     }
     interface DershopFormRegister {
@@ -160,6 +162,12 @@ declare global {
     var HTMLDershopCartMiniElement: {
         prototype: HTMLDershopCartMiniElement;
         new (): HTMLDershopCartMiniElement;
+    };
+    interface HTMLDershopCheckoutElement extends Components.DershopCheckout, HTMLStencilElement {
+    }
+    var HTMLDershopCheckoutElement: {
+        prototype: HTMLDershopCheckoutElement;
+        new (): HTMLDershopCheckoutElement;
     };
     interface HTMLDershopFooterElement extends Components.DershopFooter, HTMLStencilElement {
     }
@@ -335,6 +343,7 @@ declare global {
         "dershop-brands": HTMLDershopBrandsElement;
         "dershop-cart": HTMLDershopCartElement;
         "dershop-cart-mini": HTMLDershopCartMiniElement;
+        "dershop-checkout": HTMLDershopCheckoutElement;
         "dershop-footer": HTMLDershopFooterElement;
         "dershop-form-register": HTMLDershopFormRegisterElement;
         "dershop-header": HTMLDershopHeaderElement;
@@ -377,6 +386,8 @@ declare namespace LocalJSX {
     interface DershopCart {
     }
     interface DershopCartMini {
+    }
+    interface DershopCheckout {
     }
     interface DershopFooter {
     }
@@ -490,6 +501,7 @@ declare namespace LocalJSX {
         "dershop-brands": DershopBrands;
         "dershop-cart": DershopCart;
         "dershop-cart-mini": DershopCartMini;
+        "dershop-checkout": DershopCheckout;
         "dershop-footer": DershopFooter;
         "dershop-form-register": DershopFormRegister;
         "dershop-header": DershopHeader;
@@ -529,6 +541,7 @@ declare module "@stencil/core" {
             "dershop-brands": LocalJSX.DershopBrands & JSXBase.HTMLAttributes<HTMLDershopBrandsElement>;
             "dershop-cart": LocalJSX.DershopCart & JSXBase.HTMLAttributes<HTMLDershopCartElement>;
             "dershop-cart-mini": LocalJSX.DershopCartMini & JSXBase.HTMLAttributes<HTMLDershopCartMiniElement>;
+            "dershop-checkout": LocalJSX.DershopCheckout & JSXBase.HTMLAttributes<HTMLDershopCheckoutElement>;
             "dershop-footer": LocalJSX.DershopFooter & JSXBase.HTMLAttributes<HTMLDershopFooterElement>;
             "dershop-form-register": LocalJSX.DershopFormRegister & JSXBase.HTMLAttributes<HTMLDershopFormRegisterElement>;
             "dershop-header": LocalJSX.DershopHeader & JSXBase.HTMLAttributes<HTMLDershopHeaderElement>;

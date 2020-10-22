@@ -7,7 +7,6 @@ export class AccountRoute {
   render() {
     return (
       <Host>
-        <dershop-header></dershop-header>
         <dershop-account></dershop-account>
       </Host>
     );

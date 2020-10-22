@@ -13,9 +13,9 @@
 
 ### Depends on
 
-- corejam-form-container
 - corejam-box
 - corejam-type
+- corejam-form-container
 - corejam-image
 - corejam-base-link
 - corejam-form-submit
@@ -23,9 +23,9 @@
 ### Graph
 ```mermaid
 graph TD;
-  dershop-cart --> corejam-form-container
   dershop-cart --> corejam-box
   dershop-cart --> corejam-type
+  dershop-cart --> corejam-form-container
   dershop-cart --> corejam-image
   dershop-cart --> corejam-base-link
   dershop-cart --> corejam-form-submit

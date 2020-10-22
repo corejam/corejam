@@ -1,31 +1,43 @@
+import { authStore } from "@corejam/plugin-auth";
 import { createMachine, assign } from "@xstate/fsm";
-type BasketStateSchema =
+import { Address } from "../types/Address";
+
+export enum BasketStates {
+  IDLE = "idle",
+  INITIALIZED = "initialized",
+  ADDRESS = "address",
+  PAYMENT = "payment",
+  CONFIRMATION = "confirmation"
+}
+
+export type BasketStateSchema =
   | {
-      value: "idle";
-      context: BasketContext;
-    }
+    value: BasketStates.IDLE;
+    context: BasketContext;
+  }
   | {
-      value: "initialized";
-      context: BasketContext;
-    }
+    value: BasketStates.INITIALIZED;
+    context: BasketContext;
+  }
   | {
-      value: "address";
-      context: BasketContext;
-    }
+    value: BasketStates.ADDRESS;
+    context: BasketContext;
+  }
   | {
-      value: "payment";
-      context: BasketContext;
-    }
+    value: BasketStates.PAYMENT;
+    context: BasketContext;
+  }
   | {
-      value: "confirmation";
-      context: BasketContext;
-    };
+    value: BasketStates.CONFIRMATION;
+    context: BasketContext;
+  };
 interface BasketContext {
   initialized?: boolean | string;
   items?: any;
   subTotal?: number;
   shipping?: number;
   orderTotal?: number;
+  address?: Address
 }
 
 // Fix issue with importing types from api and not including graphql
@@ -60,7 +72,7 @@ export const basketMachine = createMachine<
         on: {
           ADDITEM: {
             target: "initialized",
-            actions: ["addItemToBasket", "calculateBasket"],
+            actions: ["addItemToBasket", "calculateBasket", "initAddress"],
           },
         },
       },
@@ -71,7 +83,9 @@ export const basketMachine = createMachine<
             actions: ["addItemToBasket", "calculateBasket"],
           },
           ADD_ADDRESS: [
-            { target: "address", cond: (ctx) => ctx.items.length > 0 },
+            {
+              target: "address", cond: (ctx) => ctx.items.length > 0
+            },
           ],
           CLEAR: {
             target: "idle",
@@ -89,6 +103,9 @@ export const basketMachine = createMachine<
             target: "idle",
             actions: "reset",
           },
+          ADDPAYMENT: {
+            target: BasketStates.PAYMENT
+          }
         },
       },
       payment: {
@@ -138,6 +155,13 @@ export const basketMachine = createMachine<
             return found ? itemsCopy : [...context.items, event.item];
           }
         },
+      }),
+      initAddress: assign({
+        address: (context) => {
+          if (!context.address) {
+            return authStore.identity
+          }
+        }
       }),
       editItemInBasket: assign({}),
       calculateBasket: assign({
