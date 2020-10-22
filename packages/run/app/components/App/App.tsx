@@ -1,47 +1,31 @@
 import { Component, Host, h, State } from "@stencil/core";
-
-type mapEntry = {
-  component: string;
-};
-
-type mapEntryWithUrl = mapEntry & {
-  url: string;
-};
+import { runState } from "../../store/runStore";
 
 @Component({
   tag: "corejam-run-app",
 })
-export class AppRoot {
-  @State() components: [mapEntryWithUrl] | [];
-  @State() routes: [mapEntryWithUrl] | [];
-  @State() wrapper: [string] | [];
-  @State() recos: Array<string>;
-  @State() layout: mapEntry | null;
-  @State() docs: any = [];
-  @State() mode: string;
-
+export class CorejamRun {
+  @State() config: any;
   async componentWillLoad() {
     return new Promise(async (res) => {
       try {
         const buildConfig = await fetch("/build/config.json");
         const config = await buildConfig.json();
-        if (config) {
-          this.components = config.components;
-          this.routes = config.routes;
-          this.wrapper = config.wrapper;
-          this.recos = config.recommendations;
-          this.mode = config.mode;
-          this.layout = config.layout;
-          res();
-          // if (process.env.MODE !== "static") {
-          //   const docs = await fetch("/assets/custom-elements.json");
-          //   if (docs) {
-          //     const data = await docs.json();
-          //     this.docs = data;
-          //     res();
-          //   }
-          // }
-        }
+        this.config = config;
+        runState.routes = config.router.routes;
+        runState.wrapper = config.wrapper;
+        runState.recommendations = config.recommendations;
+        runState.mode = config.mode;
+        runState.layout = config.layout;
+        res();
+        // if (process.env.MODE !== "static") {
+        //   const docs = await fetch("/assets/custom-elements.json");
+        //   if (docs) {
+        //     const data = await docs.json();
+        //     this.docs = data;
+        //     res();
+        //   }
+        // }
       } catch (e) {
         console.log(e);
       }
@@ -49,8 +33,8 @@ export class AppRoot {
   }
 
   renderRecos() {
-    if (this.recos.length > 0) {
-      return this.recos.map((reco) => {
+    if (this.config.recommendations.length > 0) {
+      return this.config.recommendations.map((reco) => {
         const Reco = reco;
         return <Reco></Reco>;
       });
@@ -58,30 +42,32 @@ export class AppRoot {
   }
 
   renderLayout(children: [JSX.Element]) {
-    if (this.layout) {
-      const Layout = this.layout.component;
+    if (this.config.layout) {
+      const Layout = this.config.layout.component;
       return <Layout>{children}</Layout>;
     }
     return children;
   }
 
   renderWrapperComponent() {
-    const Wrapper = this.wrapper.length > 0 ? this.wrapper[0] : "div";
-    if (Wrapper) {
+    if (this.config.wrapper.length > 0) {
+      /**
+       * TODO
+       * Check if multiple wrapper components.
+       */
+      const Wrapper = this.config.wrapper[0];
       return (
         <Wrapper>
           {this.renderRecos()}
-          {this.renderLayout(<corejam-run-router routes={this.routes} components={this.components} mode={this.mode} />)}
+          {this.renderLayout(<corejam-run-router />)}
         </Wrapper>
       );
     }
-    return [
-      this.renderRecos(),
-      this.renderLayout(<corejam-run-router routes={this.routes} components={this.components} mode={this.mode} />),
-    ];
+    return [this.renderRecos(), this.renderLayout(<corejam-run-router></corejam-run-router>)];
   }
 
   render() {
+    console.log("render app");
     return <Host>{this.renderWrapperComponent()}</Host>;
   }
 }

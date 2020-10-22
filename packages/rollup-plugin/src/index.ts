@@ -5,7 +5,7 @@ export default function corejam() {
     name: "corejam",
     async buildStart() {
       const config = await writeConfig();
-
+      //@ts-ignore
       this.emitFile({
         type: "asset",
         name: "string",

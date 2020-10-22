@@ -1,5 +1,4 @@
 import { Config } from "@stencil/core";
-import corejam from "./rollup/index";
 export const config: Config = {
   namespace: "corejam-dev",
   srcDir: "app",
@@ -24,5 +23,4 @@ export const config: Config = {
       serviceWorker: null, // disable service workers
     },
   ],
-  plugins: [corejam()],
 };

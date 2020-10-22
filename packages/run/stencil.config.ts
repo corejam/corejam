@@ -1,5 +1,5 @@
 import { Config } from "@stencil/core";
-import corejam from "@corejam/dev/dist/rollup";
+import corejam from "@corejam/rollup-plugin";
 export const config: Config = {
   namespace: "corejam-run",
   srcDir: "app",

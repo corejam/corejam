@@ -1,0 +1,22 @@
+{
+  "name": "@corejam/rollup-plugin",
+  "version": "0.0.1",
+  "description": "Corejam Rollup Plugin",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "rollup --config rollup.config.js",
+    "clean": "rimraf dist",
+    "prepublish": "yarn clean && yarn build"
+  },
+  "devDependencies": {
+    "rollup-plugin-typescript2": "0.28.0",
+    "fs-jetpack": "3.2.0",
+    "rollup": "2.32.0",
+    "shx": "0.3.2"
+  }
+}

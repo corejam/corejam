@@ -9,10 +9,6 @@ export namespace Components {
     interface CorejamRunApp {
     }
     interface CorejamRunRouter {
-        "components": any;
-        "docs": any;
-        "mode": string;
-        "routes": any;
     }
 }
 declare global {
@@ -37,10 +33,6 @@ declare namespace LocalJSX {
     interface CorejamRunApp {
     }
     interface CorejamRunRouter {
-        "components"?: any;
-        "docs"?: any;
-        "mode"?: string;
-        "routes"?: any;
     }
     interface IntrinsicElements {
         "corejam-run-app": CorejamRunApp;
