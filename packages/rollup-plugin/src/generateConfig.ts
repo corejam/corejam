@@ -2,7 +2,6 @@ import { listAsync, readAsync, existsAsync } from "fs-jetpack";
 
 export async function writeConfig() {
   const pluginPkg = require(process.cwd() + "/package.json");
-
   const root = process.cwd();
 
   const config = {
@@ -14,7 +13,13 @@ export async function writeConfig() {
     dependencies: [],
     external: [],
     layout: null,
+    router: {
+      routes: [],
+    },
   };
+
+  const namedRoutes = [];
+  const wildcardRoutes = [];
 
   const regexTag = /tag: \"(.*)\"/;
 
@@ -28,11 +33,17 @@ export async function writeConfig() {
           const f = await readAsync(root + "/app/components/" + component + "/" + file);
 
           const tagMatch = f.match(regexTag);
-          if (tagMatch)
+          if (tagMatch) {
             config["components"].push({
               url: "/component/" + tagMatch[1],
               component: tagMatch[1],
             });
+            namedRoutes.push({
+              url: "/component/" + tagMatch[1],
+              exact: true,
+              component: tagMatch[1],
+            });
+          }
         }
       }
     }
@@ -63,6 +74,24 @@ export async function writeConfig() {
             url,
             component: tagMatch[1],
           });
+
+          if (url.indexOf("[") > -1) {
+            const dynamicMatch = url.match(/\[.+\]/)[0];
+            const paramName = dynamicMatch.replace("[", "").replace("]", "");
+            const raw = url.replace(dynamicMatch, "");
+            const newUrl = raw + ":" + paramName;
+            wildcardRoutes.push({
+              url: newUrl,
+              exact: false,
+              component: tagMatch[1],
+            });
+          } else {
+            namedRoutes.push({
+              url: url,
+              exact: true,
+              component: tagMatch[1],
+            });
+          }
         }
       } else {
         await traverse(lookupPath + "/" + current);
@@ -74,7 +103,7 @@ export async function writeConfig() {
   if (pluginPkg.corejam?.wrapper) config.wrapper = pluginPkg.corejam.wrapper;
   if (pluginPkg.corejam?.recommendations) config.recommendations = pluginPkg.corejam.recommendations;
 
-  const depsBlacklist = ["@corejam/base", "@corejam/dev"];
+  const depsBlacklist = ["@corejam/base", "@corejam/dev", "@corejam/cli"];
 
   //TODO should this be both dev and normal dependancies?
   if (pluginPkg?.dependencies) {
@@ -106,6 +135,21 @@ export async function writeConfig() {
       }
     }
   }
+
+  if (process.env.NODE_ENV === "development") {
+    namedRoutes.push({
+      url: "/_corejam",
+      exact: true,
+      component: "app-welcome",
+    });
+    namedRoutes.push({
+      url: "/liveview",
+      exact: true,
+      component: "app-liveview",
+    });
+  }
+
+  config.router.routes = [...namedRoutes, ...wildcardRoutes];
 
   return config;
 }

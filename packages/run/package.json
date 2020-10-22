@@ -16,16 +16,18 @@
   "scripts": {
     "dev": "stencil build --dev --watch --serve",
     "build": "stencil build --docs",
+    "postbuild": "shx cp ./app/index.html ./dist",
     "test": "stencil test --spec --e2e",
     "clean": "rimraf dist",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@corejam/dev": "0.0.7",
+    "@corejam/rollup-plugin": "0.0.1",
     "@corejam/router": "0.0.5",
     "@stencil/core": "2.1.0",
-    "stencil-router-v2": "0.5.0"
+    "stencil-router-v2": "0.5.0",
+    "@stencil/store": "1.3.0"
   },
   "license": "MIT"
 }

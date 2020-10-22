@@ -3,13 +3,14 @@
     "moduleResolution": "node",
     "target": "es5",
     "module": "es2015",
-    "lib": ["es2015", "es2016", "es2017", "dom"],
+    "lib": ["es2015", "es2016", "es2017"],
     "strict": false,
     "sourceMap": false,
-    "declaration": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "skipLibCheck": false
+    "skipLibCheck": false,
+    "outDir": "dist",
+    "declaration": true
   },
-  "include": ["rollup"]
+  "include": ["src"]
 }

@@ -15,12 +15,10 @@
   ],
   "scripts": {
     "dev": "stencil build --dev --watch --serve",
-    "build": "stencil build --docs && yarn build:plugin",
-    "build:plugin": "rollup --config rollup.config.js",
+    "build": "stencil build --docs",
     "postbuild": "shx cp ./app/index.html ./dist",
-    "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "test": "stencil test --spec",
+    "test.watch": "stencil test --spec --watchAll"
   },
   "dependencies": {
     "@corejam/router": "0.0.5",
@@ -28,13 +26,5 @@
     "@stencil/core": "2.1.0",
     "stencil-router-v2": "0.5.0"
   },
-  "license": "MIT",
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "15.1.0",
-    "@rollup/plugin-node-resolve": "9.0.0",
-    "@rollup/plugin-typescript": "6.0.0",
-    "fs-jetpack": "3.2.0",
-    "rollup": "2.32.0",
-    "shx": "0.3.2"
-  }
+  "license": "MIT"
 }
