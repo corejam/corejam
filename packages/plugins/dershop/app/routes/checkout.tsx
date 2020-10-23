@@ -1,13 +1,72 @@
-import { Component, Host, h } from "@stencil/core";
-import { basketService, basketStore } from "../../shared/store/basket";
-import { BasketStates } from "../../shared/machines/basket"
+import { coreState } from "@corejam/core-components";
+import { state as routerState } from "@corejam/router";
+import { Component, h, Host, Listen } from "@stencil/core";
+import gql from "graphql-tag";
+import { BasketStates } from "../../shared/machines/basket";
+import { orderCreateGQL } from "../../shared/graphql/Mutations/Order";
+import basket, { basketService, basketStore } from "../../shared/store/basket";
+import { OrderCreateInput } from "../../shared/types/Order";
 
 @Component({
     tag: "dershop-checkout",
 })
 export class CheckoutRoute {
 
-    private checkoutFormId = "checkout1"
+    private orderConfirmFormId = "orderConfirm"
+    private checkoutAddressFormId = "checkoutAddress"
+
+    @Listen("sendForm", { target: "window" })
+    async formEventHandler() {
+        const testAddress = {
+            street: "street",
+            street_2: "street 2 ",
+            city: "City",
+            state: "State",
+            country: "Germany",
+            zipCode: "zip",
+        };
+
+        const input: OrderCreateInput = {
+            items: [
+                {
+                    product: {
+                        id: basket.state.items[0].id,
+                        name: basket.state.items[0].name,
+                    },
+                    price: {
+                        gross: basket.state.items[0].price.gross,
+                        tax_rate: 19,
+                        net: basket.state.items[0].price.gross,
+                    },
+                    quantity: basket.state.items[0].quantity,
+                },
+            ],
+            status: "SHIPPING",
+            addressBilling: {
+                ...testAddress,
+            },
+            addressShipping: {
+                ...testAddress,
+            },
+            price: {
+                gross: 19.99,
+                tax_rate: 19,
+                net: 15.0,
+            },
+        };
+
+        //TODO move this to the order confirmation page.
+        const request = await coreState.client.mutate({
+            mutation: gql(orderCreateGQL),
+            variables: {
+                orderInput: input,
+            },
+        });
+
+        if (request.data.orderCreate) {
+            routerState.router.push(`/account/order/${request.data.orderCreate.id}`);
+        }
+    }
 
     renderStep() {
         switch (basketStore.state.value) {
@@ -20,7 +79,7 @@ export class CheckoutRoute {
                                     label="First name *"
                                     required
                                     name="firstName"
-                                    formId={this.checkoutFormId}
+                                    formId={this.checkoutAddressFormId}
                                     value=""
                                     type="text"
                                     placeholder="Firstname"
@@ -30,7 +89,7 @@ export class CheckoutRoute {
                                 <corejam-form-input
                                     name="lastName"
                                     required
-                                    formId={this.checkoutFormId}
+                                    formId={this.checkoutAddressFormId}
                                     value=""
                                     type="text"
                                     placeholder="Lastname"
@@ -42,7 +101,7 @@ export class CheckoutRoute {
                             <corejam-form-input
                                 name="address"
                                 type="text"
-                                formId={this.checkoutFormId}
+                                formId={this.checkoutAddressFormId}
                                 label="Address"
                                 placeholder="Address"
                             ></corejam-form-input>
@@ -52,7 +111,7 @@ export class CheckoutRoute {
                                 <corejam-form-input
                                     name="phoneNumber"
                                     type="text"
-                                    formId={this.checkoutFormId}
+                                    formId={this.checkoutAddressFormId}
                                     label="Zip Code"
                                     placeholder="Zip Code"
                                 ></corejam-form-input>
@@ -61,7 +120,7 @@ export class CheckoutRoute {
                                 <corejam-form-input
                                     name="email"
                                     type="text"
-                                    formId={this.checkoutFormId}
+                                    formId={this.checkoutAddressFormId}
                                     required
                                     label="Country"
                                     value=""
@@ -74,7 +133,7 @@ export class CheckoutRoute {
                                 <corejam-form-input
                                     name="phoneNumber"
                                     type="number"
-                                    formId={this.checkoutFormId}
+                                    formId={this.checkoutAddressFormId}
                                     label="Phone number"
                                     placeholder="Phone"
                                 ></corejam-form-input>
@@ -83,7 +142,7 @@ export class CheckoutRoute {
                                 <corejam-form-input
                                     name="email"
                                     type="email"
-                                    formId={this.checkoutFormId}
+                                    formId={this.checkoutAddressFormId}
                                     required
                                     label="Email Address"
                                     value=""
@@ -121,7 +180,16 @@ export class CheckoutRoute {
                 </corejam-box>
             )
             case BasketStates.CONFIRMATION: return (
-                <corejam-box>confirm</corejam-box>
+                <corejam-box>
+                    <corejam-form-container name={this.orderConfirmFormId}>
+                        {basket.state.items.map((cartItem) => <dershop-cart-line item={cartItem}></dershop-cart-line>)}
+                        <corejam-form-submit formId={this.orderConfirmFormId}>
+                            <button data-cy="buy-now" type="submit">
+                                Buy Now
+                        </button>
+                        </corejam-form-submit>
+                    </corejam-form-container>
+                </corejam-box>
             )
         }
     }
@@ -141,9 +209,7 @@ export class CheckoutRoute {
                     </corejam-box>
 
                     <corejam-box w={8} pt={8} bWidthTop={1} bColor="gray-500">
-                        <corejam-form-container name={this.checkoutFormId}>
-                            {this.renderStep()}
-                        </corejam-form-container>
+                        {this.renderStep()}
                     </corejam-box>
                 </corejam-box>
             </Host>
