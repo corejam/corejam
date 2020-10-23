@@ -22,8 +22,8 @@
     "micro": "9.3.4",
     "micro-cors": "0.1.1",
     "next": "9.5.5",
-    "react": "17.0.0",
     "react-dom": "17.0.1"
+    "react": "17.0.1"
   },
   "devDependencies": {
     "@corejam/cli": "0.0.11",
