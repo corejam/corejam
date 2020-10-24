@@ -103,6 +103,9 @@ export namespace Components {
     }
     interface DershopRouteAccount {
     }
+    interface DershopRouteAccountOrder {
+        "param": any;
+    }
     interface DershopRouteAdminOrderView {
         "param": any;
     }
@@ -274,6 +277,12 @@ declare global {
         prototype: HTMLDershopRouteAccountElement;
         new (): HTMLDershopRouteAccountElement;
     };
+    interface HTMLDershopRouteAccountOrderElement extends Components.DershopRouteAccountOrder, HTMLStencilElement {
+    }
+    var HTMLDershopRouteAccountOrderElement: {
+        prototype: HTMLDershopRouteAccountOrderElement;
+        new (): HTMLDershopRouteAccountOrderElement;
+    };
     interface HTMLDershopRouteAdminOrderViewElement extends Components.DershopRouteAdminOrderView, HTMLStencilElement {
     }
     var HTMLDershopRouteAdminOrderViewElement: {
@@ -370,6 +379,7 @@ declare global {
         "dershop-product-box": HTMLDershopProductBoxElement;
         "dershop-product-list": HTMLDershopProductListElement;
         "dershop-route-account": HTMLDershopRouteAccountElement;
+        "dershop-route-account-order": HTMLDershopRouteAccountOrderElement;
         "dershop-route-admin-order-view": HTMLDershopRouteAdminOrderViewElement;
         "dershop-route-admin-orders": HTMLDershopRouteAdminOrdersElement;
         "dershop-route-cart": HTMLDershopRouteCartElement;
@@ -477,6 +487,9 @@ declare namespace LocalJSX {
     }
     interface DershopRouteAccount {
     }
+    interface DershopRouteAccountOrder {
+        "param"?: any;
+    }
     interface DershopRouteAdminOrderView {
         "param"?: any;
     }
@@ -532,6 +545,7 @@ declare namespace LocalJSX {
         "dershop-product-box": DershopProductBox;
         "dershop-product-list": DershopProductList;
         "dershop-route-account": DershopRouteAccount;
+        "dershop-route-account-order": DershopRouteAccountOrder;
         "dershop-route-admin-order-view": DershopRouteAdminOrderView;
         "dershop-route-admin-orders": DershopRouteAdminOrders;
         "dershop-route-cart": DershopRouteCart;
@@ -573,6 +587,7 @@ declare module "@stencil/core" {
             "dershop-product-box": LocalJSX.DershopProductBox & JSXBase.HTMLAttributes<HTMLDershopProductBoxElement>;
             "dershop-product-list": LocalJSX.DershopProductList & JSXBase.HTMLAttributes<HTMLDershopProductListElement>;
             "dershop-route-account": LocalJSX.DershopRouteAccount & JSXBase.HTMLAttributes<HTMLDershopRouteAccountElement>;
+            "dershop-route-account-order": LocalJSX.DershopRouteAccountOrder & JSXBase.HTMLAttributes<HTMLDershopRouteAccountOrderElement>;
             "dershop-route-admin-order-view": LocalJSX.DershopRouteAdminOrderView & JSXBase.HTMLAttributes<HTMLDershopRouteAdminOrderViewElement>;
             "dershop-route-admin-orders": LocalJSX.DershopRouteAdminOrders & JSXBase.HTMLAttributes<HTMLDershopRouteAdminOrdersElement>;
             "dershop-route-cart": LocalJSX.DershopRouteCart & JSXBase.HTMLAttributes<HTMLDershopRouteCartElement>;
