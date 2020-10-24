@@ -201,15 +201,47 @@ export class CheckoutRoute {
                 </corejam-box>
             )
             case BasketStates.CONFIRMATION: return (
-                <corejam-box>
-                    <corejam-form-container name={this.orderConfirmFormId}>
-                        {basket.state.items.map((cartItem) => <dershop-cart-line item={cartItem}></dershop-cart-line>)}
-                        <corejam-form-submit formId={this.orderConfirmFormId}>
-                            <button data-cy="buy-now" type="submit">
-                                Buy Now
-                        </button>
-                        </corejam-form-submit>
-                    </corejam-form-container>
+                <corejam-box px={5}>
+                    <corejam-box>
+                        <corejam-box justify="evenly" flex direction="row">
+                            <corejam-box bg="gray-200" p={5}>
+                                <corejam-box>
+                                    <corejam-type weight="bold">
+                                        Shipping Address
+                                    </corejam-type>
+                                </corejam-box>
+                                <corejam-box>
+                                </corejam-box>
+                            </corejam-box>
+                            <corejam-box bg="gray-200" p={5}>
+                                <corejam-type weight="bold">
+                                    Billing Address
+                                </corejam-type>
+                            </corejam-box>
+                            <corejam-box bg="gray-200" p={5}>
+                                <corejam-type weight="bold">
+                                    Payment Method
+                                </corejam-type>
+                            </corejam-box>
+                        </corejam-box>
+                    </corejam-box>
+                    <corejam-box w={12}>
+                        <corejam-form-container name={this.orderConfirmFormId}>
+                            {basket.state.items.map((cartItem) => <dershop-cart-line item={cartItem}></dershop-cart-line>)}
+                            <corejam-form-submit formId={this.orderConfirmFormId}>
+                                <corejam-box flex direction="row" justify="center" >
+                                    <corejam-box w={5}>
+                                        <dershop-order-totals></dershop-order-totals>
+                                        <corejam-box>
+                                            <button data-cy="buy-now" type="submit">
+                                                Confirm Order
+                                            </button>
+                                        </corejam-box>
+                                    </corejam-box>
+                                </corejam-box>
+                            </corejam-form-submit>
+                        </corejam-form-container>
+                    </corejam-box>
                 </corejam-box>
             )
         }

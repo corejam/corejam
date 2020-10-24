@@ -62,6 +62,8 @@ export namespace Components {
     }
     interface DershopManufacturerList {
     }
+    interface DershopOrderTotals {
+    }
     interface DershopOrderView {
         "orderId": string;
     }
@@ -255,6 +257,12 @@ declare global {
         prototype: HTMLDershopManufacturerListElement;
         new (): HTMLDershopManufacturerListElement;
     };
+    interface HTMLDershopOrderTotalsElement extends Components.DershopOrderTotals, HTMLStencilElement {
+    }
+    var HTMLDershopOrderTotalsElement: {
+        prototype: HTMLDershopOrderTotalsElement;
+        new (): HTMLDershopOrderTotalsElement;
+    };
     interface HTMLDershopOrderViewElement extends Components.DershopOrderView, HTMLStencilElement {
     }
     var HTMLDershopOrderViewElement: {
@@ -383,6 +391,7 @@ declare global {
         "dershop-logo": HTMLDershopLogoElement;
         "dershop-manufacturer": HTMLDershopManufacturerElement;
         "dershop-manufacturer-list": HTMLDershopManufacturerListElement;
+        "dershop-order-totals": HTMLDershopOrderTotalsElement;
         "dershop-order-view": HTMLDershopOrderViewElement;
         "dershop-product": HTMLDershopProductElement;
         "dershop-product-box": HTMLDershopProductBoxElement;
@@ -454,6 +463,8 @@ declare namespace LocalJSX {
         "manufacturer"?: ManufacturerDB;
     }
     interface DershopManufacturerList {
+    }
+    interface DershopOrderTotals {
     }
     interface DershopOrderView {
         "orderId"?: string;
@@ -552,6 +563,7 @@ declare namespace LocalJSX {
         "dershop-logo": DershopLogo;
         "dershop-manufacturer": DershopManufacturer;
         "dershop-manufacturer-list": DershopManufacturerList;
+        "dershop-order-totals": DershopOrderTotals;
         "dershop-order-view": DershopOrderView;
         "dershop-product": DershopProduct;
         "dershop-product-box": DershopProductBox;
@@ -595,6 +607,7 @@ declare module "@stencil/core" {
             "dershop-logo": LocalJSX.DershopLogo & JSXBase.HTMLAttributes<HTMLDershopLogoElement>;
             "dershop-manufacturer": LocalJSX.DershopManufacturer & JSXBase.HTMLAttributes<HTMLDershopManufacturerElement>;
             "dershop-manufacturer-list": LocalJSX.DershopManufacturerList & JSXBase.HTMLAttributes<HTMLDershopManufacturerListElement>;
+            "dershop-order-totals": LocalJSX.DershopOrderTotals & JSXBase.HTMLAttributes<HTMLDershopOrderTotalsElement>;
             "dershop-order-view": LocalJSX.DershopOrderView & JSXBase.HTMLAttributes<HTMLDershopOrderViewElement>;
             "dershop-product": LocalJSX.DershopProduct & JSXBase.HTMLAttributes<HTMLDershopProductElement>;
             "dershop-product-box": LocalJSX.DershopProductBox & JSXBase.HTMLAttributes<HTMLDershopProductBoxElement>;
