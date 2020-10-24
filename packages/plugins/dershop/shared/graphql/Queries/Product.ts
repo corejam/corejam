@@ -11,6 +11,7 @@ export const productByUrlGQL = `
       sku
       price {
         gross
+        net
       }
       seo {
         url
