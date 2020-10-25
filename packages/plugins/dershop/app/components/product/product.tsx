@@ -87,14 +87,16 @@ export class ProductDetail {
              <corejam-box mt={6} pb={6}>
               <corejam-box flex direction="row">
                 {this._product.images?.map((image) => (
-                  <dershop-image
-                    h="32"
-                    fit="cover"
-                    data-cy="product-thumb"
-                    onClick={() => { this._activeThumb = image }}
-                    src={image.src}
-                    alt={this._product.name}
-                  ></dershop-image>
+                  <corejam-box px={2}>
+                    <dershop-image
+                      h="32"
+                      fit="cover"
+                      data-cy="product-thumb"
+                      onClick={() => { this._activeThumb = image }}
+                      src={image.src}
+                      alt={this._product.name}
+                    ></dershop-image>
+                  </corejam-box>
                 ))}
               </corejam-box>
             </corejam-box>
