@@ -29,6 +29,11 @@ describe("Products", function () {
         cy.getTag("addToCart").click()
         cy.visit("/cart")
         cy.getTag("cartItemName").invoke("text").should("be.equal", productTitle)
+        cy.getTag("checkout").click()
+        cy.getTag("order-overview")
+        cy.getTag("order-submit-address").click()
+        cy.contains("Payment Method")
+        cy.getTag("order-submit-payment").click()
         cy.getTag("buy-now").click()
         cy.url().should("contain", "/account/order");
         cy.get("dershop-order-view")

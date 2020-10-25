@@ -9,7 +9,7 @@ export class DershopCartOverview {
 
     render() {
         return (
-            <corejam-box bg="gray-200" flex direction="col">
+            <corejam-box data-cy="order-overview" bg="gray-200" flex direction="col">
                 <corejam-box p={3}>
                     <corejam-type size="sm" weight="bold">Order Overview</corejam-type>
                 </corejam-box>

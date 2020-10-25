@@ -151,7 +151,7 @@ export class CheckoutRoute {
                                     ></corejam-form-input>
                                 </corejam-box>
                             </corejam-box>
-                            <corejam-base-link onClick={() => {
+                            <corejam-base-link data-cy="order-submit-address" onClick={() => {
                                 basketService.send({ type: "ADDPAYMENT" });
                             }} href="#">
                                 <corejam-type size="sm" weight="bold" transform="uppercase" decoration="underline">
@@ -186,7 +186,7 @@ export class CheckoutRoute {
                         </corejam-type>
                         </corejam-box>
                         <corejam-box mt={10}>
-                            <corejam-base-link onClick={() => {
+                            <corejam-base-link data-cy="order-submit-payment" onClick={() => {
                                 basketService.send({ type: "CONFIRM" });
                             }} href="#">
                                 <corejam-type size="sm" weight="bold" transform="uppercase" decoration="underline">
