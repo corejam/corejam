@@ -1,4 +1,3 @@
-import { state as routerState } from "@corejam/router";
 import { Component, ComponentInterface, h, Host } from "@stencil/core";
 import basket, { basketService } from "../../../shared/store/basket";
 
@@ -42,7 +41,6 @@ export class DershopCart implements ComponentInterface {
                 <corejam-box flex justify="between">
                   <corejam-base-link data-cy="checkout" onClick={() => {
                     basketService.send({ type: "ADD_ADDRESS" });
-                    routerState.router.push("/checkout")
                   }}>
                     <corejam-type weight="bold" size="sm">
                       Checkout
