@@ -1,11 +1,9 @@
 const args = require("args");
-const { getServerContext } = require("@corejam/base/dist/Server");
 const { Client, query } = require("faunadb");
 const q = query;
 const { getDataClient } = require("@corejam/base/dist/PluginManager");
 
 args
-  .option("faker", "Add faker data to the database", false)
   .option("dbSecret", "Your DB Secret key (FaunaDB)")
   .command("fauna", "Bootstrap a new faunaDB");
 
@@ -25,8 +23,6 @@ if (!COMMIT_ID) {
 
 async function go() {
   let SECRET, newClient;
-
-  const { models } = await getServerContext({ req: { headers: {} } });
 
   let client = new Client({ secret: flags.dbSecret });
 

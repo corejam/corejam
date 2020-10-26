@@ -1,5 +1,5 @@
 import { getServerContext } from "@corejam/base/dist/Server";
-import { roles } from "@corejam/plugin-auth/shared/types/User";
+import { roles } from "@corejam/plugin-auth/dist/shared/types/User";
 import { generateManufacturer, generateCategory, generateProduct, generateOrder, generateUser, generateConfig } from "../server/resolvers/db/faker/Generator";
 import { CategoryDB } from "../shared/types/Category";
 import { ManufacturerDB } from "../shared/types/Manufacturer";
