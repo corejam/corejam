@@ -1,5 +1,6 @@
 import { getServerContext } from "@corejam/base/dist/Server";
-import { generateManufacturer, generateCategory, generateProduct, generateOrder, generateUser } from "../server/resolvers/db/faker/Generator";
+import { roles } from "@corejam/plugin-auth/dist/shared/types/User";
+import { generateManufacturer, generateCategory, generateProduct, generateOrder, generateUser, generateConfig } from "../server/resolvers/db/faker/Generator";
 import { CategoryDB } from "../shared/types/Category";
 import { ManufacturerDB } from "../shared/types/Manufacturer";
 import { OrderDB } from "../shared/types/Order";
@@ -30,6 +31,20 @@ export default async () => {
         orders: []
     }
 
+    await models.configCreate(
+        generateConfig({
+            general: {
+                admin_email: "hello@corejam.dev",
+            },
+            seo: {
+                url: "/",
+                keywords: ["Serverless webshop"],
+                metaTitle: "DerShop - Serverless Ecommerce System",
+                metaDescription: "Open Source",
+            },
+        })
+    );
+
     for (let i = 0; i <= 5; i++) {
         const manufacturer = await models.manufacturerCreate(generateManufacturer())
         data.manufacturers.push(manufacturer);
@@ -48,7 +63,7 @@ export default async () => {
         //@ts-ignore
         product.manufacturer = { ...(await models.manufacturerByID(manufacturer.id)) }
         product.categories = [{ ...(await models.categoryById(category.id) as CategoryDB) }]
-        
+
         data.products.push(product)
     }
 
@@ -62,13 +77,16 @@ export default async () => {
         data.orders.push(createdOrder);
     }
 
-    data.users.push(await models.userRegister({
+    const user = await models.userRegister({
         firstName: "Test",
         lastName: "Account",
         email: "test@test.com",
         password: "valid123Password@",
         passwordConfirm: "valid123Password@",
-    }))
+    })
+
+    data.users.push(user)
+    await models.userEdit(user.id, { role: [roles.ADMIN] });
 
     return data
 }
