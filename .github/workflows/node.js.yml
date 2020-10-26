@@ -240,7 +240,7 @@ jobs:
       - run: |
           if [ $GITHUB_REF = 'refs/heads/master' ]; then export DEPLOYED_URL="demo.dershop.dev"; else export DEPLOYED_URL="$GITHUB_SHA.pipeline.dershop.dev"; fi
           cd packages/plugins/dershop && yarn corejam generateSchema
-          export SECRET=$(COMMIT_ID=cypress_$GITHUB_SHA node ./tests/bootstrap.js --faker | grep 'secret'|cut -f2 -d ":")
+          export SECRET=$(COMMIT_ID=cypress_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
           cd ../../../examples/nextjs
           export DEPLOYMENT=$(vercel --confirm --token $ZEIT_TOKEN --scope=dershop -e JWT_HASH=gitlab -e SECRET_KEY=$SECRET -e DB_DRIVER="DB_FAUNA" --build-env SECRET_KEY=$SECRET --build-env DB_DRIVER="DB_FAUNA" -e DEPLOYMENT_URL=https://$DEPLOYED_URL)
           vercel alias $DEPLOYMENT $DEPLOYED_URL --token $ZEIT_TOKEN --scope dershop
