@@ -29,7 +29,7 @@ export class UiBase {
       --cj-font-serif: Georgia, Cambria, Times New Roman, Times, serif;
       --cj-font-mono:Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
 
-      --cj-link-decoration: underline;
+      --cj-link-decoration: none;
       --cj-link-hover-decoration: underline;
 
       --cj-color-black: #000;
