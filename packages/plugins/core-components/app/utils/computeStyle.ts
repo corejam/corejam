@@ -46,7 +46,7 @@ export function computeStyle(styles) {
       return;
     }
     if (key === "focus") {
-      if (collecters[key].length > 0) generated += `.##HASH## : ""} { ${collecters[key].join("\n")}}\n`;
+      if (collecters[key].length > 0) generated += `.##HASH##:focus{ ${collecters[key].join("\n")}}\n`;
       return;
     }
     if (key === "sm") {

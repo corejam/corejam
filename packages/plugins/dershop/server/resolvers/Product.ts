@@ -106,38 +106,39 @@ export default {
       return resolveProductListFromReferences(allProducts, params, ctx);
     },
     productSearch: async (_obj: any, { search, size, page }, { models }: MergedServerContext) => {
-      const offset = (page - 1) * size;
+      return new Promise(async (res) => {
+        const offset = (page - 1) * size;
 
-      const allProducts = await models.allProducts();
-      const sidebar = generateSidebar(allProducts);
-      const searchOptions = {
-        includeScore: true,
-        threshold: 0.3,
-        minMatchCharLength: 2,
-        keys: ["name"],
-      };
+        const allProducts = await models.allProducts();
+        const sidebar = generateSidebar(allProducts);
 
-      const fuse = new Fuse(allProducts, searchOptions);
-      const searchResponse = fuse.search(search);
+        const searchOptions = {
+          includeScore: true,
+          threshold: 0.3,
+          minMatchCharLength: 2,
+          keys: ["name"],
+        };
 
-      let results: ProductDB[] = [];
+        const fuse = new Fuse(allProducts, searchOptions);
+        const searchResponse = fuse.search(search);
 
-      results = searchResponse.map((searchResult: Fuse.FuseResult<any>) => {
-        return searchResult.item;
+        let results: ProductDB[] = [];
+
+        results = searchResponse.map((searchResult: Fuse.FuseResult<any>) => searchResult.item);
+
+        const items = results.slice(offset, offset + size);
+
+        const paginated: ProductList = {
+          currentPage: page,
+          totalItems: results.length,
+          lastPage: Math.ceil(results.length / size),
+          perPage: size,
+          items: items,
+          sidebar,
+        };
+
+        res(paginated);
       });
-
-      const items = results.slice(offset, offset + size);
-
-      const paginated: ProductList = {
-        currentPage: page,
-        totalItems: results.length,
-        lastPage: Math.ceil(results.length / size),
-        perPage: size,
-        items: items,
-        sidebar,
-      };
-
-      return new Promise((res) => res(paginated));
     },
     productByUrl: (_obj: any, args: any, { models }: MergedServerContext) => {
       return models.productByUrl(args.url);

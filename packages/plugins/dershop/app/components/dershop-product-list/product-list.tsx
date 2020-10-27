@@ -6,7 +6,6 @@ import { ProductList as ProductListType } from "../../../shared/types/Product";
 
 @Component({
   tag: "dershop-product-list",
-  styleUrl: "product-list.css",
 })
 export class ProductList {
   @Prop() list: any;
@@ -16,10 +15,15 @@ export class ProductList {
   @State() _list: ProductListType;
   @State() _size: Number = this.size;
 
+  @Watch("list")
+  listUpdate(newValue) {
+    this._list = typeof newValue === "string" ? JSON.parse(newValue) : newValue;
+  }
+
   @Watch("page")
   @Watch("size")
-  componentShouldUpdate(newValue, oldValue) {
-    if (newValue !== oldValue) this.queryData();
+  getNewData() {
+    this.queryData();
   }
   async queryData() {
     //Query the default list
@@ -73,14 +77,14 @@ export class ProductList {
               </corejam-box>
             </corejam-box>
             <corejam-grid smTemplateColumns={2} mdTemplateColumns={3} lgTemplateColumns={4} gapCol={6} gapRow={12}>
-              {this._list.items?.map((product, k) => (
+              {this._list.items?.map((product) => (
                 <dershop-product-box
                   data-cy="produx-box"
                   name={product.name}
                   image={product.images ? product.images[0].src : null}
                   price={product.price ? product.price.net : null}
                   url={product.seo ? product.seo.url : null}
-                  key={k}
+                  key={product.id}
                 />
               ))}
             </corejam-grid>

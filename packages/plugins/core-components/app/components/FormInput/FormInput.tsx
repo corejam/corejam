@@ -19,6 +19,7 @@ export class CorejamFormInput implements ComponentInterface {
   @Prop() required = false;
   @Prop() value: string | number;
   @Prop() checked = false;
+  @Prop() autofocus = false;
 
   @Prop() w = 12;
   @Prop() bg = "gray-100";
@@ -72,7 +73,7 @@ export class CorejamFormInput implements ComponentInterface {
 
   render() {
     return (
-      <Host>
+      <Host style={{ display: "block", width: "100%" }}>
         <corejam-box flex direction="col" w={12} mb={3}>
           {this.label && (
             <corejam-box mb={4}>
@@ -94,6 +95,7 @@ export class CorejamFormInput implements ComponentInterface {
             autocomplete={this.autocomplete}
             placeholder={this.placeholder}
             onInput={(e) => this.onChange(e)}
+            autoFocus={this.autofocus}
             {...this.extraProps}
           />
         </corejam-box>
