@@ -58,7 +58,7 @@ export class OrderView {
             </corejam-box>
           </corejam-box>
           {this._data.items.map((item) => (
-            <corejam-box>
+            <corejam-box py={2} justify="between" flex direction="row">
               <corejam-box flex w={5} items="center">
                 <dershop-ui-type weight="bold">{item.product.name}</dershop-ui-type>
               </corejam-box>
@@ -74,33 +74,34 @@ export class OrderView {
             </corejam-box>
           ))}
         </corejam-box>
-        <corejam-box flex max="xl" mx="auto" px={2} xlPx={0}>
-          <corejam-box w={9}></corejam-box>
-          <corejam-box w={3} mt={8}>
-            <corejam-box flex justify="between" mb={4}>
-              <dershop-ui-type>Order Total</dershop-ui-type>
-              <dershop-ui-type weight="bold">{this._data.price.net} €</dershop-ui-type>
+        <corejam-box mt={20} flex direction="row">
+          <corejam-box max="xl" flex direction="col" mx="auto">
+            <corejam-type as="h2" size="xl">
+              Order Status
+          </corejam-type>
+            {this._data.status}
+          </corejam-box>
+          <corejam-box max="xl" flex direction="col" mx="auto">
+            <corejam-type as="h2" size="xl">
+              Shipping Address
+          </corejam-type>
+            {this._data.user.firstName} - {this._data.user.lastName} <br />
+            {this._data.addressShipping.city} - {this._data.addressShipping.country}
+          </corejam-box>
+          <corejam-box max="xl" flex direction="col" mx="auto">
+            <corejam-type as="h2" size="xl">
+              Billing Address
+          </corejam-type>
+            {this._data.addressBilling.city} - {this._data.addressBilling.country}
+          </corejam-box>
+          <corejam-box flex max="xl" mx="auto" px={2} xlPx={0}>
+            <corejam-box w={3} mt={8}>
+              <corejam-box flex justify="between" mb={4}>
+                <dershop-ui-type>Order Total</dershop-ui-type>
+                <dershop-ui-type weight="bold">{this._data.price.net} €</dershop-ui-type>
+              </corejam-box>
             </corejam-box>
           </corejam-box>
-        </corejam-box>
-        <corejam-box max="xl" flex direction="col" mx="auto">
-          <corejam-type as="h2" size="xl">
-            Order Status
-          </corejam-type>
-          {this._data.status}
-        </corejam-box>
-        <corejam-box max="xl" flex direction="col" mx="auto">
-          <corejam-type as="h2" size="xl">
-            Shipping Address
-          </corejam-type>
-          {this._data.user.firstName} - {this._data.user.lastName} <br />
-          {this._data.addressShipping.city} - {this._data.addressShipping.country}
-        </corejam-box>
-        <corejam-box max="xl" flex direction="col" mx="auto">
-          <corejam-type as="h2" size="xl">
-            Billing Address
-          </corejam-type>
-          {this._data.addressBilling.city} - {this._data.addressBilling.country}
         </corejam-box>
       </Host>
     );

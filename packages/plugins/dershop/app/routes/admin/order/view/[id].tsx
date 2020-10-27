@@ -9,7 +9,6 @@ export class OrderViewRoute {
   render() {
     return (
       <Host>
-        <dershop-header />
         <dershop-order-view orderId={this.param.id} />
       </Host>
     );
