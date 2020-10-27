@@ -1,13 +1,19 @@
 import { authStore } from "@corejam/plugin-auth";
 import { assign, createMachine } from "@xstate/fsm";
+import gql from "graphql-tag";
+import { orderCreateGQL } from "../../shared/graphql/Mutations/Order";
+import { OrderCreateInput } from "../../shared/types/Order";
 import { Address } from "../types/Address";
+import { state as routerState } from "@corejam/router"
+import { coreState } from "@corejam/core-components";
 
 export enum BasketStates {
   IDLE = "idle",
   INITIALIZED = "initialized",
   ADDRESS = "address",
   PAYMENT = "payment",
-  CONFIRMATION = "confirmation"
+  CONFIRMATION = "confirmation",
+  CONFIRMED = "confirmed"
 }
 
 export type BasketStateSchema =
@@ -30,6 +36,9 @@ export type BasketStateSchema =
   | {
     value: BasketStates.CONFIRMATION;
     context: BasketContext;
+  } | {
+    value: BasketStates.CONFIRMED;
+    context: BasketContext;
   };
 interface BasketContext {
   initialized?: boolean | string;
@@ -46,10 +55,11 @@ type ProductCartItem = any;
 type CartEvent =
   | { type: "ADDITEM"; item: ProductCartItem }
   | { type: "EDITITEM"; item: ProductCartItem }
-  | { type: "ADD_ADDRESS" }
+  | { type: "CHECKOUT" }
+  | { type: "ADD_ADDRESS", data: any }
   | { type: "ADDPAYMENT" }
   | { type: "CONFIRM" }
-  | { type: "FINALIZE" }
+  | { type: "CONFIRMED" }
   | { type: "CLEAR" };
 
 export const basketMachine = createMachine<
@@ -72,7 +82,7 @@ export const basketMachine = createMachine<
         on: {
           ADDITEM: {
             target: "initialized",
-            actions: ["addItemToBasket", "calculateBasket", "initAddress"],
+            actions: ["addItemToBasket", "calculateBasket"],
           },
         },
       },
@@ -82,10 +92,10 @@ export const basketMachine = createMachine<
             target: "initialized",
             actions: ["addItemToBasket", "calculateBasket"],
           },
-          ADD_ADDRESS: [
+          CHECKOUT: [
             {
               target: "address",
-              cond: (ctx) => ctx.items.length > 0
+              cond: (ctx) => ctx.items.length > 0 && authStore.identity
             },
           ],
           CLEAR: {
@@ -99,6 +109,10 @@ export const basketMachine = createMachine<
           ADDITEM: {
             target: "address",
             actions: "addItemToBasket",
+          },
+          ADD_ADDRESS: {
+            target: "payment",
+            actions: "addAddress"
           },
           CLEAR: {
             target: "idle",
@@ -126,9 +140,9 @@ export const basketMachine = createMachine<
       },
       confirmation: {
         on: {
-          FINALIZE: {
-            target: "idle",
-            actions: "reset",
+          CONFIRMED: {
+            target: "confirmed",
+            actions: "submitOrder",
           },
           CLEAR: {
             target: "idle",
@@ -136,10 +150,43 @@ export const basketMachine = createMachine<
           },
         },
       },
+      confirmed: {
+        entry: "reset"
+      },
     },
   },
   {
     actions: {
+      submitOrder: (context) => {
+
+        const input: OrderCreateInput = {
+          items: context.items,
+          status: "SHIPPING",
+          addressBilling: {
+            ...context.address,
+          },
+          addressShipping: {
+            ...context.address,
+          },
+          price: {
+            net: context.orderTotal,
+            gross: context.orderTotal,
+            tax_rate: 19
+          }
+        };
+
+        //TODO move this to the order confirmation page.
+        coreState.client.mutate({
+          mutation: gql(orderCreateGQL),
+          variables: {
+            orderInput: input,
+          },
+        }).then(request => {
+          if (request.data.orderCreate) {
+            routerState.router.push(`/account/order/${request.data.orderCreate.id}`);
+          }
+        });
+      },
       addItemToBasket: assign({
         initialized: (context) =>
           context.initialized ? context.initialized : new Date().toISOString(),
@@ -157,10 +204,17 @@ export const basketMachine = createMachine<
           }
         },
       }),
-      initAddress: assign({
-        address: (context) => {
-          if (!context.address) {
-            return authStore.identity
+      addAddress: assign({
+        address: (_context, event) => {
+          if (event.type === "ADD_ADDRESS") {
+            return {
+              country: event.data.country.value,
+              state: event.data.address.value,
+              street: event.data.address.value,
+              street_2: event.data.address.value,
+              zipCode: event.data.zipCode.value,
+              city: event.data.address.value
+            }
           }
         }
       }),

@@ -229,6 +229,7 @@ export namespace Components {
     }
     interface CorejamFormContainer {
         "name": string;
+        "submitHandler": Function;
     }
     interface CorejamFormInput {
         "autocomplete": string;
@@ -703,6 +704,7 @@ declare namespace LocalJSX {
         "onFormEvent"?: (event: CustomEvent<any>) => void;
         "onFormSubmit"?: (event: CustomEvent<any>) => void;
         "onSendForm"?: (event: CustomEvent<any>) => void;
+        "submitHandler"?: Function;
     }
     interface CorejamFormInput {
         "autocomplete"?: string;

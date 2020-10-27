@@ -9,6 +9,7 @@ export class CorejamFormContainer implements ComponentInterface {
   @Event() formEvent: EventEmitter;
   @Event() formSubmit: EventEmitter;
   @Event() sendForm: EventEmitter;
+  @Prop() submitHandler: Function;
 
   @Listen("formSubmit")
   handleSubmit(e) {
@@ -17,6 +18,9 @@ export class CorejamFormContainer implements ComponentInterface {
       const data = {
         ...this.formData,
       };
+      if (this.submitHandler)
+        this.submitHandler(data);
+
       this.sendForm.emit(data);
     }
   }

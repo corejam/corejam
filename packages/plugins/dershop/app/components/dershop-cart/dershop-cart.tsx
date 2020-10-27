@@ -41,7 +41,7 @@ export class DershopCart implements ComponentInterface {
                 <dershop-order-totals></dershop-order-totals>
                 <corejam-box flex justify="between">
                   <corejam-type data-cy="checkout" onClick={() => {
-                    basketService.send({ type: "ADD_ADDRESS" });
+                    basketService.send({ type: "CHECKOUT" });
                     routerState.router.push("/checkout")
                   }} weight="bold" size="sm">
                     Checkout

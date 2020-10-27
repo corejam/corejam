@@ -1,3 +1,5 @@
+var faker = require("faker");
+
 describe("Products", function () {
   it("Product List is there", function () {
     cy.visit("/products");
@@ -31,7 +33,11 @@ describe("Products", function () {
         cy.getTag("cartItemName").invoke("text").should("be.equal", productTitle)
         cy.getTag("checkout").click()
         cy.getTag("order-overview")
-        cy.getTag("order-submit-address").click()
+        cy.getTag("checkoutAddress-address").type(faker.address.streetAddress())
+        cy.getTag("checkoutAddress-zipCode").type(faker.address.zipCode())
+        cy.getTag("checkoutAddress-country").type(faker.address.country())
+        cy.getTag("checkoutAddress-phoneNumber").type(12345)
+        cy.getTag("submit-checkoutAddress").click()
         cy.contains("Payment Method")
         cy.getTag("order-submit-payment").click()
         cy.getTag("buy-now").click()
