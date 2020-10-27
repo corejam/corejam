@@ -7,7 +7,6 @@ import jetpack from "fs-jetpack";
 import kill from "kill-port";
 import { envRoot } from "../config";
 import { copySchemaToDist } from "../helpers/copy";
-import { cleanActiveRunner } from "../helpers/resetStages";
 import { set, get, kill as killProcess } from "../processes";
 
 export default async function run(options: any) {
@@ -50,7 +49,7 @@ export default async function run(options: any) {
 
     await kill(3001);
 
-    const args = ["build", "--dev", "--watch", "--serve", "--docs"];
+    const args = ["build", "--dev", "--watch", "--serve"];
     const additionalEnv: { targets: string } = { targets: "" };
 
     if (options.ssr) {
@@ -76,7 +75,6 @@ export default async function run(options: any) {
 
     bootSpinner.stopAndPersist({ text: "Watching for file change..." });
   } catch (e) {
-    await cleanActiveRunner();
     console.log(e);
   }
 }
