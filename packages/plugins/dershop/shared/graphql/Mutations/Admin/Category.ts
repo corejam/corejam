@@ -1,7 +1,5 @@
-
-
 export const categoryEditGQL = `
-  mutation CategoryEdit($id: String!, $categoryInput: CategoryInput!) {
+  mutation CategoryEdit($id: ID!, $categoryInput: CategoryInput!) {
     categoryEdit(id: $id, categoryInput: $categoryInput) {
       name
       description
@@ -10,7 +8,7 @@ export const categoryEditGQL = `
 `;
 
 export const categoryEditSEOGQL = `
-  mutation CategoryEditSEO($id: String!, $seoInput: SEOInput!) {
+  mutation CategoryEditSEO($id: ID!, $seoInput: SEOInput!) {
     categoryEditSEO(id: $id, seoInput: $seoInput) {
       seo {
         metaDescription

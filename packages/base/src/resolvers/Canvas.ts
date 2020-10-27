@@ -1,20 +1,15 @@
 import { CanvasPageList } from "../typings/Canvas";
-import { adminAllCanvasPagesGQL } from "../queries/Admin/CanvasPages";
 import { ServerContext } from "../typings/Server";
-import { getServerClient } from "../PluginManager";
 
 export default {
   Query: {
     allCanvasPages: (_obj: any, _args: any, { models }: ServerContext) => {
       return models.allCanvasPages();
     },
-    paginateCanvasPages: async (_obj: any, { size, page }) => {
-      const client = getServerClient();
+    paginateCanvasPages: async (_obj: any, { size, page }, { models }) => {
       const offset = (page - 1) * size;
 
-      const {
-        data: { allCanvasPages },
-      } = await client.request(adminAllCanvasPagesGQL);
+      const allCanvasPages = models.allCanvasPages();
       const items = allCanvasPages.slice(offset, offset + size);
 
       const paginated: CanvasPageList = {

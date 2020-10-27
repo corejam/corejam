@@ -2,10 +2,10 @@ import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
 import { paginateUsersGQL } from "../../../shared/graphql/Queries";
 import { authStore } from "../../store/authStore";
+import gql from "graphql-tag";
 
 @Component({
   tag: "auth-admin-user-list",
-  shadow: true,
 })
 export class AuthAdminUserList {
   @Prop() data: any;
@@ -19,12 +19,15 @@ export class AuthAdminUserList {
   }
 
   async queryData() {
-    const request = await coreState.client.request(paginateUsersGQL, {
-      page: this.page,
-      size: 15,
+    const request = await coreState.client.query({
+      query: gql(paginateUsersGQL),
+      variables: {
+        page: this.page,
+        size: 15,
+      },
     });
 
-    this._data = request.paginateUsers;
+    this._data = request.data.paginateUsers;
   }
 
   private tableHeader = ["Email", "Role", "Status", "Date Created"];
@@ -35,6 +38,7 @@ export class AuthAdminUserList {
 
   render() {
     if (!authStore.identity) return <corejam-box mx="auto">Not authorized</corejam-box>;
+
     return (
       <Host>
         <corejam-box max="xl" flex direction="col" mx="auto">

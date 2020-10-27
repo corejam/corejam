@@ -48,15 +48,7 @@ const SvgLogo = ({ colorCode }) => (
                 xlinkHref="#SVGID_1_"
               />
               <clipPath id="SVGID_2_">
-                <use
-                  id="use17"
-                  width="100%"
-                  height="100%"
-                  x="0"
-                  y="0"
-                  overflow="visible"
-                  xlinkHref="#SVGID_1_"
-                />
+                <use id="use17" width="100%" height="100%" x="0" y="0" overflow="visible" xlinkHref="#SVGID_1_" />
               </clipPath>
               <g id="g5414" clip-path="url(#SVGID_2_)">
                 <g id="g5420">
@@ -81,15 +73,7 @@ const SvgLogo = ({ colorCode }) => (
                 xlinkHref="#SVGID_3_"
               />
               <clipPath id="SVGID_4_">
-                <use
-                  id="use30"
-                  width="100%"
-                  height="100%"
-                  x="0"
-                  y="0"
-                  overflow="visible"
-                  xlinkHref="#SVGID_3_"
-                />
+                <use id="use30" width="100%" height="100%" x="0" y="0" overflow="visible" xlinkHref="#SVGID_3_" />
               </clipPath>
               <g id="g5438" clip-path="url(#SVGID_4_)">
                 <g id="g5444">
@@ -115,15 +99,7 @@ const SvgLogo = ({ colorCode }) => (
                 xlinkHref="#SVGID_5_"
               />
               <clipPath id="SVGID_6_">
-                <use
-                  id="use43"
-                  width="100%"
-                  height="100%"
-                  x="0"
-                  y="0"
-                  overflow="visible"
-                  xlinkHref="#SVGID_5_"
-                />
+                <use id="use43" width="100%" height="100%" x="0" y="0" overflow="visible" xlinkHref="#SVGID_5_" />
               </clipPath>
               <g id="g5462" clip-path="url(#SVGID_6_)">
                 <g id="g5468">
@@ -137,22 +113,13 @@ const SvgLogo = ({ colorCode }) => (
         </g>
       </g>
     </g>
-    <use
-      id="use98"
-      width="100%"
-      height="100%"
-      x="0"
-      y="0"
-      transform="translate(-370.87 -40.79)"
-      xlinkHref="#g92"
-    />
+    <use id="use98" width="100%" height="100%" x="0" y="0" transform="translate(-370.87 -40.79)" xlinkHref="#g92" />
   </svg>
 );
 
 @Component({
   tag: "dershop-logo",
   styleUrl: "logo.css",
-  shadow: true,
 })
 
 /**

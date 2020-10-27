@@ -1,4 +1,4 @@
-:host {
+dershop-cart-mini {
   display: block;
   position: relative;
 }
@@ -12,7 +12,7 @@
   }
 }
 
-span {
+dershop-cart-mini span {
   position: absolute;
   display: inline-block;
   padding: 4px 8px;

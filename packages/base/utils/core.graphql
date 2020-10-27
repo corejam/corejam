@@ -1,26 +1,3 @@
-directive @cacheControl(maxAge: Int) on FIELD_DEFINITION | OBJECT | INTERFACE
-directive @relation on FIELD_DEFINITION
-# Direct the client to resolve this field locally, either from the cache or local resolvers.
-directive @client(
-  # When true, the client will never use the cache for this value. See
-  # https://www.apollographql.com/docs/react/essentials/local-state/#forcing-resolvers-with-clientalways-true
-  always: Boolean
-) on FIELD | FRAGMENT_DEFINITION | INLINE_FRAGMENT
-# Export this locally resolved field as a variable to be used in the remainder of this query. See
-# https://www.apollographql.com/docs/react/essentials/local-state/#using-client-fields-as-variables
-directive @export(
-  # The variable name to export this field as.
-  as: String!
-) on FIELD
-# Specify a custom store key for this result. See
-# https://www.apollographql.com/docs/react/advanced/caching/#the-connection-directive
-directive @connection(
-  # Specify the store key.
-  key: String!
-  # An array of query argument names to include in the generated custom store key.
-  filter: [String!]
-) on FIELD
-
 type CanvasPeer {
   hash: String!
   offer: JSONObject!
@@ -37,8 +14,8 @@ type CanvasPeers {
   peers: [CanvasPeer!]
 }
 
-type CanvasPage implements Timestamp {
-  id: String!
+type CanvasPage implements Timestamp @cacheControl(maxAge: 300) {
+  id: ID!
   canvas: JSONObject
   seo: SEO
   peers: CanvasPeers
@@ -59,18 +36,18 @@ type CanvasPageList implements Paginated {
   items: [CanvasPage]
 }
 
-type Config {
+type Config @cacheControl(maxAge: 3600) {
   seo: SEO!
   general: ConfigGeneral!
   layout: ConfigLayout!
 }
 
-type ConfigLayout {
+type ConfigLayout @cacheControl(maxAge: 3600) {
   header: JSONObject
   footer: JSONObject
 }
 
-type ConfigGeneral {
+type ConfigGeneral @cacheControl(maxAge: 3600) {
   admin_email: String!
 }
 
@@ -83,9 +60,9 @@ input ConfigInput {
   general: ConfigGeneralInput!
 }
 
-type Image implements Timestamp {
+type Image implements Timestamp @cacheControl(maxAge: 3600) {
   src: String!
-  public_id: String!
+  public_id: ID!
   alt: String
   mimetype: String!
   dateCreated: String!
@@ -93,7 +70,7 @@ type Image implements Timestamp {
 }
 
 input ImageInput {
-  public_id: String!
+  public_id: ID!
   resource_type: String!
   src: String!
   alt: String
@@ -108,15 +85,12 @@ type Mutation {
   updateConfig(configInput: ConfigGeneralInput!): Config
   updateConfigSEO(seoInput: SEOInput!): Config
   cacheFlush: Boolean
-  canvasPageCreate(
-    canvasPageInput: CanvasPageInput!
-    seoInput: SEOInput!
-  ): CanvasPage
-  canvasPageEditSEO(id: String!, seoInput: SEOInput!): CanvasPage
-  canvasPageEdit(id: String!, canvasPage: CanvasPageInput!): CanvasPage
-  canvasOpenPeers(id: String!, peerInput: CanvasPeerInput!): CanvasPeers
-  canvasPollPeers(id: String!): CanvasPeers
-  canvasClosePeers(id: String!): CanvasPage
+  canvasPageCreate(canvasPageInput: CanvasPageInput!, seoInput: SEOInput!): CanvasPage
+  canvasPageEditSEO(id: ID!, seoInput: SEOInput!): CanvasPage
+  canvasPageEdit(id: ID!, canvasPage: CanvasPageInput!): CanvasPage
+  canvasOpenPeers(id: ID!, peerInput: CanvasPeerInput!): CanvasPeers
+  canvasPollPeers(id: ID!): CanvasPeers
+  canvasClosePeers(id: ID!): CanvasPage
 }
 
 interface Paginated {
@@ -130,15 +104,14 @@ interface Paginated {
 type Query {
   dummy: String
   config: Config
-  objectFromURL(url: String!): SEODocument
+  objectFromURL(url: String!): SEODocument @cacheControl(maxAge: 300)
   allCanvasPages: [CanvasPage]
   paginateCanvasPages(page: Int!, size: Int!): CanvasPageList
-  canvasPageById(id: String!): CanvasPage
-  canvasPollPeers(id: String!): CanvasPeers
+  canvasPageById(id: ID!): CanvasPage
+  canvasPollPeers(id: ID!): CanvasPeers
 }
 
-
-type SEO {
+type SEO @cacheControl(maxAge: 3600) {
   metaTitle: String
   metaDescription: String
   keywords: [String]

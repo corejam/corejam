@@ -2,7 +2,6 @@ import { Component, ComponentInterface, h } from "@stencil/core";
 
 @Component({
   tag: "corejam-icons-account",
-  shadow: true,
 })
 export class IconsAccount implements ComponentInterface {
   render() {

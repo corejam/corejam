@@ -14,13 +14,22 @@ export const config = {
   },
 };
 
+let corejam;
+
+const server = async () => {
+  if (!corejam) {
+    corejam = await CorejamServer();
+  }
+
+  return corejam
+}
+
 const handler = async (req, res) => {
   if (req.method === "OPTIONS") {
     return send(res, 200, "ok!");
   }
 
-  const server = await CorejamServer();
-  return server.createHandler({ path: "/api/graphql" })(req, res);
+  return (await server()).createHandler({ path: "/api/graphql" })(req, res);
 };
 
 export default cors(handler);

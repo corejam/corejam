@@ -1,8 +1,10 @@
 import { Config } from "@stencil/core";
-
 export const config: Config = {
   namespace: "corejam-dev",
-
+  srcDir: "app",
+  devServer: {
+    port: 3001,
+  },
   outputTargets: [
     {
       type: "dist",
@@ -18,14 +20,7 @@ export const config: Config = {
     },
     {
       type: "www",
-      copy: [
-        {
-          src: "config.json",
-          dest: "build/config.json",
-        },
-      ],
       serviceWorker: null, // disable service workers
     },
   ],
-  plugins: [],
 };

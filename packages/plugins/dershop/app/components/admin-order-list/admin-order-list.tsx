@@ -3,10 +3,10 @@ import { adminPaginateOrdersGQL } from "../../../shared/graphql/Queries/Admin/Or
 import { authStore } from "@corejam/plugin-auth";
 import { OrderList, OrderDB } from "../../../shared/types/Order";
 import { coreState } from "@corejam/core-components";
+import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-admin-order-list",
-  shadow: true,
 })
 export class AdminOrderList {
   @Prop() data: any;
@@ -20,12 +20,15 @@ export class AdminOrderList {
   }
 
   async queryData() {
-    const request = await coreState.client.request(adminPaginateOrdersGQL, {
-      page: this.page,
-      size: 15,
+    const request = await coreState.client.query({
+      query: gql(adminPaginateOrdersGQL),
+      variables: {
+        page: this.page,
+        size: 15,
+      },
     });
 
-    this._data = request.paginateOrders;
+    this._data = request.data.paginateOrders;
   }
 
   private tableHeader = ["Order ID", "Name", "Email", "Total", "Items", "Date Created"];

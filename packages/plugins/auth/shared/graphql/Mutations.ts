@@ -32,7 +32,7 @@ export const userTokenRefreshMutationGQL = `
 `;
 
 export const userEditMutationGQL = `
-  mutation userEdit($id: String!, $userInput: UserInput!) {
+  mutation userEdit($id: ID!, $userInput: UserInput!) {
     userEdit(id: $id, userInput: $userInput) {
       id
       email
@@ -65,4 +65,12 @@ export const userUpdateGQL = `
       email
     }
   }
+`;
+
+export const meGQL = `
+    mutation {
+        me {
+            email
+        }
+    }
 `;

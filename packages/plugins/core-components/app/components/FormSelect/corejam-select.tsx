@@ -8,7 +8,6 @@ export declare type options = {
 
 @Component({
   tag: "corejam-form-select",
-  shadow: true,
 })
 export class CorejamFormSelect implements ComponentInterface {
   @Element() el: HTMLElement;

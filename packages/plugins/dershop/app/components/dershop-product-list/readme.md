@@ -18,7 +18,8 @@
 ### Used by
 
  - [dershop-manufacturer](../dershop-manufacturer)
- - [dershop-url](../../routes/seo)
+ - [dershop-route-products](../../routes)
+ - [dershop-url](../../routes)
 
 ### Depends on
 
@@ -49,6 +50,7 @@ graph TD;
   corejam-pagination --> corejam-base-link
   corejam-pagination --> corejam-type
   dershop-manufacturer --> dershop-product-list
+  dershop-route-products --> dershop-product-list
   dershop-url --> dershop-product-list
   style dershop-product-list fill:#f9f,stroke:#333,stroke-width:4px
 ```

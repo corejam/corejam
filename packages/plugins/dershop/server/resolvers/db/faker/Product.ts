@@ -14,53 +14,61 @@ import { manufacturerByID, manufacturerEdit, manufacturers } from "./Manufacture
 
 export let products = [] as ProductDB[];
 
-const staticCategoryIndex = Math.floor(Math.random() * categories.length)
-const staticCategory = categories[staticCategoryIndex];
+try {
+  const staticFile = require(process.cwd() + "/.corejam/faker.json")
+  products.push(...staticFile.products)
+  console.log("Load from static data")
+} catch (e) {
+  //Nothing for now
+}
 
-const staticProduct = generateProduct({
-  seo: generateSeo({
-    metaTitle: "Static Test Product",
-    metaDescription: "Static Test Product",
-    url: "static-test-product",
-  }),
-  name: "Static Test Product",
-});
+if (products.length === 0) {
+  const staticCategoryIndex = Math.floor(Math.random() * categories.length)
+  const staticCategory = categories[staticCategoryIndex];
 
-const staticProductDb: ProductDB = {
-  id: "static-test-product",
-  ...staticProduct,
-  categories: [staticCategory],
-  manufacturer: {
-    id: manufacturers[0].id,
-  } as ManufacturerRefence,
-};
+  const staticProduct = generateProduct({
+    seo: generateSeo({
+      metaTitle: "Static Test Product",
+      metaDescription: "Static Test Product",
+      url: "static-test-product",
+    }),
+    name: "Static Test Product",
+  });
 
-products.push(staticProductDb);
-manufacturers[0].products?.push(staticProductDb);
-staticCategory.products?.push(staticProductDb)
+  const staticProductDb: ProductDB = {
+    id: "static-test-product",
+    ...staticProduct,
+    categories: [staticCategory],
+    manufacturer: {
+      id: manufacturers[0].id,
+    } as ManufacturerRefence,
+  };
+
+  products.push(staticProductDb);
+  manufacturers[0].products?.push(staticProductDb);
+  staticCategory.products?.push(staticProductDb)
+}
 
 if (products.length === 1) {
-  (async () => {
-    for (let index = 0; index < 100; index++) {
-      const manufacturer: ManufacturerDB = manufacturers[Math.floor(Math.random() * manufacturers.length)];
-      const category = categories[Math.floor(Math.random() * categories.length)];
+  for (let index = 0; index < 100; index++) {
+    const manufacturer: ManufacturerDB = manufacturers[Math.floor(Math.random() * manufacturers.length)];
+    const category = categories[Math.floor(Math.random() * categories.length)];
 
-      const generated = generateProduct();
-      const generatedDb: ProductDB = {
-        id: random.uuid(),
-        ...generated,
-        categories: [category],
-        manufacturer: {
-          id: manufacturer.id,
-          data: manufacturer
-        } as ManufacturerRefence
-      };
+    const generated = generateProduct();
+    const generatedDb: ProductDB = {
+      id: random.uuid(),
+      ...generated,
+      categories: [category],
+      manufacturer: {
+        id: manufacturer.id,
+        data: manufacturer
+      } as ManufacturerRefence
+    };
 
-      products.push(generatedDb as ProductDB);
-      await productLinkManufacturer(generatedDb.id, manufacturer.id)
-      await productLinkCategory(generatedDb.id, category.id)
-    }
-  })()
+    products.push(generatedDb as ProductDB);
+    productLinkManufacturer(generatedDb.id, manufacturer.id)
+    productLinkCategory(generatedDb.id, category.id)
+  }
 }
 
 export function allProducts(): Promise<ProductDB[]> {

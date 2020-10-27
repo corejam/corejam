@@ -2,19 +2,20 @@ extend type Query {
   allUsers: [User]
   paginateUsers(page: Int!, size: Int!): UserList
   userByEmail(email: String!): User
-  userById(id: String!): User
+  userById(id: ID!): User
   userByToken: User
 }
 
 extend type Mutation {
   userCreate(userCreateInput: UserCreateInput!): User
-  userEdit(id: String!, userInput: UserInput!): User
+  userEdit(id: ID!, userInput: UserInput!): User
   userAuthenticate(email: String!, password: String!): UserJWT
   userRegister(data: RegisterInput!): User
   userTokenRefresh: UserJWT
-  userDeactivate(id: String!): Boolean
+  userDeactivate(id: ID!): Boolean
   userUpdatePassword(passwordInput: UserPasswordInput!): Boolean
   userUpdate(userUpdateInput: UserUpdateInput!): User
+  me: User
 }
 
 input UserUpdateInput {
@@ -33,7 +34,7 @@ enum userRoles {
 }
 
 type User implements Timestamp {
-  id: String!
+  id: ID!
   email: String!
   password: String!
   active: Boolean!

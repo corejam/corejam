@@ -1,17 +1,15 @@
 import Fuse from "fuse.js";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { ProductDB, ProductList } from "../../shared/types/Product";
-import { allProductsGQL } from "../../shared/graphql/Queries/Product";
 import { Sidebar } from "../../shared/types/Sidebar";
-import { getServerClient } from "@corejam/base"
 
 export function generateSidebar(products: ProductDB[] = []): Sidebar {
-  const sidebar: Sidebar = { categories: [], brands: [] }
+  const sidebar: Sidebar = { categories: [], brands: [] };
 
   //iterate over each product
   products.forEach((product: ProductDB) => {
     //Check for brands
-    const manufacturer = product.manufacturer?.data
+    const manufacturer = product.manufacturer?.data;
 
     if (manufacturer) {
       //If it exists update it
@@ -19,8 +17,8 @@ export function generateSidebar(products: ProductDB[] = []): Sidebar {
         if (item.name === manufacturer.name) {
           return item;
         }
-        return
-      })[0]
+        return;
+      })[0];
 
       if (brand) {
         brand.itemCount++;
@@ -29,8 +27,8 @@ export function generateSidebar(products: ProductDB[] = []): Sidebar {
         sidebar.brands.push({
           itemCount: 1,
           name: manufacturer.name,
-          url: manufacturer.seo?.url ? manufacturer.seo?.url : ""
-        })
+          url: manufacturer.seo?.url ? manufacturer.seo?.url : "",
+        });
       }
     }
 
@@ -40,8 +38,8 @@ export function generateSidebar(products: ProductDB[] = []): Sidebar {
         if (item.name === productCategory.name) {
           return item;
         }
-        return
-      })[0]
+        return;
+      })[0];
 
       //If it exists update it
       if (category) {
@@ -51,36 +49,36 @@ export function generateSidebar(products: ProductDB[] = []): Sidebar {
         sidebar.categories.push({
           itemCount: 1,
           name: productCategory.name,
-          url: productCategory.seo?.url ? productCategory.seo?.url : ""
-        })
+          url: productCategory.seo?.url ? productCategory.seo?.url : "",
+        });
       }
-    })
-  })
+    });
+  });
 
   return sidebar;
 }
 
 /**
  * Resolve products from references
- * 
- * @param parent 
- * @param param1 
- * @param ctx 
+ *
+ * @param parent
+ * @param param1
+ * @param ctx
  */
 export async function resolveProductListFromReferences(parent, { size, page = 1 }, ctx): Promise<ProductList> {
   if (ctx.currentProductList) return ctx.currentProductList;
-  const resolvedProducts: ProductDB[] = []
+  const resolvedProducts: ProductDB[] = [];
 
   for await (const productRef of parent) {
-    resolvedProducts.push(await ctx.models.productByID(productRef.id))
+    resolvedProducts.push(await ctx.models.productByID(productRef.id));
   }
 
   if (!size) {
-    size = resolvedProducts.length
+    size = resolvedProducts.length;
   }
 
   const offset = (page - 1) * size;
-  const sidebar = generateSidebar(resolvedProducts)
+  const sidebar = generateSidebar(resolvedProducts);
   const items = resolvedProducts.slice(offset, offset + size);
 
   const currentProductList: ProductList = {
@@ -89,7 +87,7 @@ export async function resolveProductListFromReferences(parent, { size, page = 1 
     lastPage: Math.ceil(resolvedProducts.length / size),
     perPage: size,
     items: items,
-    sidebar: sidebar
+    sidebar: sidebar,
   };
 
   ctx.currentProductList = currentProductList;
@@ -103,17 +101,15 @@ export default {
       return models.allProducts();
     },
     paginateProducts: async (_obj: any, params, ctx: MergedServerContext) => {
-      const client = getServerClient();
-      const { allProducts } = await client.request(allProductsGQL);
+      const allProducts = await ctx.models.allProducts();
 
-      return resolveProductListFromReferences(allProducts, params, ctx)
+      return resolveProductListFromReferences(allProducts, params, ctx);
     },
-    productSearch: async (_obj: any, { search, size, page }, _ctx: MergedServerContext) => {
-      const client = getServerClient();
+    productSearch: async (_obj: any, { search, size, page }, { models }: MergedServerContext) => {
       const offset = (page - 1) * size;
 
-      const allProducts = await client.request(allProductsGQL);
-      const sidebar = generateSidebar(allProducts)
+      const allProducts = await models.allProducts();
+      const sidebar = generateSidebar(allProducts);
       const searchOptions = {
         includeScore: true,
         threshold: 0.3,
@@ -138,7 +134,7 @@ export default {
         lastPage: Math.ceil(results.length / size),
         perPage: size,
         items: items,
-        sidebar
+        sidebar,
       };
 
       return new Promise((res) => res(paginated));
@@ -179,11 +175,11 @@ export default {
     productAddImage: (_obj: any, args: any, { models }: MergedServerContext) => {
       return models.productAddImage(args.id, args.imageInput);
     },
-    productLinkManufacturer: (_obj: any, { id, manufacturerId }: any, { models }: MergedServerContext) => {
-      return models.productLinkManufacturer(id, manufacturerId);
+    productLinkManufacturer: (_obj: any, { id, manufacturerid }: any, { models }: MergedServerContext) => {
+      return models.productLinkManufacturer(id, manufacturerid);
     },
-    productLinkCategory: (_obj: any, { id, categoryId }: any, { models }: MergedServerContext) => {
-      return models.productLinkCategory(id, categoryId);
+    productLinkCategory: (_obj: any, { id, categoryid }: any, { models }: MergedServerContext) => {
+      return models.productLinkCategory(id, categoryid);
     },
   },
 };

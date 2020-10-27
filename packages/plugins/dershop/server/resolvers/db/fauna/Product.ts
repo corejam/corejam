@@ -107,7 +107,7 @@ export function productByID(id: string): Promise<ProductDB | null> {
 
 export function productByUrl(slug: string): Promise<ProductDB | null> {
   return FaunaClient()
-    .query(q.Get(q.Match(q.Index("seo"), slug)))
+    .query(q.Get(q.Match(q.Index("seoSearch"), slug)))
     .then((response: any) => {
       return {
         id: response.ref.id,

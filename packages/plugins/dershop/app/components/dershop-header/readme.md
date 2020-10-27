@@ -7,7 +7,7 @@
 
 | Property         | Attribute         | Description | Type     | Default     |
 | ---------------- | ----------------- | ----------- | -------- | ----------- |
-| `cartLink`       | `cart-link`       |             | `string` | `"/cart/"`  |
+| `cartLink`       | `cart-link`       |             | `string` | `"/cart"`   |
 | `mainLinks`      | `main-links`      |             | `any`    | `undefined` |
 | `maxScreen`      | `max-screen`      |             | `string` | `"xl"`      |
 | `secondaryLinks` | `secondary-links` |             | `any`    | `undefined` |
@@ -18,10 +18,10 @@
 
 ### Used by
 
+ - [dershop-layout](../../layout)
  - [dershop-route-account](../../routes)
  - [dershop-route-admin-order-view](../../routes/admin/order/view)
  - [dershop-route-admin-orders](../../routes/admin/order)
- - [dershop-route-cart](../../routes)
 
 ### Depends on
 
@@ -53,10 +53,10 @@ graph TD;
   corejam-identity --> corejam-button
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
+  dershop-layout --> dershop-header
   dershop-route-account --> dershop-header
   dershop-route-admin-order-view --> dershop-header
   dershop-route-admin-orders --> dershop-header
-  dershop-route-cart --> dershop-header
   style dershop-header fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

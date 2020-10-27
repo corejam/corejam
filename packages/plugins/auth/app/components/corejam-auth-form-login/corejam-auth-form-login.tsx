@@ -3,10 +3,10 @@ import { coreState } from "@corejam/core-components";
 import { state as routerState } from "@corejam/router";
 import { authStore } from "../../store/authStore";
 import { userAuthenticateMutationGQL } from "../../../shared/graphql/Mutations";
+import gql from "graphql-tag";
 
 @Component({
   tag: "corejam-auth-form-login",
-  shadow: true,
 })
 export class AuthLoginForm {
   private formId = "login";
@@ -21,13 +21,16 @@ export class AuthLoginForm {
   async formEventHandler({ detail }) {
     if (detail.formId != this.formId) return;
 
-    const request = await coreState.client.request(userAuthenticateMutationGQL, {
-      email: detail.email.value,
-      password: detail.password.value,
+    const request = await coreState.client.mutate({
+      mutation: gql(userAuthenticateMutationGQL),
+      variables: {
+        email: detail.email.value,
+        password: detail.password.value,
+      },
     });
 
-    if (request.userAuthenticate) {
-      authStore.identity = request.userAuthenticate;
+    if (request.data.userAuthenticate) {
+      authStore.identity = request.data.userAuthenticate;
 
       routerState.router.push("/");
     }
@@ -47,7 +50,7 @@ export class AuthLoginForm {
             max="md"
             mx="auto"
             px={4}
-            px-lg="0"
+            lgPx={0}
             flex
             justify="between"
             mb={24}
@@ -66,9 +69,7 @@ export class AuthLoginForm {
                   </corejam-box>
                   <corejam-box>
                     <corejam-form-submit formId={this.formId}>
-                      <button type="submit">
-                        Login
-                      </button>
+                      <button type="submit">Login</button>
                     </corejam-form-submit>
                   </corejam-box>
                 </corejam-box>

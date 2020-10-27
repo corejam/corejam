@@ -33,19 +33,19 @@ input AddressInput {
   country: String!
 }
 
-type SidebarItem {
+type SidebarItem @cacheControl(maxAge: 300) {
   name: String!
   itemCount: Int!
   url: String!
 }
 
-type Sidebar {
+type Sidebar @cacheControl(maxAge: 300) {
   categories: [SidebarItem]
   brands: [SidebarItem]
 }
 
-type Category implements Timestamp {
-  id: String!
+type Category implements Timestamp @cacheControl(maxAge: 300) {
+  id: ID!
   name: String!
   seo: SEO
   parent: CategoryReference
@@ -61,7 +61,7 @@ input CategoryInput {
   name: String
 }
 
-type CategoryList implements Paginated {
+type CategoryList implements Paginated @cacheControl(maxAge: 300) {
   totalItems: Int!
   perPage: Int!
   currentPage: Int!
@@ -69,12 +69,12 @@ type CategoryList implements Paginated {
   items: [Category]
 }
 
-type CategoryReference {
-  id: String!
+type CategoryReference @cacheControl(maxAge: 300) {
+  id: ID!
   data: Category!
 }
 
-type Deliverability {
+type Deliverability @cacheControl(maxAge: 300) {
   stock: Int
   clearance_sale: Boolean!
   delivery_time: String
@@ -94,8 +94,8 @@ input DeliverabilityInput {
   max_order_qty: Int
 }
 
-type Manufacturer implements Timestamp {
-  id: String!
+type Manufacturer implements Timestamp @cacheControl(maxAge: 300) {
+  id: ID!
   name: String!
   website: String
   description: String
@@ -121,13 +121,13 @@ type ManufacturerList implements Paginated {
   items: [Manufacturer]
 }
 
-type ManufacturerReference {
-  id: String!
+type ManufacturerReference @cacheControl(maxAge: 300) {
+  id: ID!
   data: Manufacturer!
 }
 
 type Order implements Timestamp {
-  id: String!
+  id: ID!
   status: OrderStatus!
   items: [OrderItem]
   user: User!
@@ -160,7 +160,7 @@ input OrderItemInput {
 }
 
 input OrderItemProductInput {
-  id: String!
+  id: ID!
   name: String!
 }
 
@@ -180,7 +180,7 @@ enum OrderStatus {
   ERROR
 }
 
-type Price {
+type Price @cacheControl(maxAge: 300) {
   tax_rate: Float
   gross: Float
   net: Float
@@ -194,8 +194,8 @@ input PriceInput {
   purchase_price_gross: Float
 }
 
-type Product implements Timestamp {
-  id: String!
+type Product implements Timestamp @cacheControl(maxAge: 300) {
+  id: ID!
   sku: String
   ean: String
   manufacturer_number: String
@@ -224,7 +224,7 @@ input ProductCoreInput {
   promoted: Boolean!
 }
 
-type ProductList implements Paginated {
+type ProductList implements Paginated @cacheControl(maxAge: 300) {
   totalItems: Int!
   perPage: Int!
   currentPage: Int!
@@ -237,23 +237,22 @@ extend type Query {
   allOrders: [Order]
   paginateOrders(page: Int!, size: Int!): OrderList
   ordersByCustomer: OrderList
-  orderById(id: String!): Order
+  orderById(id: ID!): Order
   allProducts: [Product]
-  paginateProducts(page: Int!, size: Int!): ProductList
+  paginateProducts(page: Int!, size: Int!): ProductList @cacheControl(maxAge: 300)
   productSearch(search: String!, page: Int!, size: Int!): ProductList
   productByUrl(url: String!): Product
-  productById(id: String!): Product
+  productById(id: ID!): Product
   allManufacturers: [Manufacturer]
   paginateManufacturers(page: Int!, size: Int!): ManufacturerList
   manufacturerByUrl(url: String!): Manufacturer
-  manufacturerById(id: String!): Manufacturer
+  manufacturerById(id: ID!): Manufacturer
   manufacturersForSelect: [Manufacturer]
   allCategories: [Category]
   paginateCategories(page: Int!, size: Int!): CategoryList
   categoryByUrl(url: String!): Category
-  categoryById(id: String!): Category
+  categoryById(id: ID!): Category
   getSEOIndex: [String]
-  currentUser: User
 }
 
 type LinkResult {
@@ -261,33 +260,24 @@ type LinkResult {
 }
 
 extend type Mutation {
-  productAddImage(id: String!, imageInput: ImageInput!): Product
-  orderUpdate(id: String!, order: OrderInput!): Order
+  productAddImage(id: ID!, imageInput: ImageInput!): Product
+  orderUpdate(id: ID!, order: OrderInput!): Order
   orderCreate(orderInput: OrderInput!): Order
   productCreate(productInput: ProductCoreInput!): Product
-  productEdit(id: String!, productInput: ProductCoreInput!): Product
-  productEditPrice(id: String!, priceInput: PriceInput!): Product
-  productEditSEO(id: String!, seoInput: SEOInput!): Product
-  productEditDeliverability(
-    id: String!
-    deliveryInput: DeliverabilityInput!
-  ): Product
-  productLinkManufacturer(id: String!, manufacturerId: String!): LinkResult
-  productLinkCategory(id: String!, categoryId: String!): LinkResult
-  manufacturerCreate(
-    id: String!
-    manufacturerInput: ManufacturerInput!
-  ): Manufacturer
-  manufacturerEditSEO(id: String!, seoInput: SEOInput!): Manufacturer
-  manufacturerEdit(
-    id: String!
-    manufacturerInput: ManufacturerInput!
-  ): Manufacturer
-  categoryEditSEO(id: String!, seoInput: SEOInput!): Category
-  categoryEdit(id: String!, categoryInput: CategoryInput!): Category
+  productEdit(id: ID!, productInput: ProductCoreInput!): Product
+  productEditPrice(id: ID!, priceInput: PriceInput!): Product
+  productEditSEO(id: ID!, seoInput: SEOInput!): Product
+  productEditDeliverability(id: ID!, deliveryInput: DeliverabilityInput!): Product
+  productLinkManufacturer(id: ID!, manufacturerid: ID!): LinkResult
+  productLinkCategory(id: ID!, categoryid: ID!): LinkResult
+  manufacturerCreate(id: ID!, manufacturerInput: ManufacturerInput!): Manufacturer
+  manufacturerEditSEO(id: ID!, seoInput: SEOInput!): Manufacturer
+  manufacturerEdit(id: ID!, manufacturerInput: ManufacturerInput!): Manufacturer
+  categoryEditSEO(id: ID!, seoInput: SEOInput!): Category
+  categoryEdit(id: ID!, categoryInput: CategoryInput!): Category
 }
 
-extend type SEODocument {
+extend type SEODocument @cacheControl(maxAge: 3600) {
   product: Product
   category: Category
   manufacturer: Manufacturer

@@ -8,11 +8,12 @@ import runDev from "./commands/dev";
 import runApi from "./commands/apiServer";
 import createApp from "./commands/generateApp";
 import generateSchema from "./commands/generateSchema";
-import { runTest, runWCTests } from "./commands/test";
+import { runWCTests } from "./commands/test";
 import { envRoot } from "./config";
 import { copySchemaToDist } from "./helpers/copy";
 import { killAll } from "./processes";
-import { corejamInit } from './commands/init';
+import { corejamInit } from "./commands/init";
+import { bootstrap } from "./commands/bootstrap";
 
 const pkg = require("../package.json");
 const prog = sade("corejam");
@@ -30,11 +31,20 @@ prog
   });
 
 prog
+  .command("bootstrap")
+  .describe("Bootstrap data")
+  .option("-l, --log", "Log output to console", false)
+  .action(async (opts) => {
+    await bootstrap(opts);
+  });
+
+prog
   .command("dev")
   .describe("Plugin dev process")
   .option("-l, --log", "Log output to console", false)
+  .option("-ssr", "Server side render each request", false)
   .action(async (opts) => {
-    await corejamInit()
+    await corejamInit();
     await runDev(opts);
   });
 
@@ -42,7 +52,7 @@ prog
   .command("api:serve")
   .describe("Start graphql Server")
   .action(async () => {
-    await corejamInit()
+    await corejamInit();
     await runApi();
   });
 
@@ -76,22 +86,19 @@ prog
   });
 
 prog.command("generateSchema").action(async () => {
-  await corejamInit()
+  await corejamInit();
   await generateSchema();
-});
-
-prog.command("test").action(async (opts) => {
-  await runTest(opts);
 });
 
 prog.command("test:wc").action(async () => {
   await runWCTests();
 });
 
-prog.command("init")
+prog
+  .command("init")
   .describe("add `corejam init` as postInstall hook in your package.json")
   .action(async () => {
-    await corejamInit()
+    await corejamInit();
   });
 
 prog
@@ -99,7 +106,7 @@ prog
   .option("-l, --log", "Log output to console", false)
   .describe("build static html from app")
   .action(async (opts) => {
-    await corejamInit()
+    await corejamInit();
     await buildStatic(opts);
   });
 
@@ -107,7 +114,7 @@ prog
   .command("static:serve")
   .describe("Serve static folder")
   .action(async () => {
-    await corejamInit()
+    await corejamInit();
     runApi();
     execa("serve", ["www", "-l", "3001"], { cwd: envRoot });
     console.log("Serving under: http://localhost:3001");

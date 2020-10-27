@@ -32,12 +32,10 @@ jobs:
           yarn build
           yarn bs
           node ./utils/hoistPackagesForDeployment.js
-          yarn --cwd examples/nextjs corejam init
-          yarn --cwd examples/nextjs corejam generateSchema
           API_ORIGIN=http://localhost:3000 yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
+      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/run/dist packages/rollup-plugin/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -71,6 +69,7 @@ jobs:
           name: dist
       - run: tar -xzf artifact.tar
       - run: chmod +x node_modules/.bin/corejam
+      - run: cd packages/base && yarn corejam init && yarn test
       - run: |
           cd packages/plugins/auth && yarn corejam generateSchema
           yarn test
@@ -89,8 +88,7 @@ jobs:
           GITHUB_SHA: ${{ github.sha }}
       - uses: codecov/codecov-action@v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          directory: packages/plugins # optional
+          directory: packages # optional
 
   cypress-static-plugin-auth:
     runs-on: ubuntu-latest
@@ -195,9 +193,11 @@ jobs:
           cd packages/base && yarn link
           cd ../cli && yarn link
           cd ../dev && yarn link
+          cd ../run && yarn link
+          cd ../rollup-plugin && yarn link
           cd ../plugins/core-components && yarn link
           cd /github/home && corejam createApp test
-          cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components && yarn static
+          cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
           DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
@@ -239,11 +239,10 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           if [ $GITHUB_REF = 'refs/heads/master' ]; then export DEPLOYED_URL="demo.dershop.dev"; else export DEPLOYED_URL="$GITHUB_SHA.pipeline.dershop.dev"; fi
-          cd packages/plugins/dershop
-          yarn corejam generateSchema
-          export SECRET=$(COMMIT_ID=cypress_$GITHUB_SHA node ./tests/bootstrap.js --faker | grep 'secret'|cut -f2 -d ":")
+          cd packages/plugins/dershop && yarn corejam generateSchema
+          export SECRET=$(COMMIT_ID=cypress_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
           cd ../../../examples/nextjs
-          export DEPLOYMENT=$(vercel --confirm --token $ZEIT_TOKEN --scope=dershop -e JWT_HASH=gitlab -e SECRET_KEY=$SECRET -e DB_DRIVER="DB_FAUNA" -e DEPLOYMENT_URL=https://$DEPLOYED_URL)
+          export DEPLOYMENT=$(vercel --confirm --token $ZEIT_TOKEN --scope=dershop -e JWT_HASH=gitlab -e SECRET_KEY=$SECRET -e DB_DRIVER="DB_FAUNA" --build-env SECRET_KEY=$SECRET --build-env DB_DRIVER="DB_FAUNA" -e DEPLOYMENT_URL=https://$DEPLOYED_URL)
           vercel alias $DEPLOYMENT $DEPLOYED_URL --token $ZEIT_TOKEN --scope dershop
           wget $DEPLOYED_URL
           cd ../../test/cypress

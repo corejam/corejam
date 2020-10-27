@@ -17,7 +17,7 @@
 ### Used by
 
  - [dershop-route-index](../../routes)
- - [dershop-url](../../routes/seo)
+ - [dershop-url](../../routes)
 
 ### Graph
 ```mermaid

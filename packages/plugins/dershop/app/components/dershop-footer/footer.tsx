@@ -2,8 +2,6 @@ import { Component, h } from "@stencil/core";
 
 @Component({
   tag: "dershop-footer",
-  styleUrl: "footer.css",
-  shadow: true,
 })
 export class Footer {
   render() {
@@ -19,6 +17,7 @@ export class Footer {
             </dershop-ui-type>
           </corejam-box>
         </corejam-box>
+        <slot />
       </footer>
     );
   }

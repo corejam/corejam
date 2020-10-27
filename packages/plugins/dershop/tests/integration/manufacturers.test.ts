@@ -3,11 +3,11 @@ import {
   generateManufacturer,
   generateSeo,
 } from "../../server/resolvers/db/faker/Generator";
-import { ManufacturerCreateInput, ManufacturerDB } from "../../shared/types/Manufacturer";
+import { ManufacturerCreateInput, ManufacturerDB, ManufacturerList } from "../../shared/types/Manufacturer";
 import { PluginResolver } from "../../shared/types/PluginResolver";
+import { testClient } from "@corejam/base/src/TestClient";
+import { allManufacturersGQL, paginateManufacturersGQL } from "../../shared/graphql/Queries/Manufacturer";
 
-//@ts-ignore
-import { testClient } from "../../src/TestClient";
 
 describe("Manufacturers", () => {
   advanceTo(new Date(2020, 5, 27, 0, 0, 0)); // reset to date time.
@@ -37,15 +37,37 @@ describe("Manufacturers", () => {
   });
 
   it("allManufacturers", async () => {
-    const returnedPagination: ManufacturerDB[] = await models.allManufacturers();
+    const { query } = client
 
-    expect(returnedPagination.length).toBeGreaterThan(0);
+     //Test that we can retrieve the same values back
+     const allManufacturers = (await query({
+      query: allManufacturersGQL,
+      variables: { page: 1, size: 24 }
+    })).data.allManufacturers
 
-    returnedPagination.map((item) => {
+    expect(allManufacturers.length).toBeGreaterThan(0);
+
+    allManufacturers.map((item) => {
       if (item.id === testID) {
-        expect(item).toEqual(expect.objectContaining(testValues));
+        expect(item.name).toEqual(testValues.name);
+        expect(item.website).toEqual(testValues.website);
+        expect(item.seo.url).toEqual(testValues.seo?.url);
       }
     });
+  });
+
+  it("Paginated Manufacturers", async () => {
+    const { query } = client
+
+    //Test that we can retrieve the same values back
+    const pagination = await query({
+      query: paginateManufacturersGQL,
+      variables: { page: 1, size: 24 }
+    })
+
+    const paginated: ManufacturerList = pagination.data.paginateManufacturers;
+    expect(paginated.currentPage).toEqual(1)
+    expect(paginated.items.length).toEqual((await (models.allManufacturers())).length)
   });
 
   it("getManufacturerByUrl", async () => {

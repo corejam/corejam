@@ -10,6 +10,7 @@
 ### Used by
 
  - [cj-route-admin](../../routes/admin/users)
+ - [cj-route-admin-index](../../routes/admin/users)
  - [cj-route-admin-user-form](../../routes/admin/users/edit)
  - [cj-route-index](../../routes)
  - [cj-route-login](../../routes)
@@ -37,6 +38,7 @@ graph TD;
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
   cj-route-admin --> corejam-auth-header
+  cj-route-admin-index --> corejam-auth-header
   cj-route-admin-user-form --> corejam-auth-header
   cj-route-index --> corejam-auth-header
   cj-route-login --> corejam-auth-header

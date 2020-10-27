@@ -1,22 +1,43 @@
+import { createPersistedQueryLink } from "@apollo/link-persisted-queries";
 import { createStore } from "@stencil/store";
-import { GraphQLClient } from "@corejam/base";
 import { Router } from "stencil-router-v2";
+import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { Build } from "@stencil/core";
 
-/**
- * We only want absolute url for hydrate on server
- */
+let client;
+
+if (Build.isBrowser) {
+  const httpLink = createHttpLink({
+    uri: (process.env.API_ORIGIN ?? "") + "/api/graphql",
+    credentials: "include",
+  });
+
+  const link = createPersistedQueryLink({ useGETForHashedQueries: true })
+    //@ts-ignore
+    .concat(httpLink);
+
+  client = new ApolloClient({
+    cache: new InMemoryCache(),
+    //@ts-ignore
+    link,
+  });
+}
+
+if (Build.isServer) {
+  /**
+   * When we are on the server we want to use the ServerClient instance
+   * so we can fetch directly on our resolvers instead of launching another lambda
+   * process to resolve over http.
+   */
+  client = () => {
+    const { createServerClient } = require("@corejam/base/dist/client/ServerClient");
+    return createServerClient();
+  };
+}
+
 export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, onChange: coreChange } = createStore({
-  client: Build.isBrowser
-    ? new GraphQLClient(
-        {
-          mode: "cors",
-          credentials: "include"
-        },
-        process.env.API_ORIGIN ? process.env.API_ORIGIN : null
-      )
-    : new GraphQLClient({ mode: "cors", credentials: "include" }, process.env.DEPLOYMENT_URL),
-  endpoint: ""
+  client: Build.isBrowser ? client : client(),
+  endpoint: "",
 });
 
 type routerStateType = {
@@ -25,5 +46,5 @@ type routerStateType = {
 export const { state: routerState, get: routerGet, reset: routerReset, set: routerSet, onChange } = createStore<
   routerStateType
 >({
-  router: null
+  router: null,
 });

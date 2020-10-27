@@ -3,7 +3,6 @@ import { state, set } from "@corejam/router";
 
 @Component({
   tag: "corejam-init",
-  shadow: true,
 })
 export class Init {
   @Prop() router = null;

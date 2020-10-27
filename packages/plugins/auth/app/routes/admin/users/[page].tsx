@@ -2,7 +2,6 @@ import { Component, Host, h, Prop } from "@stencil/core";
 
 @Component({
   tag: "cj-route-admin",
-  shadow: true,
 })
 export class AdminUserList {
   @Prop() param: any;

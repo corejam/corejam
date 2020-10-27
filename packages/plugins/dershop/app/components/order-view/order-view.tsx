@@ -3,10 +3,10 @@ import { OrderDB } from "../../../shared/types/Order";
 import { authStore } from "@corejam/plugin-auth";
 import { orderById } from "../../../shared/graphql/Queries/Order";
 import { coreState } from "@corejam/core-components";
+import gql from "graphql-tag";
 
 @Component({
   tag: "dershop-order-view",
-  shadow: true,
 })
 export class OrderView {
   @Prop() orderId: string;
@@ -18,11 +18,14 @@ export class OrderView {
   }
 
   async queryData() {
-    const request = await coreState.client.request(orderById, {
-      id: this.orderId,
+    const request = await coreState.client.query({
+      query: gql(orderById),
+      variables: {
+        id: this.orderId,
+      },
     });
 
-    this._data = request.orderById;
+    this._data = request.data.orderById;
   }
 
   async componentWillRender() {

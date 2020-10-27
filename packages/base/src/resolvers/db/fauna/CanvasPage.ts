@@ -5,7 +5,7 @@ import { FaunaClient } from "./Client";
 
 export function canvasPageByUrl(slug: string): Promise<CanvasPageDB | null> {
   return FaunaClient()
-    .query(q.Get(q.Match(q.Index("seo"), slug)))
+    .query(q.Get(q.Match(q.Index("seoSearch"), slug)))
     .then((response: any) => {
       return {
         id: response.ref.id,

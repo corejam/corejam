@@ -17,7 +17,6 @@ import { deepParseJson } from "deep-parse-json";
 @Component({
   tag: "dershop-canvas",
   styleUrl: "dershop-canvas.css",
-  shadow: true,
 })
 export class DershopCanvas implements ComponentInterface {
   private _draggers: string[];

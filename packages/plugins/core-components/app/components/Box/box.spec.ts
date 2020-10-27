@@ -14,7 +14,7 @@ it("should render corresponding style tag based on provided props", async () => 
     components: [CorejamBox],
     html: `<corejam-box flex="true" direction="col">hallo</corejam-box>`,
   });
-  expect(page.root.shadowRoot.querySelector("style")).toBeDefined();
+  expect(page.doc.head.querySelector("style[corejamstyle]")).toBeDefined();
 });
 
 it("should render flex property", async () => {
@@ -23,7 +23,7 @@ it("should render flex property", async () => {
     html: `<corejam-box flex="true">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("display: flex");
 });
 
@@ -33,7 +33,7 @@ it("should render flex direction property", async () => {
     html: `<corejam-box flex="true" direction="column">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("flex-direction: column");
 });
 
@@ -43,7 +43,7 @@ it("should render flex wrap property", async () => {
     html: `<corejam-box flex="true" wrap="wrap">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("flex-wrap: wrap");
 });
 it("should render flex flow property", async () => {
@@ -52,7 +52,7 @@ it("should render flex flow property", async () => {
     html: `<corejam-box flex="true" flow="row wrap">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("flex-flow: row wrap");
 });
 
@@ -62,7 +62,7 @@ it("should render flex justify property", async () => {
     html: `<corejam-box flex="true" justify="center">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("justify-content: center");
 });
 
@@ -72,7 +72,7 @@ it("should render flex align items property", async () => {
     html: `<corejam-box flex="true" items="center">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("align-items: center");
 });
 
@@ -82,7 +82,7 @@ it("should render flex align content property", async () => {
     html: `<corejam-box flex="true" align-content="center">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("align-content: center");
 });
 
@@ -92,7 +92,7 @@ it("should render flex order property", async () => {
     html: `<corejam-box flex="true" order="1">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("order: 1");
 });
 
@@ -102,7 +102,7 @@ it("should render flex grow property", async () => {
     html: `<corejam-box flex="true" grow="1">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("flex-grow: 1");
 });
 
@@ -112,7 +112,7 @@ it("should render flex shrink property", async () => {
     html: `<corejam-box flex="true" shrink="1">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("flex-shrink: 1");
 });
 
@@ -122,7 +122,7 @@ it("should render flex basis property", async () => {
     html: `<corejam-box flex="true" basis="1">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("flex-basis: 1");
 });
 
@@ -132,7 +132,7 @@ it("should render flex self property", async () => {
     html: `<corejam-box flex="true" self="center">hallo</corejam-box>`,
   });
 
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("align-self: center");
 });
 
@@ -141,7 +141,7 @@ it("should render width", async () => {
     components: [CorejamBox],
     html: `<corejam-box w="4">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("width: 33.33%");
 });
 
@@ -150,7 +150,7 @@ it("should render height", async () => {
     components: [CorejamBox],
     html: `<corejam-box h="12px">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("height: 12px");
 });
 
@@ -159,7 +159,7 @@ it("should render padding props", async () => {
     components: [CorejamBox],
     html: `<corejam-box p="4">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("padding: calc(var(--cj-box-multiplier, 0.25) * 4rem);");
 });
 
@@ -168,7 +168,7 @@ it("should render padding props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box p="1" p-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj1102097483 { padding: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj1102097483 { padding: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -178,7 +178,7 @@ it("should render padding top props", async () => {
     components: [CorejamBox],
     html: `<corejam-box pt="4">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("padding-top: calc(var(--cj-box-multiplier, 0.25) * 4rem);");
 });
 
@@ -187,7 +187,7 @@ it("should render padding top props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box pt="1" pt-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj1305997643 { padding-top: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj1305997643 { padding-top: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -198,7 +198,7 @@ it("should render padding right props", async () => {
     components: [CorejamBox],
     html: `<corejam-box pr="4">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("padding-right: calc(var(--cj-box-multiplier, 0.25) * 4rem);");
 });
 
@@ -207,7 +207,7 @@ it("should render padding right props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box pr="1" pr-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj1139279445 { padding-right: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj1139279445 { padding-right: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -217,7 +217,7 @@ it("should render padding bottom props", async () => {
     components: [CorejamBox],
     html: `<corejam-box pb="4">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("padding-bottom: calc(var(--cj-box-multiplier, 0.25) * 4rem);");
 });
 
@@ -226,7 +226,7 @@ it("should render padding bottom props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box pb="1" pb-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj802006605 { padding-bottom: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj802006605 { padding-bottom: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -236,7 +236,7 @@ it("should render padding left props", async () => {
     components: [CorejamBox],
     html: `<corejam-box pl="4">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("padding-left: calc(var(--cj-box-multiplier, 0.25) * 4rem);");
 });
 
@@ -245,7 +245,7 @@ it("should render padding left props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box pl="1" pl-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj638646149 { padding-left: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj638646149 { padding-left: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -256,7 +256,7 @@ it("should render padding left props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box px="4">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj1580737333 { padding-left: calc(var(--cj-box-multiplier, 0.25) * 4rem); padding-right: calc(var(--cj-box-multiplier, 0.25) * 4rem); }"
 //   );
@@ -267,7 +267,7 @@ it("should render padding left props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box px="1" px-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj247299440 { padding-left: calc(var(--cj-box-multiplier, 0.25) * 1rem); padding-right: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj247299440 { padding-left: calc(var(--cj-box-multiplier, 0.25) * 6rem); padding-right: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -277,7 +277,7 @@ it("should render padding left props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box py="4">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj878359276 { padding-top: calc(var(--cj-box-multiplier, 0.25) * 4rem); padding-bottom: calc(var(--cj-box-multiplier, 0.25) * 4rem); }"
 //   );
@@ -288,7 +288,7 @@ it("should render padding left props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box py="1" py-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj1654917232 { padding-top: calc(var(--cj-box-multiplier, 0.25) * 1rem); padding-bottom: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj1654917232 { padding-top: calc(var(--cj-box-multiplier, 0.25) * 6rem); padding-bottom: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -299,7 +299,7 @@ it("should render margin top props", async () => {
     components: [CorejamBox],
     html: `<corejam-box mt="4">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("margin-top: calc(var(--cj-box-multiplier, 0.25) * 4rem);");
 });
 
@@ -308,7 +308,7 @@ it("should render margin top props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box mt="1" mt-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj641159509 { margin-top: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj641159509 { margin-top: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -319,7 +319,7 @@ it("should render margin right props", async () => {
     components: [CorejamBox],
     html: `<corejam-box mr="4">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("margin-right: calc(var(--cj-box-multiplier, 0.25) * 4rem);");
 });
 
@@ -328,7 +328,7 @@ it("should render margin right props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box mr="1" mr-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj452772729 { margin-right: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj452772729 { margin-right: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -339,7 +339,7 @@ it("should render margin right props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box mb="4">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toContain(":margin-bottom: calc(var(--cj-box-multiplier, 0.25) * 4rem);");
 // });
 
@@ -348,7 +348,7 @@ it("should render margin right props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box mb="1" mb-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj1806091797 { margin-bottom: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj1806091797 { margin-bottom: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -359,7 +359,7 @@ it("should render margin left props", async () => {
     components: [CorejamBox],
     html: `<corejam-box ml="4">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("margin-left: calc(var(--cj-box-multiplier, 0.25) * 4rem);");
 });
 
@@ -368,7 +368,7 @@ it("should render margin left props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box ml="1" ml-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj2065161643 { margin-left: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj2065161643 { margin-left: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -379,7 +379,7 @@ it("should render margin left props", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box mx="4">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj990538987 { margin-left: calc(var(--cj-box-multiplier, 0.25) * 4rem); margin-right: calc(var(--cj-box-multiplier, 0.25) * 4rem); }"
 //   );
@@ -390,7 +390,7 @@ it("should render margin x shorthand auto", async () => {
     components: [CorejamBox],
     html: `<corejam-box mx="auto">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("margin-left: auto");
   expect(computedStyleRules).toContain("margin-right: auto");
 });
@@ -400,7 +400,7 @@ it("should render margin x shorthand auto", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box mx="1" mx-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj764319842 { margin-left: calc(var(--cj-box-multiplier, 0.25) * 1rem); margin-right: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj764319842 { margin-left: calc(var(--cj-box-multiplier, 0.25) * 6rem); margin-right: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -411,7 +411,7 @@ it("should render margin x shorthand auto", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box my="4">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj1460895960 { margin-top: calc(var(--cj-box-multiplier, 0.25) * 4rem); margin-bottom: calc(var(--cj-box-multiplier, 0.25) * 4rem); }"
 //   );
@@ -422,7 +422,7 @@ it("should render margin x shorthand auto", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box my="auto">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toContain("margin-top: auto");
 //   expect(computedStyleRules).toContain("margin-bottom: auto");
 // });
@@ -432,7 +432,7 @@ it("should render margin x shorthand auto", async () => {
 //     components: [CorejamBox],
 //     html: `<corejam-box my="1" my-lg="6">hallo</corejam-box>`,
 //   });
-//   const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+//   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
 //   expect(computedStyleRules).toEqualHtml(
 //     ":host, .cj45687766 { margin-top: calc(var(--cj-box-multiplier, 0.25) * 1rem); margin-bottom: calc(var(--cj-box-multiplier, 0.25) * 1rem); } @media screen and (min-width: 1024px) { :host, .cj45687766 { margin-top: calc(var(--cj-box-multiplier, 0.25) * 6rem); margin-bottom: calc(var(--cj-box-multiplier, 0.25) * 6rem); } }"
 //   );
@@ -443,7 +443,7 @@ it("should render css based on max property", async () => {
     components: [CorejamBox],
     html: `<corejam-box max="md">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("max-width: 768px");
 });
 
@@ -452,7 +452,7 @@ it("should render hide based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box hide="true">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("display: none;");
 });
 
@@ -461,7 +461,7 @@ it("should render border color based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box b-color="red-500">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-color: var(--cj-color-red-500)");
 });
 
@@ -470,7 +470,7 @@ it("should render border collapse based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box collapse="collapse">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-collapse: collapse;");
 });
 
@@ -479,7 +479,7 @@ it("should render border round based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box rounded="sm">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-radius: 0.125rem;");
 });
 
@@ -488,7 +488,7 @@ it("should render border round based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box rounded="none">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-radius: 0");
 });
 
@@ -497,7 +497,7 @@ it("should render border round based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box rounded="true">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-radius: 0.25rem");
 });
 
@@ -506,7 +506,7 @@ it("should render border round based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box rounded="full">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-radius: 9999px");
 });
 
@@ -515,7 +515,7 @@ it("should render border round top based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box rounded-top="full">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-top-radius: 9999px");
 });
 
@@ -524,7 +524,7 @@ it("should render border round right based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box rounded-right="full">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-right-radius: 9999px");
 });
 
@@ -533,7 +533,7 @@ it("should render border round bottom based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box rounded-bottom="full">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-bottom-radius: 9999px");
 });
 
@@ -542,7 +542,7 @@ it("should render border round left based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box rounded-left="full">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-left-radius: 9999px");
 });
 
@@ -551,7 +551,7 @@ it("should render border style based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box b-style="dashed">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-style: dashed");
 });
 
@@ -560,7 +560,7 @@ it("should render border width based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box b-width="8">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("border-width: 8px");
 });
 
@@ -569,7 +569,7 @@ it("should render dropshadow based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box shadow="0px 0px 10px rgba(0, 0, 0, 0.1)">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);");
 });
 
@@ -578,7 +578,7 @@ it("should render position based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box position="static">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("position: static;");
 });
 
@@ -587,7 +587,7 @@ it("should render top left right bottom based on prop", async () => {
     components: [CorejamBox],
     html: `<corejam-box top="20" left="10" right="30" bottom="40">hallo</corejam-box>`,
   });
-  const computedStyleRules = page.root.shadowRoot.querySelector("style").innerText;
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("top: 20px;");
   expect(computedStyleRules).toContain("left: 10px;");
   expect(computedStyleRules).toContain("right: 30px;");

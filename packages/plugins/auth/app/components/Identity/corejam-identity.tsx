@@ -3,6 +3,7 @@ import { coreState } from "@corejam/core-components";
 import { state as routerState } from "@corejam/router";
 import { authStore } from "../../store/authStore";
 import { userAuthenticateMutationGQL } from "../../../shared/graphql/Mutations";
+import gql from "graphql-tag";
 
 /**
  * Component to handle authentication state / refresh.
@@ -10,7 +11,6 @@ import { userAuthenticateMutationGQL } from "../../../shared/graphql/Mutations";
 
 @Component({
   tag: "corejam-identity",
-  shadow: true,
 })
 export class CorejamIdentity {
   private formId = "identity";
@@ -67,15 +67,17 @@ export class CorejamIdentity {
   async formEventHandler({ detail }) {
     if (detail.formId != this.formId || authStore.identity) return;
 
-    //@ts-ignore
-    const request = await coreState.client.request(userAuthenticateMutationGQL, {
-      email: detail.email.value,
-      password: detail.password.value,
+    const request = await coreState.client.mutate({
+      mutation: gql(userAuthenticateMutationGQL),
+      variables: {
+        email: detail.email.value,
+        password: detail.password.value,
+      },
     });
 
-    if (request.userAuthenticate) {
+    if (request.data.userAuthenticate) {
       this.toggleMenu();
-      authStore.identity = request.userAuthenticate;
+      authStore.identity = request.data.userAuthenticate;
       routerState.router.push("/");
     }
   }

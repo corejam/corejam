@@ -4,10 +4,11 @@ import { authStore } from "../../store/authStore";
 import type { UserDB, UserInput } from "../../../shared/types/User";
 import { userEditMutationGQL } from "../../../shared/graphql/Mutations";
 import { userByIdGQL } from "../../../shared/graphql/Queries";
+import gql from "graphql-tag";
 
 @Component({
   tag: "auth-admin-user-form",
-  shadow: true,
+  
 })
 
 export class AuthAdminUserForm {
@@ -23,10 +24,10 @@ export class AuthAdminUserForm {
       input[key] = detail[key].value;
     });
 
-    await coreState.client.request(userEditMutationGQL, {
+    await coreState.client.mutate({mutation: gql(userEditMutationGQL), variables: {
       id: this.formId,
       userInput: input,
-    });
+    }});
   }
 
   private userRoles = [
@@ -35,12 +36,12 @@ export class AuthAdminUserForm {
   ];
 
   async queryData() {
-    const request = await coreState.client.request(userByIdGQL, {
+    const request = await coreState.client.query({query: gql(userByIdGQL), variables: {
       id: this.formId,
-    });
+    }});
 
-    if (request.userById) {
-      this.user = request.userById;
+    if (request.data.userById) {
+      this.user = request.data.userById;
 
       //Map over the roles and see if we match any we need to select
       this.userRoles.map((role) => {

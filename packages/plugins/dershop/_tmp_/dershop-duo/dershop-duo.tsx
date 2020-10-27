@@ -5,7 +5,6 @@ import { EventEmitter } from "stencil-apollo/dist/types/stencil.core";
 @Component({
   tag: "dershop-duo",
   styleUrl: "dershop-duo.css",
-  shadow: true,
 })
 export class DershopDuo {
   @State() isConnected: boolean = false;
@@ -22,13 +21,7 @@ export class DershopDuo {
   renderIcon() {
     if (this.isConnected)
       return (
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             fill-rule="evenodd"
             clip-rule="evenodd"
@@ -38,13 +31,7 @@ export class DershopDuo {
         </svg>
       );
     return (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M13 10V3L4 14H11L11 21L20 10L13 10Z"
           stroke="#4A5568"

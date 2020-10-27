@@ -31,7 +31,7 @@ export const paginateManufacturersGQL = `
 `;
 
 export const manufacturerById = `
-  query ManufacturerById($id: String!) {
+  query ManufacturerById($id: ID!) {
     manufacturerById(id: $id) {
       id
       name
@@ -62,4 +62,4 @@ export const manufacturerById = `
       }
     }
   }
-`
+`;

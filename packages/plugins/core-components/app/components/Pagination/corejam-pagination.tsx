@@ -2,7 +2,6 @@ import { Component, Host, h, Prop, State, Watch } from "@stencil/core";
 
 @Component({
   tag: "corejam-pagination",
-  shadow: true,
 })
 export class CorejamPagination {
   @Prop() paginator: any;

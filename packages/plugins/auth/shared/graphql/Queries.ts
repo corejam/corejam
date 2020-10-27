@@ -1,14 +1,3 @@
-export const userByTokenGQL = `
-  query {
-    userByToken {
-      id
-      email
-      role
-      active
-    }
-  }
-`;
-
 export const allUsersGQL = `
   query {
     allUsers {
@@ -23,7 +12,7 @@ export const allUsersGQL = `
 `;
 
 export const userByIdGQL = `
-  query UserById($id: String!) {
+  query UserById($id: ID!) {
     userById(id: $id) {
       id
       active

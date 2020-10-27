@@ -1,20 +1,9 @@
 const args = require("args");
-const { bootstrapSchema } = require("@corejam/base/dist/Bootstrap");
-const { getServerContext } = require("@corejam/base/dist/Server");
-const {
-  generateConfig,
-  generateProduct,
-  generateCategory,
-  generateManufacturer,
-  generateOrder,
-  generateUser
-} = require("../dist/server/resolvers/db/faker/Generator");
 const { Client, query } = require("faunadb");
 const q = query;
 const { getDataClient } = require("@corejam/base/dist/PluginManager");
 
 args
-  .option("faker", "Add faker data to the database", false)
   .option("dbSecret", "Your DB Secret key (FaunaDB)")
   .command("fauna", "Bootstrap a new faunaDB");
 
@@ -35,10 +24,7 @@ if (!COMMIT_ID) {
 async function go() {
   let SECRET, newClient;
 
-  const { models } = await getServerContext({ req: { headers: {} } });
-
   let client = new Client({ secret: flags.dbSecret });
-  const schema = await bootstrapSchema();
 
   await client
     .query(q.CreateDatabase({ name: COMMIT_ID }))
@@ -83,75 +69,6 @@ async function go() {
     await newClient.query(q.CreateCollection({ name: "canvasPages" }));
   } catch (e) {
     console.log(e);
-  }
-
-  async function generateModels() {
-    try {
-      await models.configCreate(
-        generateConfig({
-          general: {
-            admin_email: "hello@corejam.dev",
-          },
-          seo: {
-            url: "/",
-            keywords: ["Serverless webshop"],
-            metaTitle: "DerShop - Serverless Ecommerce System",
-            metaDescription: "Open Source",
-          },
-        })
-      );
-
-      const products = [];
-      const users = [];
-      const manufacturers = []
-      const categories = []
-      console.log("generating data");
-      for (let i = 0; i <= 5; i++) {
-        manufacturers.push(await models.manufacturerCreate(generateManufacturer()).catch((e) => console.log(e)));
-      }
-      for (let i = 0; i < 2; i++) {
-        categories.push(await models.categoryCreate(generateCategory()).catch((e) => console.log(e)));
-      }
-
-      for (let i = 0; i <= 20; i++) {
-        const product = await models.productCreate(generateProduct()).catch((e) => console.log(e));
-        const manufacturer = manufacturers[Math.floor(Math.random() * manufacturers.length)];
-        const category = categories[Math.floor(Math.random() * categories.length)];
-
-        products.push(product)
-
-        await models.productLinkManufacturer(product.id, manufacturer.id)
-        await models.productLinkCategory(product.id, category.id)
-      }
-
-      for (let i = 0; i <= 5; i++) {
-        users.push(await models.userCreate(generateUser()).catch((e) => console.log(e)));
-      }
-      for (let i = 0; i <= 5; i++) {
-        const order = generateOrder(products, users);
-        await models.orderCreate(order, order.user).catch((e) => console.log(e));
-      }
-
-      await models
-        .canvasPageCreate({
-          seo: {
-            url: "canvas",
-          },
-          canvas: { items: [] },
-        })
-        .catch((e) => console.log(e));
-
-      const user = await models.userRegister({
-        firstName: "Test",
-        lastName: "Account",
-        email: "test@test.com",
-        password: "valid123Password@",
-        passwordConfirm: "valid123Password@",
-      });
-      await models.userEdit(user.id, { role: ["admin"] });
-    } catch (e) {
-      console.log(e);
-    }
   }
 
   await newClient.query(
@@ -236,7 +153,7 @@ async function go() {
   await newClient
     .query(
       q.CreateIndex({
-        name: "seo",
+        name: "seoSearch",
         active: true,
         source: [
           q.Collection("products"),
@@ -253,16 +170,20 @@ async function go() {
     )
     .catch((e) => console.log(e));
 
-  await newClient.query(
-    q.Create(q.Collection("config"), {
-      data: {
-        id: "schema",
-        ...schema,
-      },
-    })
-  );
-
-  if (flags.faker) await generateModels();
+  await newClient
+    .query(
+      q.CreateIndex({
+        name: "seoIndex",
+        active: true,
+        source: [
+          q.Collection("products"),
+          q.Collection("manufacturers"),
+          q.Collection("categories"),
+          q.Collection("canvasPages")
+        ],
+        values: [{ field: ["data", "seo", "url"] }, { field: ["ref"] }]
+      })
+    )
 }
 
 try {

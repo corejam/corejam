@@ -2,7 +2,6 @@ import { Component, h, Prop, Method, Host } from "@stencil/core";
 
 @Component({
   tag: "dershop-product-box",
-  shadow: true,
 })
 export class ProductBox {
   @Prop() name: string;

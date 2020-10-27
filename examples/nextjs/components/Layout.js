@@ -1,5 +1,5 @@
 import { CorejamUiBase } from "@corejam/core-components/react";
-import { DershopHeader } from "@corejam/plugin-dershop/react";
+import { DershopHeader, DershopFooter } from "@corejam/plugin-dershop/react";
 
 const Layout = ({ children }) => {
   return (
@@ -7,8 +7,9 @@ const Layout = ({ children }) => {
       <CorejamUiBase />
       <DershopHeader />
       {children}
+      <DershopFooter />
     </>
   );
 };
 
-export default Layout
+export default Layout;

@@ -1,12 +1,12 @@
 import { coreState } from "@corejam/core-components";
 import { Component, h, Prop, Watch, State } from "@stencil/core";
+import gql from "graphql-tag";
 import { paginateProductsGQL } from "../../../shared/graphql/Queries/Product";
 import { ProductList as ProductListType } from "../../../shared/types/Product";
 
 @Component({
   tag: "dershop-product-list",
   styleUrl: "product-list.css",
-  shadow: true,
 })
 export class ProductList {
   @Prop() list: any;
@@ -23,11 +23,14 @@ export class ProductList {
   }
   async queryData() {
     //Query the default list
-    const request = await coreState.client.request(paginateProductsGQL, {
-      page: this.page,
-      size: this._size,
+    const request = await coreState.client.query({
+      query: gql(paginateProductsGQL),
+      variables: {
+        page: this.page,
+        size: this._size,
+      },
     });
-    this._list = request.paginateProducts;
+    this._list = request.data.paginateProducts;
   }
 
   async componentWillLoad() {
@@ -69,7 +72,7 @@ export class ProductList {
                 </corejam-type>
               </corejam-box>
             </corejam-box>
-            <corejam-grid smTemplateColumns={2} mdTemplateColumns={3} lgTemplateColumns={4} gap-col={6} gap-row={12}>
+            <corejam-grid smTemplateColumns={2} mdTemplateColumns={3} lgTemplateColumns={4} gapCol={6} gapRow={12}>
               {this._list.items?.map((product, k) => (
                 <dershop-product-box
                   data-cy="produx-box"
