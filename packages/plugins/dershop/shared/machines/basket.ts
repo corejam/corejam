@@ -1,6 +1,5 @@
-import { state as routerState } from "@corejam/router";
 import { authStore } from "@corejam/plugin-auth";
-import { createMachine, assign } from "@xstate/fsm";
+import { assign, createMachine } from "@xstate/fsm";
 import { Address } from "../types/Address";
 
 export enum BasketStates {
@@ -86,8 +85,7 @@ export const basketMachine = createMachine<
           ADD_ADDRESS: [
             {
               target: "address",
-              cond: (ctx) => ctx.items.length > 0,
-              actions: ["pushToCheckout"]
+              cond: (ctx) => ctx.items.length > 0
             },
           ],
           CLEAR: {
@@ -142,7 +140,6 @@ export const basketMachine = createMachine<
   },
   {
     actions: {
-      pushToCheckout: () => routerState.router.push("/checkout"),
       addItemToBasket: assign({
         initialized: (context) =>
           context.initialized ? context.initialized : new Date().toISOString(),

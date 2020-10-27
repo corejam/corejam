@@ -18,7 +18,6 @@
 - corejam-form-container
 - [dershop-cart-line](../dershop-cart-line)
 - [dershop-order-totals](../dershop-order-totals)
-- corejam-base-link
 
 ### Graph
 ```mermaid
@@ -28,7 +27,6 @@ graph TD;
   dershop-cart --> corejam-form-container
   dershop-cart --> dershop-cart-line
   dershop-cart --> dershop-order-totals
-  dershop-cart --> corejam-base-link
   dershop-cart-line --> corejam-box
   dershop-cart-line --> corejam-image
   dershop-cart-line --> corejam-base-link
