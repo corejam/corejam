@@ -1,5 +1,6 @@
 import { state } from "@corejam/router";
 import { Component, Host, h, State, Element, Listen } from "@stencil/core";
+import { dershopState } from "app/store/dershop";
 
 @Component({
   tag: "dershop-inline-search",
@@ -21,11 +22,13 @@ export class DershopInlineSearch {
 
   @Listen("formEvent", { target: "document" })
   async formEvent({ detail }) {
-    if (detail.name === "inline-search")
-      state.router.push(`/products?searchTerm=${detail.value}`);
+    if (detail.name === "inline-search") state.router.push(`/products?searchTerm=${detail.value}`);
+    dershopState.search = detail.value;
   }
 
   render() {
+    const formEl = this.el.querySelector("corejam-form-input input") as HTMLInputElement;
+    if (formEl) formEl.focus();
     return (
       <Host>
         <dershop-icons-spotlight onClick={() => this.toggleSearch()}></dershop-icons-spotlight>
@@ -40,6 +43,7 @@ export class DershopInlineSearch {
                 hoverBg="white"
                 focusBg="white"
                 name="search"
+                value={dershopState.search}
                 w={12}
                 placeholder="Search the shop"
               ></corejam-form-input>

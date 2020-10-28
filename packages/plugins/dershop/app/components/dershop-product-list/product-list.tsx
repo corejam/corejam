@@ -20,6 +20,7 @@ export class ProductList {
     this._list = typeof newValue === "string" ? JSON.parse(newValue) : newValue;
   }
 
+  @Watch("default")
   @Watch("page")
   @Watch("size")
   getNewData() {

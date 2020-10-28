@@ -17,7 +17,7 @@ export default async function run(options: any) {
 
     const logToConsole = options.l ? "inherit" : "ignore";
 
-    jetpack.removeAsync(envRoot + "/.corejam");
+    await jetpack.removeAsync(envRoot + "/.corejam");
 
     if (await jetpack.existsAsync(envRoot + "/server")) {
       await copySchemaToDist();
