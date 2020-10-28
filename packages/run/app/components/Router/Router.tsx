@@ -15,12 +15,19 @@ export class AppRouter {
         <Router.Switch>
           {runState.routes.map((route: CorejamRoute) => {
             const Component = route.component;
-            if (route.exact)
+            if (route.exact && route.url.includes("component"))
+              return (
+                <Route path={route.url}>
+                  <app-playground cmp={route.component}></app-playground>
+                </Route>
+              );
+            if (route.exact) {
               return (
                 <Route path={route.url}>
                   <Component></Component>
                 </Route>
               );
+            }
             return (
               <Route
                 path={match(route.url, { exact: true })}

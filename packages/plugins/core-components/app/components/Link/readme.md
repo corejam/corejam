@@ -16,6 +16,13 @@
 | `href`            | `href`             |             | `string`                                                                  | `undefined`                    |
 
 
+## Events
+
+| Event         | Description | Type               |
+| ------------- | ----------- | ------------------ |
+| `routeChange` |             | `CustomEvent<any>` |
+
+
 ## Dependencies
 
 ### Used by
