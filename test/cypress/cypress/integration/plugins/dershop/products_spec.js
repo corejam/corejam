@@ -5,12 +5,19 @@ describe("Products", function () {
   });
 
   it("Can search for a product", function () {
-    cy.visit("/");
-    cy.get("dershop-inline-search").click()
-    cy.getTag("inline-search-search").type("static")
-    cy.contains("Static Test Product")
-    cy.getTag("produx-box").its('length').should("be.lt", 24);
-  });
+    cy.visit("/products");
+    cy.get("dershop-product-box h3").its('length').then((length) => {
+      cy.get("dershop-product-box h3").then((items) => {
+        const listElementNumber = randomGenerator(length);
+        const title = items.eq(listElementNumber).text()
+
+        cy.get("dershop-inline-search").click()
+        cy.getTag("inline-search-search").type(title)
+        cy.contains(title)
+        cy.getTag("produx-box").its('length').should("be.lt", length);
+      })
+    });
+  })
 
 
   it("Check Product Page", function () {
