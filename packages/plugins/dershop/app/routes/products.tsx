@@ -36,7 +36,6 @@ export class ProductRoute {
   }
 
   render() {
-    console.log(this.results);
     return (
       <Host>
         {this.results && <dershop-product-list list={this.results}></dershop-product-list>}
