@@ -81,6 +81,7 @@ export class CorejamBox {
   @Prop() mdW: number | string;
   @Prop() lgW: number | string;
   @Prop() xlW: number | string;
+  @Prop() minH: string;
   @Prop() h: string;
   @Prop() smH: string;
   @Prop() mdH: string;
@@ -171,16 +172,16 @@ export class CorejamBox {
   @Prop() mdHoverBg: string;
   @Prop() lgHoverBg: string;
   @Prop() xlHoverBg: string;
-  @Prop() hide: string;
+  @Prop() hide: boolean;
   @Prop() smHide: boolean;
   @Prop() mdHide: boolean;
   @Prop() lgHide: boolean;
   @Prop() xlHide: boolean;
   @Prop() show: string;
-  @Prop() smShow: boolean;
-  @Prop() mdShow: boolean;
-  @Prop() lgShow: boolean;
-  @Prop() xlShow: boolean;
+  @Prop() smShow: string;
+  @Prop() mdShow: string;
+  @Prop() lgShow: string;
+  @Prop() xlShow: string;
   @Prop() collapse: "collapse" | "separate";
   @Prop() bColor: string;
   @Prop() rounded: string;
@@ -201,6 +202,7 @@ export class CorejamBox {
   @Prop() right: number;
   @Prop() bottom: number;
   @Prop() left: number;
+  @Prop() z: number;
 
   async componentWillLoad() {
     await this.computeStyles();
@@ -473,6 +475,7 @@ export class CorejamBox {
     "mdW",
     "lgW",
     "xlW",
+    "minH",
     "h",
     "smH",
     "mdH",
@@ -595,6 +598,7 @@ export class CorejamBox {
     "right",
     "bottom",
     "left",
+    "z",
   ];
 
   @Prop({ reflect: false, mutable: true }) droppableElements = ["dershop-ui-box", "dershop-ui-grid"];

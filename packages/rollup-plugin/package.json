@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "rollup-plugin-typescript2": "0.28.0",
-    "fs-jetpack": "4.0.0",
+    "fs-jetpack": "4.0.1",
     "rollup": "2.32.1",
     "shx": "0.3.2"
   }

@@ -7,7 +7,7 @@ export class Footer {
   render() {
     return (
       <footer>
-        <corejam-box max="xl" mx="auto" px={4} xlPx={0} flex justify="between" mt={8} pb={6}>
+        <corejam-box max="xl" mx="auto" px={4} xlPx={0} flex justify="between" pb={6}>
           <corejam-box flex items="baseline">
             <dershop-logo></dershop-logo>
           </corejam-box>

@@ -38,13 +38,13 @@ export class DershopHeader implements ComponentInterface {
       <Host>
         <corejam-box max={this.maxScreen} mx={this.xAlign} px={2} xlPx={0} flex items="center" py={4} justify="between">
           <corejam-box flex w="60px" justify="between">
-            <corejam-base-link href="/account/index.html">
-              <dershop-icons-menu></dershop-icons-menu>
-            </corejam-base-link>
-            <dershop-icons-spotlight></dershop-icons-spotlight>
+            <corejam-box mdHide>
+              <dershop-hamburger></dershop-hamburger>
+            </corejam-box>
+            <dershop-inline-search></dershop-inline-search>
           </corejam-box>
           <corejam-box flex justify="center" grow={1} items="center">
-            <corejam-box flex w={5} justify="evenly" mr={6}>
+            <corejam-box flex w={5} justify="evenly" mr={6} hide mdShow="flex">
               {this._mainLinks.map((link, key) => (
                 <corejam-base-link href={link.href} key={key}>
                   {link.title}
@@ -54,7 +54,7 @@ export class DershopHeader implements ComponentInterface {
             <corejam-base-link href="/">
               <dershop-logo></dershop-logo>
             </corejam-base-link>
-            <corejam-box flex justify="evenly" w={5} ml={6}>
+            <corejam-box flex justify="evenly" w={5} ml={6} hide mdShow="flex">
               {this._secondaryLinks.map((link, key) => (
                 <corejam-base-link href={link.href} key={key}>
                   {link.title}

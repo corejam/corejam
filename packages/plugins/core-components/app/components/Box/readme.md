@@ -29,7 +29,7 @@
 | `flow`              | `flow`             |             | `"column" \| "column-reverse" \| "row" \| "row-reverse"`            | `undefined`                             |
 | `grow`              | `grow`             |             | `number`                                                            | `undefined`                             |
 | `h`                 | `h`                |             | `string`                                                            | `undefined`                             |
-| `hide`              | `hide`             |             | `string`                                                            | `undefined`                             |
+| `hide`              | `hide`             |             | `boolean`                                                           | `undefined`                             |
 | `hoverBg`           | `hover-bg`         |             | `string`                                                            | `undefined`                             |
 | `items`             | `items`            |             | `"baseline" \| "center" \| "end" \| "start" \| "stretch"`           | `undefined`                             |
 | `justify`           | `justify`          |             | `"around" \| "between" \| "center" \| "end" \| "evenly" \| "start"` | `undefined`                             |
@@ -63,7 +63,7 @@
 | `lgPx`              | `lg-px`            |             | `number`                                                            | `undefined`                             |
 | `lgPy`              | `lg-py`            |             | `number`                                                            | `undefined`                             |
 | `lgSelf`            | `lg-self`          |             | `"auto" \| "center" \| "end" \| "start" \| "stretch"`               | `undefined`                             |
-| `lgShow`            | `lg-show`          |             | `boolean`                                                           | `undefined`                             |
+| `lgShow`            | `lg-show`          |             | `string`                                                            | `undefined`                             |
 | `lgShrink`          | `lg-shrink`        |             | `number`                                                            | `undefined`                             |
 | `lgW`               | `lg-w`             |             | `number \| string`                                                  | `undefined`                             |
 | `lgWrap`            | `lg-wrap`          |             | `"no-wrap" \| "wrap" \| "wrap-reverse"`                             | `undefined`                             |
@@ -99,10 +99,11 @@
 | `mdPx`              | `md-px`            |             | `number`                                                            | `undefined`                             |
 | `mdPy`              | `md-py`            |             | `number`                                                            | `undefined`                             |
 | `mdSelf`            | `md-self`          |             | `"auto" \| "center" \| "end" \| "start" \| "stretch"`               | `undefined`                             |
-| `mdShow`            | `md-show`          |             | `boolean`                                                           | `undefined`                             |
+| `mdShow`            | `md-show`          |             | `string`                                                            | `undefined`                             |
 | `mdShrink`          | `md-shrink`        |             | `number`                                                            | `undefined`                             |
 | `mdW`               | `md-w`             |             | `number \| string`                                                  | `undefined`                             |
 | `mdWrap`            | `md-wrap`          |             | `"no-wrap" \| "wrap" \| "wrap-reverse"`                             | `undefined`                             |
+| `minH`              | `min-h`            |             | `string`                                                            | `undefined`                             |
 | `ml`                | `ml`               |             | `number`                                                            | `undefined`                             |
 | `mr`                | `mr`               |             | `number`                                                            | `undefined`                             |
 | `mt`                | `mt`               |             | `number`                                                            | `undefined`                             |
@@ -156,7 +157,7 @@
 | `smPx`              | `sm-px`            |             | `number`                                                            | `undefined`                             |
 | `smPy`              | `sm-py`            |             | `number`                                                            | `undefined`                             |
 | `smSelf`            | `sm-self`          |             | `"auto" \| "center" \| "end" \| "start" \| "stretch"`               | `undefined`                             |
-| `smShow`            | `sm-show`          |             | `boolean`                                                           | `undefined`                             |
+| `smShow`            | `sm-show`          |             | `string`                                                            | `undefined`                             |
 | `smShrink`          | `sm-shrink`        |             | `number`                                                            | `undefined`                             |
 | `smW`               | `sm-w`             |             | `number \| string`                                                  | `undefined`                             |
 | `smWrap`            | `sm-wrap`          |             | `"no-wrap" \| "wrap" \| "wrap-reverse"`                             | `undefined`                             |
@@ -191,11 +192,12 @@
 | `xlPx`              | `xl-px`            |             | `number`                                                            | `undefined`                             |
 | `xlPy`              | `xl-py`            |             | `number`                                                            | `undefined`                             |
 | `xlSelf`            | `xl-self`          |             | `"auto" \| "center" \| "end" \| "start" \| "stretch"`               | `undefined`                             |
-| `xlShow`            | `xl-show`          |             | `boolean`                                                           | `undefined`                             |
+| `xlShow`            | `xl-show`          |             | `string`                                                            | `undefined`                             |
 | `xlShrink`          | `xl-shrink`        |             | `number`                                                            | `undefined`                             |
 | `xlW`               | `xl-w`             |             | `number \| string`                                                  | `undefined`                             |
 | `xlWrap`            | `xl-wrap`          |             | `"no-wrap" \| "wrap" \| "wrap-reverse"`                             | `undefined`                             |
 | `xljustify`         | `xljustify`        |             | `"around" \| "between" \| "center" \| "end" \| "evenly" \| "start"` | `undefined`                             |
+| `z`                 | `z`                |             | `number`                                                            | `undefined`                             |
 
 
 ## Slots

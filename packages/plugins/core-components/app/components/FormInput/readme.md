@@ -8,6 +8,7 @@
 | Property       | Attribute       | Description | Type               | Default      |
 | -------------- | --------------- | ----------- | ------------------ | ------------ |
 | `autocomplete` | `autocomplete`  |             | `string`           | `"off"`      |
+| `autofocus`    | `autofocus`     |             | `boolean`          | `false`      |
 | `bWidth`       | `b-width`       |             | `number`           | `0`          |
 | `bg`           | `bg`            |             | `string`           | `"gray-100"` |
 | `checked`      | `checked`       |             | `boolean`          | `false`      |

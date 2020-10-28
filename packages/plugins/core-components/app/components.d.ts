@@ -40,7 +40,7 @@ export namespace Components {
         "flow": Flex.Flow;
         "grow": number;
         "h": string;
-        "hide": string;
+        "hide": boolean;
         "hoverBg": string;
         "items": Flex.AlignItems;
         "justify": Flex.Justify;
@@ -74,7 +74,7 @@ export namespace Components {
         "lgPx": number;
         "lgPy": number;
         "lgSelf": Flex.Self;
-        "lgShow": boolean;
+        "lgShow": string;
         "lgShrink": number;
         "lgW": number | string;
         "lgWrap": Flex.Wrap;
@@ -110,10 +110,11 @@ export namespace Components {
         "mdPx": number;
         "mdPy": number;
         "mdSelf": Flex.Self;
-        "mdShow": boolean;
+        "mdShow": string;
         "mdShrink": number;
         "mdW": number | string;
         "mdWrap": Flex.Wrap;
+        "minH": string;
         "ml": number;
         "mr": number;
         "mt": number;
@@ -167,7 +168,7 @@ export namespace Components {
         "smPx": number;
         "smPy": number;
         "smSelf": Flex.Self;
-        "smShow": boolean;
+        "smShow": string;
         "smShrink": number;
         "smW": number | string;
         "smWrap": Flex.Wrap;
@@ -202,11 +203,12 @@ export namespace Components {
         "xlPx": number;
         "xlPy": number;
         "xlSelf": Flex.Self;
-        "xlShow": boolean;
+        "xlShow": string;
         "xlShrink": number;
         "xlW": number | string;
         "xlWrap": Flex.Wrap;
         "xljustify": Flex.Justify;
+        "z": number;
     }
     interface CorejamButton {
         "bg": string;
@@ -233,6 +235,7 @@ export namespace Components {
     }
     interface CorejamFormInput {
         "autocomplete": string;
+        "autofocus": boolean;
         "bWidth": number;
         "bg": string;
         "checked": boolean;
@@ -490,6 +493,7 @@ declare namespace LocalJSX {
         "hoverColor"?: Link.Color | "--cj-color-secondary";
         "hoverDecoration"?: Link.Decoration | "--cj-link-hover-decoration";
         "href"?: Link.Href;
+        "onRouteChange"?: (event: CustomEvent<any>) => void;
     }
     interface CorejamBox {
         "alignContent"?: Flex.AlignContent;
@@ -512,7 +516,7 @@ declare namespace LocalJSX {
         "flow"?: Flex.Flow;
         "grow"?: number;
         "h"?: string;
-        "hide"?: string;
+        "hide"?: boolean;
         "hoverBg"?: string;
         "items"?: Flex.AlignItems;
         "justify"?: Flex.Justify;
@@ -546,7 +550,7 @@ declare namespace LocalJSX {
         "lgPx"?: number;
         "lgPy"?: number;
         "lgSelf"?: Flex.Self;
-        "lgShow"?: boolean;
+        "lgShow"?: string;
         "lgShrink"?: number;
         "lgW"?: number | string;
         "lgWrap"?: Flex.Wrap;
@@ -582,10 +586,11 @@ declare namespace LocalJSX {
         "mdPx"?: number;
         "mdPy"?: number;
         "mdSelf"?: Flex.Self;
-        "mdShow"?: boolean;
+        "mdShow"?: string;
         "mdShrink"?: number;
         "mdW"?: number | string;
         "mdWrap"?: Flex.Wrap;
+        "minH"?: string;
         "ml"?: number;
         "mr"?: number;
         "mt"?: number;
@@ -639,7 +644,7 @@ declare namespace LocalJSX {
         "smPx"?: number;
         "smPy"?: number;
         "smSelf"?: Flex.Self;
-        "smShow"?: boolean;
+        "smShow"?: string;
         "smShrink"?: number;
         "smW"?: number | string;
         "smWrap"?: Flex.Wrap;
@@ -674,11 +679,12 @@ declare namespace LocalJSX {
         "xlPx"?: number;
         "xlPy"?: number;
         "xlSelf"?: Flex.Self;
-        "xlShow"?: boolean;
+        "xlShow"?: string;
         "xlShrink"?: number;
         "xlW"?: number | string;
         "xlWrap"?: Flex.Wrap;
         "xljustify"?: Flex.Justify;
+        "z"?: number;
     }
     interface CorejamButton {
         "bg"?: string;
@@ -708,6 +714,7 @@ declare namespace LocalJSX {
     }
     interface CorejamFormInput {
         "autocomplete"?: string;
+        "autofocus"?: boolean;
         "bWidth"?: number;
         "bg"?: string;
         "checked"?: boolean;

@@ -43,6 +43,7 @@ function modValue(property: string, value: string) {
     justify: justify,
     w: width,
     h: (value) => value,
+    "min-h": (value) => value,
     p: boxModell,
     pt: boxModell,
     pr: boxModell,
@@ -59,7 +60,9 @@ function modValue(property: string, value: string) {
     my: margin,
     max: (value) => breakpointValues[value],
     bg: color,
-    hide: (value) => (isBoolean(value) && !!value ? "none" : "initial"),
+    hide: (value) => {
+      return isBoolean(value) && !!value ? "none" : "initial";
+    },
     show: (value) => (isBoolean(value) && !!value ? "initial" : value),
     "b-color": color,
     color: color,
@@ -100,6 +103,8 @@ function modValue(property: string, value: string) {
     grid: grid,
     fit: objectFit,
     "max-width": maxWidth,
+    z: (value) => value,
+    outline: (value) => value,
   };
   return map[property] ? map[property](value) : value;
 }

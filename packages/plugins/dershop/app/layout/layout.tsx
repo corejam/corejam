@@ -7,9 +7,11 @@ export class DerShopLayout {
   render() {
     return (
       <Fragment>
-        <dershop-header />
-        <slot />
-        <dershop-footer />
+        <dershop-header></dershop-header>
+        <corejam-box min-h="calc(100vh - 156px)">
+          <slot></slot>
+        </corejam-box>
+        <dershop-footer></dershop-footer>
       </Fragment>
     );
   }

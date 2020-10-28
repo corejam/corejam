@@ -29,6 +29,7 @@ export const keyToPropMapping = {
   basis: "flex-basis",
   w: "width",
   h: "height",
+  "min-h": "min-height",
   max: "max-width",
   bg: "background",
   hide: "display",
@@ -76,4 +77,5 @@ export const keyToPropMapping = {
   fit: "object-fit",
   "max-width": "max-width",
   outline: "outline",
+  z: "z-index",
 };

@@ -1,24 +1,12 @@
-import { Component, Host, h, Prop, Fragment } from "@stencil/core";
+import { Component, Host, h } from "@stencil/core";
 import { href } from "stencil-router-v2";
 import { state } from "@corejam/router";
+import { runState } from "@corejam/run";
+
 @Component({
   tag: "app-welcome",
 })
 export class Welcome {
-  @Prop() routes: any;
-  @Prop() components: any;
-  @Prop() mode: string;
-  formatUrl(url: string) {
-    return url.replace("/component/", "");
-  }
-  renderAnchorTag(url: string) {
-    if (url.indexOf("[") > -1) {
-      const dynamicMatch = url.match(/\[.+\]/)[0];
-      const urlWithoutParams = "/_corejam/component/" + url.replace(dynamicMatch, "");
-      return <a {...href(urlWithoutParams + "1", state.router)}>{url}</a>;
-    }
-    return <a {...href(url, state.router)}>{this.formatUrl(url)}</a>;
-  }
   render() {
     const styles = {
       fontFamily: "Tahoma",
@@ -31,33 +19,35 @@ export class Welcome {
     return (
       <Host>
         <div class="app" style={styles}>
-          {this.mode !== "static" && (
+          <div>
+            <h1>Welcome to corejam</h1>
             <div>
-              <h1>Welcome to corejam</h1>
-              <div>
-                <h3>Components</h3>
-                <ul>
-                  {this.components.map((route) => {
+              <h3>Components</h3>
+              <ul>
+                {runState.routes.map((route) => {
+                  if (route.url.includes("component"))
                     return (
                       <li>
-                        <a {...href(route.url, state.router)}>{this.formatUrl(route.url)}</a>
+                        <a {...href(route.url, state.router)}>{route.component}</a>
                       </li>
                     );
-                  })}
-                </ul>
-              </div>
-            </div>
-          )}
-          {this.routes && this.routes.length > 0 && (
-            <Fragment>
-              <h3>Routes</h3>
-              <ul>
-                {this.routes.map((route) => {
-                  return <li>{this.renderAnchorTag(route.url)}</li>;
                 })}
               </ul>
-            </Fragment>
-          )}
+            </div>
+            <div>
+              <h3>Routes</h3>
+              <ul>
+                {runState.routes.map((route) => {
+                  if (!route.url.includes("component"))
+                    return (
+                      <li>
+                        <a {...href(route.url, state.router)}>{route.component}</a>
+                      </li>
+                    );
+                })}
+              </ul>
+            </div>
+          </div>
         </div>
       </Host>
     );

@@ -93,7 +93,7 @@ export class ProductDetail {
               src={this.getImage(product)}
               alt="Product"
             ></dershop-image>
-            <corejam-box mt={6} pb={6} hide="sm" show="md">
+            <corejam-box mt={6} pb={6} hide mdShow="flex">
               <dershop-ui-grid grid cols={4} gap="2">
                 {this.getSubImagesAsArray().map((image) => (
                   <dershop-image
@@ -128,7 +128,7 @@ export class ProductDetail {
                   Add to cart
                 </corejam-type>
               </button>
-              <corejam-box p={2} hide="sm" show="sm">
+              <corejam-box p={2} hide mdShow="flex">
                 <corejam-base-link href="#">
                   <corejam-type transform="uppercase" size="sm">
                     Add to wishlist

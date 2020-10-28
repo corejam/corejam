@@ -1,6 +1,5 @@
 import { createPersistedQueryLink } from "@apollo/link-persisted-queries";
 import { createStore } from "@stencil/store";
-import { Router } from "stencil-router-v2";
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { Build } from "@stencil/core";
 
@@ -38,13 +37,4 @@ if (Build.isServer) {
 export const { state: coreState, get: coreGet, reset: coreReset, set: coreSet, onChange: coreChange } = createStore({
   client: Build.isBrowser ? client : client(),
   endpoint: "",
-});
-
-type routerStateType = {
-  router: null | Router;
-};
-export const { state: routerState, get: routerGet, reset: routerReset, set: routerSet, onChange } = createStore<
-  routerStateType
->({
-  router: null,
 });
