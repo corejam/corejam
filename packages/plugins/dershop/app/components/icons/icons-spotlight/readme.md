@@ -9,12 +9,12 @@
 
 ### Used by
 
- - [dershop-header](../../dershop-header)
+ - [dershop-inline-search](../../dershop-inline-search)
 
 ### Graph
 ```mermaid
 graph TD;
-  dershop-header --> dershop-icons-spotlight
+  dershop-inline-search --> dershop-icons-spotlight
   style dershop-icons-spotlight fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
