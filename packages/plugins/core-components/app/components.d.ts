@@ -492,6 +492,7 @@ declare namespace LocalJSX {
         "hoverColor"?: Link.Color | "--cj-color-secondary";
         "hoverDecoration"?: Link.Decoration | "--cj-link-hover-decoration";
         "href"?: Link.Href;
+        "onRouteChange"?: (event: CustomEvent<any>) => void;
     }
     interface CorejamBox {
         "alignContent"?: Flex.AlignContent;

@@ -1,5 +1,4 @@
-import { Component, Host, h, State, Element } from "@stencil/core";
-import { state } from "@corejam/router";
+import { Component, Host, h, State, Element, Listen } from "@stencil/core";
 
 const CloseIcon = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff" {...props}>
@@ -14,10 +13,9 @@ export class DershopHamburgerMenu {
   @State() active = false;
   @Element() el: HTMLElement;
 
-  componentDidRender() {
-    state.router.onChange("url", () => {
-      if (this.active) this.hideDrawer();
-    });
+  @Listen("routeChange", { target: "document" })
+  routeChangeCb({ detail }) {
+    if (detail.type === "routechange") if (this.active) this.hideDrawer();
   }
 
   showDrawer() {
