@@ -21,7 +21,8 @@ export class DershopInlineSearch {
 
   @Listen("formEvent", { target: "document" })
   async formEvent({ detail }) {
-    state.router.push(`/products?searchTerm=${detail.value}`);
+    if (detail.name === "inline-search")
+      state.router.push(`/products?searchTerm=${detail.value}`);
   }
 
   render() {
@@ -38,6 +39,7 @@ export class DershopInlineSearch {
                 bg="white"
                 hoverBg="white"
                 focusBg="white"
+                name="search"
                 w={12}
                 placeholder="Search the shop"
               ></corejam-form-input>

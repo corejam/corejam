@@ -4,6 +4,15 @@ describe("Products", function () {
     cy.getTag("produx-box").its('length').should("be.gte", 10);
   });
 
+  it("Can search for a product", function () {
+    cy.visit("/");
+    cy.get("dershop-inline-search").click()
+    cy.getTag("inline-search-search").type("static")
+    cy.contains("Static Test Product")
+    cy.getTag("produx-box").its('length').should("be.lt", 24);
+  });
+
+
   it("Check Product Page", function () {
     cy.visit("/products");
 

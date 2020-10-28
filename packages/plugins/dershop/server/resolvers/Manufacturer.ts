@@ -30,16 +30,13 @@ export default {
       return models.manufacturersForSelect();
     },
   },
-  ProductList: async (obj: any, args: any, ctx: any) => {
-    const resolvedProductList = await resolveProductListFromReferences(obj, args, ctx);
-    return {
-      currentPage: resolvedProductList.currentPage,
-      lastPage: resolvedProductList.lastPage,
-      perPage: resolvedProductList.perPage,
-      sidebar: resolvedProductList.sidebar,
-      totalItems: resolvedProductList.totalItems,
-      items: resolvedProductList.items,
-    };
+  ProductList: {
+    currentPage: async (obj, args, ctx) => (await resolveProductListFromReferences(obj, args, ctx)).currentPage,
+    lastPage: async (obj, args, ctx) => (await resolveProductListFromReferences(obj, args, ctx)).lastPage,
+    perPage: async (obj, args, ctx) => (await resolveProductListFromReferences(obj, args, ctx)).perPage,
+    sidebar: async (obj, args, ctx) => (await resolveProductListFromReferences(obj, args, ctx)).sidebar,
+    totalItems: async (obj, args, ctx) => (await resolveProductListFromReferences(obj, args, ctx)).totalItems,
+    items: async (obj, args, ctx) => (await resolveProductListFromReferences(obj, args, ctx)).items,
   },
   Mutation: {
     manufacturerEditSEO: (_obj: any, args: any, { models }: MergedServerContext) => {

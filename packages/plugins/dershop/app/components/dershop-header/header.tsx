@@ -41,7 +41,7 @@ export class DershopHeader implements ComponentInterface {
             <corejam-box mdHide>
               <dershop-hamburger></dershop-hamburger>
             </corejam-box>
-            <dershop-inline-search />
+            <dershop-inline-search></dershop-inline-search>
           </corejam-box>
           <corejam-box flex justify="center" grow={1} items="center">
             <corejam-box flex w={5} justify="evenly" mr={6} hide mdShow="flex">
