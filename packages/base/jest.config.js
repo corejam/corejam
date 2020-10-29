@@ -24,7 +24,7 @@ require('dotenv').config()
 
 module.exports = {
     "globals": {
-        "ts-jest": { "tsConfig": __dirname + "/tsconfig-jest.json" }
+        "ts-jest": { "tsconfig": __dirname + "/tsconfig-jest.json" }
     },
     preset: "ts-jest",
     coverageReporters: ["clover", "lcov"],
