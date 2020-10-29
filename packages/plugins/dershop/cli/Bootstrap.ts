@@ -64,6 +64,9 @@ export default async () => {
         product.manufacturer = { ...(await models.manufacturerByID(manufacturer.id)) }
         product.categories = [{ ...(await models.categoryById(category.id) as CategoryDB) }]
 
+        await models.productLinkCategory(product.id, category.id)
+        await models.productLinkManufacturer(product.id, manufacturer.id)
+
         data.products.push(product)
     }
 

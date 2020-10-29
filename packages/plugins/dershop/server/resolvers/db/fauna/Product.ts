@@ -22,7 +22,10 @@ export function allProducts(): Promise<ProductDB[]> {
                 q.Lambda("category", q.Merge(q.Select(["data"], q.Get(q.Var("category"))), {
                   id: q.Select(["ref", "id"], q.Get(q.Var("category")))
                 }))),
-              null)
+              null),
+            manufacturer: q.If(q.ContainsField("manufacturer", q.Select("data", q.Get(q.Var("x")))),
+              q.Select(["data"], q.Get(q.Select(["data", "manufacturer", "data"], q.Get(q.Var("x")))))
+              , null)
           }))
       )
     )
