@@ -16,7 +16,7 @@ export class CorejamFormInput {
 
   @Prop() id?: string;
   @Prop() name: string;
-  @Prop() type: string = "text";
+  @Prop() type = "text";
   @Prop() placeholder?: string;
   @Prop() label?: string;
   @Prop() formId: string;
