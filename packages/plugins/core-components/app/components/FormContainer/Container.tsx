@@ -1,9 +1,9 @@
-import { Component, ComponentInterface, h, Host, Listen, State, Event, EventEmitter, Prop } from "@stencil/core";
+import { Component, h, Host, Listen, State, Event, EventEmitter, Prop } from "@stencil/core";
 
 @Component({
   tag: "corejam-form-container",
 })
-export class CorejamFormContainer implements ComponentInterface {
+export class CorejamFormContainer {
   @Prop() name: string;
   @State() formData: any = {};
   @Event() formEvent: EventEmitter;
@@ -18,8 +18,7 @@ export class CorejamFormContainer implements ComponentInterface {
       const data = {
         ...this.formData,
       };
-      if (this.submitHandler)
-        this.submitHandler(data);
+      if (this.submitHandler) this.submitHandler(data);
 
       this.sendForm.emit(data);
     }
@@ -41,7 +40,9 @@ export class CorejamFormContainer implements ComponentInterface {
   render() {
     return (
       <Host as="form">
-        <slot></slot>
+        <form name={this.name}>
+          <slot></slot>
+        </form>
       </Host>
     );
   }

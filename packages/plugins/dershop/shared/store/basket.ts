@@ -1,7 +1,7 @@
 import { createStore } from "@stencil/store";
-import { interpret } from "@xstate/fsm";
 import { basketMachine } from "../machines/basket";
 import { Build } from "@stencil/core";
+import { State, interpret } from "xstate";
 
 const saveStateToLocalStorage = (state) => {
   const serializedState = JSON.stringify(state);
@@ -21,13 +21,12 @@ export const basketStore = createStore({
   state: null,
 });
 
+let initState;
 if (Build.isBrowser) {
   const state = restoreStateFromLocalStorage("basket");
-  const initialState = state ? state : basketMachine.initialState;
-  basketMachine.initialState = initialState;
+  initState = state ? State.create(state) : basketMachine.initialState;
 }
-
-export const basketService = interpret(basketMachine).start();
+export const basketService = interpret(basketMachine).start(initState);
 
 basketService.subscribe((state) => {
   basketStore.state.value = state.value;

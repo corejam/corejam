@@ -132,6 +132,8 @@ export namespace Components {
     }
     interface DershopRouteSearch {
     }
+    interface DershopRouteThankyou {
+    }
     interface DershopSeo {
         "seo": SEO;
     }
@@ -365,6 +367,12 @@ declare global {
         prototype: HTMLDershopRouteSearchElement;
         new (): HTMLDershopRouteSearchElement;
     };
+    interface HTMLDershopRouteThankyouElement extends Components.DershopRouteThankyou, HTMLStencilElement {
+    }
+    var HTMLDershopRouteThankyouElement: {
+        prototype: HTMLDershopRouteThankyouElement;
+        new (): HTMLDershopRouteThankyouElement;
+    };
     interface HTMLDershopSeoElement extends Components.DershopSeo, HTMLStencilElement {
     }
     var HTMLDershopSeoElement: {
@@ -432,6 +440,7 @@ declare global {
         "dershop-route-products": HTMLDershopRouteProductsElement;
         "dershop-route-register": HTMLDershopRouteRegisterElement;
         "dershop-route-search": HTMLDershopRouteSearchElement;
+        "dershop-route-thankyou": HTMLDershopRouteThankyouElement;
         "dershop-seo": HTMLDershopSeoElement;
         "dershop-sidebar": HTMLDershopSidebarElement;
         "dershop-spotlight": HTMLDershopSpotlightElement;
@@ -561,6 +570,8 @@ declare namespace LocalJSX {
     }
     interface DershopRouteSearch {
     }
+    interface DershopRouteThankyou {
+    }
     interface DershopSeo {
         "seo"?: SEO;
     }
@@ -613,6 +624,7 @@ declare namespace LocalJSX {
         "dershop-route-products": DershopRouteProducts;
         "dershop-route-register": DershopRouteRegister;
         "dershop-route-search": DershopRouteSearch;
+        "dershop-route-thankyou": DershopRouteThankyou;
         "dershop-seo": DershopSeo;
         "dershop-sidebar": DershopSidebar;
         "dershop-spotlight": DershopSpotlight;
@@ -660,6 +672,7 @@ declare module "@stencil/core" {
             "dershop-route-products": LocalJSX.DershopRouteProducts & JSXBase.HTMLAttributes<HTMLDershopRouteProductsElement>;
             "dershop-route-register": LocalJSX.DershopRouteRegister & JSXBase.HTMLAttributes<HTMLDershopRouteRegisterElement>;
             "dershop-route-search": LocalJSX.DershopRouteSearch & JSXBase.HTMLAttributes<HTMLDershopRouteSearchElement>;
+            "dershop-route-thankyou": LocalJSX.DershopRouteThankyou & JSXBase.HTMLAttributes<HTMLDershopRouteThankyouElement>;
             "dershop-seo": LocalJSX.DershopSeo & JSXBase.HTMLAttributes<HTMLDershopSeoElement>;
             "dershop-sidebar": LocalJSX.DershopSidebar & JSXBase.HTMLAttributes<HTMLDershopSidebarElement>;
             "dershop-spotlight": LocalJSX.DershopSpotlight & JSXBase.HTMLAttributes<HTMLDershopSpotlightElement>;

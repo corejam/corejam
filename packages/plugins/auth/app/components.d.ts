@@ -29,9 +29,12 @@ export namespace Components {
     interface CjRouteRegister {
     }
     interface CorejamAuthFormLogin {
-        "error": boolean;
+        "onFail": Function;
+        "onSuccess": Function;
     }
     interface CorejamAuthFormRegister {
+        "onFail": Function;
+        "onSuccess": Function;
     }
     interface CorejamAuthHeader {
     }
@@ -161,9 +164,12 @@ declare namespace LocalJSX {
     interface CjRouteRegister {
     }
     interface CorejamAuthFormLogin {
-        "error"?: boolean;
+        "onFail"?: Function;
+        "onSuccess"?: Function;
     }
     interface CorejamAuthFormRegister {
+        "onFail"?: Function;
+        "onSuccess"?: Function;
     }
     interface CorejamAuthHeader {
     }

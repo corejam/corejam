@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type      | Default |
-| -------- | --------- | ----------- | --------- | ------- |
-| `error`  | `error`   |             | `boolean` | `false` |
+| Property    | Attribute | Description | Type       | Default     |
+| ----------- | --------- | ----------- | ---------- | ----------- |
+| `onFail`    | --        |             | `Function` | `undefined` |
+| `onSuccess` | --        |             | `Function` | `undefined` |
 
 
 ## Dependencies
@@ -21,7 +22,6 @@
 ### Depends on
 
 - corejam-box
-- corejam-type
 - corejam-form-container
 - corejam-form-input
 - corejam-form-submit
@@ -30,7 +30,6 @@
 ```mermaid
 graph TD;
   corejam-auth-form-login --> corejam-box
-  corejam-auth-form-login --> corejam-type
   corejam-auth-form-login --> corejam-form-container
   corejam-auth-form-login --> corejam-form-input
   corejam-auth-form-login --> corejam-form-submit
