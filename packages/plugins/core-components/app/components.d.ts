@@ -231,24 +231,32 @@ export namespace Components {
     }
     interface CorejamFormContainer {
         "name": string;
+        "submitHandler": Function;
     }
     interface CorejamFormInput {
         "autocomplete": string;
         "autofocus": boolean;
         "bWidth": number;
         "bg": string;
-        "checked": boolean;
+        "checked"?: boolean;
         "focusBg": string;
         "focusOutline": string;
         "formId": string;
         "hoverBg": string;
-        "label": string;
+        /**
+          * Form specific props
+         */
+        "id"?: string;
+        "label"?: string;
         "name": string;
         "p": number;
-        "placeholder": string;
+        "placeholder"?: string;
         "required": boolean;
         "type": string;
         "value": string | number;
+        /**
+          * Style specific prop
+         */
         "w": number;
     }
     interface CorejamFormSelect {
@@ -709,6 +717,7 @@ declare namespace LocalJSX {
         "onFormEvent"?: (event: CustomEvent<any>) => void;
         "onFormSubmit"?: (event: CustomEvent<any>) => void;
         "onSendForm"?: (event: CustomEvent<any>) => void;
+        "submitHandler"?: Function;
     }
     interface CorejamFormInput {
         "autocomplete"?: string;
@@ -720,6 +729,10 @@ declare namespace LocalJSX {
         "focusOutline"?: string;
         "formId"?: string;
         "hoverBg"?: string;
+        /**
+          * Form specific props
+         */
+        "id"?: string;
         "label"?: string;
         "name"?: string;
         "onFormEvent"?: (event: CustomEvent<any>) => void;
@@ -728,6 +741,9 @@ declare namespace LocalJSX {
         "required"?: boolean;
         "type"?: string;
         "value"?: string | number;
+        /**
+          * Style specific prop
+         */
         "w"?: number;
     }
     interface CorejamFormSelect {

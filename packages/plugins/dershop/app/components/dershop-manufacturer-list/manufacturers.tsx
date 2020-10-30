@@ -17,15 +17,31 @@ export class IndexRoute {
   render() {
     return (
       <Host>
-        {this._data.allManufacturers?.map((manu: ManufacturerDB) => {
-          return (
-            <corejam-box display="block" data-cy="manufacturer-list" max="xl" mx="auto" px={2} xlPx={0}>
-              <corejam-base-link href={manu.seo?.url}>
-                <corejam-type>{manu.name}</corejam-type>
-              </corejam-base-link>
-            </corejam-box>
-          );
-        })}
+        <corejam-box max="xl" mx="auto" flex direction="col">
+          <corejam-box w={12} py={10}>
+            <corejam-type weight="bold" size="3xl" align="center">
+              Brands
+            </corejam-type>
+          </corejam-box>
+          <corejam-box justify="evenly" w={12} flex direction="row" data-cy="manufacturer-list" px={2}>
+            {this._data.allManufacturers?.map((manu: ManufacturerDB) => {
+              return (
+                <corejam-box w={4} flex direction="row">
+                  <corejam-box w={4} bg="gray-200" p={5} >
+                    <corejam-base-link href={manu.seo?.url}>
+                      <corejam-image src={manu.logo?.src}></corejam-image>
+                    </corejam-base-link>
+                  </corejam-box>
+                  <corejam-box w={8} p={5}>
+                    <corejam-base-link href={manu.seo?.url}>
+                      <corejam-type>{manu.name}</corejam-type>
+                    </corejam-base-link>
+                  </corejam-box>
+                </corejam-box>
+              );
+            })}
+          </corejam-box>
+        </corejam-box>
       </Host>
     );
   }

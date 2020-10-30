@@ -19,9 +19,6 @@
 ### Used by
 
  - [dershop-layout](../../layout)
- - [dershop-route-account](../../routes)
- - [dershop-route-admin-order-view](../../routes/admin/order/view)
- - [dershop-route-admin-orders](../../routes/admin/order)
 
 ### Depends on
 
@@ -61,9 +58,6 @@ graph TD;
   corejam-identity --> corejam-form-submit
   corejam-identity --> corejam-button
   dershop-layout --> dershop-header
-  dershop-route-account --> dershop-header
-  dershop-route-admin-order-view --> dershop-header
-  dershop-route-admin-orders --> dershop-header
   style dershop-header fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

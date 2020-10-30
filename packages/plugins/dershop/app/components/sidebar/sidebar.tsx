@@ -15,34 +15,36 @@ export class SidebarComponent {
             <corejam-type size="xs">Filter</corejam-type>
           </corejam-box>
 
-          <corejam-box justify={"between"} bWidthBottom={1} bColor="gray-300" pt={3}>
+          <corejam-box pb={2} justify={"between"} bWidthBottom={1} bColor="gray-300" pt={3}>
             <corejam-type color="gray-900" size="sm">
               Categories
             </corejam-type>
-            <corejam-type>-</corejam-type>
           </corejam-box>
-          <corejam-box px={4} flex py={8} direction="col">
+          <corejam-box px={4} flex py={4} direction="col">
             {this.sidebar?.categories.map((category) => (
-              <corejam-base-link href={"/" + category.url}>
-                <corejam-type as="span" color="gray-600">
-                  {category.name} ({category.itemCount})
+              <corejam-box py={1 / 2}>
+                <corejam-base-link href={"/" + category.url}>
+                  <corejam-type as="span" color="gray-600">
+                    {category.name} ({category.itemCount})
                 </corejam-type>
-              </corejam-base-link>
+                </corejam-base-link>
+              </corejam-box>
             ))}
           </corejam-box>
-          <corejam-box justify={"between"} bWidthBottom={1} bColor="gray-300" pt={3}>
+          <corejam-box pb={2} justify={"between"} bWidthBottom={1} bColor="gray-300" pt={3}>
             <corejam-type color="gray-900" size="sm">
               Brands
             </corejam-type>
-            <corejam-type>-</corejam-type>
           </corejam-box>
-          <corejam-box px={4} flex py={8} direction="col">
+          <corejam-box px={4} flex py={4} direction="col">
             {this.sidebar?.brands.map((brand) => (
-              <corejam-base-link href={"/" + brand.url}>
-                <corejam-type as="span" color="gray-600">
-                  {brand.name} ({brand.itemCount})
+              <corejam-box py={1 / 2}>
+                <corejam-base-link href={"/" + brand.url}>
+                  <corejam-type as="span" color="gray-600">
+                    {brand.name} ({brand.itemCount})
                 </corejam-type>
-              </corejam-base-link>
+                </corejam-base-link>
+              </corejam-box>
             ))}
           </corejam-box>
         </corejam-box>

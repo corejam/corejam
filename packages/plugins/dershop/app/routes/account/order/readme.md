@@ -1,4 +1,4 @@
-# dershop-route-admin-order-view
+# dershop-route-account-order
 
 
 
@@ -16,15 +16,15 @@
 
 ### Depends on
 
-- [dershop-order-view](../../../../components/order-view)
+- [dershop-order-view](../../../components/order-view)
 
 ### Graph
 ```mermaid
 graph TD;
-  dershop-route-admin-order-view --> dershop-order-view
+  dershop-route-account-order --> dershop-order-view
   dershop-order-view --> corejam-box
   dershop-order-view --> corejam-type
-  style dershop-route-admin-order-view fill:#f9f,stroke:#333,stroke-width:4px
+  style dershop-route-account-order fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

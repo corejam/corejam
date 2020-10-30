@@ -9,7 +9,6 @@ export class AdminOrderList {
   render() {
     return (
       <Host>
-        <dershop-header />
         <dershop-admin-order-list page={this.param.page} />
       </Host>
     );

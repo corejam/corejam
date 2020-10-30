@@ -28,7 +28,6 @@ graph TD;
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
   corejam-auth-form-register --> corejam-box
-  corejam-auth-form-register --> corejam-type
   corejam-auth-form-register --> corejam-form-container
   corejam-auth-form-register --> corejam-form-input
   corejam-auth-form-register --> corejam-form-submit

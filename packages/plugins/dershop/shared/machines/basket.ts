@@ -1,52 +1,78 @@
-import { createMachine, assign } from "@xstate/fsm";
-type BasketStateSchema =
+import { authStore } from "@corejam/plugin-auth";
+import { assign, createMachine } from "xstate";
+import gql from "graphql-tag";
+import { state as routerState } from "@corejam/router";
+import { coreState } from "@corejam/core-components";
+import { orderCreateGQL } from "../../shared/graphql/Mutations/Order";
+import type { OrderCreateInput } from "../../shared/types/Order";
+import { Address } from "../types/Address";
+
+export enum CheckoutStates {
+  IDLE = "idle",
+  INITIALIZED = "initialized",
+  LOGIN_OR_REGISTER = "authenticate",
+  ADDRESS = "address",
+  PAYMENT = "payment",
+  OVERVIEW = "overview",
+  TRYORDER = "tryorder",
+  THANKYOU = "thankyou",
+}
+
+export type CheckoutStatesSchema =
   | {
-      value: "idle";
-      context: BasketContext;
+      value: CheckoutStates.IDLE;
+      context: CheckoutContext;
     }
   | {
-      value: "initialized";
-      context: BasketContext;
+      value: CheckoutStates.INITIALIZED;
+      context: CheckoutContext;
     }
   | {
-      value: "address";
-      context: BasketContext;
+      value: CheckoutStates.LOGIN_OR_REGISTER;
+      context: CheckoutContext;
     }
   | {
-      value: "payment";
-      context: BasketContext;
+      value: CheckoutStates.ADDRESS;
+      context: CheckoutContext;
     }
   | {
-      value: "confirmation";
-      context: BasketContext;
+      value: CheckoutStates.PAYMENT;
+      context: CheckoutContext;
+    }
+  | {
+      value: CheckoutStates.TRYORDER;
+      context: CheckoutContext;
+    }
+  | {
+      value: CheckoutStates.THANKYOU;
+      context: CheckoutContext;
     };
-interface BasketContext {
+interface CheckoutContext {
   initialized?: boolean | string;
   items?: any;
   subTotal?: number;
   shipping?: number;
   orderTotal?: number;
+  address?: Address;
+  errors?: any;
 }
 
 // Fix issue with importing types from api and not including graphql
 type ProductCartItem = any;
 
-type CartEvent =
+type CheckoutEvent =
   | { type: "ADDITEM"; item: ProductCartItem }
+  | { type: "NEXT_STEP"; data?: any }
   | { type: "EDITITEM"; item: ProductCartItem }
-  | { type: "ADD_ADDRESS" }
+  | { type: "CHECKOUT" }
+  | { type: "ADD_ADDRESS"; data: any }
   | { type: "ADDPAYMENT" }
   | { type: "CONFIRM" }
-  | { type: "FINALIZE" }
   | { type: "CLEAR" };
 
-export const basketMachine = createMachine<
-  BasketContext,
-  CartEvent,
-  BasketStateSchema
->(
+export const basketMachine = createMachine<CheckoutContext, CheckoutEvent, CheckoutStatesSchema>(
   {
-    id: "order",
+    id: "checkout",
     initial: "idle",
     context: {
       initialized: false,
@@ -57,9 +83,10 @@ export const basketMachine = createMachine<
     },
     states: {
       idle: {
+        entry: "reset",
         on: {
           ADDITEM: {
-            target: "initialized",
+            target: CheckoutStates.INITIALIZED,
             actions: ["addItemToBasket", "calculateBasket"],
           },
         },
@@ -67,55 +94,131 @@ export const basketMachine = createMachine<
       initialized: {
         on: {
           ADDITEM: {
-            target: "initialized",
             actions: ["addItemToBasket", "calculateBasket"],
           },
-          ADD_ADDRESS: [
-            { target: "address", cond: (ctx) => ctx.items.length > 0 },
+          NEXT_STEP: [
+            {
+              target: CheckoutStates.ADDRESS,
+              cond: (ctx) => ctx.items.length > 0 && authStore.identity,
+              actions: () => routerState.router.push("/checkout"),
+            },
+            {
+              target: CheckoutStates.LOGIN_OR_REGISTER,
+              cond: (ctx) => ctx.items.length > 0 && !authStore.identity,
+              actions: () => routerState.router.push("/checkout"),
+            },
           ],
           CLEAR: {
-            target: "idle",
-            actions: "reset",
+            target: CheckoutStates.IDLE,
+          },
+        },
+      },
+      authenticate: {
+        on: {
+          NEXT_STEP: {
+            target: CheckoutStates.ADDRESS,
           },
         },
       },
       address: {
         on: {
           ADDITEM: {
-            target: "address",
-            actions: "addItemToBasket",
+            actions: ["addItemToBasket", "calculateBasket"],
+          },
+          NEXT_STEP: {
+            target: CheckoutStates.PAYMENT,
+            actions: "addAddress",
           },
           CLEAR: {
-            target: "idle",
-            actions: "reset",
+            target: CheckoutStates.IDLE,
           },
         },
       },
       payment: {
         on: {
           ADDITEM: {
-            target: "payment",
-            actions: "addItemToBasket",
+            actions: ["addItemToBasket", "calculateBasket"],
           },
-          CONFIRM: {
-            target: "confirmation",
+          NEXT_STEP: {
+            target: CheckoutStates.OVERVIEW,
           },
           CLEAR: {
-            target: "idle",
-            actions: "reset",
+            target: CheckoutStates.IDLE,
           },
         },
       },
-      confirmation: {
+      overview: {
         on: {
-          FINALIZE: {
-            target: "idle",
-            actions: "reset",
+          ADDITEM: {
+            actions: ["addItemToBasket", "calculateBasket"],
+          },
+          CONFIRM: {
+            target: CheckoutStates.TRYORDER,
+            actions: "submitOrder",
           },
           CLEAR: {
-            target: "idle",
-            actions: "reset",
+            target: CheckoutStates.IDLE,
           },
+        },
+      },
+      tryorder: {
+        invoke: {
+          src: (context) => {
+            const input: OrderCreateInput = {
+              // items: context.items,
+              items: [
+                {
+                  product: {
+                    id: context.items[0].id,
+                    name: context.items[0].name,
+                  },
+                  price: {
+                    gross: context.items[0].price.gross,
+                    tax_rate: 19,
+                    net: context.items[0].price.gross,
+                  },
+                  quantity: context.items[0].quantity,
+                },
+              ],
+              status: "SHIPPING",
+              addressBilling: {
+                ...context.address,
+              },
+              addressShipping: {
+                ...context.address,
+              },
+              price: {
+                net: context.orderTotal,
+                gross: context.orderTotal,
+                tax_rate: 19,
+              },
+            };
+
+            //TODO move this to the order confirmation page.
+            return coreState.client.mutate({
+              mutation: gql(orderCreateGQL),
+              variables: {
+                orderInput: input,
+              },
+            });
+          },
+          onDone: {
+            target: CheckoutStates.THANKYOU,
+          },
+          onError: {
+            target: CheckoutStates.OVERVIEW,
+            actions: assign({ errors: (_context, event) => event.data }),
+          },
+        },
+      },
+      thankyou: {
+        entry: () => routerState.router.push("/thankyou"),
+        on: {
+          "": [
+            {
+              target: CheckoutStates.IDLE,
+            },
+          ],
         },
       },
     },
@@ -123,8 +226,7 @@ export const basketMachine = createMachine<
   {
     actions: {
       addItemToBasket: assign({
-        initialized: (context) =>
-          context.initialized ? context.initialized : new Date().toISOString(),
+        initialized: (context) => (context.initialized ? context.initialized : new Date().toISOString()),
         items: (context, event) => {
           if (event.type === "ADDITEM") {
             let found = false;
@@ -139,18 +241,25 @@ export const basketMachine = createMachine<
           }
         },
       }),
+      addAddress: assign({
+        address: (_context, event: any) => {
+          const data: any = event.data;
+          return {
+            country: data.country.value,
+            state: data.address.value,
+            street: data.address.value,
+            street_2: data.address.value,
+            zipCode: data.zipCode.value,
+            city: data.address.value,
+          };
+        },
+      }),
       editItemInBasket: assign({}),
       calculateBasket: assign({
-        subTotal: (context: BasketContext) =>
-          context.items.reduce(
-            (acc, curr) => curr.price.net * curr.quantity + acc,
-            0
-          ),
-        orderTotal: (context: BasketContext) =>
-          context.items.reduce(
-            (acc, curr) => curr.price.net * curr.quantity + acc,
-            context.shipping
-          ),
+        subTotal: (context: CheckoutContext) =>
+          context.items.reduce((acc, curr) => curr.price.net * curr.quantity + acc, 0),
+        orderTotal: (context: CheckoutContext) =>
+          context.items.reduce((acc, curr) => curr.price.net * curr.quantity + acc, context.shipping),
       }),
       reset: assign({
         initialized: false,

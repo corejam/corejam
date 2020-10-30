@@ -1,15 +1,18 @@
-import { Component, h, Host, Listen } from "@stencil/core";
+import { Component, h, Host, Listen, Prop } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
 import { state as routerState } from "@corejam/router";
+import gql from "graphql-tag";
 import { userRegisterMutationGQL } from "../../../shared/graphql/Mutations";
 import { authStore } from "../../store/authStore";
-import gql from "graphql-tag";
 
 @Component({
   tag: "corejam-auth-form-register",
 })
 export class AuthRegister {
   private formId = "register";
+
+  @Prop() onSuccess: Function;
+  @Prop() onFail: Function;
 
   @Listen("sendForm", { target: "window" })
   async formEventHandler({ detail }) {
@@ -27,7 +30,9 @@ export class AuthRegister {
     });
 
     if (request.data.userRegister) {
-      routerState.router.push("/login");
+      this.onSuccess ? this.onSuccess() : routerState.router.push("/login");
+    } else {
+      this.onFail ? this.onFail() : null;
     }
   }
 
@@ -38,30 +43,24 @@ export class AuthRegister {
   render() {
     return (
       <Host>
-        <corejam-box
-          p={8}
-          rounded="md"
-          bWidth={1}
-          bColor="gray-200"
-          max="md"
-          mx="auto"
-          px={4}
-          lgPx={0}
-          flex
-          justify="between"
-          mb={24}
-        >
+        <corejam-box p={8} max="md" mx="auto" px={4} lgPx={0} flex justify="between" mb={24}>
           <corejam-box w={5} mx="auto">
-            <corejam-box pb={4} mb={8} bWidthBottom={1} bColor="gray-400">
-              <corejam-type as="h2" size="xl">
-                Register
-              </corejam-type>
-            </corejam-box>
             <corejam-form-container name={this.formId}>
               <corejam-box>
-                <corejam-form-input required={true} name="email" type="email" formId={this.formId} label="Email" />
+                <corejam-form-input
+                  required={true}
+                  name="email"
+                  type="email"
+                  formId={this.formId}
+                  label="Email"
+                ></corejam-form-input>
                 <corejam-box>
-                  <corejam-form-input name="password" type="password" formId={this.formId} label="Password" />
+                  <corejam-form-input
+                    name="password"
+                    type="password"
+                    formId={this.formId}
+                    label="Password"
+                  ></corejam-form-input>
                 </corejam-box>
                 <corejam-box>
                   <corejam-form-input
@@ -69,10 +68,14 @@ export class AuthRegister {
                     type="password"
                     formId={this.formId}
                     label="Confirm Password"
-                  />
+                  ></corejam-form-input>
                 </corejam-box>
                 <corejam-box>
-                  <corejam-form-input type="checkbox" formId={this.formId} label="I agree to the terms & conditions" />
+                  <corejam-form-input
+                    type="checkbox"
+                    formId={this.formId}
+                    label="I agree to the terms & conditions"
+                  ></corejam-form-input>
                 </corejam-box>
                 <corejam-box>
                   <corejam-form-submit formId={this.formId}>
