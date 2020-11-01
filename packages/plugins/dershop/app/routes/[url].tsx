@@ -1,6 +1,6 @@
 import { coreState } from "@corejam/core-components";
 import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
-import { SEODocument } from "shared/types/Seo";
+import { SEODocument } from "../../shared/types/Seo";
 import gql from "graphql-tag";
 import { getObjectFromURL } from "../../shared/graphql/Queries/URL";
 
@@ -16,7 +16,7 @@ export class UrlRoute {
 
   @Watch("param")
   async rerenderForUrl() {
-    await this.getComponentFromParam()
+    await this.getComponentFromParam();
   }
 
   /**
@@ -37,7 +37,7 @@ export class UrlRoute {
   }
 
   async componentWillLoad() {
-    await this.getComponentFromParam()
+    await this.getComponentFromParam();
   }
 
   getComponentForRoute() {
