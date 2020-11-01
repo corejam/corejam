@@ -2,63 +2,78 @@ import chalk from "chalk";
 import ora from "ora";
 import execa from "execa";
 import jetpack from "fs-jetpack";
-import { isYarn } from "is-npm";
 import kill from "kill-port";
-import { reactBindingsRoot, envRoot } from "../config";
-import { cleanBindings } from "../helpers/resetStages";
-import { copyBindings, copyBindingsToPlugin, copySchemaToDist } from "../helpers/copy";
+import { envRoot } from "../config";
+import { copySchemaToDist } from "../helpers/copy";
 import { prependNoCheckToComponents } from "../helpers/prependInFile";
-import { replaceWebComponentsImport } from "../helpers/replaceInFile";
 
 export default async function run(options: any) {
   return new Promise(async (res, rej) => {
     try {
-      const envPackage = require(envRoot + "/package.json")
+      const envPackage = require(envRoot + "/package.json");
       const envPackageName = envPackage.name;
 
       const bootSpinner = ora(`Starting build for ${chalk.bold.green(envPackageName)}...`).start();
 
       const logToConsole = options.l ? "inherit" : "ignore";
 
+      await jetpack.removeAsync(envRoot + "/dist");
+      await jetpack.removeAsync(envRoot + "/react");
+      await jetpack.removeAsync(envRoot + "/web-components");
+
       bootSpinner.text = "Bundling server code";
       await buildServerCode();
-      bootSpinner.text = "Bundling server code finished";
       bootSpinner.text = "Finished server build";
-
-      await cleanBindings();
-
-      await copyBindings();
 
       bootSpinner.text = "Generating web components build";
 
       await kill(3001);
 
-      await execa("node_modules/.bin/stencil", ["build", "--docs"], {
+      await execa("node_modules/.bin/stencil", ["build"], {
         stdio: logToConsole,
         cwd: envRoot,
         env: {
           ...process.env,
           NODE_ENV: process.env.NODE_ENV || "production",
           targets: "dist,custom,hydrate,react",
-          REACT_BINDINGS_ROOT: reactBindingsRoot
-        }
+        },
       });
 
       if (!options.wc && envPackage.files.includes("react")) {
-        bootSpinner.text = "Install react bindings dependencies";
-
-        await prependNoCheckToComponents();
-
         bootSpinner.text = "Generating react bindings";
 
-        await execa(isYarn ? "yarn" : "npm", ["install"], { cwd: reactBindingsRoot, stdio: logToConsole });
-        await execa(isYarn ? "yarn" : "npm", ["build"], { cwd: reactBindingsRoot, stdio: logToConsole });
+        /**
+         * We do this because of our current import setup in component file
+         *
+         * e.g. dershop has dep. on auth and so all of auth gets pulled in dershop
+         *
+         * TODO correct app splitting and bootstrapping
+         */
+        await prependNoCheckToComponents();
+
+        await execa(
+          "node_modules/.bin/tsc",
+          [
+            "./react/index.ts",
+            "--jsx",
+            "react",
+            "--target",
+            "es5",
+            "--moduleResolution",
+            "node",
+            "--esModuleInterop",
+            "true",
+          ],
+          {
+            stdio: logToConsole,
+            cwd: envRoot,
+          }
+        );
+
+        //@ts-ignore
+        // await rollup(rollupBundle);
 
         bootSpinner.text = "React bindings finished";
-
-        await replaceWebComponentsImport(envPackageName);
-
-        await copyBindingsToPlugin();
 
         if (jetpack.exists(envRoot + "/server")) {
           bootSpinner.text = "Bundling server code";
@@ -66,12 +81,9 @@ export default async function run(options: any) {
           bootSpinner.text = "Bundling server code finished";
         }
       }
-
-      await cleanBindings();
       bootSpinner.succeed("Finished plugin build");
       res();
     } catch (e) {
-      await cleanBindings();
       console.log(e);
       rej();
     }
@@ -93,8 +105,8 @@ export async function buildStatic(options: any) {
     env: {
       ...process.env,
       NODE_ENV: "static",
-      targets: "prerender"
-    }
+      targets: "prerender",
+    },
   });
 
   api.kill();

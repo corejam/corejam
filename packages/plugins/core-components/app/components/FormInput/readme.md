@@ -7,6 +7,7 @@
 
 | Property       | Attribute       | Description         | Type               | Default      |
 | -------------- | --------------- | ------------------- | ------------------ | ------------ |
+| `_id`          | `_id`           | Form specific props | `string`           | `undefined`  |
 | `autocomplete` | `autocomplete`  |                     | `string`           | `"off"`      |
 | `autofocus`    | `autofocus`     |                     | `boolean`          | `false`      |
 | `bWidth`       | `b-width`       |                     | `number`           | `0`          |
@@ -16,7 +17,6 @@
 | `focusOutline` | `focus-outline` |                     | `string`           | `"none"`     |
 | `formId`       | `form-id`       |                     | `string`           | `undefined`  |
 | `hoverBg`      | `hover-bg`      |                     | `string`           | `"gray-300"` |
-| `id`           | `id`            | Form specific props | `string`           | `undefined`  |
 | `label`        | `label`         |                     | `string`           | `undefined`  |
 | `name`         | `name`          |                     | `string`           | `undefined`  |
 | `p`            | `p`             |                     | `number`           | `4`          |

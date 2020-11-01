@@ -1,7 +1,7 @@
 import { coreState } from "@corejam/core-components";
 import { Component, Host, h } from "@stencil/core";
 import gql from "graphql-tag";
-import { ManufacturerDB } from "shared/types/Manufacturer";
+import { ManufacturerDB } from "../../../shared/types/Manufacturer";
 import { allManufacturersGQL } from "../../../shared/graphql/Queries/Manufacturer";
 
 @Component({
@@ -27,7 +27,7 @@ export class IndexRoute {
             {this._data.allManufacturers?.map((manu: ManufacturerDB) => {
               return (
                 <corejam-box w={4} flex direction="row">
-                  <corejam-box w={4} bg="gray-200" p={5} >
+                  <corejam-box w={4} bg="gray-200" p={5}>
                     <corejam-base-link href={manu.seo?.url}>
                       <corejam-image src={manu.logo?.src}></corejam-image>
                     </corejam-base-link>

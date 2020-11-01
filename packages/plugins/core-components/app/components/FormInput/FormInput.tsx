@@ -14,7 +14,7 @@ export class CorejamFormInput {
    * Form specific props
    */
 
-  @Prop() id?: string;
+  @Prop() _id?: string;
   @Prop() name: string;
   @Prop() type = "text";
   @Prop() placeholder?: string;
@@ -81,7 +81,7 @@ export class CorejamFormInput {
 
   render() {
     const props = {
-      id: this.id,
+      id: this._id,
       name: this.name,
       type: this.type,
       formId: this.formId,
