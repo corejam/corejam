@@ -13,7 +13,6 @@
     "strictNullChecks": false,
     "jsx": "react",
     "jsxFactory": "h",
-    "baseUrl": ".",
     "keyofStringsOnly": false,
     "skipLibCheck": true
   },
