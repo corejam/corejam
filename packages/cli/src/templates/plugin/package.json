@@ -24,18 +24,18 @@
     "web-components"
   ],
   "devDependencies": {
-    "tslib": "2.0.2",
-    "typescript": "4.0.3",
-    "@types/faker": "5.1.2",
-    "@corejam/base": "0.0.8",
-    "@corejam/core-components": "0.0.8",
-    "@corejam/cli": "0.0.11",
+    "tslib": "2.0.3",
+    "typescript": "4.0.5",
+    "@types/faker": "5.1.4",
+    "@corejam/base": "0.0.9",
+    "@corejam/core-components": "0.0.9",
+    "@corejam/cli": "0.0.12",
     "faker": "5.1.0",
     "dotenv": "8.2.0",
-    "@corejam/dev": "0.0.7",
-    "@corejam/run": "0.0.2",
-    "@corejam/rollup-plugin": "0.0.1",
-    "@rollup/plugin-replace": "2.3.3",
+    "@corejam/dev": "0.0.8",
+    "@corejam/run": "0.0.3",
+    "@corejam/rollup-plugin": "0.0.2",
+    "@rollup/plugin-replace": "2.3.4",
     "@stencil/react-output-target": "0.0.9"
   },
   "corejam": {
