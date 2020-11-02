@@ -8,8 +8,10 @@ import replace from "@rollup/plugin-replace";
 
 const targets = process.env.targets?.split(",") || [];
 
+const name = require("./package.json").name;
+
 const config: Config = {
-  namespace: process.env.NODE_ENV === "production" ? require("./package.json").name : "corejam-dev",
+  namespace: process.env.NODE_ENV === "production" ? name : "corejam-dev",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
   srcIndexHtml: require.resolve("@corejam/run/dist/index.html"),
@@ -59,11 +61,18 @@ if (targets.includes("react")) {
   if (!fs.existsSync("./react")) fs.mkdirSync("./react");
   config.outputTargets.push(
     reactOutputTarget({
-      componentCorePackage: "@corejam/stencil-runner",
-      proxiesFile: process.env.REACT_BINDINGS_ROOT + "/src/components.ts",
+      componentCorePackage: name,
+      proxiesFile: "react/index.ts",
       loaderDir: "web-components/loader",
       includeDefineCustomElements: true,
-      // includePolyfills: true // Enable if needed
+      excludeComponents: [
+        "app-liveview",
+        "app-playground",
+        "app-test-comp",
+        "app-welcome",
+        "corejam-run-app",
+        "corejam-run-router",
+      ],
     })
   );
 }
