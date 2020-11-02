@@ -26,6 +26,7 @@ module.exports = {
     "globals": {
         "ts-jest": { "tsconfig": __dirname + "/tsconfig-jest.json" }
     },
+    setupFilesAfterEnv: [__dirname + "/jest.setup.js"],
     preset: "ts-jest",
     coverageReporters: ["clover", "lcov"],
     collectCoverage: true,
