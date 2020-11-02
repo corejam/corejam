@@ -4,12 +4,12 @@
   "description": "Corejam Runtime",
   "main": "dist/index.cjs.js",
   "module": "dist/custom-elements/index.js",
-  "es2015": "dist/esm/index.mjs",
-  "es2017": "dist/esm/index.mjs",
+  "es2015": "dist/esm/index.js",
+  "es2017": "dist/esm/index.js",
   "types": "dist/custom-elements/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/dev/dev.js",
+  "unpkg": "dist/esm/index.mjs",
   "files": [
     "dist/"
   ],
@@ -19,9 +19,7 @@
     "postbuild": "shx cp ./app/index.html ./dist",
     "prepublish": "yarn build",
     "test": "stencil test --spec --e2e",
-    "clean": "rimraf dist",
-    "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "clean": "rimraf dist"
   },
   "dependencies": {
     "@corejam/rollup-plugin": "0.0.1",
