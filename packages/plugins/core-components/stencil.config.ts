@@ -58,11 +58,18 @@ if (targets.includes("react")) {
   if (!fs.existsSync("./react")) fs.mkdirSync("./react");
   config.outputTargets.push(
     reactOutputTarget({
-      componentCorePackage: "@corejam/stencil-runner",
-      proxiesFile: process.env.REACT_BINDINGS_ROOT + "/src/components.ts",
+      componentCorePackage: "@corejam/core-components",
+      proxiesFile: "react/index.ts",
       loaderDir: "web-components/loader",
       includeDefineCustomElements: true,
-      // includePolyfills: true // Enable if needed
+      excludeComponents: [
+        "app-liveview",
+        "app-playground",
+        "app-test-comp",
+        "app-welcome",
+        "corejam-run-app",
+        "corejam-run-router",
+      ],
     })
   );
 }

@@ -1,6 +1,6 @@
 import { Component, ComponentInterface, h, Host } from "@stencil/core";
 import basket, { basketService } from "../../../shared/store/basket";
-import { CheckoutStates } from "shared/machines/basket";
+import { CheckoutStates } from "../../../shared/machines/basket";
 
 @Component({
   tag: "dershop-cart",

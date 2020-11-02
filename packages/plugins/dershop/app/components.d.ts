@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { objectFit } from "./components/dershop-image/dershop-image";
-import { ManufacturerDB } from "shared/types/Manufacturer";
+import { ManufacturerDB } from "../shared/types/Manufacturer";
 import { Product } from "../shared/types/Product";
 import { SEO } from "@corejam/base/dist/typings/Seo";
 import { Sidebar } from "../shared/types/Sidebar";

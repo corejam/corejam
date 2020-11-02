@@ -13,10 +13,9 @@
     "strictNullChecks": false,
     "jsx": "react",
     "jsxFactory": "h",
-    "baseUrl": ".",
     "keyofStringsOnly": false,
     "skipLibCheck": true
   },
-  "include": ["app", "types/jsx.d.ts", "shared"],
-  "exclude": ["node_modules"]
+  "include": ["app", "shared"],
+  "exclude": ["node_modules", "react/**/*"]
 }

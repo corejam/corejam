@@ -1,6 +1,6 @@
 import { state } from "@corejam/router";
 import { Component, Host, h, State, Element, Listen } from "@stencil/core";
-import { dershopState } from "app/store/dershop";
+import { dershopState } from "../../store/dershop";
 
 @Component({
   tag: "dershop-inline-search",
