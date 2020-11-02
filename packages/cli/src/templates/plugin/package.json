@@ -36,7 +36,8 @@
     "@corejam/run": "0.0.3",
     "@corejam/rollup-plugin": "0.0.2",
     "@rollup/plugin-replace": "2.3.4",
-    "@stencil/react-output-target": "0.0.9"
+    "@stencil/react-output-target": "0.0.9",
+    "@stencil/core": "2.2.0"
   },
   "corejam": {
     "wrapper": [],
