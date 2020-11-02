@@ -19,8 +19,6 @@ export default async function createApp(name: string) {
 
     const installProcess = execa(isYarn ? "yarn" : "npm", ["install"], { cwd: pluginRootPath });
 
-    await jetpack.renameAsync(pluginRootPath + "/gitignore", ".gitignore");
-
     spinner.stopAndPersist({ text: "Templates finished", symbol: logSymbol.success });
     // Replace all placeholder
     spinner.start("Putting all stuff in place");
