@@ -235,7 +235,7 @@ jobs:
       - run: |
           yarn bs
           cd packages/base && yarn link
-          cd ../cli && export CLI_PATH=$(pwd)
+          cd ../cli && export CLI_PATH=$(pwd) && yarn link
           cd ../dev && yarn link
           cd ../run && yarn link
           cd ../rollup-plugin && yarn link
