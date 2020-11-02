@@ -263,6 +263,7 @@ jobs:
       - core-components-test
       - cypress-generateApp-monorepo
       - cypress-generateApp-standalone
+      - cypress-generateApp-standaloneCLI
     steps:
       - uses: actions/checkout@v2
         with:
