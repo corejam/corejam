@@ -1,6 +1,6 @@
 {
   "name": "@corejam/base",
-  "version": "0.0.10",
+  "version": "0.0.9",
   "homepage": "https://corejam.io/",
   "description": "A scaffolding for building progressive GraphQL powered jamstack applications",
   "bugs": {
