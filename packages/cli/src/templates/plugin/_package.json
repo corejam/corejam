@@ -29,7 +29,7 @@
     "@types/faker": "5.1.4",
     "@corejam/base": "0.0.10",
     "@corejam/core-components": "0.0.10",
-    "@corejam/cli": "0.0.13",
+    "@corejam/cli": "0.0.15",
     "faker": "5.1.0",
     "dotenv": "8.2.0",
     "@corejam/dev": "0.0.8",
