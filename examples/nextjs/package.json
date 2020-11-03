@@ -26,7 +26,7 @@
     "react-dom": "17.0.1"
   },
   "devDependencies": {
-    "@corejam/cli": "0.0.13",
+    "@corejam/cli": "0.0.15",
     "@next/bundle-analyzer": "10.0.0"
   }
 }
