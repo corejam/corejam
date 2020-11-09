@@ -30,7 +30,7 @@ it("should render flex property", async () => {
 it("should render flex direction property", async () => {
   const page = await newSpecPage({
     components: [CorejamBox],
-    html: `<corejam-box flex="true" direction="column">hallo</corejam-box>`,
+    html: `<corejam-box flex="true" direction="col">hallo</corejam-box>`,
   });
 
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
@@ -444,7 +444,7 @@ it("should render css based on max property", async () => {
     html: `<corejam-box max="md">hallo</corejam-box>`,
   });
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
-  expect(computedStyleRules).toContain("max-width: 768px");
+  expect(computedStyleRules).toContain("max-width: var(--cj-screens-md);");
 });
 
 it("should render hide based on prop", async () => {
@@ -462,7 +462,7 @@ it("should render border color based on prop", async () => {
     html: `<corejam-box b-color="red-500">hallo</corejam-box>`,
   });
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
-  expect(computedStyleRules).toContain("border-color: var(--cj-color-red-500)");
+  expect(computedStyleRules).toContain("border-color: var(--cj-colors-red-500)");
 });
 
 it("should render border collapse based on prop", async () => {
