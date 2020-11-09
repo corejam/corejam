@@ -13247,10 +13247,10 @@ stealthy-require@^1.1.1:
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
 
-stencil-router-v2@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/stencil-router-v2/-/stencil-router-v2-0.5.0.tgz#e92561826b72b2735f3f472f7294d3f1dfe069f8"
-  integrity sha512-pIciksEZ9m6yps6QMnLYdDDvuiPNKACh8gksUtitvBaoBJxyQT48IXJ02ZwMwB7gjiD3u7A50iosCdJqHJfgTQ==
+stencil-router-v2@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/stencil-router-v2/-/stencil-router-v2-0.6.0.tgz#3694f380bbe639a94a54b094799a334d503b03b5"
+  integrity sha512-E6ncNTIbFOleADelSQ7V/aSkZvdyTW8OKpPqxLi3AdUf8EwN0vZAMsIKHyPPS2hHLCh2/qNyVb/pbnzOszYBCw==
   dependencies:
     "@stencil/store" "^1.1.0"
 
