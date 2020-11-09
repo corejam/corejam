@@ -1,7 +1,12 @@
 import { hashCode } from "./utils";
-import { breakpointValues } from "./style";
 
 export function computeStyle(styles) {
+  const breakpoints = {
+    sm: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-sm"),
+    md: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-md"),
+    lg: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-lg"),
+    xl: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-xl"),
+  };
   const collecters = {
     rules: [],
     hover: [],
@@ -51,84 +56,84 @@ export function computeStyle(styles) {
     }
     if (key === "sm") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.sm}px) {
+        generated += `@media screen and (min-width:${breakpoints.sm}) {
                         .##HASH## { ${collecters[key].join("\n")} }
                  }\n`;
       return;
     }
     if (key === "sm-focus") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.sm}px) {
+        generated += `@media screen and (min-width: ${breakpoints.sm}) {
                     .##HASH##:focus : ""} { ${collecters[key].join("\n")} }
                  }\n`;
       return;
     }
     if (key === "sm-hover") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.sm}px) {
+        generated += `@media screen and (min-width: ${breakpoints.sm}) {
                     .##HASH##:hover { ${collecters[key].join("\n")} }
                  }\n`;
       return;
     }
     if (key === "md") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.md}px) {
+        generated += `@media screen and (min-width: ${breakpoints.md}) {
                       .##HASH## { ${collecters[key].join("\n")} }
                  }\n`;
       return;
     }
     if (key === "md-focus") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.md}px) {
+        generated += `@media screen and (min-width: ${breakpoints.md}) {
                         .##HASH##:focus { ${collecters[key].join("\n")} }
                  }\n`;
       return;
     }
     if (key === "md-hover") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.md}px) {
+        generated += `@media screen and (min-width: ${breakpoints.md}) {
                     .##HASH##:hover { ${collecters[key].join("\n")} }
                  }\n`;
       return;
     }
     if (key === "lg") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.lg}px) {
+        generated += `@media screen and (min-width: ${breakpoints.lg}) {
                     .##HASH## { ${collecters[key].join("\n")} }
                  }\n`;
       return;
     }
     if (key === "lg-focus") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.lg}px) {
+        generated += `@media screen and (min-width: ${breakpoints.lg}) {
                     .##HASH##:focus { ${collecters[key].join("\n")} }
                  }\n`;
       return;
     }
     if (key === "lg-hover") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.lg}px) {
+        generated += `@media screen and (min-width: ${breakpoints.lg}) {
                       .##HASH##:hover { ${collecters[key].join("\n")} }
                  }\n`;
       return;
     }
     if (key === "xl") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.xl}px) {
+        generated += `@media screen and (min-width: ${breakpoints.xl}) {
                        .##HASH## { ${collecters[key].join("\n")} }
                  }\n`;
       return;
     }
     if (key === "xl-focus") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.xl}px) {
+        generated += `@media screen and (min-width: ${breakpoints.xl}) {
                       .##HASH##:focus { ${collecters[key].join("\n")} }
                  }\n`;
       return;
     }
     if (key === "xl-hover") {
       if (collecters[key].length > 0)
-        generated += `@media screen and (min-width: ${breakpointValues.xl}px) {
+        generated += `@media screen and (min-width: ${breakpoints.xl}) {
                     .##HASH##:hover { ${collecters[key].join("\n")} }
                  }\n`;
       return;

@@ -1,6 +1,6 @@
 import { Component, h, Prop, State, Watch, Host } from "@stencil/core";
 import { Font, General } from "./types";
-import { addStyleTagToHead } from "../../helpers/Style";
+import { addStyleTagToHead } from "../../utils/addStyleTag";
 import { computeStyle } from "../../utils/computeStyle";
 
 @Component({

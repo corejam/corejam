@@ -1,6 +1,6 @@
 import { Component, h, Prop, Host, Element, Build, State } from "@stencil/core";
 import { computeStyle } from "../../utils/computeStyle";
-import { addStyleTagToHead } from "../../helpers/Style";
+import { addStyleTagToHead } from "../../utils/addStyleTag";
 
 @Component({
   tag: "corejam-image",
@@ -13,6 +13,7 @@ export class Image {
   @Prop() w = 12;
   @Prop() maxWidth = 100;
   @Prop() h: string;
+  @Prop() maxH: string;
   @Prop() fit: "cover";
   @Prop() rounded: "full";
   @Prop() lazy = false;
@@ -58,7 +59,7 @@ export class Image {
     }
   };
 
-  _relevantProps = ["w", "maxWidth", "h", "fit", "rounded"];
+  _relevantProps = ["w", "maxWidth", "h", "maxH", "fit", "rounded"];
 
   render() {
     const srcProps = {};

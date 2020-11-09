@@ -1,6 +1,6 @@
 import { Component, Element, Event, EventEmitter, h, Host, Prop, State } from "@stencil/core";
 import { computeStyle } from "../../utils/computeStyle";
-import { addStyleTagToHead } from "../../helpers/Style";
+import { addStyleTagToHead } from "../../utils/addStyleTag";
 
 @Component({
   tag: "corejam-form-input",

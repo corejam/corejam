@@ -2,7 +2,7 @@ import { Component, Host, h, Prop, State, Event } from "@stencil/core";
 import { href } from "stencil-router-v2";
 import { state as routerState } from "@corejam/router";
 import { computeStyle } from "../../utils/computeStyle";
-import { addStyleTagToHead } from "../../helpers/Style";
+import { addStyleTagToHead } from "../../utils/addStyleTag";
 import { Link } from "./Link.types";
 import { EventEmitter } from "@corejam/run/dist/types/stencil-public-runtime";
 

@@ -1,6 +1,6 @@
 import { Component, Host, h, Prop, State, Watch } from "@stencil/core";
 import { Flex, Position, Display } from "./types";
-import { addStyleTagToHead } from "../../helpers/Style";
+import { addStyleTagToHead } from "../../utils/addStyleTag";
 import { computeStyle } from "../../utils/computeStyle";
 
 /**

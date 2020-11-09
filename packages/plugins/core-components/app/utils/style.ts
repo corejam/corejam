@@ -1,8 +1,9 @@
-import { breakpoints } from "./config";
 import { getTransformedValue } from "./transformers";
 import { keyToPropMapping } from "./propMapping";
+// import { hashCode } from "./utils";
 
 export const collectProps = (instance) => {
+  const breakpoints = ["Sm", "Md", "Lg", "Xl"];
   const props = {};
   instance._relevantProps.forEach((prop) => {
     if (typeof instance[prop] !== "undefined") props[prop] = instance[prop];
@@ -12,13 +13,6 @@ export const collectProps = (instance) => {
   });
 
   return props;
-};
-
-export const breakpointValues = {
-  sm: getComputedStyle(document.body).getPropertyValue("--cj-breakpoint-sm") || 640,
-  md: getComputedStyle(document.body).getPropertyValue("--cj-breakpoint-md") || 768,
-  lg: getComputedStyle(document.body).getPropertyValue("--cj-breakpoint-lg") || 1024,
-  xl: getComputedStyle(document.body).getPropertyValue("--cj-breakpoint-xl") || 1280,
 };
 
 const normalizeResponsiveProp = (key) => {
@@ -52,6 +46,8 @@ function additionalRules(prop) {
 
 export const generateStyleMap = (instance, outerElement = "") => {
   const collectedProps = collectProps(instance);
+
+  // const hashedKey = hashCode(`${instance.constructor.name}${JSON.stringify(collectedProps)}`) * -1;
   const rules = Object.keys(collectedProps).map((key: string) => {
     const [group, property] = normalizeResponsiveProp(key);
     const cssRules = Array.isArray(keyToPropMapping[property])
