@@ -63,7 +63,7 @@
   "devDependencies": {
     "@types/debug": "4.1.5",
     "@types/jest": "26.0.15",
-    "@types/node": "14.14.6",
+    "@types/node": "14.14.7",
     "@types/sade": "1.7.2",
     "apollo-server-testing": "2.19.0",
     "debug": "4.2.0",
