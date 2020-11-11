@@ -1,12 +1,12 @@
 import borderRadius from "./transform/border/radius";
-import fontWeight from "./transform/font/weight";
-import fontSize from "./transform/font/size";
-import fontStyle from "./transform/font/style";
-import fontSpacing from "./transform/font/spacing";
-import fontDecoration from "./transform/font/decoration";
-import fontTransform from "./transform/font/transform";
-import fontAlign from "./transform/font/align";
-import fontLineHeight from "./transform/font/lineHeight";
+import fontWeight from "./transform/typography/weight";
+import fontSize from "./transform/typography/size";
+import fontStyle from "./transform/typography/style";
+import fontSpacing from "./transform/typography/spacing";
+import fontDecoration from "./transform/typography/decoration";
+import fontTransform from "./transform/typography/transform";
+import fontAlign from "./transform/typography/align";
+import fontLineHeight from "./transform/typography/lineHeight";
 import padding from "./transform/spacing/padding";
 import margin from "./transform/spacing/margin";
 import height from "./transform/sizing/height";
@@ -26,12 +26,12 @@ import display from "./transform/layout/display";
 import objectFit from "./transform/layout/objectFit";
 import zIndex from "./transform/layout/zIndex";
 import flex from "./transform/flex/flex";
-import justify from "./transform/flex/justify";
+import justify from "./transform/box/justifyContent";
 import width from "./transform/sizing/width";
 import borderWidth from "./transform/border/width";
 import outline from "./transform/interactivity/outline";
 import backgroundColor from "./transform/backgrounds/color";
-import fontColor from "./transform/font/color";
+import fontColor from "./transform/typography/color";
 import borderColor from "./transform/border/color";
 import flexDirection from "./transform/flex/direction";
 
@@ -41,7 +41,7 @@ import flexDirection from "./transform/flex/direction";
  * @param property
  * @param value
  */
-function modValue(property: string, value: string) {
+function transformValue(property: string, value: string) {
   const map = {
     display: display,
     flex: flex,
@@ -114,9 +114,9 @@ function modValue(property: string, value: string) {
 
 export const getTransformedValue = (property, value) => {
   try {
-    const val = modValue(property, value);
-    return val;
+    const computedValue = transformValue(property, value);
+    return computedValue;
   } catch (e) {
-    return "";
+    console.log(e);
   }
 };
