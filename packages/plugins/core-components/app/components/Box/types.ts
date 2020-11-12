@@ -15,8 +15,6 @@ export namespace Flex {
   export type Flow = "row" | "row-reverse" | "column" | "column-reverse";
 }
 
-export namespace Element {
-  export type Position = "static" | "relative" | "absolute" | "sticky" | "fixed";
-}
+export type Position = "static" | "relative" | "absolute" | "sticky" | "fixed";
 
 export type Display = "block" | "flex" | "inine" | "none";

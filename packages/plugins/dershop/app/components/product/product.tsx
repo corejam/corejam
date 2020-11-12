@@ -1,15 +1,17 @@
-import { Component, Host, h, Prop, State, Event, EventEmitter } from "@stencil/core";
-import { basketService } from "../../../shared/store/basket";
-import { productByUrlGQL } from "../../../shared/graphql/Queries/Product";
+import { Image } from "@corejam/base/dist/typings/Image";
 import { coreState } from "@corejam/core-components";
-import { Product } from "../../../shared/types/Product";
+import { Component, Event, EventEmitter, h, Host, Prop, State } from "@stencil/core";
 import gql from "graphql-tag";
+import { productByUrlGQL } from "../../../shared/graphql/Queries/Product";
+import { basketService } from "../../../shared/store/basket";
+import { Product } from "../../../shared/types/Product";
 
 @Component({
   tag: "dershop-product",
 })
 export class ProductDetail {
   @State() _product: Product;
+  @State() _activeThumb: Image;
   @Prop() url: string;
   @Prop() product: string | Product;
   /**
@@ -48,20 +50,8 @@ export class ProductDetail {
           ? JSON.parse(this.product)
           : this.product
         : null;
+      this._activeThumb = this._product.images[0]
     }
-  }
-
-  getImage(product: Product) {
-    return (
-      product?.images[0].src ||
-      "https://images.unsplash.com/photo-1532003885409-ed84d334f6cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-    );
-  }
-
-  getSubImagesAsArray() {
-    if (!this.images) return [];
-    if (Array.isArray(this.images)) return this.images;
-    return this.images.split(",");
   }
 
   buyProduct(e) {
@@ -90,21 +80,25 @@ export class ProductDetail {
               h="detail"
               fit="cover"
               class="productMainImage"
-              src={this.getImage(product)}
-              alt="Product"
+              data-cy="product-image"
+              src={this._activeThumb?.src}
+              alt={this._product.name}
             ></dershop-image>
-            <corejam-box mt={6} pb={6} hide="sm" show="md">
-              <dershop-ui-grid grid cols={4} gap="2">
-                {this.getSubImagesAsArray().map((image) => (
-                  <dershop-image
-                    h="32"
-                    fit="cover"
-                    class="object-cover opacity-25"
-                    src={image}
-                    alt="Product"
-                  ></dershop-image>
+             <corejam-box mt={6} pb={6}>
+              <corejam-box flex direction="row">
+                {this._product.images?.map((image) => (
+                  <corejam-box px={2}>
+                    <dershop-image
+                      h="32"
+                      fit="cover"
+                      data-cy="product-thumb"
+                      onClick={() => { this._activeThumb = image }}
+                      src={image.src}
+                      alt={this._product.name}
+                    ></dershop-image>
+                  </corejam-box>
                 ))}
-              </dershop-ui-grid>
+              </corejam-box>
             </corejam-box>
           </corejam-box>
           <corejam-box w={12} mdW={6} mt={6} mdMt={0} flex direction="col">
@@ -128,7 +122,7 @@ export class ProductDetail {
                   Add to cart
                 </corejam-type>
               </button>
-              <corejam-box p={2} hide="sm" show="sm">
+              <corejam-box p={2} hide mdShow="flex">
                 <corejam-base-link href="#">
                   <corejam-type transform="uppercase" size="sm">
                     Add to wishlist

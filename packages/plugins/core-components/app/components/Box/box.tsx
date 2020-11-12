@@ -1,5 +1,5 @@
-import { Component, Host, h, Prop, State } from "@stencil/core";
-import { Flex, Element as ElementType, Display } from "./types";
+import { Component, Host, h, Prop, State, Watch } from "@stencil/core";
+import { Flex, Position, Display } from "./types";
 import { addStyleTagToHead } from "../../helpers/Style";
 import { computeStyle } from "../../utils/computeStyle";
 
@@ -81,6 +81,7 @@ export class CorejamBox {
   @Prop() mdW: number | string;
   @Prop() lgW: number | string;
   @Prop() xlW: number | string;
+  @Prop() minH: string;
   @Prop() h: string;
   @Prop() smH: string;
   @Prop() mdH: string;
@@ -171,16 +172,16 @@ export class CorejamBox {
   @Prop() mdHoverBg: string;
   @Prop() lgHoverBg: string;
   @Prop() xlHoverBg: string;
-  @Prop() hide: string;
+  @Prop() hide: boolean;
   @Prop() smHide: boolean;
   @Prop() mdHide: boolean;
   @Prop() lgHide: boolean;
   @Prop() xlHide: boolean;
   @Prop() show: string;
-  @Prop() smShow: boolean;
-  @Prop() mdShow: boolean;
-  @Prop() lgShow: boolean;
-  @Prop() xlShow: boolean;
+  @Prop() smShow: string;
+  @Prop() mdShow: string;
+  @Prop() lgShow: string;
+  @Prop() xlShow: string;
   @Prop() collapse: "collapse" | "separate";
   @Prop() bColor: string;
   @Prop() rounded: string;
@@ -196,14 +197,205 @@ export class CorejamBox {
   @Prop() bWidthLeft: number;
   @Prop() animation: string;
   @Prop() shadow: string;
-  @Prop() position: ElementType.Position;
+  @Prop() position: Position;
   @Prop() top: number;
   @Prop() right: number;
   @Prop() bottom: number;
   @Prop() left: number;
+  @Prop() z: number;
 
   async componentWillLoad() {
     await this.computeStyles();
+  }
+
+  @Watch("flex")
+  @Watch("display")
+  @Watch("smDisplay")
+  @Watch("mdDisplay")
+  @Watch("lgDisplay")
+  @Watch("xlDisplay")
+  @Watch("direction")
+  @Watch("smDirection")
+  @Watch("mdDirection")
+  @Watch("lgDirection")
+  @Watch("xlDirection")
+  @Watch("items")
+  @Watch("smItems")
+  @Watch("mdItems")
+  @Watch("lgIitems")
+  @Watch("xlItems")
+  @Watch("alignContent")
+  @Watch("smAlignContent")
+  @Watch("mdAlignContent")
+  @Watch("lgAlignContent")
+  @Watch("xlAlignContent")
+  @Watch("self")
+  @Watch("smSelf")
+  @Watch("mdSelf")
+  @Watch("lgSelf")
+  @Watch("xlSelf")
+  @Watch("justify")
+  @Watch("smJustify")
+  @Watch("mdJustify")
+  @Watch("lgJustify")
+  @Watch("xljustify")
+  @Watch("wrap")
+  @Watch("smWrap")
+  @Watch("mdWrap")
+  @Watch("lgWrap")
+  @Watch("xlWrap")
+  @Watch("flow")
+  @Watch("smFlow")
+  @Watch("mdFlow")
+  @Watch("lgFlow")
+  @Watch("xlFlow")
+  @Watch("order")
+  @Watch("smOrder")
+  @Watch("mdOrder")
+  @Watch("lgOrder")
+  @Watch("xlOrder")
+  @Watch("grow")
+  @Watch("smGrow")
+  @Watch("mdGrow")
+  @Watch("lgGrow")
+  @Watch("xlGrow")
+  @Watch("shrink")
+  @Watch("smShrink")
+  @Watch("mdShrink")
+  @Watch("lgShrink")
+  @Watch("xlShrink")
+  @Watch("basis")
+  @Watch("smBasis")
+  @Watch("mdBasis")
+  @Watch("lgBasis")
+  @Watch("xlBasis")
+  @Watch("w")
+  @Watch("smW")
+  @Watch("mdW")
+  @Watch("lgW")
+  @Watch("xlW")
+  @Watch("h")
+  @Watch("smH")
+  @Watch("mdH")
+  @Watch("lgH")
+  @Watch("xlH")
+  @Watch("p")
+  @Watch("smP")
+  @Watch("mdP")
+  @Watch("lgP")
+  @Watch("xlP")
+  @Watch("py")
+  @Watch("smPy")
+  @Watch("mdPy")
+  @Watch("lgPy")
+  @Watch("xlPy")
+  @Watch("px")
+  @Watch("smPx")
+  @Watch("mdPx")
+  @Watch("lgPx")
+  @Watch("xlPx")
+  @Watch("pt")
+  @Watch("smPt")
+  @Watch("mdPt")
+  @Watch("lgPt")
+  @Watch("xlPt")
+  @Watch("pr")
+  @Watch("smPr")
+  @Watch("mdPr")
+  @Watch("lgPr")
+  @Watch("xlPr")
+  @Watch("pb")
+  @Watch("smPb")
+  @Watch("mdPb")
+  @Watch("lgPb")
+  @Watch("xlPb")
+  @Watch("pl")
+  @Watch("smPl")
+  @Watch("mdPl")
+  @Watch("lgPl")
+  @Watch("xlPl")
+  @Watch("m")
+  @Watch("smM")
+  @Watch("mdM")
+  @Watch("lgM")
+  @Watch("xlM")
+  @Watch("my")
+  @Watch("smMy")
+  @Watch("mdMy")
+  @Watch("lgMy")
+  @Watch("xlMy")
+  @Watch("mx")
+  @Watch("smMx")
+  @Watch("mdMx")
+  @Watch("lgMx")
+  @Watch("xlMx")
+  @Watch("mt")
+  @Watch("smMt")
+  @Watch("mdMt")
+  @Watch("lgMt")
+  @Watch("xlMt")
+  @Watch("mr")
+  @Watch("smMr")
+  @Watch("mdMr")
+  @Watch("lgMr")
+  @Watch("xlMr")
+  @Watch("mb")
+  @Watch("smMb")
+  @Watch("mdMb")
+  @Watch("lgMb")
+  @Watch("xlMb")
+  @Watch("ml")
+  @Watch("smMl")
+  @Watch("mdMl")
+  @Watch("lgMl")
+  @Watch("xlMl")
+  @Watch("max")
+  @Watch("smMax")
+  @Watch("mdMax")
+  @Watch("lgMax")
+  @Watch("xlMax")
+  @Watch("bg")
+  @Watch("smBg")
+  @Watch("mdBg")
+  @Watch("lgBg")
+  @Watch("xlBg")
+  @Watch("hoverBg")
+  @Watch("smHoverBg")
+  @Watch("mdHoverBg")
+  @Watch("lgHoverBg")
+  @Watch("xlHoverBg")
+  @Watch("hide")
+  @Watch("smHide")
+  @Watch("mdHide")
+  @Watch("lgHide")
+  @Watch("xlHide")
+  @Watch("show")
+  @Watch("smShow")
+  @Watch("mdShow")
+  @Watch("lgShow")
+  @Watch("xlShow")
+  @Watch("collapse")
+  @Watch("bColor")
+  @Watch("rounded")
+  @Watch("roundedTop")
+  @Watch("roundedRight")
+  @Watch("roundedLeft")
+  @Watch("roundedBottom")
+  @Watch("bStyle")
+  @Watch("bWidth")
+  @Watch("bWidthTop")
+  @Watch("bWidthRight")
+  @Watch("bWidthBottom")
+  @Watch("bWidthLeft")
+  @Watch("animation")
+  @Watch("shadow")
+  @Watch("position")
+  @Watch("top")
+  @Watch("right")
+  @Watch("bottom")
+  @Watch("left")
+  reRender() {
+    this.computeStyles();
   }
 
   async computeStyles() {
@@ -283,6 +475,7 @@ export class CorejamBox {
     "mdW",
     "lgW",
     "xlW",
+    "minH",
     "h",
     "smH",
     "mdH",
@@ -405,6 +598,7 @@ export class CorejamBox {
     "right",
     "bottom",
     "left",
+    "z",
   ];
 
   @Prop({ reflect: false, mutable: true }) droppableElements = ["dershop-ui-box", "dershop-ui-grid"];

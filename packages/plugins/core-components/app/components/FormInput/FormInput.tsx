@@ -1,24 +1,34 @@
-import { Component, ComponentInterface, Element, Event, EventEmitter, h, Host, Prop, State } from "@stencil/core";
+import { Component, Element, Event, EventEmitter, h, Host, Prop, State } from "@stencil/core";
 import { computeStyle } from "../../utils/computeStyle";
 import { addStyleTagToHead } from "../../helpers/Style";
 
 @Component({
   tag: "corejam-form-input",
 })
-export class CorejamFormInput implements ComponentInterface {
+export class CorejamFormInput {
   @Element() el: HTMLElement;
   @State() inputValue: any;
   @State() hash: string;
 
+  /**
+   * Form specific props
+   */
+
+  @Prop() _id?: string;
   @Prop() name: string;
-  @Prop() type: string;
-  @Prop() placeholder: string;
-  @Prop() label: string;
+  @Prop() type = "text";
+  @Prop() placeholder?: string;
+  @Prop() label?: string;
   @Prop() formId: string;
   @Prop() autocomplete = "off";
   @Prop() required = false;
   @Prop() value: string | number;
-  @Prop() checked = false;
+  @Prop() checked? = false;
+  @Prop() autofocus = false;
+
+  /**
+   * Style specific prop
+   */
 
   @Prop() w = 12;
   @Prop() bg = "gray-100";
@@ -27,10 +37,9 @@ export class CorejamFormInput implements ComponentInterface {
   @Prop() bWidth = 0;
   @Prop() p = 4;
   @Prop() focusOutline = "none";
+  _relevantProps = ["w", "bg", "hoverBg", "focusBg", "bWidth", "p", "focusOutline"];
 
   @Event() formEvent: EventEmitter;
-
-  _relevantProps = ["w", "bg", "hoverBg", "focusBg", "bWidth", "p", "focusOutline"];
 
   private extraProps = {};
 
@@ -44,16 +53,16 @@ export class CorejamFormInput implements ComponentInterface {
       const [hashCode, style] = computeStyle(styleMap);
       this.hash = hashCode;
       addStyleTagToHead(style, hashCode);
-
       res();
     });
   }
 
-  onChange(e) {
-    this.inputValue = e.currentTarget.value;
+  onChange(event: InputEvent) {
+    const input = event.currentTarget as HTMLInputElement;
+    this.inputValue = input.value;
 
     if (this.type == "checkbox") {
-      this.inputValue = e.currentTarget.checked ? true : false;
+      this.inputValue = input.checked ? true : false;
     }
 
     this.formEvent.emit({
@@ -71,8 +80,24 @@ export class CorejamFormInput implements ComponentInterface {
   }
 
   render() {
+    const props = {
+      id: this._id,
+      name: this.name,
+      type: this.type,
+      formId: this.formId,
+      autocomplete: this.autocomplete,
+      required: this.required,
+      placeholder: this.placeholder,
+      autofocus: this.autofocus,
+    };
+    const cleanedProps = Object.keys(props)
+      .filter((e) => props[e] !== null)
+      .reduce((o, e) => {
+        o[e] = props[e];
+        return o;
+      }, {});
     return (
-      <Host>
+      <Host style={{ display: "block", width: "100%" }}>
         <corejam-box flex direction="col" w={12} mb={3}>
           {this.label && (
             <corejam-box mb={4}>
@@ -84,17 +109,12 @@ export class CorejamFormInput implements ComponentInterface {
             </corejam-box>
           )}
           <input
+            {...cleanedProps}
+            {...this.extraProps}
             class={this.hash}
             data-cy={this.formId + "-" + this.name}
-            required={this.required}
-            type={this.type}
             value={this.value}
-            id={this.name}
-            name={this.name}
-            autocomplete={this.autocomplete}
-            placeholder={this.placeholder}
-            onInput={(e) => this.onChange(e)}
-            {...this.extraProps}
+            onInput={(e) => this.onChange(e as InputEvent)}
           />
         </corejam-box>
       </Host>

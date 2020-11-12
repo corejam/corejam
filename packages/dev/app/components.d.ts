@@ -15,9 +15,6 @@ export namespace Components {
     interface AppTestComp {
     }
     interface AppWelcome {
-        "components": any;
-        "mode": string;
-        "routes": any;
     }
 }
 declare global {
@@ -62,9 +59,6 @@ declare namespace LocalJSX {
     interface AppTestComp {
     }
     interface AppWelcome {
-        "components"?: any;
-        "mode"?: string;
-        "routes"?: any;
     }
     interface IntrinsicElements {
         "app-liveview": AppLiveview;

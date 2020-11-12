@@ -9,6 +9,7 @@ export const getObjectFromURL = `
         description
         price {
           gross
+          net
         }
         images {
           src

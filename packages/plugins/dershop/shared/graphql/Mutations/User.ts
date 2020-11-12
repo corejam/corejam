@@ -13,6 +13,14 @@ export const meGQL = `
             firstName
             lastName
             email
+            addressShipping {
+                street
+                street_2
+                city
+                state
+                zipCode
+                country
+            }
         }
     }
 `;

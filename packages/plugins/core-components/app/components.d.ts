@@ -6,7 +6,7 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Link } from "./components/Link/Link.types";
-import { Display, ElementType, Flex } from "./components/Box/types";
+import { Display, Flex, Position } from "./components/Box/types";
 import { Button } from "./components/Button/types";
 import { options } from "./components/FormSelect/corejam-select";
 import { GridType } from "./components/Grid/types";
@@ -40,7 +40,7 @@ export namespace Components {
         "flow": Flex.Flow;
         "grow": number;
         "h": string;
-        "hide": string;
+        "hide": boolean;
         "hoverBg": string;
         "items": Flex.AlignItems;
         "justify": Flex.Justify;
@@ -74,7 +74,7 @@ export namespace Components {
         "lgPx": number;
         "lgPy": number;
         "lgSelf": Flex.Self;
-        "lgShow": boolean;
+        "lgShow": string;
         "lgShrink": number;
         "lgW": number | string;
         "lgWrap": Flex.Wrap;
@@ -110,10 +110,11 @@ export namespace Components {
         "mdPx": number;
         "mdPy": number;
         "mdSelf": Flex.Self;
-        "mdShow": boolean;
+        "mdShow": string;
         "mdShrink": number;
         "mdW": number | string;
         "mdWrap": Flex.Wrap;
+        "minH": string;
         "ml": number;
         "mr": number;
         "mt": number;
@@ -123,7 +124,7 @@ export namespace Components {
         "p": number;
         "pb": number;
         "pl": number;
-        "position": ElementType.Position;
+        "position": Position;
         "pr": number;
         "pt": number;
         "px": number;
@@ -167,7 +168,7 @@ export namespace Components {
         "smPx": number;
         "smPy": number;
         "smSelf": Flex.Self;
-        "smShow": boolean;
+        "smShow": string;
         "smShrink": number;
         "smW": number | string;
         "smWrap": Flex.Wrap;
@@ -202,11 +203,12 @@ export namespace Components {
         "xlPx": number;
         "xlPy": number;
         "xlSelf": Flex.Self;
-        "xlShow": boolean;
+        "xlShow": string;
         "xlShrink": number;
         "xlW": number | string;
         "xlWrap": Flex.Wrap;
         "xljustify": Flex.Justify;
+        "z": number;
     }
     interface CorejamButton {
         "bg": string;
@@ -229,23 +231,32 @@ export namespace Components {
     }
     interface CorejamFormContainer {
         "name": string;
+        "submitHandler": Function;
     }
     interface CorejamFormInput {
+        /**
+          * Form specific props
+         */
+        "_id"?: string;
         "autocomplete": string;
+        "autofocus": boolean;
         "bWidth": number;
         "bg": string;
-        "checked": boolean;
+        "checked"?: boolean;
         "focusBg": string;
         "focusOutline": string;
         "formId": string;
         "hoverBg": string;
-        "label": string;
+        "label"?: string;
         "name": string;
         "p": number;
-        "placeholder": string;
+        "placeholder"?: string;
         "required": boolean;
         "type": string;
         "value": string | number;
+        /**
+          * Style specific prop
+         */
         "w": number;
     }
     interface CorejamFormSelect {
@@ -489,6 +500,7 @@ declare namespace LocalJSX {
         "hoverColor"?: Link.Color | "--cj-color-secondary";
         "hoverDecoration"?: Link.Decoration | "--cj-link-hover-decoration";
         "href"?: Link.Href;
+        "onRouteChange"?: (event: CustomEvent<any>) => void;
     }
     interface CorejamBox {
         "alignContent"?: Flex.AlignContent;
@@ -511,7 +523,7 @@ declare namespace LocalJSX {
         "flow"?: Flex.Flow;
         "grow"?: number;
         "h"?: string;
-        "hide"?: string;
+        "hide"?: boolean;
         "hoverBg"?: string;
         "items"?: Flex.AlignItems;
         "justify"?: Flex.Justify;
@@ -545,7 +557,7 @@ declare namespace LocalJSX {
         "lgPx"?: number;
         "lgPy"?: number;
         "lgSelf"?: Flex.Self;
-        "lgShow"?: boolean;
+        "lgShow"?: string;
         "lgShrink"?: number;
         "lgW"?: number | string;
         "lgWrap"?: Flex.Wrap;
@@ -581,10 +593,11 @@ declare namespace LocalJSX {
         "mdPx"?: number;
         "mdPy"?: number;
         "mdSelf"?: Flex.Self;
-        "mdShow"?: boolean;
+        "mdShow"?: string;
         "mdShrink"?: number;
         "mdW"?: number | string;
         "mdWrap"?: Flex.Wrap;
+        "minH"?: string;
         "ml"?: number;
         "mr"?: number;
         "mt"?: number;
@@ -594,7 +607,7 @@ declare namespace LocalJSX {
         "p"?: number;
         "pb"?: number;
         "pl"?: number;
-        "position"?: ElementType.Position;
+        "position"?: Position;
         "pr"?: number;
         "pt"?: number;
         "px"?: number;
@@ -638,7 +651,7 @@ declare namespace LocalJSX {
         "smPx"?: number;
         "smPy"?: number;
         "smSelf"?: Flex.Self;
-        "smShow"?: boolean;
+        "smShow"?: string;
         "smShrink"?: number;
         "smW"?: number | string;
         "smWrap"?: Flex.Wrap;
@@ -673,11 +686,12 @@ declare namespace LocalJSX {
         "xlPx"?: number;
         "xlPy"?: number;
         "xlSelf"?: Flex.Self;
-        "xlShow"?: boolean;
+        "xlShow"?: string;
         "xlShrink"?: number;
         "xlW"?: number | string;
         "xlWrap"?: Flex.Wrap;
         "xljustify"?: Flex.Justify;
+        "z"?: number;
     }
     interface CorejamButton {
         "bg"?: string;
@@ -703,9 +717,15 @@ declare namespace LocalJSX {
         "onFormEvent"?: (event: CustomEvent<any>) => void;
         "onFormSubmit"?: (event: CustomEvent<any>) => void;
         "onSendForm"?: (event: CustomEvent<any>) => void;
+        "submitHandler"?: Function;
     }
     interface CorejamFormInput {
+        /**
+          * Form specific props
+         */
+        "_id"?: string;
         "autocomplete"?: string;
+        "autofocus"?: boolean;
         "bWidth"?: number;
         "bg"?: string;
         "checked"?: boolean;
@@ -721,6 +741,9 @@ declare namespace LocalJSX {
         "required"?: boolean;
         "type"?: string;
         "value"?: string | number;
+        /**
+          * Style specific prop
+         */
         "w"?: number;
     }
     interface CorejamFormSelect {

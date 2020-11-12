@@ -9,12 +9,12 @@
 
 ### Used by
 
- - [dershop-header](../../dershop-header)
+ - [dershop-hamburger](../../hambuger-menu)
 
 ### Graph
 ```mermaid
 graph TD;
-  dershop-header --> dershop-icons-menu
+  dershop-hamburger --> dershop-icons-menu
   style dershop-icons-menu fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

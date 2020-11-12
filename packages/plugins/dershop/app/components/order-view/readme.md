@@ -16,6 +16,7 @@
 
 ### Used by
 
+ - [dershop-route-account-order](../../routes/account/order)
  - [dershop-route-admin-order-view](../../routes/admin/order/view)
 
 ### Depends on
@@ -28,6 +29,7 @@
 graph TD;
   dershop-order-view --> corejam-box
   dershop-order-view --> corejam-type
+  dershop-route-account-order --> dershop-order-view
   dershop-route-admin-order-view --> dershop-order-view
   style dershop-order-view fill:#f9f,stroke:#333,stroke-width:4px
 ```

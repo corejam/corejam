@@ -1,11 +1,11 @@
 //@ts-ignore
 import prepend from "prepend";
 import path from "path";
-import { reactBindingsRoot } from "../config";
+import { envRoot } from "../config";
 
 export async function prependNoCheckToComponents() {
   return new Promise((res) => {
-    const file = path.resolve(reactBindingsRoot, "src", "components.ts");
+    const file = path.resolve(envRoot, "react", "index.ts");
     prepend(file, "//@ts-nocheck", (err: any) => {
       if (err) throw Error(err);
       res();

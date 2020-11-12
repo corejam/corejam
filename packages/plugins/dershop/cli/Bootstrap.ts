@@ -60,9 +60,15 @@ export default async () => {
         const manufacturer = data.manufacturers[Math.floor(Math.random() * data.manufacturers.length)];
         const category = data.categories[Math.floor(Math.random() * data.categories.length)];
 
-        //@ts-ignore
-        product.manufacturer = { ...(await models.manufacturerByID(manufacturer.id)) }
-        product.categories = [{ ...(await models.categoryById(category.id) as CategoryDB) }]
+        //Prevent cyclical error with faker
+        if (process.env.DB_DRIVER === "DB_FAUNA") {
+            await models.productLinkCategory(product.id, category.id)
+            await models.productLinkManufacturer(product.id, manufacturer.id)
+        } else {
+            //@ts-ignore
+            product.manufacturer = { ...(await models.manufacturerByID(manufacturer.id)) }
+            product.categories = [{ ...(await models.categoryById(category.id) as CategoryDB) }]
+        }
 
         data.products.push(product)
     }
