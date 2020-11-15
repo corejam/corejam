@@ -1,3 +1,6 @@
-export default function transform(value) {
-  return value ? "flex" : "initial";
-}
+export default {
+  property: "display",
+  transform(value) {
+    return value ? "flex" : "initial";
+  },
+};

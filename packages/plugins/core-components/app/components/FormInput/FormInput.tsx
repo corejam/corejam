@@ -1,6 +1,4 @@
 import { Component, Element, Event, EventEmitter, h, Host, Prop, State } from "@stencil/core";
-import { computeStyle } from "../../utils/computeStyle";
-import { addStyleTagToHead } from "../../utils/addStyleTag";
 
 @Component({
   tag: "corejam-form-input",
@@ -37,7 +35,6 @@ export class CorejamFormInput {
   @Prop() bWidth = 0;
   @Prop() p = 4;
   @Prop() focusOutline = "none";
-  _relevantProps = ["w", "bg", "hoverBg", "focusBg", "bWidth", "p", "focusOutline"];
 
   @Event() formEvent: EventEmitter;
 
@@ -48,13 +45,8 @@ export class CorejamFormInput {
   }
 
   async computeStyles() {
-    return new Promise(async (res) => {
-      const styleMap = (await import("../../utils/style")).generateStyleMap(this, "");
-      const [hashCode, style] = computeStyle(styleMap);
-      this.hash = hashCode;
-      addStyleTagToHead(style, hashCode);
-      res();
-    });
+    const hash = await (await import("../../utils/style")).calculateStyles(this);
+    this.hash = hash;
   }
 
   onChange(event: InputEvent) {

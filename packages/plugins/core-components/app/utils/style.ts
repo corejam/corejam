@@ -1,78 +1,92 @@
-import { getTransformedValue } from "./transformers";
-import { keyToPropMapping } from "./propMapping";
-// import { hashCode } from "./utils";
+// import { getTransformedValue } from "./transformers";
+import { PropMap } from "./propMap";
+import { hashCode } from "./utils";
+import { addStyleTagToHead } from "./addStyleTag";
+import { computeStyle } from "./computeStyle";
 
-export const collectProps = (instance) => {
-  const breakpoints = ["Sm", "Md", "Lg", "Xl"];
-  const props = {};
-  instance._relevantProps.forEach((prop) => {
-    if (typeof instance[prop] !== "undefined") props[prop] = instance[prop];
-    breakpoints.forEach((b) => {
-      if (instance[`${prop}${b}`]) props[`${prop}${b}`] = instance[`${prop}${b}`];
-    });
-  });
+const stylesCache = new Map();
 
-  return props;
-};
+/**
+ *
+ * 1. generate hash
+ * 2. lookup cache if cache found return hash
+ * 3. if no cache filter all not css props - use shared ts enum prop key ->
+ * 4. normalize map in buckets: general, media, pseudo
+ * 5. transform all collected entries with custom transformers
+ * 6. write to cache
+ * 7. return hash
+ *
+ */
 
-const normalizeResponsiveProp = (key) => {
-  const groups = ["sm", "md", "lg", "xl", "hover", "focus"];
-  const normalizedSplitted = key.split(/(?=[A-Z])/).map((v) => v.toLowerCase());
-  // no group
-  if (normalizedSplitted.length === 1) return [null, normalizedSplitted[0]];
-  // dash in prop, so check
-
-  const collectedGroups = [];
-  if (groups.includes(normalizedSplitted[0])) {
-    collectedGroups.push(normalizedSplitted[0]);
-    normalizedSplitted.splice(0, 1);
-    if (groups.includes(normalizedSplitted[0])) {
-      collectedGroups.push(normalizedSplitted[0]);
-      normalizedSplitted.splice(0, 1);
-    }
-    return [collectedGroups, normalizedSplitted.join("-")];
-  }
-  return [null, normalizedSplitted.join("-")];
-};
-
-function additionalRules(prop) {
-  if (prop === "text-align") return "display: block;";
-  if (prop === "border-width") return "border-style: solid;";
-  if (prop === "border-top-width") return "border-top-style: solid;";
-  if (prop === "border-right-width") return "border-right-style: solid;";
-  if (prop === "border-bottom-width") return "border-bottom-style: solid;";
-  if (prop === "border-left-width") return "border-left-style: solid;";
+function renderStyleTag(styles, hash) {
+  const res = computeStyle(styles, hash);
+  return res;
 }
 
-export const generateStyleMap = (instance, outerElement = "") => {
-  const collectedProps = collectProps(instance);
+function normalizeProperty(property) {
+  const possibleCamelCaseSplit = property.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ");
 
-  // const hashedKey = hashCode(`${instance.constructor.name}${JSON.stringify(collectedProps)}`) * -1;
-  const rules = Object.keys(collectedProps).map((key: string) => {
-    const [group, property] = normalizeResponsiveProp(key);
-    const cssRules = Array.isArray(keyToPropMapping[property])
-      ? keyToPropMapping[property]
-      : [keyToPropMapping[property]];
+  const first = ["sm", "md", "lg", "xl", "hover", "focus"].includes(possibleCamelCaseSplit[0]);
+  const second = ["sm", "md", "lg", "xl", "hover", "focus"].includes(possibleCamelCaseSplit[1]);
 
-    if (!group) {
-      return cssRules
-        .map((rule: string) => {
-          const computedValue = getTransformedValue(property, collectedProps[key]);
-          let result: string;
-          if (computedValue !== "") result = rule + ": " + computedValue + ";";
-          const additionals = additionalRules(rule);
-          if (additionals) result += "\n" + additionals;
-          return result;
-        })
-        .join(" ");
-    } else {
-      return {
-        type: group,
-        rule: cssRules
-          .map((rule) => `${outerElement + rule + ": " + getTransformedValue(property, collectedProps[key]) + ";"}`)
-          .join(" "),
-      };
+  if (!first && !second) return [property];
+  if (first && !second) return possibleCamelCaseSplit.slice(1).join("");
+  if (first && second) return possibleCamelCaseSplit.slice(2).join("");
+  return property;
+}
+
+export const calculateStyles = async (instance) => {
+  const instanceName = instance.constructor.name;
+  const normalizedObject = {};
+  for (const property in instance) {
+    if (typeof instance[property] !== "undefined") {
+      const normalizedProperty = normalizeProperty(property);
+      if (PropMap[normalizedProperty]) {
+        normalizedObject[property] = { value: instance[property], property: normalizedProperty };
+      }
     }
-  });
-  return rules;
+  }
+  if (Object.keys(normalizedObject).length > 0) {
+    normalizedObject["instance"] = instanceName;
+    const hash = "cj" + Math.floor(hashCode(JSON.stringify(normalizedObject)));
+    if (stylesCache.has(hash)) {
+      // we found a value in the cache and dont have to compute styles
+      return stylesCache.get(hash);
+    } else {
+      // no cache item found, generating css with transformers
+      const collectedStyles = [];
+      for (const property in normalizedObject) {
+        if (property !== "instance") {
+          const transformer = await PropMap[normalizedObject[property].property]();
+          try {
+            const instancePropertyValue = normalizedObject[property].value;
+            const instanceProperty = normalizedObject[property].property;
+
+            const transformedProperty =
+              typeof transformer.property === "function"
+                ? transformer.property(instanceProperty)
+                : transformer.property;
+            const transformedValue = transformer.transform(instancePropertyValue);
+
+            const mergePropertyAndValue = Array.isArray(transformedProperty)
+              ? transformedProperty.map((p) => `${p}: ${transformedValue};`).join("\n")
+              : `${transformedProperty}: ${transformedValue};`;
+
+            collectedStyles.push({
+              _property: property,
+              value: mergePropertyAndValue,
+            });
+          } catch (e) {
+            console.log(e);
+          }
+          if (transformer.additional) {
+            collectedStyles.push(transformer.additional());
+          }
+        }
+      }
+      const readyStyleTag = renderStyleTag(collectedStyles, hash);
+      addStyleTagToHead(readyStyleTag, hash);
+      return hash;
+    }
+  }
 };

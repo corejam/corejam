@@ -1,3 +1,6 @@
-export default function transform(value) {
-  return value;
-}
+export default {
+  property: "z-index",
+  transform: (value) => {
+    return value;
+  },
+};

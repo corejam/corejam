@@ -5,7 +5,10 @@
  * postcss browser hook
  */
 
-export default function transform(value) {
-  const valids = ["auto", "cover", "contain"];
-  if (valids.includes(value)) return value;
-}
+export default {
+  property: "background-repeat",
+  transform: (value) => {
+    const valids = ["auto", "cover", "contain"];
+    if (valids.includes(value)) return value;
+  },
+};

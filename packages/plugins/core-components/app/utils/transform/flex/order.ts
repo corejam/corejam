@@ -1,3 +1,6 @@
-export default function transform(value) {
-  return value;
-}
+export default {
+  property: "flex-order",
+  transform: (value) => {
+    return value;
+  },
+};

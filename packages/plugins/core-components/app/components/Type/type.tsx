@@ -1,24 +1,10 @@
 import { Component, h, Prop, State, Watch, Host } from "@stencil/core";
 import { Font, General } from "./types";
-import { addStyleTagToHead } from "../../utils/addStyleTag";
-import { computeStyle } from "../../utils/computeStyle";
 
 @Component({
   tag: "corejam-type",
 })
 export class CorejamType {
-  _relevantProps = [
-    "color",
-    "size",
-    "fontStyle",
-    "spacing",
-    "decoration",
-    "transform",
-    "align",
-    "weight",
-    "lineHeight",
-  ];
-
   @State() hash: string;
   @Prop() family: Font.Family;
   @Prop() weight: Font.Weight;
@@ -27,7 +13,10 @@ export class CorejamType {
   @Prop() fontStyle: Font.Style;
   @Prop() spacing: Font.Spacing;
   @Prop() decoration: Font.Decoration;
+  @Prop() mdWeight: Font.Weight;
+  @Prop() lgFocusWeight: string;
   @Prop() transform: Font.Transform;
+  @Prop() style: string;
   @Prop() align: Font.Align;
   @Prop() lineHeight: Font.lineHeight;
   @Prop() color: General.Color;
@@ -48,13 +37,8 @@ export class CorejamType {
   @Watch("transform")
   @Watch("align")
   async computeStyles() {
-    return new Promise(async (res) => {
-      const styleMap = (await import("../../utils/style")).generateStyleMap(this, "");
-      const [hashCode, style] = computeStyle(styleMap);
-      this.hash = hashCode;
-      addStyleTagToHead(style, hashCode);
-      res();
-    });
+    const hash = await (await import("../../utils/style")).calculateStyles(this);
+    this.hash = hash;
   }
 
   render() {

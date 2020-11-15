@@ -1,3 +1,6 @@
-export default function transform(value) {
-  return value;
-}
+export default {
+  property: "outline",
+  transform: (value) => {
+    return value;
+  },
+};

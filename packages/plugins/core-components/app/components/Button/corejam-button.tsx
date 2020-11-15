@@ -1,6 +1,4 @@
 import { Component, Host, h, Prop, State } from "@stencil/core";
-import { computeStyle } from "./../../utils/computeStyle";
-import { addStyleTagToHead } from "../../utils/addStyleTag";
 import { Button } from "./types";
 
 @Component({
@@ -17,22 +15,14 @@ export class CorejamButton {
   @Prop({ reflect: true }) pt: string;
   @Prop({ reflect: true }) pb: string;
 
-  _relevantProps = ["bg", "color", "p", "pl", "pr", "pt", "pb"];
-
   async componentWillLoad() {
     await this.computeStyles();
   }
 
   async computeStyles() {
-    return new Promise(async (res) => {
-      const styleMap = (await import("../../utils/style")).generateStyleMap(this, "");
-      const [hashCode, style] = computeStyle(styleMap);
-      this.hash = hashCode;
-      addStyleTagToHead(style, hashCode);
-      res();
-    });
+    const hash = await (await import("../../utils/style")).calculateStyles(this);
+    this.hash = hash;
   }
-
   render() {
     return (
       <Host as="button" type={this.type} class={this.hash}>

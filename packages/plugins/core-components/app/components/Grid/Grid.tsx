@@ -1,6 +1,4 @@
 import { Component, h, Host, Prop } from "@stencil/core";
-import { computeStyle } from "../../utils/computeStyle";
-import { addStyleTagToHead } from "../../utils/addStyleTag";
 import type { GridType } from "./types";
 
 @Component({
@@ -72,75 +70,13 @@ export class Grid {
   private hash: string;
 
   async componentWillLoad() {
-    const rules = (await import("../../utils/style")).generateStyleMap(this, "");
-    const [hash, style] = computeStyle(rules);
-    this.hash = hash;
-    addStyleTagToHead(style, hash);
+    await this.computeStyles();
   }
 
-  _relevantProps = [
-    "templateColumns",
-    "smTemplateColumns",
-    "mdTemplateColumns",
-    "lgTemplateColumns",
-    "xlTemplateColumns",
-    "templateRows",
-    "smTemplateRows",
-    "mdTemplateRows",
-    "lgTemplateRows",
-    "xlTemplateRows",
-    "cols",
-    "smCols",
-    "mdCols",
-    "lgCols",
-    "xlCols",
-    "colsStart",
-    "smColsStart",
-    "mdColsStart",
-    "lgColsStart",
-    "xlColsStart",
-    "colsEnd",
-    "smColsEnd",
-    "mdColsEnd",
-    "lgColsEnd",
-    "xlColsEnd",
-    "rows",
-    "smRows",
-    "mdRows",
-    "lgRows",
-    "xlRows",
-    "rowsStart",
-    "smRowsStart",
-    "mdRowsStart",
-    "lgRowsStart",
-    "xlRowsStart",
-    "rowsEnd",
-    "smRowsEnd",
-    "mdRowsEnd",
-    "lgRowsEnd",
-    "xlRowsEnd",
-    "gap",
-    "smGap",
-    "mdGap",
-    "lgGap",
-    "xlGap",
-    "gapCol",
-    "smGapCol",
-    "mdGapCol",
-    "lgGapCol",
-    "xlGapCol",
-    "gapRow",
-    "smGapRow",
-    "mdGapRow",
-    "lgGapRow",
-    "xlGapRow",
-    "autoFlow",
-    "smAutoFlow",
-    "mdAutoFlow",
-    "lgAutoFlow",
-    "xlAutoFlow",
-    "grid",
-  ];
+  async computeStyles() {
+    const hash = await (await import("../../utils/style")).calculateStyles(this);
+    this.hash = hash;
+  }
 
   render() {
     return (

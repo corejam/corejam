@@ -350,8 +350,6 @@ export namespace Components {
     interface CorejamPagination {
         "paginator": any;
     }
-    interface CorejamTest {
-    }
     interface CorejamType {
         "align": Font.Align;
         "as": Font.As;
@@ -360,10 +358,13 @@ export namespace Components {
         "droppableElements": string[];
         "family": Font.Family;
         "fontStyle": Font.Style;
+        "lgFocusWeight": string;
         "lineHeight": Font.lineHeight;
+        "mdWeight": Font.Weight;
         "size": Font.Size;
         "smooth": Font.Smoothnes;
         "spacing": Font.Spacing;
+        "style": string;
         "transform": Font.Transform;
         "weight": Font.Weight;
     }
@@ -458,12 +459,6 @@ declare global {
         prototype: HTMLCorejamPaginationElement;
         new (): HTMLCorejamPaginationElement;
     };
-    interface HTMLCorejamTestElement extends Components.CorejamTest, HTMLStencilElement {
-    }
-    var HTMLCorejamTestElement: {
-        prototype: HTMLCorejamTestElement;
-        new (): HTMLCorejamTestElement;
-    };
     interface HTMLCorejamTypeElement extends Components.CorejamType, HTMLStencilElement {
     }
     var HTMLCorejamTypeElement: {
@@ -497,7 +492,6 @@ declare global {
         "corejam-image": HTMLCorejamImageElement;
         "corejam-init": HTMLCorejamInitElement;
         "corejam-pagination": HTMLCorejamPaginationElement;
-        "corejam-test": HTMLCorejamTestElement;
         "corejam-type": HTMLCorejamTypeElement;
         "corejam-ui-base": HTMLCorejamUiBaseElement;
         "corejam-ui-theme": HTMLCorejamUiThemeElement;
@@ -849,8 +843,6 @@ declare namespace LocalJSX {
     interface CorejamPagination {
         "paginator"?: any;
     }
-    interface CorejamTest {
-    }
     interface CorejamType {
         "align"?: Font.Align;
         "as"?: Font.As;
@@ -859,10 +851,13 @@ declare namespace LocalJSX {
         "droppableElements"?: string[];
         "family"?: Font.Family;
         "fontStyle"?: Font.Style;
+        "lgFocusWeight"?: string;
         "lineHeight"?: Font.lineHeight;
+        "mdWeight"?: Font.Weight;
         "size"?: Font.Size;
         "smooth"?: Font.Smoothnes;
         "spacing"?: Font.Spacing;
+        "style"?: string;
         "transform"?: Font.Transform;
         "weight"?: Font.Weight;
     }
@@ -886,7 +881,6 @@ declare namespace LocalJSX {
         "corejam-image": CorejamImage;
         "corejam-init": CorejamInit;
         "corejam-pagination": CorejamPagination;
-        "corejam-test": CorejamTest;
         "corejam-type": CorejamType;
         "corejam-ui-base": CorejamUiBase;
         "corejam-ui-theme": CorejamUiTheme;
@@ -910,7 +904,6 @@ declare module "@stencil/core" {
             "corejam-image": LocalJSX.CorejamImage & JSXBase.HTMLAttributes<HTMLCorejamImageElement>;
             "corejam-init": LocalJSX.CorejamInit & JSXBase.HTMLAttributes<HTMLCorejamInitElement>;
             "corejam-pagination": LocalJSX.CorejamPagination & JSXBase.HTMLAttributes<HTMLCorejamPaginationElement>;
-            "corejam-test": LocalJSX.CorejamTest & JSXBase.HTMLAttributes<HTMLCorejamTestElement>;
             "corejam-type": LocalJSX.CorejamType & JSXBase.HTMLAttributes<HTMLCorejamTypeElement>;
             "corejam-ui-base": LocalJSX.CorejamUiBase & JSXBase.HTMLAttributes<HTMLCorejamUiBaseElement>;
             "corejam-ui-theme": LocalJSX.CorejamUiTheme & JSXBase.HTMLAttributes<HTMLCorejamUiThemeElement>;

@@ -46,15 +46,6 @@ it("should render flex wrap property", async () => {
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("flex-wrap: wrap");
 });
-it("should render flex flow property", async () => {
-  const page = await newSpecPage({
-    components: [CorejamBox],
-    html: `<corejam-box flex="true" flow="row wrap">hallo</corejam-box>`,
-  });
-
-  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
-  expect(computedStyleRules).toContain("flex-flow: row wrap");
-});
 
 it("should render flex justify property", async () => {
   const page = await newSpecPage({
@@ -114,16 +105,6 @@ it("should render flex shrink property", async () => {
 
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("flex-shrink: 1");
-});
-
-it("should render flex basis property", async () => {
-  const page = await newSpecPage({
-    components: [CorejamBox],
-    html: `<corejam-box flex="true" basis="1">hallo</corejam-box>`,
-  });
-
-  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
-  expect(computedStyleRules).toContain("flex-basis: 1");
 });
 
 it("should render flex self property", async () => {
@@ -465,15 +446,6 @@ it("should render border color based on prop", async () => {
   expect(computedStyleRules).toContain("border-color: var(--cj-colors-red-500)");
 });
 
-it("should render border collapse based on prop", async () => {
-  const page = await newSpecPage({
-    components: [CorejamBox],
-    html: `<corejam-box collapse="collapse">hallo</corejam-box>`,
-  });
-  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
-  expect(computedStyleRules).toContain("border-collapse: collapse;");
-});
-
 it("should render border round based on prop", async () => {
   const page = await newSpecPage({
     components: [CorejamBox],
@@ -516,7 +488,8 @@ it("should render border round top based on prop", async () => {
     html: `<corejam-box rounded-top="full">hallo</corejam-box>`,
   });
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
-  expect(computedStyleRules).toContain("border-top-radius: 9999px");
+  expect(computedStyleRules).toContain("border-top-right-radius: 9999px");
+  expect(computedStyleRules).toContain("border-top-left-radius: 9999px");
 });
 
 it("should render border round right based on prop", async () => {
@@ -525,7 +498,8 @@ it("should render border round right based on prop", async () => {
     html: `<corejam-box rounded-right="full">hallo</corejam-box>`,
   });
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
-  expect(computedStyleRules).toContain("border-right-radius: 9999px");
+  expect(computedStyleRules).toContain("border-top-right-radius: 9999px");
+  expect(computedStyleRules).toContain("border-bottom-right-radius: 9999px");
 });
 
 it("should render border round bottom based on prop", async () => {
@@ -534,7 +508,8 @@ it("should render border round bottom based on prop", async () => {
     html: `<corejam-box rounded-bottom="full">hallo</corejam-box>`,
   });
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
-  expect(computedStyleRules).toContain("border-bottom-radius: 9999px");
+  expect(computedStyleRules).toContain("border-bottom-right-radius: 9999px");
+  expect(computedStyleRules).toContain("border-bottom-left-radius: 9999px");
 });
 
 it("should render border round left based on prop", async () => {
@@ -543,7 +518,7 @@ it("should render border round left based on prop", async () => {
     html: `<corejam-box rounded-left="full">hallo</corejam-box>`,
   });
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
-  expect(computedStyleRules).toContain("border-left-radius: 9999px");
+  expect(computedStyleRules).toContain("border-bottom-left-radius: 9999px");
 });
 
 it("should render border style based on prop", async () => {

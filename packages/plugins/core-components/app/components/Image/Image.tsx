@@ -1,6 +1,4 @@
 import { Component, h, Prop, Host, Element, Build, State } from "@stencil/core";
-import { computeStyle } from "../../utils/computeStyle";
-import { addStyleTagToHead } from "../../utils/addStyleTag";
 
 @Component({
   tag: "corejam-image",
@@ -28,13 +26,8 @@ export class Image {
   }
 
   async computeStyles() {
-    return new Promise(async (res) => {
-      const styleMap = (await import("../../utils/style")).generateStyleMap(this, "img");
-      const [hashCode, style] = computeStyle(styleMap);
-      this.hash = hashCode;
-      addStyleTagToHead(style, hashCode);
-      res();
-    });
+    const hash = await (await import("../../utils/style")).calculateStyles(this);
+    this.hash = hash;
   }
 
   private setupObserver() {

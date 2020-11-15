@@ -1,3 +1,6 @@
-export default function transform(value) {
-  return value + "px";
-}
+export default {
+  property: "position",
+  transform: (value) => {
+    return value;
+  },
+};

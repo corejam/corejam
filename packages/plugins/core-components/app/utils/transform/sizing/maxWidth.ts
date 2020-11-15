@@ -1,3 +1,6 @@
-export default function transform(value) {
-  return `var(--cj-screens-${value})`;
-}
+export default {
+  property: "max-width",
+  transform(value) {
+    return `var(--cj-screens-${value})`;
+  },
+};
