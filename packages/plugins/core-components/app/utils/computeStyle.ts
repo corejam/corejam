@@ -61,6 +61,7 @@ export function computeStyle(styles, hash = null) {
       rules: [],
     },
   };
+
   styles.forEach((prop) => {
     const splitted = bucketSplit(prop._property);
     if (splitted.length === 1) collecters.rules.push(prop.value);

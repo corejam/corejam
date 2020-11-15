@@ -18,6 +18,10 @@ const stylesCache = new Map();
  *
  */
 
+function lowercaseFirstLetter(string) {
+  return string.charAt(0).toLowerCase() + string.slice(1);
+}
+
 function renderStyleTag(styles, hash) {
   const res = computeStyle(styles, hash);
   return res;
@@ -30,9 +34,8 @@ function normalizeProperty(property) {
   const second = ["sm", "md", "lg", "xl", "hover", "focus"].includes(possibleCamelCaseSplit[1]);
 
   if (!first && !second) return [property];
-  if (first && !second) return possibleCamelCaseSplit.slice(1).join("");
-  if (first && second) return possibleCamelCaseSplit.slice(2).join("");
-  return property;
+  if (first && !second) return [lowercaseFirstLetter(possibleCamelCaseSplit.slice(1).join(""))];
+  if (first && second) return [lowercaseFirstLetter(possibleCamelCaseSplit.slice(2).join(""))];
 }
 
 export const calculateStyles = async (instance) => {
@@ -41,7 +44,8 @@ export const calculateStyles = async (instance) => {
   for (const property in instance) {
     if (typeof instance[property] !== "undefined") {
       const normalizedProperty = normalizeProperty(property);
-      if (PropMap[normalizedProperty]) {
+      console.log(normalizedProperty, property);
+      if (PropMap[normalizedProperty[0]]) {
         normalizedObject[property] = { value: instance[property], property: normalizedProperty };
       }
     }
