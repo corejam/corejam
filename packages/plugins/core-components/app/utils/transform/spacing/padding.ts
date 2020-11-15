@@ -1,5 +1,5 @@
 export default {
-  property: ([property]) => {
+  property: (property) => {
     if (property.includes("pt")) return "padding-top";
     if (property.includes("pr")) return "padding-right";
     if (property.includes("pb")) return "padding-bottom";

@@ -1,12 +1,12 @@
 import { isBoolean } from "../../utils";
 
 export default {
-  property: ([instanceProperty]) => {
+  property: (property) => {
     let prop = null;
-    if (instanceProperty.includes("Top")) prop = ["border-top-right-radius", "border-top-left-radius"];
-    if (instanceProperty.includes("Right")) prop = ["border-top-right-radius", "border-bottom-right-radius"];
-    if (instanceProperty.includes("Bottom")) prop = ["border-bottom-left-radius", "border-bottom-right-radius"];
-    if (instanceProperty.includes("Left")) prop = ["border-top-left-radius", "border-bottom-left-radius"];
+    if (property.includes("Top")) prop = ["border-top-right-radius", "border-top-left-radius"];
+    if (property.includes("Right")) prop = ["border-top-right-radius", "border-bottom-right-radius"];
+    if (property.includes("Bottom")) prop = ["border-bottom-left-radius", "border-bottom-right-radius"];
+    if (property.includes("Left")) prop = ["border-top-left-radius", "border-bottom-left-radius"];
 
     return prop ? prop : "border-radius";
   },

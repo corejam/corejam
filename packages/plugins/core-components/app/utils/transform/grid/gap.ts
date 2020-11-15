@@ -1,5 +1,5 @@
 export default {
-  property: ([property]) => {
+  property: (property) => {
     if (property.includes("Row")) return "row-gap";
     if (property.includes("Col")) return "column-gap";
     return "gap";

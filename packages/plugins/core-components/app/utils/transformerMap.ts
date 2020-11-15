@@ -1,7 +1,8 @@
-export const PropMap = {
+export const propertyToTransformer = {
   weight: async () => (await import("./transform/typography/weight")).default,
   textStyle: async () => (await import("./transform/typography/style")).default,
   display: async () => (await import("./transform/layout/display")).default,
+  show: async () => (await import("./transform/layout/display")).default,
   flex: async () => (await import("./transform/flex/flex")).default,
   direction: async () => (await import("./transform/flex/direction")).default,
   justify: async () => (await import("./transform/box/justifyContent")).default,
@@ -75,5 +76,4 @@ export const PropMap = {
   self: async () => (await import("./transform/box/alignSelf")).default,
   shadow: async () => (await import("./transform/effects/shadow")).default,
   bStyle: async () => (await import("./transform/border/style")).default,
-  show: async () => (await import("./transform/layout/display")).default,
 };

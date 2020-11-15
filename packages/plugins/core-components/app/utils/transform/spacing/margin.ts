@@ -1,5 +1,5 @@
 export default {
-  property: ([property]) => {
+  property: (property) => {
     if (property.includes("mt")) return "margin-top";
     if (property.includes("mr")) return "margin-right";
     if (property.includes("mb")) return "margin-bottom";
