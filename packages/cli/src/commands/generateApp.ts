@@ -15,6 +15,7 @@ export default async function createApp(name: string) {
     spinner.text = "Bootstrapping app";
 
     await jetpack.copyAsync(__dirname + "/../templates/plugin", pluginRootPath);
+    await jetpack.renameAsync(pluginRootPath + "/_package.json", "package.json");
 
     const installProcess = execa(isYarn ? "yarn" : "npm", ["install"], { cwd: pluginRootPath });
 

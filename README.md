@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://corejam.io/static/logo.png"/>
+<img src="https://corejam.io/assets/logo.png"/>
 <a href="https://corejam.io">corejam.io</a> | 
 <a href="mailto:hello@corejam.io">hello@corejam.io</a>
 </p>
