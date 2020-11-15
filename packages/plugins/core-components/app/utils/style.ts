@@ -44,7 +44,6 @@ export const calculateStyles = async (instance) => {
   for (const property in instance) {
     if (typeof instance[property] !== "undefined") {
       const normalizedProperty = normalizeProperty(property);
-      console.log(normalizedProperty, property);
       if (PropMap[normalizedProperty[0]]) {
         normalizedObject[property] = { value: instance[property], property: normalizedProperty };
       }

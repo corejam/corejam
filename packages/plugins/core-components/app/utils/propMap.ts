@@ -75,4 +75,5 @@ export const PropMap = {
   self: async () => (await import("./transform/box/alignSelf")).default,
   shadow: async () => (await import("./transform/effects/shadow")).default,
   bStyle: async () => (await import("./transform/border/style")).default,
+  show: async () => (await import("./transform/layout/display")).default,
 };
