@@ -16,7 +16,7 @@ export class CorejamType {
   @Prop() mdWeight: Font.Weight;
   @Prop() lgFocusWeight: string;
   @Prop() transform: Font.Transform;
-  @Prop() style: string;
+  @Prop() textStyle: string;
   @Prop() align: Font.Align;
   @Prop() lineHeight: Font.lineHeight;
   @Prop() color: General.Color;

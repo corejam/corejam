@@ -364,7 +364,7 @@ export namespace Components {
         "size": Font.Size;
         "smooth": Font.Smoothnes;
         "spacing": Font.Spacing;
-        "style": string;
+        "textStyle": string;
         "transform": Font.Transform;
         "weight": Font.Weight;
     }
@@ -857,7 +857,7 @@ declare namespace LocalJSX {
         "size"?: Font.Size;
         "smooth"?: Font.Smoothnes;
         "spacing"?: Font.Spacing;
-        "style"?: string;
+        "textStyle"?: string;
         "transform"?: Font.Transform;
         "weight"?: Font.Weight;
     }

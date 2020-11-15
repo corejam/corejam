@@ -1,6 +1,6 @@
 export const PropMap = {
   weight: async () => (await import("./transform/typography/weight")).default,
-  style: async () => (await import("./transform/typography/style")).default,
+  textStyle: async () => (await import("./transform/typography/style")).default,
   display: async () => (await import("./transform/layout/display")).default,
   flex: async () => (await import("./transform/flex/flex")).default,
   direction: async () => (await import("./transform/flex/direction")).default,
