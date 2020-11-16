@@ -47,7 +47,7 @@
     "cors": "2.8.5",
     "dotenv": "8.2.0",
     "execa": "4.1.0",
-    "fs-jetpack": "4.0.1",
+    "fs-jetpack": "4.1.0",
     "is-npm": "5.0.0",
     "kill-port": "1.6.1",
     "kleur": "4.1.3",
