@@ -1,8 +1,6 @@
 import { Component, Host, h, Prop, State, Event } from "@stencil/core";
 import { href } from "stencil-router-v2";
 import { state as routerState } from "@corejam/router";
-import { computeStyle } from "../../utils/computeStyle";
-import { addStyleTagToHead } from "../../helpers/Style";
 import { Link } from "./Link.types";
 import { EventEmitter } from "@corejam/run/dist/types/stencil-public-runtime";
 
@@ -22,20 +20,13 @@ export class BaseLink {
 
   @Event() routeChange: EventEmitter;
 
-  _relevantProps = ["color", "hoverColor", "decoration", "hoverDecoration"];
-
   async componentWillLoad() {
     await this.computeStyles();
   }
 
   async computeStyles() {
-    return new Promise(async (res) => {
-      const styleMap = (await import("../../utils/style")).generateStyleMap(this, "");
-      const [hashCode, style] = computeStyle(styleMap);
-      this.hash = hashCode;
-      addStyleTagToHead(style, hashCode);
-      res();
-    });
+    const hash = await (await import("../../utils/style")).calculateStyles(this);
+    this.hash = hash;
   }
 
   renderLink() {

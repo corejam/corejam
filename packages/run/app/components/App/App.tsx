@@ -67,7 +67,6 @@ export class CorejamRun {
   }
 
   render() {
-    console.log("render app");
     return <Host>{this.renderWrapperComponent()}</Host>;
   }
 }
