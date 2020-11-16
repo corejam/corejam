@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop } from "@stencil/core";
+import { Component, h, Host, Prop, State } from "@stencil/core";
 import type { GridType } from "./types";
 
 @Component({
@@ -66,8 +66,7 @@ export class Grid {
   @Prop() lgAutoFlow: GridType.Flow;
   @Prop() xlAutoFlow: GridType.Flow;
   @Prop() grid: Boolean = true;
-
-  private hash: string;
+  @State() hash: string;
 
   async componentWillLoad() {
     await this.computeStyles();

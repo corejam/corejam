@@ -30,7 +30,9 @@ export const calculateStyles = async (instance) => {
     normalizedObject["instance"] = instanceName;
     const hash = "cj" + generateHash(JSON.stringify(normalizedObject));
     if (stylesCache.has(hash)) {
-      return stylesCache.get(hash);
+      const cacheEntry = stylesCache.get(hash);
+      addStyleTagToHead(cacheEntry, hash);
+      return hash;
     } else {
       const collectedStyles = [];
       for (const property in normalizedObject) {
