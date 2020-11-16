@@ -14,8 +14,8 @@
     "prepublish": "yarn clean && yarn build"
   },
   "devDependencies": {
-    "fs-jetpack": "4.0.1",
-    "rollup": "2.33.1",
+    "fs-jetpack": "4.1.0",
+    "rollup": "2.33.2",
     "rollup-plugin-typescript2": "0.29.0",
     "shx": "0.3.3"
   }
