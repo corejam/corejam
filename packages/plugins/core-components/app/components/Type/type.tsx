@@ -22,7 +22,7 @@ export class CorejamType {
   @Prop() color: General.Color;
   @Prop() as: Font.As = "span";
 
-  @Prop({ reflect: false, mutable: true }) droppableElements = ["dershop-ui-box", "dershop-ui-grid"];
+  @Prop({ reflect: false, mutable: true }) droppableElements = ["corejam-box"];
 
   async componentWillLoad() {
     await this.computeStyles();

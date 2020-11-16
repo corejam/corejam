@@ -1,5 +1,5 @@
 import { Component, h, Element, Prop, Host } from "@stencil/core";
-import { canvasService } from "../../shared/machines/canvas";
+import { canvasService } from "../../machines/canvas";
 
 @Component({
   tag: "dershop-canvas-dragger",

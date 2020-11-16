@@ -1,5 +1,4 @@
-import { createMachine, assign } from "xstate";
-import { interpret } from "xstate";
+import { createMachine, assign, interpret } from "xstate";
 import { serialize } from "../utils/utils";
 
 type CanvasStateSchema =
@@ -131,7 +130,7 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvent, CanvasSta
         after: {
           1000: "idle",
         },
-        onEntry: ["appendItem", (context) => serialize(context.canvasId)],
+        onEntry: ["appendItem", () => serialize()],
         onExit: ["removeEventListeners"],
       },
     },
@@ -156,20 +155,19 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvent, CanvasSta
       bootstrapEventListeners: assign({
         allTargets: (context) => {
           if (window.innerHeight > document.body.clientHeight) document.body.style.minHeight = "100vh";
-          let targets = [];
+          const targets = [];
+          console.log(context);
           const traverse = (node) => {
+            console.log("waaa", context.realEl.droppableElements);
             if (context.realEl.droppableElements.includes(node.localName)) {
               targets.push(node);
               highlight(node);
               node.addEventListener("mouseover", sendEventToMachine);
               node.addEventListener("mouseout", sendEventToMachine);
             }
-            if (node.shadowRoot) Array.from(node.shadowRoot.children).forEach(traverse);
             if (node.children) Array.from(node.children).forEach(traverse);
           };
-          const rootNode = document
-            .querySelector('dershop-canvas[canvas-id="playground"]')
-            .shadowRoot.querySelector(".drop") as HTMLElement;
+          const rootNode = document.querySelector("dershop-canvas").querySelector(".drop") as HTMLElement;
 
           if (rootNode.innerText === "No content") {
             targets.push(rootNode);
@@ -261,14 +259,11 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvent, CanvasSta
 
 export const canvasService = interpret(canvasMachine)
   .onTransition((state) => {
-    const cId = state.context.canvasId;
-
-    if (state.context.canvasId && state.changed) {
-      const node = Array.from<HTMLElement>(document.querySelectorAll("dershop-canvas")).filter(
-        (el) => el.getAttribute("canvas-id") == cId
-      )[0];
-      node.shadowRoot
+    if (state.changed) {
+      const node = document.querySelector("dershop-canvas");
+      node
         .querySelectorAll("dershop-canvas-dragger")
+        //@ts-ignore
         .forEach((el) => (el.dataset.state = state.toStrings().join(" ")));
       document.body.dataset.state = state.toStrings().join(" ");
       if (state.context.draggedElement) {

@@ -1,0 +1,50 @@
+{
+  "name": "canvas",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "main": "web-components/index.cjs.js",
+  "module": "web-components/custom-elements/index.js",
+  "es2015": "web-components/esm/index.js",
+  "es2017": "web-components/esm/index.js",
+  "types": "web-components/custom-elements/index.d.ts",
+  "collection": "web-components/collection/collection-manifest.json",
+  "collection:main": "web-components/collection/index.js",
+  "scripts": {
+    "dev": "corejam dev",
+    "build": "corejam build",
+    "test": "corejam test",
+    "precommit": "lint-staged",
+    "static": "corejam static -l",
+    "static:serve": "corejam static:serve",
+    "clean": "rimraf dist & rimraf react & rimraf web-components"
+  },
+  "files": [
+    "dist",
+    "web-components"
+  ],
+  "devDependencies": {
+    "@corejam/base": "0.0.9",
+    "@corejam/cli": "0.0.12",
+    "@corejam/core-components": "0.0.9",
+    "@corejam/dev": "0.0.8",
+    "@corejam/rollup-plugin": "0.0.2",
+    "@corejam/run": "0.0.3",
+    "@rollup/plugin-replace": "2.3.4",
+    "@stencil/core": "2.0.2",
+    "@stencil/react-output-target": "0.0.9",
+    "@types/faker": "5.1.4",
+    "dotenv": "8.2.0",
+    "faker": "5.1.0",
+    "tslib": "2.0.3",
+    "typescript": "4.0.5"
+  },
+  "corejam": {
+    "wrapper": [],
+    "recommendations": []
+  },
+  "dependencies": {
+    "deep-parse-json": "^1.0.1",
+    "xstate": "^4.14.0"
+  }
+}

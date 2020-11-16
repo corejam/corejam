@@ -23,9 +23,9 @@ export class DershopCanvas implements ComponentInterface {
 
   @Element() el: HTMLElement;
   @Prop() canvasId: string;
-  @Prop() draggers: string | string[] = ["dershop-ui-box", "dershop-ui-type"];
+  @Prop() draggers: string | string[] = ["corejam-box", "corejam-type"];
   @Prop() canvas: any;
-  @Prop() editMode: boolean = false;
+  @Prop() editMode = false;
   @State() subMenu: boolean;
   @State() _canvas: any;
   @Event() p2pSendData: EventEmitter;
@@ -61,12 +61,10 @@ export class DershopCanvas implements ComponentInterface {
           })
         ] = prop.value;
       });
-      let Node = node.tag;
+      const Node = node.tag;
       return <Node {...props}>{node.items ? node.items.map(render) : ""}</Node>;
     };
-    return this._canvas.hasOwnProperty("items") && this._canvas.items.length > 0
-      ? this._canvas.items.map(render)
-      : "No content";
+    return this._canvas.items && this._canvas.items.length > 0 ? this._canvas.items.map(render) : "No content";
   }
   onMouseOver() {
     if (!this.subMenu && !this.editMode && !document.body.classList.contains("editMode")) {
