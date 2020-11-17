@@ -67,7 +67,7 @@
   },
   "dependencies": {
     "@alepop/stencil-env": "0.4.1",
-    "@apollo/client": "3.2.5",
+    "@apollo/client": "3.2.6",
     "@corejam/base": "0.0.10",
     "@corejam/core-components": "0.0.10",
     "@corejam/rollup-plugin": "0.0.2",
