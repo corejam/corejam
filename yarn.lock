@@ -1269,17 +1269,6 @@
     sade "1.7.4"
     serve "11.3.2"
 
-"@corejam/core-components@0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@corejam/core-components/-/core-components-0.0.9.tgz#cb3bd61c5f9762dc1dabc3d12bbe45b97d0b2765"
-  integrity sha512-jGq/M28mSJcZw83x4Z6iYwYzR2PNK9RBinTqYJu6yURhHaYZX2phPr5wCk32AxIZ8Q/H44QzIp58vunq3f8vfQ==
-  dependencies:
-    "@apollo/client" "3.2.5"
-    "@apollo/link-persisted-queries" "https://github.com/corejam/apollo-link-persisted-queries/tarball/master"
-    "@corejam/rollup-plugin" "0.0.2"
-    "@corejam/router" "0.0.6"
-    graphql-tag "2.11.0"
-
 "@eslint/eslintrc@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-0.2.1.tgz#f72069c330461a06684d119384435e12a5d76e3c"

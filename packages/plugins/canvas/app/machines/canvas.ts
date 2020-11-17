@@ -143,6 +143,7 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvent, CanvasSta
         pointerx: 0,
         pointery: 0,
         possibleTarget: null,
+        realEl: null,
       }),
       initStartValues: assign({
         pointerx: (_, event) => event.clientX,
@@ -150,14 +151,18 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvent, CanvasSta
         draggedElement: (_, event: any) => <HTMLElement>getPath(event)[1],
         draggedTag: (_, event: any) => <HTMLElement>getPath(event)[1].dataset.tag,
         canvasId: (_, event: any) => getPath(event)[1].dataset.canvas,
-        realEl: (_, event) => (<HTMLElement>event.target).previousSibling as HTMLElement,
+        realEl: (_, event) => {
+          //@ts-ignore
+          console.log(event.target.previousSibling);
+          return (<HTMLElement>event.target).previousSibling as HTMLElement;
+        },
       }),
       bootstrapEventListeners: assign({
         allTargets: (context) => {
           if (window.innerHeight > document.body.clientHeight) document.body.style.minHeight = "100vh";
           const targets = [];
           console.log(context);
-          const traverse = (node) => {
+          const traverse = (node, context, targets) => {
             console.log("waaa", context.realEl.droppableElements);
             if (context.realEl.droppableElements.includes(node.localName)) {
               targets.push(node);
@@ -165,7 +170,7 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvent, CanvasSta
               node.addEventListener("mouseover", sendEventToMachine);
               node.addEventListener("mouseout", sendEventToMachine);
             }
-            if (node.children) Array.from(node.children).forEach(traverse);
+            if (node.children) Array.from(node.children).forEach((node) => traverse(node, context, targets));
           };
           const rootNode = document.querySelector("dershop-canvas").querySelector(".drop") as HTMLElement;
 
@@ -175,7 +180,7 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvent, CanvasSta
             rootNode.addEventListener("mouseover", sendEventToMachine);
             rootNode.addEventListener("mouseout", sendEventToMachine);
           } else {
-            Array.from(rootNode.children).map(traverse);
+            Array.from(rootNode.children).map((node) => traverse(node, context, targets));
           }
           document.body.addEventListener("mousemove", sendEventToMachine);
           document.body.addEventListener("mouseup", sendEventToMachine);

@@ -21,7 +21,7 @@ export class DershopCanvasDragger {
     const Tag = this.tag;
     return (
       <Host data-tag={this.tag} data-canvas={this.canvas}>
-        <Tag hidden>tag</Tag>
+        <Tag style={{ visibility: "hidden" }}>tag</Tag>
         <span onMouseDown={(e) => this.send(e)}>{this.tag}</span>
       </Host>
     );

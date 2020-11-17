@@ -6,8 +6,6 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface AppLayout {
-    }
     interface DershopCanvas {
         "addDragger": (newDragger: string) => Promise<void>;
         "canvas": any;
@@ -27,12 +25,6 @@ export namespace Components {
     }
 }
 declare global {
-    interface HTMLAppLayoutElement extends Components.AppLayout, HTMLStencilElement {
-    }
-    var HTMLAppLayoutElement: {
-        prototype: HTMLAppLayoutElement;
-        new (): HTMLAppLayoutElement;
-    };
     interface HTMLDershopCanvasElement extends Components.DershopCanvas, HTMLStencilElement {
     }
     var HTMLDershopCanvasElement: {
@@ -64,7 +56,6 @@ declare global {
         new (): HTMLRouteIndexElement;
     };
     interface HTMLElementTagNameMap {
-        "app-layout": HTMLAppLayoutElement;
         "dershop-canvas": HTMLDershopCanvasElement;
         "dershop-canvas-dragger": HTMLDershopCanvasDraggerElement;
         "dershop-editable": HTMLDershopEditableElement;
@@ -73,8 +64,6 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface AppLayout {
-    }
     interface DershopCanvas {
         "canvas"?: any;
         "canvasId"?: string;
@@ -93,7 +82,6 @@ declare namespace LocalJSX {
     interface RouteIndex {
     }
     interface IntrinsicElements {
-        "app-layout": AppLayout;
         "dershop-canvas": DershopCanvas;
         "dershop-canvas-dragger": DershopCanvasDragger;
         "dershop-editable": DershopEditable;
@@ -105,7 +93,6 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "app-layout": LocalJSX.AppLayout & JSXBase.HTMLAttributes<HTMLAppLayoutElement>;
             "dershop-canvas": LocalJSX.DershopCanvas & JSXBase.HTMLAttributes<HTMLDershopCanvasElement>;
             "dershop-canvas-dragger": LocalJSX.DershopCanvasDragger & JSXBase.HTMLAttributes<HTMLDershopCanvasDraggerElement>;
             "dershop-editable": LocalJSX.DershopEditable & JSXBase.HTMLAttributes<HTMLDershopEditableElement>;
