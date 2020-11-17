@@ -11,10 +11,10 @@ function bucketSplit(property) {
 
 export function computeStyle(styles, hash = null) {
   const breakpoints = {
-    sm: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-sm"),
-    md: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-md"),
-    lg: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-lg"),
-    xl: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-xl"),
+    sm: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-sm") || "640px",
+    md: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-md") || "768px",
+    lg: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-lg") || "1024px",
+    xl: window.getComputedStyle(document.documentElement).getPropertyValue("--cj-screens-xl") || "1280px",
   };
   const collecters = {
     rules: [],
