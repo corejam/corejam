@@ -2,7 +2,6 @@ import { Component, h } from "@stencil/core";
 
 @Component({
   tag: "dershop-spotlight",
-  styleUrl: "dershop-spotlight.css",
 })
 export class DershopSpotlight {
   render() {
