@@ -16,6 +16,17 @@ function normalizePropertyBasedOnPossibleIdentifiers(property) {
 }
 
 export const calculateStyles = async (instance) => {
+  if (stylesCache.has("first")) {
+    const styles = document && document.querySelectorAll("head styles");
+    styles.forEach((style) => {
+      if (style.id.includes("cj")) {
+        const hash = style.id;
+        const value = style.textContent;
+        stylesCache.set(hash, value);
+      }
+    });
+    stylesCache.set("first", true);
+  }
   const instanceName = instance.constructor.name;
   const normalizedObject = {};
   for (const property in instance) {
