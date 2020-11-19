@@ -1,4 +1,5 @@
-import { ApolloServer, gql } from "apollo-server-micro";
+import { gql } from "apollo-server-micro";
+import { ApolloServer as LambdaApolloServer } from "apollo-server-lambda";
 import { bootstrapSchema, importPlugin, loadManifest } from "./Bootstrap";
 import { Resolvers } from "./resolvers";
 import { ServerContext } from "./typings/Server";
@@ -36,14 +37,14 @@ export const getServerModels = () => {
  * We only have this extracted to allow us to bootstrap
  * the context within our integration tests.
  */
-export async function getServerContext({ req, res }): Promise<ServerContext> {
+export function getServerContext({ req, res }): ServerContext {
   let context = { req, res, models: getServerModels(), eventEmitter };
 
   if (fs.existsSync(process.cwd() + "/resolvers.js")) {
-    const pluginsFile = await import(process.cwd() + "/resolvers.js");
+    const pluginsFile = import(process.cwd() + "/resolvers.js") as any;
     const serverKeys = Object.keys(pluginsFile.server);
     for (const p of serverKeys) {
-      const res = await pluginsFile.server[p].getPluginContext({ req, models: context.models, eventEmitter });
+      const res = pluginsFile.server[p].getPluginContext({ req, models: context.models, eventEmitter });
       context = { ...context, ...res };
     }
     return context;
@@ -51,8 +52,8 @@ export async function getServerContext({ req, res }): Promise<ServerContext> {
     //We need to merge all plugin context for any additional context items they add
     //TODO needs to get generated from cli for all the requires on plugins
     for (const plugin of loadManifest().plugins) {
-      const currentPlugin = await importPlugin(plugin);
-      const res = await currentPlugin.getPluginContext({ req, models: context.models, eventEmitter });
+      const currentPlugin = importPlugin(plugin) as any;
+      const res = currentPlugin.getPluginContext({ req, models: context.models, eventEmitter });
       context = { ...context, ...res };
 
       if (currentPlugin.default.listens) {
@@ -76,11 +77,11 @@ export async function getServerContext({ req, res }): Promise<ServerContext> {
  *
  * @param context
  */
-export async function CorejamServer(context = ({ req, res }) => getServerContext({ req, res })): Promise<ApolloServer> {
+export function CorejamServer(context = ({ req, res }) => getServerContext({ req, res })) {
   let resolvers = Object.values(Resolvers);
 
   if (fs.existsSync(process.cwd() + "/resolvers.js")) {
-    const pluginsFile = await import(process.cwd() + "/resolvers.js");
+    const pluginsFile = import(process.cwd() + "/resolvers.js") as any;
     Object.keys(pluginsFile.server).map((p) => {
       if (pluginsFile.server[p].default.resolvers) {
         resolvers = Object.values({
@@ -92,7 +93,7 @@ export async function CorejamServer(context = ({ req, res }) => getServerContext
   } else {
     //We need to merge all plugin resolvers into our core
     for (const plugin of loadManifest().plugins) {
-      const currentPlugin = await importPlugin(plugin);
+      const currentPlugin = importPlugin(plugin) as any;
 
       if (currentPlugin.default.resolvers) {
         resolvers = Object.values({
@@ -118,9 +119,9 @@ export async function CorejamServer(context = ({ req, res }) => getServerContext
     }
   }
 
-  return new ApolloServer({
-    typeDefs: gql(await bootstrapSchema()),
+  return {
+    typeDefs: gql(bootstrapSchema()),
     resolvers,
     context,
-  });
+  };
 }

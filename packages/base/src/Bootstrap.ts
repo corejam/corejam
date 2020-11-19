@@ -61,7 +61,7 @@ export function collectPlugins(path = process.cwd()): Array<string> {
  *
  * @param plugin
  */
-export async function importPlugin(plugin: string) {
+export function importPlugin(plugin: string) {
   try {
     if (plugin[0] === "/") {
       let pluginPath;
@@ -73,13 +73,13 @@ export async function importPlugin(plugin: string) {
         pluginPath = path.resolve(plugin, "dist/server/index.js");
       }
 
-      return await import(pluginPath);
+      return import(pluginPath);
     } else {
       if (process.env.NODE_ENV === "test") {
         plugin = `${plugin}/server/index.ts`;
       }
 
-      return await import(plugin);
+      return import(plugin);
     }
   } catch (e) {
     throw new PluginLoadError(plugin, e);
@@ -100,7 +100,7 @@ let schema: string;
  * Doing it this way temporarily due to us loosing caching functionality using
  * executableSchema()
  */
-export async function bootstrapSchema(hoisted = false): Promise<string> {
+export function bootstrapSchema(hoisted = false): string {
   if (schema) return schema; //We already have it
 
   /**
@@ -128,7 +128,7 @@ export async function bootstrapSchema(hoisted = false): Promise<string> {
 
   for (const plugin of loadManifest().plugins) {
     const isLocalPlugin = isAPlugin();
-    const currentPlugin = await importPlugin(plugin);
+    const currentPlugin = importPlugin(plugin) as any;
 
     currentPlugin.default.schemas.forEach((schema: any) => {
       const schemaRootPath = isLocalPlugin
