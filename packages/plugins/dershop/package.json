@@ -72,7 +72,7 @@
     "@xstate/fsm": "1.5.1",
     "deep-parse-json": "1.0.1",
     "faker": "5.1.0",
-    "faunadb": "3.0.1",
+    "faunadb": "4.0.0",
     "fuse.js": "6.4.3",
     "graphql-tag": "2.11.0",
     "stencil-router-v2": "0.6.0",
