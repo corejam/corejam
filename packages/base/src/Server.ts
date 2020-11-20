@@ -1,5 +1,4 @@
 import { gql } from "apollo-server-micro";
-import { ApolloServer as LambdaApolloServer } from "apollo-server-lambda";
 import { bootstrapSchema, importPlugin, loadManifest } from "./Bootstrap";
 import { Resolvers } from "./resolvers";
 import { ServerContext } from "./typings/Server";
