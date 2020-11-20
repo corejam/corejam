@@ -1,11 +1,8 @@
-import { Component, h, Host, Prop } from "@stencil/core";
-import { computeStyle } from "../../utils/computeStyle";
-import { addStyleTagToHead } from "../../helpers/Style";
+import { Component, h, Host, Prop, State } from "@stencil/core";
 import type { GridType } from "./types";
 
 @Component({
   tag: "corejam-grid",
-  
 })
 export class Grid {
   @Prop() templateColumns: GridType.TemplateColumns;
@@ -69,80 +66,16 @@ export class Grid {
   @Prop() lgAutoFlow: GridType.Flow;
   @Prop() xlAutoFlow: GridType.Flow;
   @Prop() grid: Boolean = true;
-
-  private hash: string;
+  @State() hash: string;
 
   async componentWillLoad() {
-    const rules = (await import("../../utils/style")).generateStyleMap(this, "");
-    const [hash, style] = computeStyle(rules);
-    this.hash = hash;
-    addStyleTagToHead(style, hash);
-
+    await this.computeStyles();
   }
 
-  _relevantProps = [
-    "templateColumns",
-    "smTemplateColumns",
-    "mdTemplateColumns",
-    "lgTemplateColumns",
-    "xlTemplateColumns",
-    "templateRows",
-    "smTemplateRows",
-    "mdTemplateRows",
-    "lgTemplateRows",
-    "xlTemplateRows",
-    "cols",
-    "smCols",
-    "mdCols",
-    "lgCols",
-    "xlCols",
-    "colsStart",
-    "smColsStart",
-    "mdColsStart",
-    "lgColsStart",
-    "xlColsStart",
-    "colsEnd",
-    "smColsEnd",
-    "mdColsEnd",
-    "lgColsEnd",
-    "xlColsEnd",
-    "rows",
-    "smRows",
-    "mdRows",
-    "lgRows",
-    "xlRows",
-    "rowsStart",
-    "smRowsStart",
-    "mdRowsStart",
-    "lgRowsStart",
-    "xlRowsStart",
-    "rowsEnd",
-    "smRowsEnd",
-    "mdRowsEnd",
-    "lgRowsEnd",
-    "xlRowsEnd",
-    "gap",
-    "smGap",
-    "mdGap",
-    "lgGap",
-    "xlGap",
-    "gapCol",
-    "smGapCol",
-    "mdGapCol",
-    "lgGapCol",
-    "xlGapCol",
-    "gapRow",
-    "smGapRow",
-    "mdGapRow",
-    "lgGapRow",
-    "xlGapRow",
-    "autoFlow",
-    "smAutoFlow",
-    "mdAutoFlow",
-    "lgAutoFlow",
-    "xlAutoFlow",
-    "grid",
-  ];
+  async computeStyles() {
+    const hash = await (await import("../../utils/style")).calculateStyles(this);
+    this.hash = hash;
+  }
 
   render() {
     return (

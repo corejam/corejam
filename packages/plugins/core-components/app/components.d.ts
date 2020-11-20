@@ -338,6 +338,7 @@ export namespace Components {
         "fit": "cover";
         "h": string;
         "lazy": boolean;
+        "maxH": string;
         "maxWidth": number;
         "rounded": "full";
         "src": string;
@@ -357,10 +358,13 @@ export namespace Components {
         "droppableElements": string[];
         "family": Font.Family;
         "fontStyle": Font.Style;
+        "lgFocusWeight": string;
         "lineHeight": Font.lineHeight;
+        "mdWeight": Font.Weight;
         "size": Font.Size;
         "smooth": Font.Smoothnes;
         "spacing": Font.Spacing;
+        "textStyle": string;
         "transform": Font.Transform;
         "weight": Font.Weight;
     }
@@ -827,6 +831,7 @@ declare namespace LocalJSX {
         "fit"?: "cover";
         "h"?: string;
         "lazy"?: boolean;
+        "maxH"?: string;
         "maxWidth"?: number;
         "rounded"?: "full";
         "src"?: string;
@@ -846,10 +851,13 @@ declare namespace LocalJSX {
         "droppableElements"?: string[];
         "family"?: Font.Family;
         "fontStyle"?: Font.Style;
+        "lgFocusWeight"?: string;
         "lineHeight"?: Font.lineHeight;
+        "mdWeight"?: Font.Weight;
         "size"?: Font.Size;
         "smooth"?: Font.Smoothnes;
         "spacing"?: Font.Spacing;
+        "textStyle"?: string;
         "transform"?: Font.Transform;
         "weight"?: Font.Weight;
     }
