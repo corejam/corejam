@@ -12,8 +12,15 @@ export async function bootstrap(_options: any) {
     const manifest = require(envRoot + "/.corejam/manifest.json") as any;
     const topLevel = manifest?.plugins[manifest?.plugins.length - 1];
 
+    let exists = null;
+    try {
+      exists = require.resolve(`${topLevel}/dist/cli/Bootstrap`)
+    } catch (e) {
+      //Nothing
+    }
+
     //Check if we can run any bootstrap scripts made available by packages
-    if (topLevel && await jetpack.existsAsync(`${topLevel}/dist/cli/Bootstrap`)) {
+    if (topLevel && exists !== null) {
       const generated = await require(`${topLevel}/dist/cli/Bootstrap`).default()
       await jetpack.writeAsync(getCacheDir() + "/faker.json", JSON.stringify(generated))
     }
