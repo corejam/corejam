@@ -51,7 +51,7 @@
     "ts-jest": "26.4.4",
     "ts-sinon": "2.0.1",
     "tslib": "2.0.3",
-    "typescript": "4.0.5"
+    "typescript": "4.1.2"
   },
   "dependencies": {
     "apollo-cache-inmemory": "1.6.6",
