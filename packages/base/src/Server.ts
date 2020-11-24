@@ -40,7 +40,7 @@ export function getServerContext({ req, res }): ServerContext {
   let context = { req, res, models: getServerModels(), eventEmitter };
 
   if (fs.existsSync(process.cwd() + "/resolvers.js")) {
-    const pluginsFile = import(process.cwd() + "/resolvers.js") as any;
+    const pluginsFile = require(process.cwd() + "/resolvers.js") as any;
     const serverKeys = Object.keys(pluginsFile.server);
     for (const p of serverKeys) {
       const res = pluginsFile.server[p].getPluginContext({ req, models: context.models, eventEmitter });
@@ -80,7 +80,7 @@ export function CorejamServer(context = ({ req, res }) => getServerContext({ req
   let resolvers = Object.values(Resolvers);
 
   if (fs.existsSync(process.cwd() + "/resolvers.js")) {
-    const pluginsFile = import(process.cwd() + "/resolvers.js") as any;
+    const pluginsFile = require(process.cwd() + "/resolvers.js") as any;
     Object.keys(pluginsFile.server).map((p) => {
       if (pluginsFile.server[p].default.resolvers) {
         resolvers = Object.values({

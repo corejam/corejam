@@ -1770,11 +1770,6 @@
   dependencies:
     "@types/glob" "*"
 
-"@types/aws-lambda@^8.10.31":
-  version "8.10.64"
-  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.64.tgz#4bdcb725aef96bef0cb1decf19c7efff1df22fe7"
-  integrity sha512-LRKk2UQCSi7BsO5TlfSI8cTNpOGz+MH6+RXEWtuZmxJficQgxwEYJDiKVirzgyiHce0L0F4CqCVvKTwblAeOUw==
-
 "@types/babel-types@*", "@types/babel-types@^7.0.0":
   version "7.0.9"
   resolved "https://registry.yarnpkg.com/@types/babel-types/-/babel-types-7.0.9.tgz#01d7b86949f455402a94c788883fe4ba574cad41"
@@ -2845,18 +2840,6 @@ apollo-server-errors@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/apollo-server-errors/-/apollo-server-errors-2.4.2.tgz#1128738a1d14da989f58420896d70524784eabe5"
   integrity sha512-FeGxW3Batn6sUtX3OVVUm7o56EgjxDlmgpTLNyWcLb0j6P8mw9oLNyAm3B+deHA4KNdNHO5BmHS2g1SJYjqPCQ==
-
-apollo-server-lambda@2.19.0:
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/apollo-server-lambda/-/apollo-server-lambda-2.19.0.tgz#63d114bd095ca6d2958e1d05f0c0ed9d23cfd61b"
-  integrity sha512-44W6QaHMnVsKKXtC0o04JR0U65hoUC7Pfj3ik1PThsGejHVByyaQi7Qfbas3vuMAxU0UGkF5TKycc7K6KFxGUw==
-  dependencies:
-    "@apollographql/graphql-playground-html" "1.6.26"
-    "@types/aws-lambda" "^8.10.31"
-    apollo-server-core "^2.19.0"
-    apollo-server-env "^2.4.5"
-    apollo-server-types "^0.6.1"
-    graphql-tools "^4.0.0"
 
 apollo-server-micro@2.19.0:
   version "2.19.0"
