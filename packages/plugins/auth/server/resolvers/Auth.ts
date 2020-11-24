@@ -8,7 +8,7 @@ function setRefreshHeaders(jwt, { req, res }) {
   const maxAge = Number.parseInt(JWT_REFRESH_EXPIRES);
   const secureOptions = `HttpOnly; Secure;`;
   const options = req?.headers.host?.indexOf("localhost") === 0 ? "" : secureOptions;
-  
+
   res.setHeader("Set-Cookie", `refreshToken=${jwt.refreshToken};${options} Max-Age=${maxAge}; Path=/;`);
   res.setHeader("Access-Control-Allow-Credentials", "true");
   if (req.headers.host?.indexOf("localhost") === 0) {
@@ -25,12 +25,12 @@ function setRefreshHeaders(jwt, { req, res }) {
  */
 export default {
   Query: {
-    userById: async (_obj: any, args: any, { models, user }: MergedServerContext) => {	
-      const currentUser = await user();	
-      if (currentUser.id === args.id || checkUserHasRole(currentUser, roles.ADMIN)) {	
-        return await models.userById(args.id);	
-      }	
-      return null;	
+    userById: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
+      const currentUser = await user();
+      if (currentUser.id === args.id || checkUserHasRole(currentUser, roles.ADMIN)) {
+        return await models.userById(args.id);
+      }
+      return null;
     },
     paginateUsers: async (_obj: any, { size, page }, { models }: MergedServerContext) => {
       // checkUserHasRole(await user(), roles.ADMIN);
