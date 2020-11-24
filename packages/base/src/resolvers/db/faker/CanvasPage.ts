@@ -77,11 +77,12 @@ export function canvasOpenPeers(id: string, peerInput: CanvasPeer): Promise<Canv
     return canvasPage.id === id;
   })[0];
 
+  const peers: CanvasPeers = {
+    key: "test",
+    peers: [] as CanvasPeer[],
+  };
   if (!canvasPage.peers) {
-    canvasPage.peers = {
-      key: "test",
-      peers: [] as CanvasPeer[],
-    };
+    canvasPage.peers = peers;
   }
 
   canvasPage.peers.peers.push({
@@ -98,7 +99,7 @@ export function canvasOpenPeers(id: string, peerInput: CanvasPeer): Promise<Canv
     return canvasPageOld;
   });
 
-  return new Promise((res) => res(canvasPage.peers));
+  return new Promise((res) => res(peers));
 }
 
 export function canvasClosePeers(id: string): Promise<CanvasPage> {
@@ -119,10 +120,10 @@ export function canvasClosePeers(id: string): Promise<CanvasPage> {
   return new Promise((res) => res(canvasPage));
 }
 
-export function canvasPollPeers(id: string): Promise<CanvasPeers> {
+export function canvasPollPeers(id: string): Promise<CanvasPeers | null> {
   const canvasPage = canvasPages.filter((canvasPage: CanvasPageDB) => {
     return canvasPage.id === id;
   })[0];
 
-  return new Promise((res) => res(canvasPage.peers));
+  return new Promise((res) => res(canvasPage.peers ?? null));
 }
