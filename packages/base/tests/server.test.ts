@@ -1,12 +1,12 @@
 import { CorejamServer } from "../src/Server"
 import { createServerClient } from "../src/client/ServerClient"
 import { testClient } from "../src/TestClient"
-import { gql } from "apollo-server-micro";
+import { ApolloServer, gql } from "apollo-server-micro";
 
 describe("Server", () => {
-  
+
   it("CorejamServer boots correctly", async () => {
-    const corejamServer = await CorejamServer()
+    const corejamServer = new ApolloServer(CorejamServer())
 
     expect(corejamServer.requestOptions).toHaveProperty("cache")
     expect(corejamServer.requestOptions).toHaveProperty("persistedQueries")

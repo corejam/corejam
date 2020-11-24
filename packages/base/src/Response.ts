@@ -1,4 +1,4 @@
-import { OutgoingMessage } from "http";
+import { IncomingMessage, ServerResponse } from "http";
 
 /**
  * Currently only a proxy class incase we are inside
@@ -6,7 +6,7 @@ import { OutgoingMessage } from "http";
  *
  * Otherwise it just calls super.setHeader and this can be ignored
  */
-export default class Response extends OutgoingMessage {
+export default class Response extends ServerResponse {
   private context:
     | {
         headers: { name: string; value: number | string | ReadonlyArray<string> }[];
@@ -17,10 +17,10 @@ export default class Response extends OutgoingMessage {
    * Assign the GraphQL Context so we can use it later on
    * @param context
    */
-  constructor(context: any) {
-    super();
+  constructor(req: IncomingMessage, context?: any) {
+    super(req);
 
-    if (process.env.AWS_EXECUTION_ENV && process.env.AWS_EXECUTION_ENV.includes("AWS_Lambda_")) {
+    if (context && process.env.AWS_EXECUTION_ENV && process.env.AWS_EXECUTION_ENV.includes("AWS_Lambda_")) {
       this.context = {
         ...context,
         headers: [],
