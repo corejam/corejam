@@ -7,7 +7,7 @@ import { IncomingMessage, ServerResponse } from "http";
  * Otherwise it just calls super.setHeader and this can be ignored
  */
 export default class Response extends ServerResponse {
-  private context:
+  public context:
     | {
         headers: { name: string; value: number | string | ReadonlyArray<string> }[];
       }

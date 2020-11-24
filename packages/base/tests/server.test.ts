@@ -2,6 +2,9 @@ import { CorejamServer } from "../src/Server"
 import { createServerClient } from "../src/client/ServerClient"
 import { testClient } from "../src/TestClient"
 import { ApolloServer, gql } from "apollo-server-micro";
+import Response from "../src/Response";
+import { IncomingMessage } from "http";
+import { Socket } from "net";
 
 describe("Server", () => {
 
@@ -32,5 +35,21 @@ describe("Server", () => {
 
     expect(test.data?.__schema.types).toContainEqual({ name: "Timestamp" })
     expect(test.data?.__schema.types).toContainEqual({ name: "Paginated" })
+  });
+
+  it("Test Response object has context headers set", async () => {
+    const context = {};
+    process.env.AWS_EXECUTION_ENV = "AWS_Lambda_TEST";
+
+    const response = new Response(new IncomingMessage(new Socket), context);
+
+    //Reset env
+    delete process.env.AWS_EXECUTION_ENV
+
+    response.setHeader("test", "test");
+
+    expect(response.context?.headers).toEqual([{
+      name: "test", value: "test"
+    }])
   });
 });
