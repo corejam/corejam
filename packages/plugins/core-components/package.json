@@ -71,7 +71,7 @@
     ]
   },
   "dependencies": {
-    "@apollo/client": "3.2.7",
+    "@apollo/client": "3.2.9",
     "@apollo/link-persisted-queries": "https://github.com/corejam/apollo-link-persisted-queries/tarball/master",
     "@corejam/rollup-plugin": "0.0.2",
     "@corejam/router": "0.0.6",
