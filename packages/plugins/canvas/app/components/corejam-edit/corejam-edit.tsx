@@ -1,20 +1,12 @@
-import {
-  Component,
-  ComponentInterface,
-  Host,
-  h,
-  State,
-  Element
-} from "@stencil/core";
+import { Component, Host, h, State, Element } from "@stencil/core";
 
 @Component({
-  tag: "dershop-editable",
-  styleUrl: "dershop-editable.css",
-  shadow: false
+  tag: "corejam-edit",
+  styleUrl: "editable.css",
 })
-export class DershopEditable implements ComponentInterface {
+export class DershopEditable {
   @Element() el: any;
-  @State() editMode: boolean = false;
+  @State() editMode = false;
   @State() value: any = 0;
   @State() node: any;
   @State() edited: any = [];
@@ -30,38 +22,42 @@ export class DershopEditable implements ComponentInterface {
       this.el.children[1].contentEditable = false;
     }
   }
+
+  camelCase(input) {
+    return input.toLowerCase().replace(/-(.)/g, function (_match, group1) {
+      return group1.toUpperCase();
+    });
+  }
   edit(key, e) {
     console.log(this.el.children);
-    this.el.children[1][key] = e.target.value;
-    this.edited[key] = e.target.value;
+    this.el.children[1][this.camelCase(key)] = e.target.value;
+    this.edited[this.camelCase(key)] = e.target.value;
     console.log(this.edited);
   }
   getAllTagMatches(regEx) {
-    return Array.prototype.slice
-      .call(this.el.querySelectorAll("*"))
-      .filter(function(el) {
-        return el.tagName.match(regEx);
-      })[0];
+    return Array.prototype.slice.call(this.el.querySelectorAll("*")).filter(function (el) {
+      return el.tagName.match(regEx);
+    })[0];
   }
 
   render() {
     return (
-      <Host onClick={e => this.clickHost(e)}>
+      <Host onClick={(e) => this.clickHost(e)}>
         {this.editMode && (
           <div class="fixed" contenteditable="false">
             <form>
-              {this.node.map(attr => (
+              {this.node.map((attr) => (
                 <div>
                   {attr}
                   <input
                     type="text"
                     name={attr}
-                    value={this.getAllTagMatches(/^dershop/i)[attr]}
-                    onInput={event => this.edit(attr, event)}
+                    value={this.getAllTagMatches(/^corejam/i)[attr]}
+                    onInput={(event) => this.edit(attr, event)}
                   />
                 </div>
               ))}
-              <button onClick={e => e.preventDefault()}>Save</button>
+              <button onClick={(e) => e.preventDefault()}>Save</button>
             </form>
           </div>
         )}

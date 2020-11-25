@@ -6,48 +6,35 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface DershopCanvas {
-        "addDragger": (newDragger: string) => Promise<void>;
+    interface CanvasLayout {
+    }
+    interface CorejamCanvas {
         "canvas": any;
-        "canvasId": string;
-        "draggers": string | string[];
-        "editMode": boolean;
+        "draggers": string[];
     }
-    interface DershopCanvasDragger {
-        "canvas": string;
-        "tag": string;
-    }
-    interface DershopEditable {
-    }
-    interface DershopSerializer {
+    interface CorejamEdit {
     }
     interface RouteIndex {
     }
 }
 declare global {
-    interface HTMLDershopCanvasElement extends Components.DershopCanvas, HTMLStencilElement {
+    interface HTMLCanvasLayoutElement extends Components.CanvasLayout, HTMLStencilElement {
     }
-    var HTMLDershopCanvasElement: {
-        prototype: HTMLDershopCanvasElement;
-        new (): HTMLDershopCanvasElement;
+    var HTMLCanvasLayoutElement: {
+        prototype: HTMLCanvasLayoutElement;
+        new (): HTMLCanvasLayoutElement;
     };
-    interface HTMLDershopCanvasDraggerElement extends Components.DershopCanvasDragger, HTMLStencilElement {
+    interface HTMLCorejamCanvasElement extends Components.CorejamCanvas, HTMLStencilElement {
     }
-    var HTMLDershopCanvasDraggerElement: {
-        prototype: HTMLDershopCanvasDraggerElement;
-        new (): HTMLDershopCanvasDraggerElement;
+    var HTMLCorejamCanvasElement: {
+        prototype: HTMLCorejamCanvasElement;
+        new (): HTMLCorejamCanvasElement;
     };
-    interface HTMLDershopEditableElement extends Components.DershopEditable, HTMLStencilElement {
+    interface HTMLCorejamEditElement extends Components.CorejamEdit, HTMLStencilElement {
     }
-    var HTMLDershopEditableElement: {
-        prototype: HTMLDershopEditableElement;
-        new (): HTMLDershopEditableElement;
-    };
-    interface HTMLDershopSerializerElement extends Components.DershopSerializer, HTMLStencilElement {
-    }
-    var HTMLDershopSerializerElement: {
-        prototype: HTMLDershopSerializerElement;
-        new (): HTMLDershopSerializerElement;
+    var HTMLCorejamEditElement: {
+        prototype: HTMLCorejamEditElement;
+        new (): HTMLCorejamEditElement;
     };
     interface HTMLRouteIndexElement extends Components.RouteIndex, HTMLStencilElement {
     }
@@ -56,36 +43,27 @@ declare global {
         new (): HTMLRouteIndexElement;
     };
     interface HTMLElementTagNameMap {
-        "dershop-canvas": HTMLDershopCanvasElement;
-        "dershop-canvas-dragger": HTMLDershopCanvasDraggerElement;
-        "dershop-editable": HTMLDershopEditableElement;
-        "dershop-serializer": HTMLDershopSerializerElement;
+        "canvas-layout": HTMLCanvasLayoutElement;
+        "corejam-canvas": HTMLCorejamCanvasElement;
+        "corejam-edit": HTMLCorejamEditElement;
         "route-index": HTMLRouteIndexElement;
     }
 }
 declare namespace LocalJSX {
-    interface DershopCanvas {
+    interface CanvasLayout {
+    }
+    interface CorejamCanvas {
         "canvas"?: any;
-        "canvasId"?: string;
-        "draggers"?: string | string[];
-        "editMode"?: boolean;
-        "onP2pSendData"?: (event: CustomEvent<any>) => void;
+        "draggers"?: string[];
     }
-    interface DershopCanvasDragger {
-        "canvas"?: string;
-        "tag"?: string;
-    }
-    interface DershopEditable {
-    }
-    interface DershopSerializer {
+    interface CorejamEdit {
     }
     interface RouteIndex {
     }
     interface IntrinsicElements {
-        "dershop-canvas": DershopCanvas;
-        "dershop-canvas-dragger": DershopCanvasDragger;
-        "dershop-editable": DershopEditable;
-        "dershop-serializer": DershopSerializer;
+        "canvas-layout": CanvasLayout;
+        "corejam-canvas": CorejamCanvas;
+        "corejam-edit": CorejamEdit;
         "route-index": RouteIndex;
     }
 }
@@ -93,10 +71,9 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "dershop-canvas": LocalJSX.DershopCanvas & JSXBase.HTMLAttributes<HTMLDershopCanvasElement>;
-            "dershop-canvas-dragger": LocalJSX.DershopCanvasDragger & JSXBase.HTMLAttributes<HTMLDershopCanvasDraggerElement>;
-            "dershop-editable": LocalJSX.DershopEditable & JSXBase.HTMLAttributes<HTMLDershopEditableElement>;
-            "dershop-serializer": LocalJSX.DershopSerializer & JSXBase.HTMLAttributes<HTMLDershopSerializerElement>;
+            "canvas-layout": LocalJSX.CanvasLayout & JSXBase.HTMLAttributes<HTMLCanvasLayoutElement>;
+            "corejam-canvas": LocalJSX.CorejamCanvas & JSXBase.HTMLAttributes<HTMLCorejamCanvasElement>;
+            "corejam-edit": LocalJSX.CorejamEdit & JSXBase.HTMLAttributes<HTMLCorejamEditElement>;
             "route-index": LocalJSX.RouteIndex & JSXBase.HTMLAttributes<HTMLRouteIndexElement>;
         }
     }

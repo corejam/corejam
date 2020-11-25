@@ -1,5 +1,5 @@
 export function serialize() {
-  const targetNode = document.querySelector("dershop-canvas").querySelector(".drop");
+  const targetNode = document.querySelector("corejam-canvas").querySelector(".drop");
   const children = targetNode.classList.contains("drop") ? Array.from(targetNode.children) : [targetNode];
   const BLACKLIST = ["class", "style"];
   const serial = {

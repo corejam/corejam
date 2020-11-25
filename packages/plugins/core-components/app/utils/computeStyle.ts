@@ -1,5 +1,9 @@
 function bucketSplit(property) {
-  const possibleCamelCaseSplit = property.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ");
+  const possibleCamelCaseSplit = property
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .split(" ")
+    .map((s) => s.toLowerCase());
+
   const first = ["sm", "md", "lg", "xl", "hover", "focus"].includes(possibleCamelCaseSplit[0]);
   const second = ["sm", "md", "lg", "xl", "hover", "focus"].includes(possibleCamelCaseSplit[1]);
 

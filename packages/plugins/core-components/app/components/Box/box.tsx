@@ -195,12 +195,14 @@ export class CorejamBox {
   @Prop() bWidthLeft: number;
   @Prop() animation: string;
   @Prop() shadow: string;
+  @Prop() hoverShadow: string;
   @Prop() position: Position;
   @Prop() top: number;
   @Prop() right: number;
   @Prop() bottom: number;
   @Prop() left: number;
   @Prop() z: number;
+  @Prop() droppableElements = ["corejam-box"];
 
   async componentWillLoad() {
     await this.computeStyles();
@@ -387,6 +389,7 @@ export class CorejamBox {
   @Watch("bWidthLeft")
   @Watch("animation")
   @Watch("shadow")
+  @Watch("hoverShadow")
   @Watch("position")
   @Watch("top")
   @Watch("right")
@@ -396,8 +399,6 @@ export class CorejamBox {
     const hash = await (await import("../../utils/style")).calculateStyles(this);
     this.hash = hash;
   }
-
-  @Prop({ reflect: false, mutable: true }) droppableElements = ["corejam-box"];
 
   render() {
     return (
