@@ -9,7 +9,7 @@ export type CorejamRoute = {
 };
 
 type CorejamRunStore = {
-  routes: [CorejamRoute];
+  routes: CorejamRoute[];
   mode: CorejamMode;
   wrapper: [string] | [];
   recommendations: [string];
