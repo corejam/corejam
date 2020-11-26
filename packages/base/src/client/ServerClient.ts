@@ -9,7 +9,7 @@ export type Variables = { [key: string]: any };
  * if we dont do that we have an issue because we cant `await` top level in our hydrate
  * script.
  */
-const corejamServer: Promise<ApolloServer> = CorejamServer();
+const corejamServer = new ApolloServer(CorejamServer());
 
 /**
  * This function is used for our Stencil Hydrate render process.

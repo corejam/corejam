@@ -1,6 +1,8 @@
 const { createTestClient } = require("apollo-server-testing");
-import { ServerResponse, IncomingMessage } from "http";
+import { ApolloServer } from "apollo-server-micro";
+import { IncomingMessage } from "http";
 import { Socket } from "net";
+import Response from "./Response";
 import { CorejamServer, getServerContext } from "./Server";
 
 /**
@@ -10,7 +12,7 @@ import { CorejamServer, getServerContext } from "./Server";
  * @param ctxArg Default argument object to be passed
  */
 export const testClient = async (
-  ctxArg = { req: { headers: {} }, res: new ServerResponse(new IncomingMessage(new Socket())) }
+  ctxArg = { req: { headers: {} }, res: new Response(new IncomingMessage(new Socket())) }
 ) => {
   const baseCtxArg = ctxArg;
   //@ts-ignore
@@ -18,8 +20,8 @@ export const testClient = async (
 
   const context = () => getServerContext({ ...ctxArg });
 
-  const { query, mutate, ...others } = createTestClient(await CorejamServer(context));
-  const { models } = await context();
+  const { query, mutate, ...others } = createTestClient(new ApolloServer(CorejamServer(context)));
+  const { models } = context();
 
   // Wraps query and mutate function to set context arguments
   // eslint-disable-next-line no-shadow

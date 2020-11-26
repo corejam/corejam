@@ -26,6 +26,7 @@
   "scripts": {
     "dev": "corejam dev",
     "build": "corejam build",
+    "pretest": "corejam init",
     "test": "corejam test:wc",
     "precommit": "lint-staged",
     "static": "corejam static",

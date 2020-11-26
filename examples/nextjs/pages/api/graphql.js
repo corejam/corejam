@@ -1,4 +1,5 @@
 import { CorejamServer } from "@corejam/base/dist/Server";
+import { ApolloServer } from "apollo-server-micro";
 const { send } = require("micro");
 const cors = require("micro-cors")();
 
@@ -18,10 +19,10 @@ let corejam;
 
 const server = async () => {
   if (!corejam) {
-    corejam = await CorejamServer();
+    corejam = CorejamServer();
   }
 
-  return corejam
+  return new ApolloServer(corejam)
 }
 
 const handler = async (req, res) => {
