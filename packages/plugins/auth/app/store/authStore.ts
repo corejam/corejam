@@ -1,9 +1,9 @@
+import { setContext } from '@apollo/client/link/context';
+import { ApolloLink } from "@apollo/client/link/core";
 import { coreState } from "@corejam/core-components";
 import { createStore } from "@stencil/store";
 import gql from "graphql-tag";
 import { userTokenRefreshMutationGQL } from "../../shared/graphql/Mutations";
-import { setContext } from '@apollo/client/link/context';
-import { ApolloLink } from "@apollo/client"
 
 export const { state: authStore, onChange: onChangeAuth } = createStore({
   identity: null,
