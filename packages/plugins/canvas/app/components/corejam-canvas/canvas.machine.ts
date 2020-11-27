@@ -1,10 +1,22 @@
 import { createMachine, assign, interpret } from "xstate";
-// import { serialize } from "../../utils/utils";
+// import { serialize } from "../../utils/utils"
+
+interface CanvasContext {
+  draggedElementInstance: HTMLElement;
+  dx: number;
+  dy: number;
+  px?: number;
+  py?: number;
+  //possibleTarget?: any;
+  //allTargets?: any;
+}
 
 type CanvasStateSchema =
   | {
       value: "idle";
-      context: CanvasContext;
+      context: CanvasContext & {
+        draggedElementInstance: null;
+      };
     }
   | {
       value: "dragging";
@@ -14,19 +26,6 @@ type CanvasStateSchema =
       value: "drop";
       context: CanvasContext;
     };
-
-interface CanvasContext {
-  draggedElementInstance?: any;
-  draggedElementTag?: any;
-  dx?: number;
-  dy?: number;
-  pointerx?: number;
-  pointery?: number;
-  possibleTarget?: any;
-  allTargets?: any;
-}
-
-type CanvasEvent = any | MouseEvent;
 
 const sendEventToMachine = (evt: MouseEvent) => canvasService.send(evt);
 
@@ -42,43 +41,32 @@ const sendEventToMachine = (evt: MouseEvent) => canvasService.send(evt);
 
 const highlight = (node: HTMLElement) => {
   node.style.background = "var(--cj-colors-blue-100)";
+  node.addEventListener("mouseenter", sendEventToMachine);
+  node.addEventListener("mouseout", sendEventToMachine);
 };
-// const removeHighlight = (node: HTMLElement) => node.style.removeProperty("background");
+const removeHighlight = (node: HTMLElement) => {
+  node.style.removeProperty("background");
+  node.removeEventListener("mouseenter", sendEventToMachine);
+  node.removeEventListener("mouseout", sendEventToMachine);
+};
 
-export const canvasMachine = createMachine<CanvasContext, CanvasEvent, CanvasStateSchema>(
+export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStateSchema>(
   {
-    id: "canvas",
     initial: "idle",
-    context: {},
+    context: {
+      draggedElementInstance: null,
+      dx: 0,
+      dy: 0,
+      px: 0,
+      py: 0,
+    },
     states: {
       idle: {
         id: "idle",
-        entry: assign({
-          dx: 0,
-          dy: 0,
-          pointerx: 0,
-          pointery: 0,
-        }),
         on: {
           mousedown: {
             target: "dragging",
-            actions: [
-              assign({
-                draggedElementInstance: (_c, e) => e.target,
-                pointerx: (_context, event) => event.clientX,
-                pointery: (_context, event) => event.clientY,
-              }),
-              () => {
-                document.querySelectorAll(".drop").forEach((node: HTMLElement) => {
-                  highlight(node);
-                  node.addEventListener("mouseenter", (e) => {
-                    console.log(e);
-                    sendEventToMachine(e);
-                  });
-                  node.addEventListener("mouseout", sendEventToMachine);
-                });
-              },
-            ],
+            actions: ["onIdleToDragging"],
           },
         },
       },
@@ -93,7 +81,7 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvent, CanvasSta
               },
               mouseup: {
                 target: "#idle",
-                actions: ["removeEventListeners"],
+                actions: ["onDraggingToIdle"],
               },
             },
           },
@@ -139,10 +127,7 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvent, CanvasSta
         on: {
           mousemove: {
             internal: true,
-            actions: assign({
-              dx: (context, event) => event.clientX - context.pointerx,
-              dy: (context, event) => event.clientY - context.pointery,
-            }),
+            actions: ["mousemove"],
           },
         },
       },
@@ -152,21 +137,55 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvent, CanvasSta
     },
   },
   {
-    actions: {},
+    actions: {
+      onIdleToDragging: assign((_context: CanvasContext, event: MouseEvent) => {
+        const target = event.target as HTMLElement;
+
+        document.querySelectorAll(".drop").forEach(highlight);
+
+        target.style.pointerEvents = "none";
+
+        return {
+          draggedElementInstance: target,
+          px: event.clientX,
+          py: event.clientY,
+        };
+      }),
+      onDraggingToIdle: assign((context: CanvasContext) => {
+        document.querySelectorAll(".drop").forEach(removeHighlight);
+        context.draggedElementInstance.style.transform = `translate(
+          0px,
+          0px)`;
+
+        context.draggedElementInstance.style.pointerEvents = "initial";
+
+        return {
+          draggedElementInstance: null,
+          dx: 0,
+          dy: 0,
+          px: 0,
+          py: 0,
+        };
+      }),
+
+      mousemove: assign((context: CanvasContext, event: MouseEvent) => {
+        return {
+          dx: event.clientX - context.px,
+          dy: event.clientY - context.py,
+        };
+      }),
+    },
   }
 );
 
 export const canvasService = interpret(canvasMachine)
   .onTransition((state) => {
     if (state.changed) {
-      console.log(state.context);
       document.body.dataset.state = state.toStrings().join(" ");
-      if (state.context.draggedElementInstance) {
-        state.context.draggedElementInstance.style.pointerEvents = "none";
+      if (state.matches("dragging"))
         state.context.draggedElementInstance.style.transform = `translate(
             ${state.context.dx}px,
             ${state.context.dy}px)`;
-      }
     }
   })
   .start();
