@@ -121,7 +121,7 @@ export class CorejamIdentity {
                   </corejam-box>
                   <corejam-box w={12} mt={8}>
                     <corejam-form-submit formId={this.formId}>
-                      <corejam-button type="submit" bg="black-900" color="white" pl="5" pr="5" pt="3" pb="3">
+                      <corejam-button type="button" bg="black-900" color="white" pl="5" pr="5" pt="3" pb="3">
                         Login
                       </corejam-button>{" "}
                       or Register

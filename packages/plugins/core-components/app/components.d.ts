@@ -42,6 +42,7 @@ export namespace Components {
         "h": string;
         "hide": boolean;
         "hoverBg": string;
+        "hoverShadow": string;
         "items": Flex.AlignItems;
         "justify": Flex.Justify;
         "left": number;
@@ -213,12 +214,23 @@ export namespace Components {
     interface CorejamButton {
         "bg": string;
         "color": string;
+        "display": string;
+        "focusBg": string;
+        "focusColor": string;
+        "hoverBg": string;
+        "hoverColor": string;
+        "justify": string;
+        "lgW": number | string;
+        "mdW": number | string;
         "p": string;
         "pb": string;
         "pl": string;
         "pr": string;
         "pt": string;
+        "smW": number | string;
         "type": Button.Type;
+        "w": number | string;
+        "xlW": number | string;
     }
     interface CorejamDataFetcher {
         "query": string;
@@ -529,6 +541,7 @@ declare namespace LocalJSX {
         "h"?: string;
         "hide"?: boolean;
         "hoverBg"?: string;
+        "hoverShadow"?: string;
         "items"?: Flex.AlignItems;
         "justify"?: Flex.Justify;
         "left"?: number;
@@ -700,12 +713,23 @@ declare namespace LocalJSX {
     interface CorejamButton {
         "bg"?: string;
         "color"?: string;
+        "display"?: string;
+        "focusBg"?: string;
+        "focusColor"?: string;
+        "hoverBg"?: string;
+        "hoverColor"?: string;
+        "justify"?: string;
+        "lgW"?: number | string;
+        "mdW"?: number | string;
         "p"?: string;
         "pb"?: string;
         "pl"?: string;
         "pr"?: string;
         "pt"?: string;
+        "smW"?: number | string;
         "type"?: Button.Type;
+        "w"?: number | string;
+        "xlW"?: number | string;
     }
     interface CorejamDataFetcher {
         "query"?: string;

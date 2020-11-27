@@ -26,6 +26,7 @@
   "scripts": {
     "dev": "corejam dev",
     "build": "corejam build",
+    "pretest": "corejam init",
     "test": "corejam test:wc",
     "precommit": "lint-staged",
     "static": "corejam static",
@@ -52,8 +53,8 @@
     "shx": "0.3.3",
     "stencil-router-v2": "0.6.0",
     "tslib": "2.0.3",
-    "typescript": "4.0.5",
-    "xstate": "4.14.0"
+    "typescript": "4.1.2",
+    "xstate": "4.14.1"
   },
   "lint-staged": {
     "src/**/*.ts": [
@@ -71,7 +72,7 @@
     ]
   },
   "dependencies": {
-    "@apollo/client": "3.2.6",
+    "@apollo/client": "3.2.9",
     "@apollo/link-persisted-queries": "https://github.com/corejam/apollo-link-persisted-queries/tarball/master",
     "@corejam/rollup-plugin": "0.0.2",
     "@corejam/router": "0.0.6",
