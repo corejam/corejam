@@ -7,7 +7,8 @@ interface CanvasContext {
   dy: number;
   px?: number;
   py?: number;
-  //possibleTarget?: any;
+  possibleTargets: HTMLElement[];
+  possibleTarget: HTMLElement;
   //allTargets?: any;
 }
 
@@ -16,6 +17,8 @@ type CanvasStateSchema =
       value: "idle";
       context: CanvasContext & {
         draggedElementInstance: null;
+        possibleTargets: null;
+        possibleTarget: null;
       };
     }
   | {
@@ -41,20 +44,30 @@ const sendEventToMachine = (evt: MouseEvent) => canvasService.send(evt);
 
 const highlight = (node: HTMLElement) => {
   node.style.background = "var(--cj-colors-blue-100)";
-  node.addEventListener("mouseenter", sendEventToMachine);
-  node.addEventListener("mouseout", sendEventToMachine);
+  node.style.border = "1px solid black";
+  node.addEventListener("mouseover", sendEventToMachine);
 };
-const removeHighlight = (node: HTMLElement) => {
+const removeHighlight = (node: HTMLElement, ev = true) => {
   node.style.removeProperty("background");
-  node.removeEventListener("mouseenter", sendEventToMachine);
-  node.removeEventListener("mouseout", sendEventToMachine);
+  node.style.removeProperty("border");
+  if (ev) node.removeEventListener("mouseover", sendEventToMachine);
 };
 
+const highlightDrop = (node: HTMLElement) => {
+  node.style.background = "var(--cj-colors-blue-300)";
+};
+
+const removeHighlightDrop = (node: HTMLElement) => {
+  console.log("remove", node);
+  node.style.background = "var(--cj-colors-blue-100)";
+};
 export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStateSchema>(
   {
     initial: "idle",
     context: {
       draggedElementInstance: null,
+      possibleTargets: null,
+      possibleTarget: null,
       dx: 0,
       dy: 0,
       px: 0,
@@ -75,26 +88,40 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
         states: {
           outside: {
             on: {
-              mouseenter: {
+              mouseover: {
                 target: "inside",
-                actions: ["assignPossibleTarget"],
               },
               mouseup: {
                 target: "#idle",
                 actions: ["onDraggingToIdle"],
               },
+              mouseout: {
+                internal: true,
+                actions: [
+                  (context) => {
+                    context.possibleTargets.forEach((el) => removeHighlight(el, false));
+                  },
+                ],
+              },
             },
           },
           inside: {
-            onEntry: ["highlightPossibleTarget"],
             initial: "base",
             on: {
-              mouseout: {
-                target: "outside",
-                actions: ["removeHighlightPossibleTarget"],
+              mouseover: {
+                internal: true,
+                actions: ["highlightPossibleTarget"],
               },
               mouseup: {
                 target: "#dropped",
+              },
+              mouseout: {
+                target: "outside",
+                actions: [
+                  (context) => {
+                    context.possibleTargets.forEach((el) => removeHighlight(el, false));
+                  },
+                ],
               },
               "inside.left": {
                 target: "inside.left",
@@ -108,9 +135,7 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
             },
             states: {
               base: {
-                onEntry: (_content, event) => {
-                  console.log(event.target);
-                },
+                onEntry: (_content, event) => {},
               },
 
               right: {
@@ -124,6 +149,7 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
             },
           },
         },
+        entry: ["dragging"],
         on: {
           mousemove: {
             internal: true,
@@ -141,33 +167,67 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
       onIdleToDragging: assign((_context: CanvasContext, event: MouseEvent) => {
         const target = event.target as HTMLElement;
 
-        document.querySelectorAll(".drop").forEach(highlight);
+        const canvas = document.querySelector("corejam-canvas .drop");
+        const corejamElements = document.querySelectorAll("corejam-canvas .drop *");
+
+        const possibleTargets = [];
+
+        if (corejamElements.length > 0) {
+          corejamElements.forEach((el: HTMLElement) => {
+            if (el.localName.includes("corejam")) possibleTargets.push(el);
+          });
+        } else {
+          const dropzone = document.querySelector(".drop") as HTMLElement;
+          possibleTargets.push(dropzone);
+        }
 
         target.style.pointerEvents = "none";
+
+        canvas.addEventListener("mouseout", sendEventToMachine);
 
         return {
           draggedElementInstance: target,
           px: event.clientX,
           py: event.clientY,
+          possibleTargets,
         };
       }),
       onDraggingToIdle: assign((context: CanvasContext) => {
-        document.querySelectorAll(".drop").forEach(removeHighlight);
+        const dropNode = document.querySelector(".drop") as HTMLElement;
+        removeHighlight(dropNode);
         context.draggedElementInstance.style.transform = `translate(
           0px,
           0px)`;
 
         context.draggedElementInstance.style.pointerEvents = "initial";
 
+        context.possibleTargets.forEach((el) => removeHighlight(el));
+
         return {
           draggedElementInstance: null,
+          possibleTargets: null,
+          possibleTarget: null,
           dx: 0,
           dy: 0,
           px: 0,
           py: 0,
         };
       }),
-
+      dragging: (context: CanvasContext) => {
+        context.possibleTargets.forEach(highlight);
+      },
+      highlightPossibleTarget: assign((context, event) => {
+        if (context.possibleTarget) removeHighlightDrop(context.possibleTarget);
+        const possibleTarget = event.target as HTMLElement;
+        highlightDrop(possibleTarget);
+        return {
+          possibleTarget,
+        };
+      }),
+      removeHighlightPossibleTarget: (_context, event) => {
+        const possibleTarget = event.target as HTMLElement;
+        removeHighlightDrop(possibleTarget);
+      },
       mousemove: assign((context: CanvasContext, event: MouseEvent) => {
         return {
           dx: event.clientX - context.px,

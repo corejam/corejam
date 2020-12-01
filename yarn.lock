@@ -2464,6 +2464,11 @@
   resolved "https://registry.yarnpkg.com/@xstate/fsm/-/fsm-1.5.1.tgz#b1ebedc77b11e4956fda0a6429cef986cd17979e"
   integrity sha512-t8blLI0e90jCE71yUQHLH5uEljD1v0aC8PKkHUtNWEnXt81EOj7xBjnlwmaHn/8cmE2aSygiBElUpkRZUV9hXA==
 
+"@xstate/inspect@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@xstate/inspect/-/inspect-0.2.0.tgz#c76dacc457ba503e7ee2f8649a6dd31c73f1162f"
+  integrity sha512-HxxkEbJi7FwBCrKA4sw/fXu1c5S2fpRYN1ijPLrp4euSddOiVly9TtasnL3SyX2KI75c0qc6oOihwqbtDomJrg==
+
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz#eef014a3145ae477a1cbc00cd1e552336dceb790"

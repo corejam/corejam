@@ -71,7 +71,9 @@ export class CorejamCanvas {
               </corejam-box>
             </corejam-box>
           </corejam-box>
-          <corejam-box w={12} h="100vh" class="drop"></corejam-box>
+          <corejam-box w={12} h="100vh" class="drop">
+            <slot></slot>
+          </corejam-box>
         </corejam-box>
       </Host>
     );

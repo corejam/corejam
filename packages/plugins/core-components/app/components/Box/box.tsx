@@ -13,12 +13,12 @@ import { Flex, Position, Display } from "./types";
 export class CorejamBox {
   @State() hash: string;
 
-  @Prop() flex: Flex.Flex;
-  @Prop() display: Display;
+  @Prop() display: Display = "block";
   @Prop() smDisplay: Display;
   @Prop() mdDisplay: Display;
   @Prop() lgDisplay: Display;
   @Prop() xlDisplay: Display;
+  @Prop() flex: Flex.Flex;
   @Prop() direction: Flex.Direction;
   @Prop() smDirection: Flex.Direction;
   @Prop() mdDirection: Flex.Direction;

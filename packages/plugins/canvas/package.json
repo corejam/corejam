@@ -44,6 +44,7 @@
     "recommendations": []
   },
   "dependencies": {
+    "@xstate/inspect": "^0.2.0",
     "deep-parse-json": "^1.0.1",
     "xstate": "^4.14.0"
   }
