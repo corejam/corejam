@@ -13,6 +13,7 @@ export namespace Components {
         "draggers": string[];
     }
     interface CorejamEdit {
+        "node": any;
     }
     interface RouteIndex {
     }
@@ -57,6 +58,7 @@ declare namespace LocalJSX {
         "draggers"?: string[];
     }
     interface CorejamEdit {
+        "node"?: any;
     }
     interface RouteIndex {
     }

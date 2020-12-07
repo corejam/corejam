@@ -227,30 +227,27 @@ it("should render  span tag as default for text", async () => {
   expect(target).toBeTruthy();
 });
 
-it("should render text align left with display block", async () => {
+it("should render text align left", async () => {
   const page = await newSpecPage({
     components: [CorejamType],
     html: `<corejam-type as="h1" align="left">Hallo</corejam-type>`,
   });
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-align: left");
-  expect(computedStyleRules).toContain("display: block");
 });
-it("should render text align center with display block", async () => {
+it("should render text align center", async () => {
   const page = await newSpecPage({
     components: [CorejamType],
     html: `<corejam-type as="h1" align="center">Hallo</corejam-type>`,
   });
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-align: center");
-  expect(computedStyleRules).toContain("display: block");
 });
-it("should render text align right with display block", async () => {
+it("should render text align right", async () => {
   const page = await newSpecPage({
     components: [CorejamType],
     html: `<corejam-type as="h1" align="right">Hallo</corejam-type>`,
   });
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-align: right");
-  expect(computedStyleRules).toContain("display: block");
 });

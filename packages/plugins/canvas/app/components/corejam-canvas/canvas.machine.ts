@@ -9,16 +9,34 @@ interface CanvasContext {
   py?: number;
   possibleTargets: HTMLElement[];
   possibleTarget: HTMLElement;
-  //allTargets?: any;
+  _listeners: any[];
 }
 
 type CanvasStateSchema =
   | {
-      value: "idle";
+      value: "inactive";
       context: CanvasContext & {
         draggedElementInstance: null;
         possibleTargets: null;
         possibleTarget: null;
+        editInstance: null;
+      };
+    }
+  | {
+      value: "active";
+      context: CanvasContext & {
+        draggedElementInstance: null;
+        possibleTargets: null;
+        possibleTarget: null;
+      };
+    }
+  | {
+      value: "edit";
+      context: CanvasContext & {
+        draggedElementInstance: null;
+        possibleTargets: null;
+        possibleTarget: null;
+        editInstance: HTMLElement;
       };
     }
   | {
@@ -30,40 +48,50 @@ type CanvasStateSchema =
       context: CanvasContext;
     };
 
-const sendEventToMachine = (evt: MouseEvent) => canvasService.send(evt);
+type CanvasEvents = MouseEvent | { type: "reset" } | { type: "toggle" };
 
-// const createNewNode = (tag: string) => {
-//   const tagNode = document.createElement(tag);
-//   tagNode.innerText = tagNode.localName;
-//   tagNode.dataset["component"] = tag;
-//   tagNode.dataset["inCanvas"] = "true";
-//   tagNode.style.userSelect = "none";
-//   tagNode.addEventListener("mousedown", (event) => canvasService.send(event));
-//   return tagNode;
-// };
+export const sendEventToMachine = (evt: CanvasEvents) => canvasService.send(evt);
+
+const createNewNode = (tag: string) => {
+  const tagNode = document.createElement(tag);
+  tagNode.innerText = tagNode.localName;
+  tagNode.dataset["component"] = tag;
+  tagNode.dataset["inCanvas"] = "true";
+  tagNode.style.userSelect = "none";
+  tagNode.addEventListener("pointerdown", (event) => canvasService.send(event), { passive: true });
+  return tagNode;
+};
 
 const highlight = (node: HTMLElement) => {
-  node.style.background = "var(--cj-colors-blue-100)";
-  node.style.border = "1px solid black";
-  node.addEventListener("mouseover", sendEventToMachine);
+  if (!node.localName.includes("type")) {
+    node.style.background = "var(--cj-colors-blue-100)";
+    node.style.outline = "1px solid black";
+    node.addEventListener("pointerover", sendEventToMachine, { passive: true });
+  }
 };
 const removeHighlight = (node: HTMLElement, ev = true) => {
   node.style.removeProperty("background");
-  node.style.removeProperty("border");
-  if (ev) node.removeEventListener("mouseover", sendEventToMachine);
+  node.style.removeProperty("outline");
+  if (ev) node.removeEventListener("pointerover", sendEventToMachine, true);
 };
 
 const highlightDrop = (node: HTMLElement) => {
-  node.style.background = "var(--cj-colors-blue-300)";
+  const blacklist = ["corejame-type", "span"];
+  if (!blacklist.includes(node.localName)) node.style.background = "var(--cj-colors-blue-300)";
 };
 
 const removeHighlightDrop = (node: HTMLElement) => {
-  console.log("remove", node);
-  node.style.background = "var(--cj-colors-blue-100)";
+  const blacklist = ["corejame-type", "span"];
+  if (!blacklist.includes(node.localName)) node.style.background = "var(--cj-colors-blue-100)";
 };
-export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStateSchema>(
+
+/**
+ * Canas Machine
+ *
+ */
+export const canvasMachine = createMachine<CanvasContext, CanvasEvents, CanvasStateSchema>(
   {
-    initial: "idle",
+    initial: "inactive",
     context: {
       draggedElementInstance: null,
       possibleTargets: null,
@@ -72,56 +100,81 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
       dy: 0,
       px: 0,
       py: 0,
+      _listeners: [],
     },
     states: {
-      idle: {
-        id: "idle",
+      inactive: {
+        id: "inactive",
         on: {
-          mousedown: {
+          toggle: { target: "active" },
+          pointerup: {
+            target: "edit",
+            cond: "validElement",
+            actions: ["saveEditInstance"],
+          },
+        },
+        entry: ["initBaseCanvas", "removeAllListeners"],
+      },
+      edit: {
+        on: {
+          pointerup: [
+            {
+              target: "inactive",
+              actions: ["removeEdit"],
+              cond: "isCanvas",
+            },
+          ],
+        },
+        entry: ["showEdit"],
+      },
+      active: {
+        id: "active",
+        on: {
+          toggle: { target: "inactive" },
+          pointerdown: {
             target: "dragging",
             actions: ["onIdleToDragging"],
           },
         },
+        entry: ["initDropzone"],
       },
       dragging: {
         initial: "outside",
         states: {
           outside: {
             on: {
-              mouseover: {
+              pointerover: {
                 target: "inside",
+                actions: ["highlightPossibleTarget"],
               },
-              mouseup: {
-                target: "#idle",
+              pointerup: {
+                target: "#active",
                 actions: ["onDraggingToIdle"],
               },
-              mouseout: {
+              pointerout: {
                 internal: true,
-                actions: [
-                  (context) => {
-                    context.possibleTargets.forEach((el) => removeHighlight(el, false));
-                  },
-                ],
+                actions: ["reset"],
               },
             },
           },
           inside: {
             initial: "base",
             on: {
-              mouseover: {
+              pointermove: {
                 internal: true,
-                actions: ["highlightPossibleTarget"],
+                actions: ["highlightPossibleTarget", "mousemove"],
               },
-              mouseup: {
+              pointerup: {
                 target: "#dropped",
+                actions: ["dropItem"],
               },
-              mouseout: {
+              pointerout: {
+                internal: true,
+                actions: ["removeHighlightPossibleTarget"],
+              },
+              reset: {
                 target: "outside",
-                actions: [
-                  (context) => {
-                    context.possibleTargets.forEach((el) => removeHighlight(el, false));
-                  },
-                ],
+                actions: ["unsetDrop"],
               },
               "inside.left": {
                 target: "inside.left",
@@ -134,10 +187,7 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
               },
             },
             states: {
-              base: {
-                onEntry: (_content, event) => {},
-              },
-
+              base: {},
               right: {
                 // onEntry: (c) => (c.possibleTarget.style.borderRight = "5px solid gold"),
                 // onExit: (c) => (c.possibleTarget.style.borderRight = ""),
@@ -151,7 +201,7 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
         },
         entry: ["dragging"],
         on: {
-          mousemove: {
+          pointermove: {
             internal: true,
             actions: ["mousemove"],
           },
@@ -159,11 +209,44 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
       },
       dropped: {
         id: "dropped",
+        after: {
+          50: {
+            target: "active",
+            actions: ["onDraggingToIdle"],
+          },
+        },
       },
     },
   },
   {
     actions: {
+      initBaseCanvas: () => {
+        document.body.addEventListener("pointerup", sendEventToMachine);
+        document.body.addEventListener("pointermove", sendEventToMachine, { passive: true });
+      },
+      initDropzone: assign(() => {
+        const nodes = document.querySelectorAll("corejam-canvas .drop *");
+
+        const _listeners = [];
+        nodes.forEach((n) => {
+          n.addEventListener(
+            "pointerdown",
+            (e: MouseEvent) => {
+              sendEventToMachine(e);
+            },
+            { passive: true }
+          );
+          _listeners.push({ target: n, type: "pointerdown", listener: sendEventToMachine });
+        });
+
+        return {
+          _listeners,
+        };
+      }),
+      removeAllListeners: (context) =>
+        context._listeners.forEach((l) => {
+          l.target.removeEventListener(l.type, l.listener);
+        }),
       onIdleToDragging: assign((_context: CanvasContext, event: MouseEvent) => {
         const target = event.target as HTMLElement;
 
@@ -183,7 +266,13 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
 
         target.style.pointerEvents = "none";
 
-        canvas.addEventListener("mouseout", sendEventToMachine);
+        canvas.addEventListener(
+          "pointerout",
+          () => {
+            sendEventToMachine({ type: "reset" });
+          },
+          { passive: true }
+        );
 
         return {
           draggedElementInstance: target,
@@ -195,13 +284,8 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
       onDraggingToIdle: assign((context: CanvasContext) => {
         const dropNode = document.querySelector(".drop") as HTMLElement;
         removeHighlight(dropNode);
-        context.draggedElementInstance.style.transform = `translate(
-          0px,
-          0px)`;
 
-        context.draggedElementInstance.style.pointerEvents = "initial";
-
-        context.possibleTargets.forEach((el) => removeHighlight(el));
+        context.possibleTargets.forEach((el) => removeHighlight(el), true);
 
         return {
           draggedElementInstance: null,
@@ -216,17 +300,50 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
       dragging: (context: CanvasContext) => {
         context.possibleTargets.forEach(highlight);
       },
-      highlightPossibleTarget: assign((context, event) => {
-        if (context.possibleTarget) removeHighlightDrop(context.possibleTarget);
+      highlightPossibleTarget: (_c, event: MouseEvent) => {
         const possibleTarget = event.target as HTMLElement;
         highlightDrop(possibleTarget);
-        return {
-          possibleTarget,
-        };
-      }),
-      removeHighlightPossibleTarget: (_context, event) => {
+      },
+      removeHighlightPossibleTarget: (_context, event: MouseEvent) => {
         const possibleTarget = event.target as HTMLElement;
         removeHighlightDrop(possibleTarget);
+      },
+      dropItem: (context, event: MouseEvent) => {
+        const dropTarget = event.target as HTMLElement;
+        const dropNode = document.querySelector(".drop") as HTMLElement;
+        context.draggedElementInstance.style.removeProperty("transform");
+        context.draggedElementInstance.style.removeProperty("pointer-events");
+        if (dropNode.contains(context.draggedElementInstance)) {
+          dropTarget.appendChild(context.draggedElementInstance);
+        } else {
+          const node = createNewNode(context.draggedElementInstance.innerText);
+          dropTarget.appendChild(node);
+        }
+      },
+      unsetDrop: (context) => {
+        context.possibleTargets.forEach((el) => removeHighlightDrop(el));
+      },
+      showEdit: (context) => {
+        const node = document.createElement("corejam-edit");
+        //@ts-ignore
+        node.node = context.editInstance;
+        console.log(context);
+        const canvas = document.querySelector("corejam-canvas .drop");
+        canvas.after(node);
+      },
+      //@ts-ignore
+      saveEditInstance: assign((_c: CanvasContext, event: MouseEvent) => {
+        const target = event.target as HTMLElement;
+        const cjTarget = target.localName.includes("corejam") ? target : target.parentNode;
+        return {
+          editInstance: cjTarget,
+        };
+      }),
+      removeEdit: () => {
+        document.querySelector("corejam-edit").remove();
+      },
+      reset: (context) => {
+        context.possibleTargets.forEach((el) => removeHighlight(el, false));
       },
       mousemove: assign((context: CanvasContext, event: MouseEvent) => {
         return {
@@ -234,6 +351,16 @@ export const canvasMachine = createMachine<CanvasContext, MouseEvent, CanvasStat
           dy: event.clientY - context.py,
         };
       }),
+    },
+    guards: {
+      isCanvas: (_c, e: MouseEvent) => {
+        const canvas = document.querySelector("corejam-canvas .drop");
+        return e.target === canvas;
+      },
+      validElement: (_c, e: MouseEvent) => {
+        const canvas = document.querySelector("corejam-canvas .drop");
+        return canvas.contains(e.target as HTMLElement) && e.target !== canvas;
+      },
     },
   }
 );
@@ -249,11 +376,3 @@ export const canvasService = interpret(canvasMachine)
     }
   })
   .start();
-
-document.body.addEventListener("mouseup", (event) => {
-  sendEventToMachine(event);
-});
-
-document.body.addEventListener("mousemove", (event) => {
-  sendEventToMachine(event);
-});

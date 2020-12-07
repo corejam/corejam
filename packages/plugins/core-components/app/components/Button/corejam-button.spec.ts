@@ -24,7 +24,7 @@ describe("corejam-button", () => {
       html: `<corejam-button bg="black">hallo</corejam-button>`,
     });
     const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
-    expect(computedStyleRules).toContain("background: var(--cj-color-black);");
+    expect(computedStyleRules).toContain("background: var(--cj-colors-black)");
   });
 
   it("should render color based on prop", async () => {
@@ -33,6 +33,6 @@ describe("corejam-button", () => {
       html: `<corejam-button color="white">hallo</corejam-button>`,
     });
     const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
-    expect(computedStyleRules).toContain("color: var(--cj-color-white)");
+    expect(computedStyleRules).toContain("color: var(--cj-colors-white, white)");
   });
 });

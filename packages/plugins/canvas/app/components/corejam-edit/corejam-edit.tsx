@@ -1,26 +1,14 @@
-import { Component, Host, h, State, Element } from "@stencil/core";
+import { Component, Host, h, Prop } from "@stencil/core";
 
 @Component({
   tag: "corejam-edit",
   styleUrl: "editable.css",
 })
-export class DershopEditable {
-  @Element() el: any;
-  @State() editMode = false;
-  @State() value: any = 0;
-  @State() node: any;
-  @State() edited: any = [];
+export class CorejamEditable {
+  @Prop({ mutable: true }) node: any;
   componentWillLoad() {
-    this.node = this.el.children[0].constructor.observedAttributes;
-  }
-  clickHost(e) {
-    if (e.target.innerText !== "Save") {
-      if (!this.editMode) this.el.children[0].contentEditable = true;
-      this.editMode = true;
-    } else {
-      this.editMode = false;
-      this.el.children[1].contentEditable = false;
-    }
+    //@ts-ignore
+    this.attributes = this.node.constructor.observedAttributes;
   }
 
   camelCase(input) {
@@ -28,40 +16,133 @@ export class DershopEditable {
       return group1.toUpperCase();
     });
   }
-  edit(key, e) {
-    console.log(this.el.children);
-    this.el.children[1][this.camelCase(key)] = e.target.value;
-    this.edited[this.camelCase(key)] = e.target.value;
-    console.log(this.edited);
-  }
-  getAllTagMatches(regEx) {
-    return Array.prototype.slice.call(this.el.querySelectorAll("*")).filter(function (el) {
-      return el.tagName.match(regEx);
-    })[0];
+  edit(e) {
+    this.node[this.camelCase(e.target.name)] = e.target.value;
   }
 
   render() {
     return (
-      <Host onClick={(e) => this.clickHost(e)}>
-        {this.editMode && (
-          <div class="fixed" contenteditable="false">
-            <form>
-              {this.node.map((attr) => (
-                <div>
-                  {attr}
-                  <input
-                    type="text"
-                    name={attr}
-                    value={this.getAllTagMatches(/^corejam/i)[attr]}
-                    onInput={(event) => this.edit(attr, event)}
-                  />
-                </div>
-              ))}
-              <button onClick={(e) => e.preventDefault()}>Save</button>
-            </form>
-          </div>
-        )}
-        <slot></slot>
+      <Host>
+        <corejam-box position="fixed" bottom={0} z={100} shadow="2xl" h="300px" p={4} flex w={12} direction="col">
+          {this.node.localName.includes("box") && (
+            <corejam-box>
+              <corejam-box>
+                <corejam-type>Padding</corejam-type>
+              </corejam-box>
+              <corejam-box flex mt={4}>
+                <corejam-box>
+                  All:
+                  <select name="p" size={1} onChange={(e) => this.edit(e)}>
+                    {[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 32, 63].map((i) => (
+                      <option value={i} selected={this.node.p === i}>
+                        {i}
+                      </option>
+                    ))}
+                  </select>
+                </corejam-box>
+                <corejam-box>
+                  Top:
+                  <select name="pt" size={1} onChange={(e) => this.edit(e)}>
+                    {[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 32, 63].map((i) => (
+                      <option value={i} selected={this.node.pt === i}>
+                        {i}
+                      </option>
+                    ))}
+                  </select>
+                </corejam-box>
+                <corejam-box>
+                  Right:
+                  <select name="pr" size={1} onChange={(e) => this.edit(e)}>
+                    {[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 32, 63].map((i) => (
+                      <option value={i} selected={this.node.pr === i}>
+                        {i}
+                      </option>
+                    ))}
+                  </select>
+                </corejam-box>
+                <corejam-box>
+                  Bottom:
+                  <select name="pb" size={1} onChange={(e) => this.edit(e)}>
+                    {[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 32, 63].map((i) => (
+                      <option value={i} selected={this.node.pb === i}>
+                        {i}
+                      </option>
+                    ))}
+                  </select>
+                </corejam-box>
+                <corejam-box>
+                  Left:
+                  <select name="pl" size={1} onChange={(e) => this.edit(e)}>
+                    {[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 32, 63].map((i) => (
+                      <option value={i} selected={this.node.pl === i}>
+                        {i}
+                      </option>
+                    ))}
+                  </select>
+                </corejam-box>
+              </corejam-box>
+              <corejam-box>
+                <corejam-type>Margin</corejam-type>
+              </corejam-box>
+              <corejam-box flex mt={4}>
+                <corejam-box>
+                  Top:
+                  <select name="mt" size={1} onChange={(e) => this.edit(e)}>
+                    {[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 32, 63].map((i) => (
+                      <option value={i} selected={this.node.mt === i}>
+                        {i}
+                      </option>
+                    ))}
+                  </select>
+                </corejam-box>
+                <corejam-box>
+                  Right:
+                  <select name="mr" size={1} onChange={(e) => this.edit(e)}>
+                    {[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 32, 63].map((i) => (
+                      <option value={i} selected={this.node.mr === i}>
+                        {i}
+                      </option>
+                    ))}
+                  </select>
+                </corejam-box>
+                <corejam-box>
+                  Bottom:
+                  <select name="mb" size={1} onChange={(e) => this.edit(e)}>
+                    {[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 32, 63].map((i) => (
+                      <option value={i} selected={this.node.mb === i}>
+                        {i}
+                      </option>
+                    ))}
+                  </select>
+                </corejam-box>
+                <corejam-box>
+                  Left:
+                  <select name="ml" size={1} onChange={(e) => this.edit(e)}>
+                    {[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 32, 63].map((i) => (
+                      <option value={i} selected={this.node.ml === i}>
+                        {i}
+                      </option>
+                    ))}
+                  </select>
+                </corejam-box>
+              </corejam-box>
+            </corejam-box>
+          )}
+          {this.node.localName.includes("type") && (
+            <corejam-box>
+              <corejam-box>
+                <corejam-type>Size</corejam-type>
+              </corejam-box>
+              <select name="size" size={1} onChange={(e) => this.edit(e)}>
+                {["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"].map((i) => (
+                  <option value={i} selected={this.node.size === i}>
+                    {i}
+                  </option>
+                ))}
+              </select>
+            </corejam-box>
+          )}
+        </corejam-box>
       </Host>
     );
   }

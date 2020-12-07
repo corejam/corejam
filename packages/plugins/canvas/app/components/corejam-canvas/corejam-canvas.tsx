@@ -1,5 +1,5 @@
 import { Component, Host, h, State, Prop, Element, Listen } from "@stencil/core";
-import { canvasService } from "app/components/corejam-canvas/canvas.machine";
+import { sendEventToMachine } from "app/components/corejam-canvas/canvas.machine";
 
 @Component({
   tag: "corejam-canvas",
@@ -15,6 +15,7 @@ export class CorejamCanvas {
   keyup(e: KeyboardEvent) {
     if (e.key === "Dead") {
       this.editMode = !this.editMode;
+      sendEventToMachine({ type: "toggle" });
     }
   }
 
@@ -33,26 +34,31 @@ export class CorejamCanvas {
   render() {
     return (
       <Host>
-        <corejam-box position="relative" w={12} h="100vh" left={this.editMode ? 300 : 0}>
+        <corejam-box position="relative" w={12} h="100vh">
           <corejam-box
-            position="absolute"
+            position="fixed"
             w="300px"
-            h="100vh"
+            p={6}
+            bottom={10}
+            left={this.editMode ? 10 : -300}
             shadow={this.editMode ? "md" : "none"}
             hoverShadow="2xl"
-            left={this.editMode ? -300 : -600}
           >
             <corejam-box flex direction="col" p={4} class="draggers">
-              {this.draggers.map((dragItem) => (
-                <corejam-box
-                  py={2}
-                  onMouseDown={canvasService.send}
-                  data-component={dragItem}
-                  style={{ userSelect: "none" }}
-                >
-                  {dragItem}
-                </corejam-box>
-              ))}
+              {this.draggers.map((dragItem) => {
+                const Tag = dragItem;
+                return (
+                  <corejam-box
+                    py={2}
+                    onPointerDown={sendEventToMachine}
+                    data-component={dragItem}
+                    style={{ userSelect: "none" }}
+                  >
+                    <Tag style={{ display: "none" }}></Tag>
+                    {dragItem}
+                  </corejam-box>
+                );
+              })}
               <corejam-box flex direction="col" pt={24}>
                 <corejam-type as="h3" size="lg" weight="hairline">
                   Deploy to CDN
@@ -64,14 +70,14 @@ export class CorejamCanvas {
                   p={2}
                   color="gray-700"
                   hoverColor="white"
-                  onClick={this.deploy}
+                  onPointerUp={this.deploy}
                 >
                   Deploy
                 </corejam-button>
               </corejam-box>
             </corejam-box>
           </corejam-box>
-          <corejam-box w={12} h="100vh" class="drop">
+          <corejam-box w={12} h="100vh" class="drop" style={{ touchAction: "none", userSelect: "none" }}>
             <slot></slot>
           </corejam-box>
         </corejam-box>
