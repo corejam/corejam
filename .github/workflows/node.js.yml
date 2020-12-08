@@ -18,6 +18,10 @@ jobs:
       image: "corejam/ci:node14.0.0.2"
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
     steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
       - uses: actions/checkout@v2
       - name: Cache node_modules
         id: cache-node-modules
