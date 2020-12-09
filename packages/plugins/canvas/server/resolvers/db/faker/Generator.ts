@@ -1,4 +1,4 @@
-import { generateSeo } from "@corejam/base/src/resolvers/db/faker/Generator";
+import { generateSeo } from "@corejam/base/dist/resolvers/db/faker/Generator";
 import { date } from "faker";
 import { CanvasPage } from "../../../../shared/types/Canvas";
 

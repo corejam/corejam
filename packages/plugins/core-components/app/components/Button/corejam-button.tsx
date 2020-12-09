@@ -20,11 +20,11 @@ export class CorejamButton {
   @Prop({ reflect: true }) color: string;
   @Prop({ reflect: true }) hoverColor: string;
   @Prop({ reflect: true }) focusColor: string;
-  @Prop({ reflect: true }) p: string;
-  @Prop({ reflect: true }) pl: string;
-  @Prop({ reflect: true }) pr: string;
-  @Prop({ reflect: true }) pt: string;
-  @Prop({ reflect: true }) pb: string;
+  @Prop({ reflect: true }) p: string | string;
+  @Prop({ reflect: true }) pl: string | string;
+  @Prop({ reflect: true }) pr: string | string;
+  @Prop({ reflect: true }) pt: string | string;
+  @Prop({ reflect: true }) pb: string | string;
 
   async componentWillLoad() {
     await this.computeStyles();

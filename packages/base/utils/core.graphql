@@ -72,6 +72,7 @@ type SEO @cacheControl(maxAge: 3600) {
 
 # This is used to query for every type of object we can associated a url with (implements SEO)
 type SEODocument {
+  dummy: String
 }
 
 input SEOInput {

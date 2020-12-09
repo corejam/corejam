@@ -5,7 +5,7 @@ const pluginProperties = {
   routes: [],
   listens: [],
   emits: ["orderCompleted"],
-  schemas: ["dershop"],
+  schemas: ["canvas"],
 };
 
 export { getPluginContext } from "./resolvers";
