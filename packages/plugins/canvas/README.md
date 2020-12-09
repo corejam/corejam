@@ -1,25 +1,17 @@
-# canvas
+# @corejam/canvas-plugin
+
+The Visual Canvas CMS plugin allows you to create dynamic "canvas" pages inside your corejam application using the `<corejam-canvas>` element.
 
 ## Getting Started
 
-First, run the development server:
+Install:
 
 ```bash
-npm run dev
-# or
-yarn dev
+//yarn
+yarn install @corejam/plugin-canvas
+
+// npm
+npm i @corejam/plugin-canvas
 ```
 
-Open [http://localhost:3000/api/graphql](http://localhost:3000/api/graphql) with your browser to see the running graphql endpoint with the GraphiQl Playground.
-
-TODO:
-
-Resolvers, Queries, etc, components
-
-## Learn More
-
-TODO
-
-## Deploy
-
-TODO
+TODO more
