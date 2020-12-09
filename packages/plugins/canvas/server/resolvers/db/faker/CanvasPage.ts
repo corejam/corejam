@@ -1,6 +1,7 @@
+import { generateSeo } from "@corejam/base/dist/resolvers/db/faker/Generator";
 import { random } from "faker";
-import type { CanvasPage, CanvasPageDB, CanvasPeer, CanvasPeers } from "../../../typings/Canvas";
-import { generateCanvasPage, generateSeo } from "./Generator";
+import type { CanvasPage, CanvasPageDB, CanvasPeer, CanvasPeers } from "../../../../shared/types/Canvas";
+import { generateCanvasPage } from "./Generator";
 
 export let canvasPages = [] as CanvasPageDB[];
 
