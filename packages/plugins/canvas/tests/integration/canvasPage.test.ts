@@ -1,11 +1,11 @@
-import { CoreResolver } from "@corejam/base/src";
-import { CanvasPage, CanvasPageDB, CanvasPeer } from "@corejam/base/src/typings/Canvas";
-import { generateSeo } from "../../../dershop/server/resolvers/db/faker/Generator";
+import { CanvasPage, CanvasPageDB, CanvasPeer } from "../../shared/types/Canvas";
+import { generateSeo } from "@corejam/base/src/resolvers/db/faker/Generator";
 import { testClient } from "@corejam/base/src/TestClient";
+import { PluginResolver } from "../../shared/types/PluginResolver"
 
 describe("CanvasPages", () => {
   //Init some singletons in beforeAll()
-  let testID, client, models: CoreResolver;
+  let testID, client, models: PluginResolver;
 
   const testValues = {
     seo: generateSeo(),

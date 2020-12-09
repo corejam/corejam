@@ -1,5 +1,5 @@
 import { MergedServerContext } from "../../shared/types/PluginResolver";
-import * as canvasResolvers from "./Canvas"
+import canvasResolvers from "./Canvas"
 
 import { models as faunaModels } from "./db/fauna";
 import { models as fakerModels } from "./db/faker";
