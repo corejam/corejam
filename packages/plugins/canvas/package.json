@@ -44,8 +44,9 @@
     "recommendations": []
   },
   "dependencies": {
-    "@xstate/inspect": "^0.2.0",
-    "deep-parse-json": "^1.0.1",
-    "xstate": "^4.14.0"
+    "@xstate/inspect": "0.2.0",
+    "deep-parse-json": "1.0.1",
+    "faunadb": "4.0.0",
+    "xstate": "4.14.0"
   }
 }

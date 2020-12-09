@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig-mjs.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "./dist"
+  }
+}

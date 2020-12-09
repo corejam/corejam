@@ -1,41 +1,3 @@
-type CanvasPeer {
-  hash: String!
-  offer: JSONObject!
-}
-
-input CanvasPeerInput {
-  hash: String!
-  offer: JSONObject!
-}
-
-# This is the room that delegates the offers to each other.
-type CanvasPeers {
-  key: String!
-  peers: [CanvasPeer!]
-}
-
-type CanvasPage implements Timestamp @cacheControl(maxAge: 300) {
-  id: ID!
-  canvas: JSONObject
-  seo: SEO
-  peers: CanvasPeers
-  dateCreated: String!
-  dateUpdated: String!
-}
-
-input CanvasPageInput {
-  seo: SEOInput
-  canvas: JSONObject
-}
-
-type CanvasPageList implements Paginated {
-  totalItems: Int!
-  perPage: Int!
-  currentPage: Int!
-  lastPage: Int!
-  items: [CanvasPage]
-}
-
 type Config @cacheControl(maxAge: 3600) {
   seo: SEO!
   general: ConfigGeneral!
@@ -85,12 +47,6 @@ type Mutation {
   updateConfig(configInput: ConfigGeneralInput!): Config
   updateConfigSEO(seoInput: SEOInput!): Config
   cacheFlush: Boolean
-  canvasPageCreate(canvasPageInput: CanvasPageInput!, seoInput: SEOInput!): CanvasPage
-  canvasPageEditSEO(id: ID!, seoInput: SEOInput!): CanvasPage
-  canvasPageEdit(id: ID!, canvasPage: CanvasPageInput!): CanvasPage
-  canvasOpenPeers(id: ID!, peerInput: CanvasPeerInput!): CanvasPeers
-  canvasPollPeers(id: ID!): CanvasPeers
-  canvasClosePeers(id: ID!): CanvasPage
 }
 
 interface Paginated {
@@ -105,10 +61,6 @@ type Query {
   dummy: String
   config: Config
   objectFromURL(url: String!): SEODocument @cacheControl(maxAge: 300)
-  allCanvasPages: [CanvasPage]
-  paginateCanvasPages(page: Int!, size: Int!): CanvasPageList
-  canvasPageById(id: ID!): CanvasPage
-  canvasPollPeers(id: ID!): CanvasPeers
 }
 
 type SEO @cacheControl(maxAge: 3600) {
@@ -118,8 +70,8 @@ type SEO @cacheControl(maxAge: 3600) {
   url: String!
 }
 
+# This is used to query for every type of object we can associated a url with (implements SEO)
 type SEODocument {
-  canvasPage: CanvasPage
 }
 
 input SEOInput {

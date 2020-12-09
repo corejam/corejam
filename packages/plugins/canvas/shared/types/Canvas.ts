@@ -1,5 +1,5 @@
-import { SEO } from "./Seo";
-import { Timestamp, DBDocument, Paginated } from "./Utils";
+import { SEO } from "@corejam/base/dist/typings/Seo";
+import { Timestamp, DBDocument, Paginated } from "@corejam/base/dist/typings/Utils";
 
 export type CanvasPeer = {
   hash: string;
@@ -11,7 +11,8 @@ export type CanvasPeers = {
   peers: CanvasPeer[];
 };
 
-export type Canvas = object;
+//Serialized object or string containing html
+export type Canvas = object | string;
 
 export type CanvasPage = Timestamp & {
   canvas: Canvas;

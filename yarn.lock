@@ -6129,7 +6129,7 @@ faunadb@3.0.1:
     url-parse "^1.4.7"
     util-deprecate "^1.0.2"
 
-faunadb@4.0.0:
+faunadb@4.0.0, faunadb@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/faunadb/-/faunadb-4.0.0.tgz#5fd922b811bd40154e3b5234f39cac512f464f51"
   integrity sha512-tXiGthGdbInZ6hzdmGFxnxqsQe2mKq+pnOc+zHZYXtD8TDgKWpK0F9M0tmRpD0uoQUrBHzXU7hxE24pJJxPdbQ==

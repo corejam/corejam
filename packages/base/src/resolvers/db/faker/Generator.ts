@@ -1,5 +1,4 @@
 import type { SEO } from "../../../typings/Seo";
-import type { CanvasPage } from "../../../typings/Canvas";
 import type { Config } from "../../../typings/Config";
 import type { Image } from "../../../typings/Image";
 
@@ -52,49 +51,5 @@ export function generateConfig({
   return {
     seo: seo,
     general: general,
-    layout: {
-      header: {
-        name: "/",
-        date: 1589462638372,
-        items: [
-          {
-            tag: "dershop-header",
-            properties: [
-              {
-                name: "main-links",
-                value: '[{"title":"Home","href":"/"}, {"title":"Categories","href":"/products"}]',
-              },
-              {
-                name: "cart-link",
-                value: "/cart",
-              },
-            ],
-          },
-        ],
-      },
-      footer: {
-        name: "/",
-        date: 1589462666691,
-        items: [
-          {
-            tag: "dershop-footer",
-          },
-        ],
-      },
-    },
-  };
-}
-
-export function generateCanvasPage({
-  seo = generateSeo(),
-  canvas = {},
-  dateCreated = date.past(2).toISOString(),
-  dateUpdated = date.past(1).toISOString(),
-}): CanvasPage {
-  return {
-    seo: seo,
-    canvas: canvas,
-    dateCreated: dateCreated,
-    dateUpdated: dateUpdated,
   };
 }

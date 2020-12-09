@@ -1,6 +1,6 @@
 import { CoreResolver } from "@corejam/base/src";
 import { CanvasPage, CanvasPageDB, CanvasPeer } from "@corejam/base/src/typings/Canvas";
-import { generateSeo } from "../../server/resolvers/db/faker/Generator";
+import { generateSeo } from "../../../dershop/server/resolvers/db/faker/Generator";
 import { testClient } from "@corejam/base/src/TestClient";
 
 describe("CanvasPages", () => {

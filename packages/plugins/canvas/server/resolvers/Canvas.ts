@@ -1,9 +1,9 @@
-import { CanvasPageList } from "../typings/Canvas";
-import { ServerContext } from "../typings/Server";
+import { CanvasPageList } from "../../shared/types/Canvas";
+import { MergedServerContext } from "../../shared/types/PluginResolver";
 
 export default {
   Query: {
-    allCanvasPages: (_obj: any, _args: any, { models }: ServerContext) => {
+    allCanvasPages: (_obj: any, _args: any, { models }: MergedServerContext) => {
       return models.allCanvasPages();
     },
     paginateCanvasPages: async (_obj: any, { size, page }, { models }) => {
@@ -22,10 +22,10 @@ export default {
 
       return new Promise((res) => res(paginated));
     },
-    canvasPageById: (_obj: any, args: any, { models }: ServerContext) => {
+    canvasPageById: (_obj: any, args: any, { models }: MergedServerContext) => {
       return models.canvasPageById(args.id);
     },
-    canvasPollPeers: (_obj: any, { id }, { models }: ServerContext) => {
+    canvasPollPeers: (_obj: any, { id }, { models }: MergedServerContext) => {
       return models.canvasPollPeers(id);
     },
   },
@@ -33,13 +33,13 @@ export default {
     canvasPageEditSEO: () => {
       //return ctx.models.canvasPageEditSEO(args.id, args.seoInput);
     },
-    canvasPageEdit: (_obj: any, { id, canvasPage }, { models }: ServerContext) => {
+    canvasPageEdit: (_obj: any, { id, canvasPage }, { models }: MergedServerContext) => {
       return models.canvasPageEdit(id, canvasPage);
     },
-    canvasOpenPeers: (_obj: any, { id, peerInput }, { models }: ServerContext) => {
+    canvasOpenPeers: (_obj: any, { id, peerInput }, { models }: MergedServerContext) => {
       return models.canvasOpenPeers(id, peerInput);
     },
-    canvasClosePeers: (_obj: any, { id }, { models }: ServerContext) => {
+    canvasClosePeers: (_obj: any, { id }, { models }: MergedServerContext) => {
       return models.canvasClosePeers(id);
     },
   },

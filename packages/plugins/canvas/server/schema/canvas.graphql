@@ -1,0 +1,57 @@
+type CanvasPeer {
+  hash: String!
+  offer: JSONObject!
+}
+
+input CanvasPeerInput {
+  hash: String!
+  offer: JSONObject!
+}
+
+# This is the room that delegates the offers to each other.
+type CanvasPeers {
+  key: String!
+  peers: [CanvasPeer!]
+}
+
+type CanvasPage implements Timestamp @cacheControl(maxAge: 300) {
+  id: ID!
+  canvas: JSONObject
+  seo: SEO
+  peers: CanvasPeers
+  dateCreated: String!
+  dateUpdated: String!
+}
+
+input CanvasPageInput {
+  seo: SEOInput
+  canvas: JSONObject
+}
+
+type CanvasPageList implements Paginated {
+  totalItems: Int!
+  perPage: Int!
+  currentPage: Int!
+  lastPage: Int!
+  items: [CanvasPage]
+}
+
+extend type Mutation {
+  canvasPageCreate(canvasPageInput: CanvasPageInput!, seoInput: SEOInput!): CanvasPage
+  canvasPageEditSEO(id: ID!, seoInput: SEOInput!): CanvasPage
+  canvasPageEdit(id: ID!, canvasPage: CanvasPageInput!): CanvasPage
+  canvasOpenPeers(id: ID!, peerInput: CanvasPeerInput!): CanvasPeers
+  canvasPollPeers(id: ID!): CanvasPeers
+  canvasClosePeers(id: ID!): CanvasPage
+}
+
+extend type Query {
+  allCanvasPages: [CanvasPage]
+  paginateCanvasPages(page: Int!, size: Int!): CanvasPageList
+  canvasPageById(id: ID!): CanvasPage
+  canvasPollPeers(id: ID!): CanvasPeers
+}
+
+extend type SEODocument {
+    canvasPage: CanvasPage
+}
