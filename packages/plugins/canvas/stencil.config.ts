@@ -11,7 +11,7 @@ const targets = process.env.targets?.split(",") || [];
 const name = require("./package.json").name;
 
 const config: Config = {
-  namespace: process.env.NODE_ENV === "production" ? name : "corejam-dev",
+  namespace: process.env.NODE_ENV === "production" ? "corejam-plugin-canvas" : "corejam-dev",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
   srcIndexHtml: require.resolve("@corejam/run/dist/index.html"),
