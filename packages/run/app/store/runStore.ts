@@ -5,6 +5,7 @@ export type CorejamMode = "development" | "production" | "static";
 export type CorejamRoute = {
   url: string;
   exact: boolean;
+  canvasPage?: boolean;
   component: string;
 };
 

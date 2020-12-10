@@ -12,7 +12,7 @@ export type CanvasPeers = {
 };
 
 //Serialized object or string containing html
-export type Canvas = object | string;
+export type Canvas = string;
 
 export type CanvasPage = Timestamp & {
   canvas: Canvas;

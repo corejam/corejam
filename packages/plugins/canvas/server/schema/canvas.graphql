@@ -16,16 +16,16 @@ type CanvasPeers {
 
 type CanvasPage implements Timestamp @cacheControl(maxAge: 300) {
   id: ID!
-  canvas: JSONObject
-  seo: SEO
+  canvas: String!
+  seo: SEO!
   peers: CanvasPeers
   dateCreated: String!
   dateUpdated: String!
 }
 
 input CanvasPageInput {
-  seo: SEOInput
-  canvas: JSONObject
+  seo: SEOInput!
+  canvas: String!
 }
 
 type CanvasPageList implements Paginated {
@@ -37,7 +37,7 @@ type CanvasPageList implements Paginated {
 }
 
 extend type Mutation {
-  canvasPageCreate(canvasPageInput: CanvasPageInput!, seoInput: SEOInput!): CanvasPage
+  canvasPageCreate(canvasPageInput: CanvasPageInput!): CanvasPage
   canvasPageEditSEO(id: ID!, seoInput: SEOInput!): CanvasPage
   canvasPageEdit(id: ID!, canvasPage: CanvasPageInput!): CanvasPage
   canvasOpenPeers(id: ID!, peerInput: CanvasPeerInput!): CanvasPeers

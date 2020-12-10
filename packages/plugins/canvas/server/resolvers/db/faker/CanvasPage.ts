@@ -2,19 +2,22 @@ import { generateSeo } from "@corejam/base/dist/resolvers/db/faker/Generator";
 import { random } from "faker";
 import type { CanvasPage, CanvasPageDB, CanvasPeer, CanvasPeers } from "../../../../shared/types/Canvas";
 import { generateCanvasPage } from "./Generator";
-
 export let canvasPages = [] as CanvasPageDB[];
+import fs from "fs"
 
 canvasPages.push({
   id: "static-canvas",
   seo: generateSeo({
     url: "canvas",
   }),
-  canvas: {
-    name: "/",
-    date: 1588764707637,
-    items: [],
-  },
+  canvas: `
+  <html>
+    <corejam-box>
+      <corejam-type weight="bold">
+        Static canvas test
+      <corejam-type>
+    </corejam-box>
+  </html>`,
 } as CanvasPageDB);
 
 if (canvasPages.length === 0) {
@@ -43,12 +46,29 @@ export function allCanvasPages(): Promise<CanvasPageDB[]> {
   return new Promise((res) => res(canvasPages));
 }
 
+/**
+ * When we are in faker mode we store in memory and also directly 
+ * write out to the www/build/config.json so the client can visit the 
+ * new page directly.
+ * 
+ * @param canvasPageInput 
+ */
 export function canvasPageCreate(canvasPageInput: CanvasPage): Promise<CanvasPageDB> {
   const model = {
-    id: random.uuid(),
+    id: canvasPageInput.seo.url,
     ...canvasPageInput,
   };
   canvasPages.push(model);
+
+  const configPath = process.cwd() + "/www/build/config.json";
+  const config = require(configPath);
+  config.router.routes.push({
+    url: `/${canvasPageInput.seo?.url}`,
+    exact: true,
+    canvasPage: true,
+    component: canvasPageInput.canvas
+  })
+  fs.writeFileSync(configPath, JSON.stringify(config))
 
   return new Promise((res) => res(model));
 }

@@ -1,5 +1,10 @@
 import { Component, Host, h, State, Prop, Element, Listen } from "@stencil/core";
 import { sendEventToMachine } from "app/components/corejam-canvas/canvas.machine";
+import { coreState } from "@corejam/core-components";
+import gql from "graphql-tag";
+import { PostCanvasGQL } from "../../../shared/graphql/Mutations";
+import { state as routerState } from "@corejam/router"
+import { runState } from "@corejam/run"
 
 @Component({
   tag: "corejam-canvas",
@@ -19,19 +24,41 @@ export class CorejamCanvas {
     }
   }
 
-  async deploy(e: InputEvent) {
+  async deploy(e: PointerEvent) {
     e.preventDefault();
-    const stringifiedHtml = "<html>" + document.getElementsByTagName("html")[0].innerHTML + "</html>";
+
+
+    const stringifiedHtml = document.getElementsByTagName("corejam-canvas")[0].outerHTML;
     const name = window.prompt("name");
+
     if (name) {
-      await fetch("https://random.corejam.cloud/api/", {
-        method: "POST",
-        body: JSON.stringify({ name, body: stringifiedHtml }),
+      const request = await coreState.client.mutate({
+        mutation: gql(PostCanvasGQL),
+        variables: {
+          canvasPageInput: {
+            canvas: JSON.stringify(stringifiedHtml),
+            seo: {
+              url: name
+            }
+          }
+        },
       });
+
+      if (request.data.canvasPageCreate.id) {
+        runState.routes = [{
+          url: `/${name}`,
+          canvasPage: true,
+          component: JSON.stringify(stringifiedHtml),
+          exact: true
+        }]
+
+        routerState.router.push(`/${name}`)
+      }
     }
   }
 
   render() {
+    console.log(runState)
     return (
       <Host>
         <corejam-box position="relative" w={12} h="100vh">
@@ -49,7 +76,6 @@ export class CorejamCanvas {
                 const Tag = dragItem;
                 return (
                   <corejam-box
-                    py={2}
                     onPointerDown={sendEventToMachine}
                     data-component={dragItem}
                     style={{ userSelect: "none" }}
@@ -67,10 +93,9 @@ export class CorejamCanvas {
                   w={6}
                   bg="green-200"
                   hoverBg="green-300"
-                  p={2}
                   color="gray-700"
                   hoverColor="white"
-                  onPointerUp={this.deploy}
+                  onPointerUp={(e: PointerEvent) => this.deploy(e)}
                 >
                   Deploy
                 </corejam-button>
