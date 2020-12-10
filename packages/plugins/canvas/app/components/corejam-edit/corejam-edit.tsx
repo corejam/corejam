@@ -2,7 +2,6 @@ import { Component, Host, h, Prop } from "@stencil/core";
 
 @Component({
   tag: "corejam-edit",
-  styleUrl: "editable.css",
 })
 export class CorejamEditable {
   @Prop({ mutable: true }) node: any;
@@ -11,12 +10,12 @@ export class CorejamEditable {
     this.attributes = this.node.constructor.observedAttributes;
   }
 
-  camelCase(input) {
+  camelCase(input: string) {
     return input.toLowerCase().replace(/-(.)/g, function (_match, group1) {
       return group1.toUpperCase();
     });
   }
-  edit(e) {
+  edit(e: any) {
     this.node[this.camelCase(e.target.name)] = e.target.value;
   }
 

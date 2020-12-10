@@ -122,6 +122,7 @@ export namespace Components {
         "mx": string;
         "my": number;
         "order": number;
+        "overflow": string;
         "p": number;
         "pb": number;
         "pl": number;
@@ -174,6 +175,7 @@ export namespace Components {
         "smW": number | string;
         "smWrap": Flex.Wrap;
         "top": number;
+        "transition": string;
         "w": number | string;
         "wrap": Flex.Wrap;
         "xlAlignContent": Flex.AlignContent;
@@ -212,22 +214,31 @@ export namespace Components {
         "z": number;
     }
     interface CorejamButton {
+        "animation": string;
         "bg": string;
         "color": string;
+        "delay": number;
         "display": string;
+        "duration": number;
         "focusBg": string;
         "focusColor": string;
+        "focusOutline": string;
         "hoverBg": string;
         "hoverColor": string;
+        "hoverOutline": string;
         "justify": string;
         "lgW": number | string;
         "mdW": number | string;
+        "outline": string;
         "p": string;
         "pb": string;
         "pl": string;
         "pr": string;
         "pt": string;
+        "rounded": string;
         "smW": number | string;
+        "timing": string;
+        "transition": string;
         "type": Button.Type;
         "w": number | string;
         "xlW": number | string;
@@ -621,6 +632,7 @@ declare namespace LocalJSX {
         "mx"?: string;
         "my"?: number;
         "order"?: number;
+        "overflow"?: string;
         "p"?: number;
         "pb"?: number;
         "pl"?: number;
@@ -673,6 +685,7 @@ declare namespace LocalJSX {
         "smW"?: number | string;
         "smWrap"?: Flex.Wrap;
         "top"?: number;
+        "transition"?: string;
         "w"?: number | string;
         "wrap"?: Flex.Wrap;
         "xlAlignContent"?: Flex.AlignContent;
@@ -711,22 +724,31 @@ declare namespace LocalJSX {
         "z"?: number;
     }
     interface CorejamButton {
+        "animation"?: string;
         "bg"?: string;
         "color"?: string;
+        "delay"?: number;
         "display"?: string;
+        "duration"?: number;
         "focusBg"?: string;
         "focusColor"?: string;
+        "focusOutline"?: string;
         "hoverBg"?: string;
         "hoverColor"?: string;
+        "hoverOutline"?: string;
         "justify"?: string;
         "lgW"?: number | string;
         "mdW"?: number | string;
+        "outline"?: string;
         "p"?: string;
         "pb"?: string;
         "pl"?: string;
         "pr"?: string;
         "pt"?: string;
+        "rounded"?: string;
         "smW"?: number | string;
+        "timing"?: string;
+        "transition"?: string;
         "type"?: Button.Type;
         "w"?: number | string;
         "xlW"?: number | string;
