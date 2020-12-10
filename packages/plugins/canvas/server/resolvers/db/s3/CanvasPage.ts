@@ -1,5 +1,5 @@
 import type { CanvasPage, CanvasPageDB, CanvasPeer, CanvasPeers } from "../../../../shared/types/Canvas";
-import AWS from "aws-sdk";
+import * as AWS from "aws-sdk";
 
 AWS.config.update({
     credentials: {
