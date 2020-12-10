@@ -42,13 +42,13 @@ export class CjTabs {
       <Host>
         <slot></slot>
 
-        <corejam-box position="absolute" bottom={15} flex role="tablist" bg="white" h="50px">
+        <corejam-box position="absolute" bottom={15} flex role="tablist" bg="red" h="68px">
           {this.tabs.map((tab, index) => (
-            <corejam-box onClick={() => this.displayTab(index)} mr="4">
+            <corejam-box onClick={() => this.displayTab(index)} mr={4}>
               <corejam-button
                 color="gray-700"
                 hoverColor="white"
-                p={1}
+                p="1"
                 bg={this.activeTab === index ? "white" : "initial"}
                 hoverBg="green-300"
                 transition="colors"

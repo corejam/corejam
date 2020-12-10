@@ -34,6 +34,7 @@ export class CorejamButton {
   @Prop() delay: number;
   @Prop() animation: string;
   @Prop() rounded: string;
+
   async componentWillLoad() {
     await this.computeStyles();
   }

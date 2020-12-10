@@ -26,8 +26,8 @@ export class CjDebugger {
     return (
       <Host>
         {/* {!activeEditor && ( */}
-        <corejam-box overflow="hidden" position="fixed" p={4} h={activeEditor ? "100px" : "400px"} bottom={5} w={12}>
-          <corejam-box shadow="md" w={12} h="100%" mx="auto" rounded="lg" bWidth={1} bColor="gray-100" p={4}>
+        <corejam-box position="fixed" p={4} h={activeEditor ? "100px" : "400px"} bottom={5} w={12}>
+          <corejam-box shadow="sm" w={12} h="100%" mx="auto" rounded="lg" bWidth={1} bColor="gray-100" p={4}>
             <corejam-tabs onClick={() => sendEventToMachine({ type: "toggle" })}>
               <corejam-tab header="Builder">
                 <corejam-box flex direction="col" p={4} class="draggers">
@@ -56,10 +56,10 @@ export class CjDebugger {
                     w={6}
                     bg="green-200"
                     hoverBg="green-300"
-                    p={2}
+                    p="2"
                     color="gray-700"
                     hoverColor="white"
-                    onPointerUp={this.deploy}
+                    // onPointerUp={this.deploy}
                   >
                     Deploy
                   </corejam-button>
