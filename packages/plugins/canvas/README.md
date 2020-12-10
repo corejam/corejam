@@ -54,7 +54,7 @@ extend type Query {
 }
 ```
 
-The `CanvasPage` object contains a `canvas: String!` attribute which is the `<corejam-run-router>` outerHTML contents. That way when the page gets visited we reinsert the contents back into the corejam app for viewing.
+The `CanvasPage` object contains a `canvas: String!` attribute which is the `<corejam-run-router>` outerHTML contents. 
 
 Creating a new canvas page:
 
@@ -74,6 +74,6 @@ mutation createCanvas($canvasPageInput: CanvasPageInput!) {
 
 ** This is work in progress
 
-The canvas has the ability to open a peer to peer connection with another user so you can work in realtime on your canvas pages.
+The canvas has the ability to open a peer to peer connection with another user for realtime collaboriation.
 
 TODO more

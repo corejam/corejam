@@ -50,6 +50,7 @@
     "@corejam/router": "0.0.7",
     "@corejam/run": "0.0.4",
     "@xstate/inspect": "0.2.0",
+    "aws-sdk": "2.807.0",
     "deep-parse-json": "1.0.1",
     "faunadb": "4.0.0",
     "graphql-tag": "2.11.0",

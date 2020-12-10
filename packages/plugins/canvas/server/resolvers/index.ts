@@ -3,11 +3,14 @@ import canvasResolvers from "./Canvas"
 
 import { models as faunaModels } from "./db/fauna";
 import { models as fakerModels } from "./db/faker";
+import { models as s3Models } from "./db/s3";
 
 let pluginModels;
 
 if (process.env.DB_DRIVER === "DB_FAUNA") {
   pluginModels = faunaModels;
+} else if (process.env.DB_DRIVER === "DB_S3") {
+  pluginModels = s3Models;
 } else {
   pluginModels = fakerModels;
 }

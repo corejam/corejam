@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import { PostCanvasGQL } from "../../../shared/graphql/Mutations";
 import { state as routerState } from "@corejam/router"
 import { runState } from "@corejam/run"
+import templateFnc from "./template"
 
 @Component({
   tag: "corejam-canvas",
@@ -28,6 +29,7 @@ export class CorejamCanvas {
     e.preventDefault();
 
 
+    const styleTags = document.querySelectorAll("style");
     const stringifiedHtml = document.getElementsByTagName("corejam-canvas")[0].outerHTML;
     const name = window.prompt("name");
 
@@ -36,7 +38,7 @@ export class CorejamCanvas {
         mutation: gql(PostCanvasGQL),
         variables: {
           canvasPageInput: {
-            canvas: JSON.stringify(stringifiedHtml),
+            canvas: JSON.stringify(templateFnc(stringifiedHtml, styleTags, name)),
             seo: {
               url: name
             }
