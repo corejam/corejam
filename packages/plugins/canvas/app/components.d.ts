@@ -5,15 +5,28 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { StateType } from "xstate";
 export namespace Components {
     interface CanvasLayout {
     }
     interface CorejamCanvas {
         "canvas": any;
+    }
+    interface CorejamCanvasEditor {
         "draggers": string[];
+    }
+    interface CorejamDebugger {
+        "machine": StateType<any, any, any>;
     }
     interface CorejamEdit {
         "node": any;
+    }
+    interface CorejamTab {
+        "header": string;
+    }
+    interface CorejamTabs {
+    }
+    interface CorejamTest {
     }
     interface RouteIndex {
     }
@@ -31,11 +44,41 @@ declare global {
         prototype: HTMLCorejamCanvasElement;
         new (): HTMLCorejamCanvasElement;
     };
+    interface HTMLCorejamCanvasEditorElement extends Components.CorejamCanvasEditor, HTMLStencilElement {
+    }
+    var HTMLCorejamCanvasEditorElement: {
+        prototype: HTMLCorejamCanvasEditorElement;
+        new (): HTMLCorejamCanvasEditorElement;
+    };
+    interface HTMLCorejamDebuggerElement extends Components.CorejamDebugger, HTMLStencilElement {
+    }
+    var HTMLCorejamDebuggerElement: {
+        prototype: HTMLCorejamDebuggerElement;
+        new (): HTMLCorejamDebuggerElement;
+    };
     interface HTMLCorejamEditElement extends Components.CorejamEdit, HTMLStencilElement {
     }
     var HTMLCorejamEditElement: {
         prototype: HTMLCorejamEditElement;
         new (): HTMLCorejamEditElement;
+    };
+    interface HTMLCorejamTabElement extends Components.CorejamTab, HTMLStencilElement {
+    }
+    var HTMLCorejamTabElement: {
+        prototype: HTMLCorejamTabElement;
+        new (): HTMLCorejamTabElement;
+    };
+    interface HTMLCorejamTabsElement extends Components.CorejamTabs, HTMLStencilElement {
+    }
+    var HTMLCorejamTabsElement: {
+        prototype: HTMLCorejamTabsElement;
+        new (): HTMLCorejamTabsElement;
+    };
+    interface HTMLCorejamTestElement extends Components.CorejamTest, HTMLStencilElement {
+    }
+    var HTMLCorejamTestElement: {
+        prototype: HTMLCorejamTestElement;
+        new (): HTMLCorejamTestElement;
     };
     interface HTMLRouteIndexElement extends Components.RouteIndex, HTMLStencilElement {
     }
@@ -46,7 +89,12 @@ declare global {
     interface HTMLElementTagNameMap {
         "canvas-layout": HTMLCanvasLayoutElement;
         "corejam-canvas": HTMLCorejamCanvasElement;
+        "corejam-canvas-editor": HTMLCorejamCanvasEditorElement;
+        "corejam-debugger": HTMLCorejamDebuggerElement;
         "corejam-edit": HTMLCorejamEditElement;
+        "corejam-tab": HTMLCorejamTabElement;
+        "corejam-tabs": HTMLCorejamTabsElement;
+        "corejam-test": HTMLCorejamTestElement;
         "route-index": HTMLRouteIndexElement;
     }
 }
@@ -55,17 +103,34 @@ declare namespace LocalJSX {
     }
     interface CorejamCanvas {
         "canvas"?: any;
+    }
+    interface CorejamCanvasEditor {
         "draggers"?: string[];
+    }
+    interface CorejamDebugger {
+        "machine"?: StateType<any, any, any>;
     }
     interface CorejamEdit {
         "node"?: any;
+    }
+    interface CorejamTab {
+        "header"?: string;
+    }
+    interface CorejamTabs {
+    }
+    interface CorejamTest {
     }
     interface RouteIndex {
     }
     interface IntrinsicElements {
         "canvas-layout": CanvasLayout;
         "corejam-canvas": CorejamCanvas;
+        "corejam-canvas-editor": CorejamCanvasEditor;
+        "corejam-debugger": CorejamDebugger;
         "corejam-edit": CorejamEdit;
+        "corejam-tab": CorejamTab;
+        "corejam-tabs": CorejamTabs;
+        "corejam-test": CorejamTest;
         "route-index": RouteIndex;
     }
 }
@@ -75,7 +140,12 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "canvas-layout": LocalJSX.CanvasLayout & JSXBase.HTMLAttributes<HTMLCanvasLayoutElement>;
             "corejam-canvas": LocalJSX.CorejamCanvas & JSXBase.HTMLAttributes<HTMLCorejamCanvasElement>;
+            "corejam-canvas-editor": LocalJSX.CorejamCanvasEditor & JSXBase.HTMLAttributes<HTMLCorejamCanvasEditorElement>;
+            "corejam-debugger": LocalJSX.CorejamDebugger & JSXBase.HTMLAttributes<HTMLCorejamDebuggerElement>;
             "corejam-edit": LocalJSX.CorejamEdit & JSXBase.HTMLAttributes<HTMLCorejamEditElement>;
+            "corejam-tab": LocalJSX.CorejamTab & JSXBase.HTMLAttributes<HTMLCorejamTabElement>;
+            "corejam-tabs": LocalJSX.CorejamTabs & JSXBase.HTMLAttributes<HTMLCorejamTabsElement>;
+            "corejam-test": LocalJSX.CorejamTest & JSXBase.HTMLAttributes<HTMLCorejamTestElement>;
             "route-index": LocalJSX.RouteIndex & JSXBase.HTMLAttributes<HTMLRouteIndexElement>;
         }
     }

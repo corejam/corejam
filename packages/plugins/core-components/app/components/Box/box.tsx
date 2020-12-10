@@ -202,6 +202,8 @@ export class CorejamBox {
   @Prop() bottom: number;
   @Prop() left: number;
   @Prop() z: number;
+  @Prop() transition: string;
+  @Prop() overflow: string;
   @Prop() droppableElements = ["corejam-box"];
 
   async componentWillLoad() {

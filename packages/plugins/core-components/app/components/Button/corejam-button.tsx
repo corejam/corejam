@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, State, Watch } from "@stencil/core";
+import { Component, h, Prop, State, Watch } from "@stencil/core";
 import { Button } from "./types";
 
 @Component({
@@ -13,18 +13,27 @@ export class CorejamButton {
   @Prop() mdW: number | string;
   @Prop() lgW: number | string;
   @Prop() xlW: number | string;
-  @Prop({ reflect: true }) bg: string;
-  @Prop({ reflect: true }) hoverBg: string;
-  @Prop({ reflect: true }) focusBg: string;
-  @Prop({ reflect: true }) type: Button.Type = "button";
-  @Prop({ reflect: true }) color: string;
-  @Prop({ reflect: true }) hoverColor: string;
-  @Prop({ reflect: true }) focusColor: string;
-  @Prop({ reflect: true }) p: string | string;
-  @Prop({ reflect: true }) pl: string | string;
-  @Prop({ reflect: true }) pr: string | string;
-  @Prop({ reflect: true }) pt: string | string;
-  @Prop({ reflect: true }) pb: string | string;
+  @Prop() bg: string;
+  @Prop() hoverBg: string;
+  @Prop() focusBg: string;
+  @Prop() outline = "none";
+  @Prop() hoverOutline = "none";
+  @Prop() focusOutline = "none";
+  @Prop() type: Button.Type = "button";
+  @Prop() color: string;
+  @Prop() hoverColor: string;
+  @Prop() focusColor: string;
+  @Prop() p: string;
+  @Prop() pl: string;
+  @Prop() pr: string;
+  @Prop() pt: string;
+  @Prop() pb: string;
+  @Prop() transition: string;
+  @Prop() duration: number;
+  @Prop() timing: string;
+  @Prop() delay: number;
+  @Prop() animation: string;
+  @Prop() rounded: string;
 
   async componentWillLoad() {
     await this.computeStyles();
@@ -47,6 +56,10 @@ export class CorejamButton {
   @Watch("pr")
   @Watch("pt")
   @Watch("pb")
+  @Watch("outline")
+  @Watch("hoverOutline")
+  @Watch("focusOutline")
+  @Watch("transition")
   async computeStyles() {
     const hash = await (await import("../../utils/style")).calculateStyles(this);
     this.hash = hash;
@@ -54,11 +67,9 @@ export class CorejamButton {
   render() {
     const Tag = this.type;
     return (
-      <Host class={this.hash} role="button">
-        <Tag>
-          <slot></slot>
-        </Tag>
-      </Host>
+      <Tag class={this.hash}>
+        <slot></slot>
+      </Tag>
     );
   }
 }

@@ -1,5 +1,6 @@
-import { createMachine, assign, interpret } from "xstate";
+import { createMachine, assign, interpret, State } from "xstate";
 // import { serialize } from "../../utils/utils"
+import { createStore } from "@stencil/store";
 
 interface CanvasContext {
   draggedElementInstance: HTMLElement;
@@ -91,6 +92,7 @@ const removeHighlightDrop = (node: HTMLElement) => {
  */
 export const canvasMachine = createMachine<CanvasContext, CanvasEvents, CanvasStateSchema>(
   {
+    id: "canvas-machine",
     initial: "inactive",
     context: {
       draggedElementInstance: null,
@@ -365,9 +367,20 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvents, CanvasSt
   }
 );
 
+type CanvasState = {
+  machine: State<CanvasContext, CanvasEvents, any, CanvasStateSchema>;
+};
+
+export const { state: canvasState, set: setCanvasState } = createStore<CanvasState>({
+  machine: null,
+});
+
 export const canvasService = interpret(canvasMachine)
   .onTransition((state) => {
+    if (!canvasState.machine) setCanvasState("machine", state);
     if (state.changed) {
+      setCanvasState("machine", state);
+
       document.body.dataset.state = state.toStrings().join(" ");
       if (state.matches("dragging"))
         state.context.draggedElementInstance.style.transform = `translate(

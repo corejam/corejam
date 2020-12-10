@@ -70,11 +70,11 @@ export const calculateStyles = async (instance) => {
               _property: property,
               value: mergePropertyAndValue,
             });
+            if (transformer.additional) {
+              collectedStyles.push(...transformer.additional(instancePropertyValue));
+            }
           } catch (e) {
             console.log(e);
-          }
-          if (transformer.additional) {
-            collectedStyles.push(transformer.additional());
           }
         }
       }
