@@ -5,7 +5,6 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { StateType } from "xstate";
 export namespace Components {
     interface CanvasLayout {
     }
@@ -16,7 +15,7 @@ export namespace Components {
         "draggers": string[];
     }
     interface CorejamDebugger {
-        "machine": StateType<any, any, any>;
+        "machine": any;
     }
     interface CorejamEdit {
         "node": any;
@@ -108,7 +107,7 @@ declare namespace LocalJSX {
         "draggers"?: string[];
     }
     interface CorejamDebugger {
-        "machine"?: StateType<any, any, any>;
+        "machine"?: any;
     }
     interface CorejamEdit {
         "node"?: any;

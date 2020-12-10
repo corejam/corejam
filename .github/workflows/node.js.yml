@@ -18,6 +18,10 @@ jobs:
       image: "corejam/ci:node14.0.0.2"
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
     steps:
+      - name: Cancel Previous Run preventing duplicate pipelines
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
       - uses: actions/checkout@v2
       - name: Cache node_modules
         id: cache-node-modules
@@ -35,7 +39,7 @@ jobs:
           API_ORIGIN=http://localhost:3000 yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/run/dist packages/rollup-plugin/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
+      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/run/dist packages/rollup-plugin/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/canvas/dist packages/plugins/auth/www packages/plugins/dershop/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -83,6 +87,9 @@ jobs:
           yarn test
           export SECRET_SHOP=$(COMMIT_ID=dershop_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
           SECRET_KEY=$SECRET_SHOP DB_DRIVER=DB_FAUNA yarn test
+      - run: |
+          cd packages/plugins/canvas && yarn corejam generateSchema
+          yarn test
         env: # Or as an environment variable
           SECRET_KEY: ${{ secrets.SECRET }}
           GITHUB_SHA: ${{ github.sha }}

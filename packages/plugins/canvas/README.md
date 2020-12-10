@@ -1,25 +1,79 @@
-# canvas
+# @corejam/canvas-plugin
+
+The Visual Canvas CMS plugin allows you to create dynamic "canvas" pages inside your corejam application using the `<corejam-canvas>` element.
+
+In short, this package gives you a static site builder that works directly inside your browser and deploys directly to a CDN (currently only supports S3, more coming soon)
+
+It currently supports the following data connectors: 
+
+- FaunaDB
+- S3 Bucket
+
 
 ## Getting Started
 
-First, run the development server:
+Install:
 
 ```bash
-npm run dev
-# or
-yarn dev
+//yarn
+yarn install @corejam/plugin-canvas
+
+// npm
+npm i @corejam/plugin-canvas
 ```
 
-Open [http://localhost:3000/api/graphql](http://localhost:3000/api/graphql) with your browser to see the running graphql endpoint with the GraphiQl Playground.
+## How does it work?
 
-TODO:
+When you create a new canvas page everything happens on the client side. The app is already bootstrapped and we take the `<corejam-run-router>` innerHTML and post it to your corejam API which includes the following endpoints:
 
-Resolvers, Queries, etc, components
+```graphql
 
-## Learn More
+type CanvasPage implements Timestamp @cacheControl(maxAge: 300) {
+  id: ID!
+  canvas: String!
+  seo: SEO!
+  peers: CanvasPeers
+  dateCreated: String!
+  dateUpdated: String!
+}
 
-TODO
+extend type Mutation {
+  canvasPageCreate(canvasPageInput: CanvasPageInput!): CanvasPage
+  canvasPageEditSEO(id: ID!, seoInput: SEOInput!): CanvasPage
+  canvasPageEdit(id: ID!, canvasPage: CanvasPageInput!): CanvasPage
+  canvasOpenPeers(id: ID!, peerInput: CanvasPeerInput!): CanvasPeers
+  canvasPollPeers(id: ID!): CanvasPeers
+  canvasClosePeers(id: ID!): CanvasPage
+}
 
-## Deploy
+extend type Query {
+  allCanvasPages: [CanvasPage]
+  paginateCanvasPages(page: Int!, size: Int!): CanvasPageList
+  canvasPageById(id: ID!): CanvasPage
+  canvasPollPeers(id: ID!): CanvasPeers
+}
+```
 
-TODO
+The `CanvasPage` object contains a `canvas: String!` attribute which is the `<corejam-run-router>` outerHTML contents. 
+
+Creating a new canvas page:
+
+```graphql
+mutation createCanvas($canvasPageInput: CanvasPageInput!) {
+    canvasPageCreate(canvasPageInput: $canvasPageInput) {
+        id
+        seo {
+            url
+        }
+        canvas
+    }
+}
+```
+
+## Canvas Peers
+
+** This is work in progress
+
+The canvas has the ability to open a peer to peer connection with another user for realtime collaboriation.
+
+TODO more

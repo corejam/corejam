@@ -1,4 +1,4 @@
-import { canvasPageByUrl } from "@corejam/base/dist/resolvers/db/faker/CanvasPage";
+import { canvasPageByUrl } from "@corejam/plugin-canvas/dist/server/resolvers/db/faker/CanvasPage";
 import type { SEODocument } from "../../../../shared/types/Seo";
 import { allProducts, productByUrl } from "./Product";
 import { manufacturerByUrl } from "./Manufacturer";

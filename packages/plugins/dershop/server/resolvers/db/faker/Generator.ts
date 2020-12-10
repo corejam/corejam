@@ -1,5 +1,4 @@
 import { updateDates } from "@corejam/base";
-import type { CanvasPage } from "@corejam/base/dist/typings/Canvas";
 import type { Config } from "@corejam/base/dist/typings/Config";
 import type { Image } from "@corejam/base/dist/typings/Image";
 import type { Deliverability } from "@corejam/base/dist/typings/Utils";
@@ -141,36 +140,6 @@ export function generateConfig({
   return {
     seo: seo,
     general: general,
-    layout: {
-      header: {
-        name: "/",
-        date: 1589462638372,
-        items: [
-          {
-            tag: "dershop-header",
-            properties: [
-              {
-                name: "main-links",
-                value: '[{"title":"Home","href":"/"}, {"title":"Categories","href":"/products"}]',
-              },
-              {
-                name: "cart-link",
-                value: "/cart",
-              },
-            ],
-          },
-        ],
-      },
-      footer: {
-        name: "/",
-        date: 1589462666691,
-        items: [
-          {
-            tag: "dershop-footer",
-          },
-        ],
-      },
-    },
   };
 }
 
@@ -201,20 +170,6 @@ export function generateProduct({
     price: price,
     seo: seo,
     deliverability: deliverability,
-    dateCreated: dateCreated,
-    dateUpdated: dateUpdated,
-  };
-}
-
-export function generateCanvasPage({
-  seo = generateSeo(),
-  canvas = {},
-  dateCreated = date.past(2).toISOString(),
-  dateUpdated = date.past(1).toISOString(),
-}): CanvasPage {
-  return {
-    seo: seo,
-    canvas: canvas,
     dateCreated: dateCreated,
     dateUpdated: dateUpdated,
   };

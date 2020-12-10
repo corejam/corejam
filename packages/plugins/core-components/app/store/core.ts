@@ -1,7 +1,9 @@
+import { InMemoryCache } from '@apollo/client/cache';
+import { ApolloClient } from '@apollo/client/core';
+import { createHttpLink } from "@apollo/client/link/http";
 import { createPersistedQueryLink } from "@apollo/link-persisted-queries";
-import { createStore } from "@stencil/store";
-import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { Build } from "@stencil/core";
+import { createStore } from "@stencil/store";
 
 let client;
 

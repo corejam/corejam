@@ -1,53 +1,15 @@
-import { CoreResolver } from "@corejam/base/src";
-import { CanvasPage, CanvasPageDB, CanvasPeer } from "@corejam/base/src/typings/Canvas";
-import { generateSeo } from "../../server/resolvers/db/faker/Generator";
+import { CanvasPage, CanvasPageDB, CanvasPeer } from "../../shared/types/Canvas";
+import { generateSeo } from "@corejam/base/src/resolvers/db/faker/Generator";
 import { testClient } from "@corejam/base/src/TestClient";
+import { PluginResolver } from "../../shared/types/PluginResolver"
 
 describe("CanvasPages", () => {
   //Init some singletons in beforeAll()
-  let testID, client, models: CoreResolver;
+  let testID, client, models: PluginResolver;
 
   const testValues = {
     seo: generateSeo(),
-    canvas: {
-      name: "/",
-      date: 1588764707637,
-      items: [
-        {
-          tag: "dershop-ui-box",
-          properties: [
-            {
-              name: "p",
-              value: "12",
-            },
-          ],
-          items: [
-            {
-              tag: "dershop-ui-box",
-              properties: [
-                {
-                  name: "p",
-                  value: "12",
-                },
-              ],
-            },
-            {
-              tag: "dershop-ui-box",
-              properties: [
-                {
-                  name: "mt",
-                  value: "12",
-                },
-                {
-                  name: "p",
-                  value: "12",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    canvas: "<html></html>"
   } as CanvasPage;
 
   //Bootstrap
@@ -87,11 +49,7 @@ describe("CanvasPages", () => {
   it("updateCanvasPage", async () => {
     const newValues = {
       seo: testValues.seo,
-      canvas: {
-        name: "blabla",
-        date: 1588764727637,
-        items: [],
-      },
+      canvas: "<html></html>",
     } as CanvasPageDB;
 
     const editResult = await models.canvasPageEdit(testID, newValues);

@@ -31,7 +31,7 @@
   },
   "include": [
     "app",
-    "types/jsx.d.ts",
+    "shared/types/jsx.d.ts",
     "shared"
   ],
   "exclude": [
