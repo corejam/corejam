@@ -9,45 +9,7 @@ describe("CanvasPages", () => {
 
   const testValues = {
     seo: generateSeo(),
-    canvas: {
-      name: "/",
-      date: 1588764707637,
-      items: [
-        {
-          tag: "dershop-ui-box",
-          properties: [
-            {
-              name: "p",
-              value: "12",
-            },
-          ],
-          items: [
-            {
-              tag: "dershop-ui-box",
-              properties: [
-                {
-                  name: "p",
-                  value: "12",
-                },
-              ],
-            },
-            {
-              tag: "dershop-ui-box",
-              properties: [
-                {
-                  name: "mt",
-                  value: "12",
-                },
-                {
-                  name: "p",
-                  value: "12",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    canvas: "<html></html>"
   } as CanvasPage;
 
   //Bootstrap
@@ -87,11 +49,7 @@ describe("CanvasPages", () => {
   it("updateCanvasPage", async () => {
     const newValues = {
       seo: testValues.seo,
-      canvas: {
-        name: "blabla",
-        date: 1588764727637,
-        items: [],
-      },
+      canvas: "<html></html>",
     } as CanvasPageDB;
 
     const editResult = await models.canvasPageEdit(testID, newValues);

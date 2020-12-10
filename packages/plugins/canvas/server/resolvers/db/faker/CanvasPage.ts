@@ -3,7 +3,7 @@ import { random } from "faker";
 import type { CanvasPage, CanvasPageDB, CanvasPeer, CanvasPeers } from "../../../../shared/types/Canvas";
 import { generateCanvasPage } from "./Generator";
 export let canvasPages = [] as CanvasPageDB[];
-import fs from "fs"
+import * as fs from "fs"
 
 canvasPages.push({
   id: "static-canvas",
@@ -61,14 +61,21 @@ export function canvasPageCreate(canvasPageInput: CanvasPage): Promise<CanvasPag
   canvasPages.push(model);
 
   const configPath = process.cwd() + "/www/build/config.json";
-  const config = require(configPath);
-  config.router.routes.push({
-    url: `/${canvasPageInput.seo?.url}`,
-    exact: true,
-    canvasPage: true,
-    component: canvasPageInput.canvas
-  })
-  fs.writeFileSync(configPath, JSON.stringify(config))
+
+  /**
+   * Check are we inside corejam process
+   * next.js does not have www/ folder
+   */
+  if (fs.existsSync(configPath)) {
+    const config = require(configPath);
+    config.router.routes.push({
+      url: `/${canvasPageInput.seo?.url}`,
+      exact: true,
+      canvasPage: true,
+      component: canvasPageInput.canvas
+    })
+    fs.writeFileSync(configPath, JSON.stringify(config))
+  }
 
   return new Promise((res) => res(model));
 }

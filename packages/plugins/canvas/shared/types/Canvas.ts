@@ -16,7 +16,7 @@ export type Canvas = string;
 
 export type CanvasPage = Timestamp & {
   canvas: Canvas;
-  seo?: SEO;
+  seo: SEO;
   peers?: CanvasPeers;
 };
 
