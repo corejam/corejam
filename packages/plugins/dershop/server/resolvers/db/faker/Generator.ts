@@ -1,5 +1,4 @@
 import { updateDates } from "@corejam/base";
-import type { CanvasPage } from "@corejam/plugin-canvas/dist/shared/types/Canvas";
 import type { Config } from "@corejam/base/dist/typings/Config";
 import type { Image } from "@corejam/base/dist/typings/Image";
 import type { Deliverability } from "@corejam/base/dist/typings/Utils";
@@ -171,20 +170,6 @@ export function generateProduct({
     price: price,
     seo: seo,
     deliverability: deliverability,
-    dateCreated: dateCreated,
-    dateUpdated: dateUpdated,
-  };
-}
-
-export function generateCanvasPage({
-  seo = generateSeo(),
-  canvas = {},
-  dateCreated = date.past(2).toISOString(),
-  dateUpdated = date.past(1).toISOString(),
-}): CanvasPage {
-  return {
-    seo: seo,
-    canvas: canvas,
     dateCreated: dateCreated,
     dateUpdated: dateUpdated,
   };
