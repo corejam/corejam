@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
-  "main": "web-components/index.cjs.js",
+  "main": "dist/server/index.js",
   "module": "web-components/custom-elements/index.js",
   "es2015": "web-components/esm/index.js",
   "es2017": "web-components/esm/index.js",
