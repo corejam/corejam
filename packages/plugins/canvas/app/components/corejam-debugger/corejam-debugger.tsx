@@ -1,5 +1,4 @@
 import { Component, Host, h, Prop, State } from "@stencil/core";
-import { State as StateType } from "xstate";
 
 @Component({
   tag: "corejam-debugger",
@@ -7,7 +6,7 @@ import { State as StateType } from "xstate";
 export class CjDebugger {
   @State() max = false;
   @State() machineId: string;
-  @Prop() machine: StateType<any, any, any> = null;
+  @Prop() machine: any = null;
 
   componentWillLoad() {
     this.machineId = this.machine.configuration[0].id;
