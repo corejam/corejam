@@ -3,8 +3,8 @@ import * as AWS from "aws-sdk";
 
 AWS.config.update({
     credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string
+        accessKeyId: process.env.S3_ACCESS_KEY_ID as string,
+        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY as string
     },
     apiVersion: "2020-12-01"
 });
