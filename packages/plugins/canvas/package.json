@@ -2,7 +2,6 @@
   "name": "@corejam/plugin-canvas",
   "description": "Corejam Visual Canvas CMS Plugin",
   "version": "0.0.1",
-  "private": true,
   "license": "MIT",
   "main": "dist/server/index.js",
   "module": "web-components/custom-elements/index.js",
