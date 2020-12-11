@@ -1,4 +1,5 @@
 import { Component, Host, h, State, Listen, Element } from "@stencil/core";
+import { onCanvasChange } from "../corejam-canvas/canvas.machine";
 
 @Component({
   tag: "corejam-tabs",
@@ -7,9 +8,9 @@ export class CjTabs {
   private mutationO?: MutationObserver;
   @Element()
   el!: HTMLElement;
-  @State() activeTab = 0;
+  @State() activeTab = -1;
   @State() tabs: any[];
-
+  @State() max = false;
   componentWillLoad() {
     this.init();
   }
@@ -21,6 +22,9 @@ export class CjTabs {
   }
 
   connectedCallback() {
+    onCanvasChange("machine", (state) => {
+      if (state.value === "inactive") this.activeTab = -1;
+    });
     this.mutationO = new MutationObserver(() => {
       this.init();
     });
@@ -38,18 +42,24 @@ export class CjTabs {
   }
 
   render() {
+    console.log(this.activeTab);
     return (
       <Host>
         <slot></slot>
-
-        <corejam-box position="absolute" bottom={15} flex role="tablist" bg="red" h="68px">
+        <corejam-box position="absolute" bottom={25} flex role="tablist">
           {this.tabs.map((tab, index) => (
-            <corejam-box onClick={() => this.displayTab(index)} mr={4}>
+            <corejam-box
+              onClick={() => {
+                if (tab.activeFn) tab.activeFn();
+                this.displayTab(index);
+              }}
+              mr={4}
+            >
               <corejam-button
-                color="gray-700"
+                color={this.activeTab === index ? "gray-100" : "gray-700"}
                 hoverColor="white"
                 p="1"
-                bg={this.activeTab === index ? "white" : "initial"}
+                bg={this.activeTab === index ? "green-300" : "initial"}
                 hoverBg="green-300"
                 transition="colors"
                 rounded="sm"

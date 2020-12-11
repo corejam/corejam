@@ -21,6 +21,7 @@ export namespace Components {
         "node": any;
     }
     interface CorejamTab {
+        "activeFn": Function;
         "header": string;
     }
     interface CorejamTabs {
@@ -113,6 +114,7 @@ declare namespace LocalJSX {
         "node"?: any;
     }
     interface CorejamTab {
+        "activeFn"?: Function;
         "header"?: string;
     }
     interface CorejamTabs {

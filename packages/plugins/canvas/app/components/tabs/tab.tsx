@@ -5,6 +5,7 @@ import { Component, Host, h, Prop } from "@stencil/core";
 })
 export class CjTab {
   @Prop() header: string;
+  @Prop() activeFn: Function;
   render() {
     return (
       <Host>

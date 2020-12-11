@@ -41,6 +41,15 @@ type CanvasStateSchema =
       };
     }
   | {
+      value: "deployment";
+      context: CanvasContext & {
+        draggedElementInstance: null;
+        possibleTargets: null;
+        possibleTarget: null;
+        editInstance: HTMLElement;
+      };
+    }
+  | {
       value: "dragging";
       context: CanvasContext;
     }
@@ -49,7 +58,7 @@ type CanvasStateSchema =
       context: CanvasContext;
     };
 
-type CanvasEvents = MouseEvent | { type: "reset" } | { type: "toggle" };
+type CanvasEvents = MouseEvent | { type: "reset" } | { type: "build" } | { type: "deployment" };
 
 export const sendEventToMachine = (evt: CanvasEvents) => canvasService.send(evt);
 
@@ -108,7 +117,8 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvents, CanvasSt
       inactive: {
         id: "inactive",
         on: {
-          toggle: { target: "active" },
+          build: { target: "active" },
+          deployment: { target: "deployment" },
           pointerup: {
             target: "edit",
             cond: "validElement",
@@ -132,7 +142,8 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvents, CanvasSt
       active: {
         id: "active",
         on: {
-          toggle: { target: "inactive" },
+          reset: { target: "inactive" },
+          deployment: { target: "deployment" },
           pointerdown: {
             target: "dragging",
             actions: ["onIdleToDragging"],
@@ -216,6 +227,11 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvents, CanvasSt
             target: "active",
             actions: ["onDraggingToIdle"],
           },
+        },
+      },
+      deployment: {
+        on: {
+          reset: { target: "inactive" },
         },
       },
     },
@@ -371,7 +387,7 @@ type CanvasState = {
   machine: State<CanvasContext, CanvasEvents, any, CanvasStateSchema>;
 };
 
-export const { state: canvasState, set: setCanvasState } = createStore<CanvasState>({
+export const { state: canvasState, set: setCanvasState, onChange: onCanvasChange } = createStore<CanvasState>({
   machine: null,
 });
 
