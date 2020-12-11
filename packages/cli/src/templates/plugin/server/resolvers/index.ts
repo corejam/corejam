@@ -11,7 +11,7 @@ if (process.env.DB_DRIVER === "DB_FAUNA") {
 /**
  * Anything that this plugin offers to the server context is retrieved here
  */
-export async function getPluginContext({ models }): Promise<MergedServerContext> {
+export function getPluginContext({ models }): MergedServerContext {
   //Merge models
   models = {
     ...models,
