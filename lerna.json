@@ -3,6 +3,14 @@
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
+  "ignoreChanges": [
+    "**/CHANGELOG.md",
+    "**/node_modules/**",
+    "**/.github/**",
+    "**/package.json",
+    "**/*.md",
+    "**/perf/**"
+  ],
   "command": {
     "version": {
       "exact": true
@@ -10,7 +18,9 @@
     "publish": {
       "npmClient": "npm",
       "allowBranch": ["master", "canary"],
-      "registry": "https://registry.npmjs.org/"
+      "registry": "https://registry.npmjs.org/",
+      "conventionalCommits": true,
+      "message": "chore(release): Release"
     }
   }
 }

@@ -18,7 +18,8 @@
     "build": "stencil build --docs",
     "postbuild": "shx cp ./app/index.html ./dist",
     "test": "stencil test --spec",
-    "test.watch": "stencil test --spec --watchAll"
+    "test.watch": "stencil test --spec --watchAll",
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "@corejam/router": "0.0.7",
