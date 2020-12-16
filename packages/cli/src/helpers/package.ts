@@ -1,4 +1,4 @@
-{
+export const packageJson = (mono = false) => `{
   "name": "pluginName",
   "version": "0.1.0",
   "private": true,
@@ -27,14 +27,14 @@
     "tslib": "2.0.3",
     "typescript": "4.1.2",
     "@types/faker": "5.1.4",
-    "@corejam/base": "0.0.11",
-    "@corejam/core-components": "0.0.11",
-    "@corejam/cli": "0.0.16",
+    "@corejam/base": ${mono ? "0.0.11" : "latest"},
+    "@corejam/core-components": ${mono ? "0.0.11" : "latest"},
+    "@corejam/cli": ${mono ? "0.0.16" : "latest"},
+    "@corejam/dev": ${mono ? "0.0.9" : "latest"},
+    "@corejam/run": ${mono ? "0.0.4" : "latest"},
+    "@corejam/rollup-plugin": ${mono ? "0.0.3" : "latest"},
     "faker": "5.1.0",
     "dotenv": "8.2.0",
-    "@corejam/dev": "0.0.9",
-    "@corejam/run": "0.0.4",
-    "@corejam/rollup-plugin": "0.0.3",
     "@rollup/plugin-replace": "2.3.4",
     "@stencil/react-output-target": "0.0.9",
     "@stencil/core": "2.3.0"
@@ -43,4 +43,4 @@
     "wrapper": [],
     "recommendations": []
   }
-}
+}`
