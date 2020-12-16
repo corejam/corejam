@@ -1,6 +1,6 @@
 {
   "name": "@corejam/core-components",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "license": "MIT",
   "main": "web-components/index.cjs.js",
   "module": "web-components/custom-elements/index.js",
@@ -41,7 +41,7 @@
   ],
   "devDependencies": {
     "@corejam/base": "0.0.11",
-    "@corejam/cli": "0.0.17",
+    "@corejam/cli": "0.0.18",
     "@corejam/dev": "0.0.9",
     "@rollup/plugin-replace": "2.3.4",
     "@stencil/core": "2.3.0",
