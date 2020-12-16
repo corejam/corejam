@@ -312,16 +312,18 @@ jobs:
     name: Publish packages
     runs-on: ubuntu-latest
     needs:
-    - integration-tests
-    - cypress-static-plugin-auth
-    - core-components-test
-    - cypress-generateApp-monorepo
-    - cypress-generateApp-standalone
-    - cypress-generateApp-standaloneCLI
+      - integration-tests
+      - cypress-static-plugin-auth
+      - core-components-test
+      - cypress-generateApp-monorepo
+      - cypress-generateApp-standalone
+      - cypress-generateApp-standaloneCLI
     if: ${{( github.head_ref == 'next' || github.head_ref == 'master') && github.actor!= ‘dependabot[bot]’}}
     steps:
       - name: 📚 Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
         run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: 🟢 Setup Node ${{ matrix.node_version }}
