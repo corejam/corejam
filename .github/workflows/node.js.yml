@@ -355,7 +355,9 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM }}
 
       - name: 🚽 Publish package
-        run: yarn lerna publish --yes $LERNA_TAG
+        run: |
+          npm whoami
+          npx lerna publish --yes $LERNA_TAG
         env:
           GH_TOKEN: ${{ secrets.GH }}
           GITHUB_TOKEN: ${{ secrets.GH }}
