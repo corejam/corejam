@@ -309,52 +309,52 @@ jobs:
           path: test/cypress/cypress/screenshots
   
   publish:
-      name: Publish packages
-      runs-on: ubuntu-latest
-      needs:
-      - integration-tests
-      - cypress-static-plugin-auth
-      - core-components-test
-      - cypress-generateApp-monorepo
-      - cypress-generateApp-standalone
-      - cypress-generateApp-standaloneCLI
-      if: ${{( github.head_ref == 'next' || github.head_ref == 'master') && github.actor!= ‘dependabot[bot]’}}
-      steps:
-        - name: 📚 Checkout
-          uses: actions/checkout@v2
-          with:
-            fetch-depth: "0"
-          run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+    name: Publish packages
+    runs-on: ubuntu-latest
+    needs:
+    - integration-tests
+    - cypress-static-plugin-auth
+    - core-components-test
+    - cypress-generateApp-monorepo
+    - cypress-generateApp-standalone
+    - cypress-generateApp-standaloneCLI
+    if: ${{( github.head_ref == 'next' || github.head_ref == 'master') && github.actor!= ‘dependabot[bot]’}}
+    steps:
+      - name: 📚 Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
-        - name: 🟢 Setup Node ${{ matrix.node_version }}
-          uses: actions/setup-node@v1
-          with:
-            node-version: 14
+      - name: 🟢 Setup Node ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
 
-        - name: ⏳ Install
-          run: |
-            yarn --frozen-lockfile
-            yarn lint
-            yarn bs
+      - name: ⏳ Install
+        run: |
+          yarn --frozen-lockfile
+          yarn lint
+          yarn bs
 
-        - name: 🗝 Configure git credentials
-          uses: OleksiyRudenko/gha-git-credentials@v2
-          with:
-            token: ${{ secrets.GH }}
+      - name: 🗝 Configure git credentials
+        uses: OleksiyRudenko/gha-git-credentials@v2
+        with:
+          token: ${{ secrets.GH }}
 
-        - name: 🐒 Authenticate with NPM
-          run: |
-            yarn logout
-            echo "registry=http://registry.npmjs.org/" >> .npmrc
-            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-            npm whoami
-          env:
-            NPM_TOKEN: ${{ secrets.NPM }}
+      - name: 🐒 Authenticate with NPM
+        run: |
+          yarn logout
+          echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          npm whoami
+        env:
+          NPM_TOKEN: ${{ secrets.NPM }}
 
-        - name: 🚽 Publish package
-          run: yarn lerna publish --yes ${{LERNA_TAG}}
-          env:
-            GH_TOKEN: ${{ secrets.GH }}
-            GITHUB_TOKEN: ${{ secrets.GH }}
-            NPM_TOKEN: ${{ secrets.NPM }}
-            LERNA_TAG: ${{ github.head_ref == 'next' && '--dist-tag next' || ''}}
+      - name: 🚽 Publish package
+        run: yarn lerna publish --yes ${{LERNA_TAG}}
+        env:
+          GH_TOKEN: ${{ secrets.GH }}
+          GITHUB_TOKEN: ${{ secrets.GH }}
+          NPM_TOKEN: ${{ secrets.NPM }}
+          LERNA_TAG: ${{ github.head_ref == 'next' && '--dist-tag next' || ''}}
