@@ -358,7 +358,7 @@ jobs:
           restrictions: | 
             null 
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_ADMIN_CI_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH }}
           
       - name: Branch protection OFF
         uses: octokit/request-action@v2.x
@@ -374,7 +374,7 @@ jobs:
           restrictions: | 
             null 
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_ADMIN_CI_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH }}
 
       - name: 🐒 Authenticate with NPM
         run: |
@@ -413,7 +413,7 @@ jobs:
           restrictions: | 
             null 
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_ADMIN_CI_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH }}
           
       - name: Branch protection ON
         uses: octokit/request-action@v2.x
@@ -435,4 +435,4 @@ jobs:
           restrictions: | 
             null 
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_REPO_ADMIN_CI_TOKEN }}  
+          GITHUB_TOKEN: ${{ secrets.GH }}  
