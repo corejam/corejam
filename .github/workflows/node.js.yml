@@ -322,8 +322,6 @@ jobs:
     steps:
       - name: 📚 Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: "0"
         run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: 🟢 Setup Node ${{ matrix.node_version }}
