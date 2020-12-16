@@ -319,7 +319,7 @@ jobs:
       - cypress-generateApp-standalone
       - cypress-generateApp-standaloneCLI
       - cypress
-    if: github.ref == 'ref/head/next' || github.ref == 'ref/head/master'
+    if: github.ref == 'refs/heads/next' || github.ref == 'refs/heads/master'
     steps:
       - name: 📚 Checkout
         uses: actions/checkout@v2
