@@ -357,7 +357,7 @@ jobs:
       - name: 🚽 Publish package
         run: |
           npm whoami
-          npx lerna publish --yes $LERNA_TAG --access public
+          npx lerna publish --yes $LERNA_TAG -- --access public
         env:
           GH_TOKEN: ${{ secrets.GH }}
           GITHUB_TOKEN: ${{ secrets.GH }}
