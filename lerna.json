@@ -13,7 +13,8 @@
   ],
   "command": {
     "version": {
-      "exact": true
+      "exact": true,
+      "allowBranch": ["main", "next"]
     },
     "publish": {
       "npmClient": "npm",
