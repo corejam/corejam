@@ -342,7 +342,7 @@ jobs:
       - name: 🗝 Configure git credentials
         uses: OleksiyRudenko/gha-git-credentials@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH }}
 
       - name: 🐒 Authenticate with NPM
         run: |
@@ -356,7 +356,7 @@ jobs:
       - name: 🚽 Publish package
         run: yarn lerna publish --yes $LERNA_TAG
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH }}
+          GITHUB_TOKEN: ${{ secrets.GH }}
           NPM_TOKEN: ${{ secrets.NPM }}
-          LERNA_TAG: ${{ github.head_ref == 'next' && '--dist-tag next' || ''}}
+          LERNA_TAG: ${{ github.ref == 'refs/heads/next' && '--dist-tag next' || ''}}
