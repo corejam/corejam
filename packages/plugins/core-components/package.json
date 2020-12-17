@@ -1,6 +1,6 @@
 {
   "name": "@corejam/core-components",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "license": "MIT",
   "main": "web-components/index.cjs.js",
   "module": "web-components/custom-elements/index.js",
