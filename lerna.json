@@ -14,11 +14,11 @@
   "command": {
     "version": {
       "exact": true,
-      "allowBranch": ["main", "next"]
+      "allowBranch": ["master", "next"]
     },
     "publish": {
       "npmClient": "npm",
-      "allowBranch": ["master", "canary"],
+      "allowBranch": ["master", "next"],
       "registry": "https://registry.npmjs.org/",
       "conventionalCommits": true,
       "message": "chore(release): Release"
