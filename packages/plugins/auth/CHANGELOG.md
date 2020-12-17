@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.15](https://github.com/Corejam/Corejam/compare/@corejam/plugin-auth@0.0.14...@corejam/plugin-auth@0.0.15) (2020-12-17)
+
+**Note:** Version bump only for package @corejam/plugin-auth
+
+
+
+
+
 ## [0.0.14](https://github.com/Corejam/Corejam/compare/@corejam/plugin-auth@0.0.11...@corejam/plugin-auth@0.0.14) (2020-12-17)
 
 **Note:** Version bump only for package @corejam/plugin-auth
