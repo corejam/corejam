@@ -1,6 +1,6 @@
 {
   "name": "@corejam/plugin-auth",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "homepage": "https://corejam.io/",
   "description": "Corejam Authentification plugin",
   "bugs": {
@@ -69,7 +69,7 @@
     "@alepop/stencil-env": "0.4.1",
     "@apollo/client": "3.3.6",
     "@corejam/base": "0.0.11",
-    "@corejam/core-components": "0.0.19",
+    "@corejam/core-components": "0.0.20",
     "@corejam/rollup-plugin": "0.0.3",
     "@corejam/router": "0.0.7",
     "@corejam/run": "0.0.4",
