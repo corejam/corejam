@@ -1,6 +1,6 @@
 {
   "name": "@corejam/plugin-dershop",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "license": "MIT",
   "main": "dist/server/index.js",
   "module": "web-components/custom-elements/index.js",
@@ -62,8 +62,8 @@
   "dependencies": {
     "@alepop/stencil-env": "0.4.1",
     "@corejam/base": "0.0.11",
-    "@corejam/core-components": "0.0.14",
-    "@corejam/plugin-auth": "0.0.14",
+    "@corejam/core-components": "0.0.15",
+    "@corejam/plugin-auth": "0.0.15",
     "@corejam/rollup-plugin": "0.0.3",
     "@corejam/router": "0.0.7",
     "@corejam/run": "0.0.4",
