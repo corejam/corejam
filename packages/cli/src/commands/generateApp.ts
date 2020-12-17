@@ -6,7 +6,7 @@ import { isYarn } from "is-npm";
 import jetpack from "fs-jetpack";
 import execa from "execa";
 import { mono } from "../config";
-
+import {packageJson} from "../helpers/package"
 export default async function createApp(name: string) {
   return new Promise(async (res: any) => {
     const spinner = ora(`Creating new Corejam application: ${name}`).start();
@@ -15,7 +15,10 @@ export default async function createApp(name: string) {
     spinner.text = "Bootstrapping app";
 
     await jetpack.copyAsync(__dirname + "/../templates/plugin", pluginRootPath);
-    await jetpack.renameAsync(pluginRootPath + "/_package.json", "package.json");
+
+    const json = packageJson(mono)
+
+    await jetpack.writeAsync(pluginRootPath + "/package.json", json);
 
     const installProcess = execa(isYarn ? "yarn" : "npm", ["install"], { cwd: pluginRootPath });
 
