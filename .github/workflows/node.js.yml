@@ -369,5 +369,17 @@ jobs:
           LERNA_TAG: ${{ github.ref == 'refs/heads/next' && '--dist-tag next' || ''}}
           
 
-          
+  sync-branch:
+      if: github.ref == 'refs/heads/master'
+      needs:
+        - publish 
+      runs-on: ubuntu-latest
+      name: Merge master -> next
+      steps:
+        - name: devmasx/merge-branch@v1.3.1
+          with:
+            type: now
+            from_branch: master
+            target_branch: next
+            github_token: ${{ secrets.GH}} 
 
