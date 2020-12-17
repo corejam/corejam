@@ -358,7 +358,7 @@ jobs:
         run: |
           yarn logout
           npm whoami
-          yarn lerna publish --yes $LERNA_TAG
+          yarn lerna publish --yes $LERNA_TAG --no-verify-access
         env:
           GH_TOKEN: ${{ secrets.GH }}
           GITHUB_TOKEN: ${{ secrets.GH }}
