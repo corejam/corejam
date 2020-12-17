@@ -356,6 +356,9 @@ jobs:
 
       - name: 🚽 Publish package
         run: |
+          cd packages/cli
+          yarn build
+          cd ../..
           yarn logout
           npm whoami
           yarn lerna publish --yes $LERNA_TAG --no-verify-access
