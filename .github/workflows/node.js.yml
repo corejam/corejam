@@ -13,313 +13,313 @@ on:
       - "**/*.md"
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: "corejam/ci:node14.0.0.2"
-  #   if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
-  #   steps:
-  #     - name: Cancel Previous Run preventing duplicate pipelines
-  #       uses: styfle/cancel-workflow-action@0.6.0
-  #       with:
-  #         access_token: ${{ github.token }}
-  #     - uses: actions/checkout@v2
-  #     - name: Cache node_modules
-  #       id: cache-node-modules
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: node_modules
-  #         key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
-  #     - run: |
-  #         rm -rf node_modules/@corejam node_modules/.bin/corejam
-  #         yarn --frozen-lockfile
-  #         yarn lint
-  #         yarn build
-  #         yarn bs
-  #         node ./utils/hoistPackagesForDeployment.js
-  #         API_ORIGIN=http://localhost:3000 yarn --cwd packages/plugins/auth corejam static
-  #       env: # Or as an environment variable
-  #         GITHUB_SHA: ${{ github.sha }}
-  #     - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/run/dist packages/rollup-plugin/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
-  #     - uses: actions/upload-artifact@v2
-  #       with:
-  #         name: dist
-  #         path: artifact.tar
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: "corejam/ci:node14.0.0.2"
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+    steps:
+      - name: Cancel Previous Run preventing duplicate pipelines
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+      - uses: actions/checkout@v2
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+      - run: |
+          rm -rf node_modules/@corejam node_modules/.bin/corejam
+          yarn --frozen-lockfile
+          yarn lint
+          yarn build
+          yarn bs
+          node ./utils/hoistPackagesForDeployment.js
+          API_ORIGIN=http://localhost:3000 yarn --cwd packages/plugins/auth corejam static
+        env: # Or as an environment variable
+          GITHUB_SHA: ${{ github.sha }}
+      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/run/dist packages/rollup-plugin/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: artifact.tar
 
-  # core-components-test:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: "corejam/ci:node14.0.0.2"
-  #   needs: build
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/download-artifact@v2
-  #       with:
-  #         name: dist
-  #     - run: tar -xzf artifact.tar
-  #     - run: chmod +x node_modules/.bin/corejam
-  #     - run: |
-  #         cd packages/plugins/core-components/
-  #         yarn test
+  core-components-test:
+    runs-on: ubuntu-latest
+    container:
+      image: "corejam/ci:node14.0.0.2"
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - run: chmod +x node_modules/.bin/corejam
+      - run: |
+          cd packages/plugins/core-components/
+          yarn test
 
-  # integration-tests:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: "corejam/ci:node14.0.0.2"
-  #   needs: build
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/download-artifact@v2
-  #       with:
-  #         name: dist
-  #     - run: tar -xzf artifact.tar
-  #     - run: chmod +x node_modules/.bin/corejam
-  #     - run: cd packages/base && yarn corejam init && yarn test
-  #     - run: |
-  #         cd packages/plugins/auth && yarn corejam generateSchema
-  #         yarn test
-  #         export SECRET=$(COMMIT_ID=auth_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
-  #         SECRET_KEY=$SECRET DB_DRIVER=DB_FAUNA yarn test
-  #       env: # Or as an environment variable
-  #         SECRET_KEY: ${{ secrets.SECRET }}
-  #         GITHUB_SHA: ${{ github.sha }}
-  #     - run: |
-  #         cd packages/plugins/dershop && yarn corejam generateSchema
-  #         yarn test
-  #         export SECRET_SHOP=$(COMMIT_ID=dershop_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
-  #         SECRET_KEY=$SECRET_SHOP DB_DRIVER=DB_FAUNA yarn test
-  #       env: # Or as an environment variable
-  #         SECRET_KEY: ${{ secrets.SECRET }}
-  #         GITHUB_SHA: ${{ github.sha }}
-  #     - uses: codecov/codecov-action@v1
-  #       with:
-  #         directory: packages # optional
+  integration-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: "corejam/ci:node14.0.0.2"
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - run: chmod +x node_modules/.bin/corejam
+      - run: cd packages/base && yarn corejam init && yarn test
+      - run: |
+          cd packages/plugins/auth && yarn corejam generateSchema
+          yarn test
+          export SECRET=$(COMMIT_ID=auth_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
+          SECRET_KEY=$SECRET DB_DRIVER=DB_FAUNA yarn test
+        env: # Or as an environment variable
+          SECRET_KEY: ${{ secrets.SECRET }}
+          GITHUB_SHA: ${{ github.sha }}
+      - run: |
+          cd packages/plugins/dershop && yarn corejam generateSchema
+          yarn test
+          export SECRET_SHOP=$(COMMIT_ID=dershop_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
+          SECRET_KEY=$SECRET_SHOP DB_DRIVER=DB_FAUNA yarn test
+        env: # Or as an environment variable
+          SECRET_KEY: ${{ secrets.SECRET }}
+          GITHUB_SHA: ${{ github.sha }}
+      - uses: codecov/codecov-action@v1
+        with:
+          directory: packages # optional
 
-  # cypress-static-plugin-auth:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: "corejam/cypress:0.0.2"
-  #   needs: build
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         path: ""
-  #     - uses: actions/download-artifact@v2
-  #       with:
-  #         name: dist
-  #     - run: tar -xzf artifact.tar
-  #     - run: chmod +x node_modules/.bin/corejam
-  #     - name: Cache Cypress
-  #       id: cache-cypress
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: test/cypress/node_modules
-  #         key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
-  #     - run: yarn --cwd test/cypress --frozen-lockfile
-  #       if: |
-  #         steps.cache-cypress.outputs.cache-hit != 'true'
-  #     - run: |
-  #         cd packages/plugins/auth
-  #         JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../../test/cypress
-  #         cypress run --spec "./cypress/integration/plugins/auth/**/*"
-  #       env:
-  #         CYPRESS_baseUrl: "http://localhost:3001"
-  #         CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
-  #     - uses: actions/upload-artifact@v1
-  #       if: failure()
-  #       with:
-  #         name: cypress-screenshots
-  #         path: test/cypress/cypress/screenshots
+  cypress-static-plugin-auth:
+    runs-on: ubuntu-latest
+    container:
+      image: "corejam/cypress:0.0.2"
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: test/cypress/node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+      - run: yarn --cwd test/cypress --frozen-lockfile
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true'
+      - run: |
+          cd packages/plugins/auth
+          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../../test/cypress
+          cypress run --spec "./cypress/integration/plugins/auth/**/*"
+        env:
+          CYPRESS_baseUrl: "http://localhost:3001"
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
 
-  # cypress-generateApp-monorepo:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: "corejam/cypress:0.0.2"
-  #   needs: build
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         path: ""
-  #     - uses: actions/download-artifact@v2
-  #       with:
-  #         name: dist
-  #     - run: tar -xzf artifact.tar
-  #     - run: chmod +x node_modules/.bin/corejam
-  #     - name: Cache Cypress
-  #       id: cache-cypress
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: test/cypress/node_modules
-  #         key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
-  #     - run: yarn --cwd test/cypress --frozen-lockfile
-  #       if: |
-  #         steps.cache-cypress.outputs.cache-hit != 'true'
-  #     - run: |
-  #         yarn bs
-  #         cd examples
-  #         yarn corejam createApp test
-  #         cd test && yarn static
-  #         DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
-  #         cypress run --spec "./cypress/integration/generateApp/**/*"
-  #       env:
-  #         CYPRESS_baseUrl: "http://localhost:3001"
-  #         CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
-  #     - uses: actions/upload-artifact@v1
-  #       if: failure()
-  #       with:
-  #         name: cypress-screenshots
-  #         path: test/cypress/cypress/screenshots
+  cypress-generateApp-monorepo:
+    runs-on: ubuntu-latest
+    container:
+      image: "corejam/cypress:0.0.2"
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: test/cypress/node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+      - run: yarn --cwd test/cypress --frozen-lockfile
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true'
+      - run: |
+          yarn bs
+          cd examples
+          yarn corejam createApp test
+          cd test && yarn static
+          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
+          cypress run --spec "./cypress/integration/generateApp/**/*"
+        env:
+          CYPRESS_baseUrl: "http://localhost:3001"
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
 
-  # cypress-generateApp-standalone:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: "corejam/cypress:0.0.2"
-  #   needs: build
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         path: ""
-  #     - uses: actions/download-artifact@v2
-  #       with:
-  #         name: dist
-  #     - run: tar -xzf artifact.tar
-  #     - run: chmod +x node_modules/.bin/corejam
-  #     - name: Cache Cypress
-  #       id: cache-cypress
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: test/cypress/node_modules
-  #         key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
-  #     - run: yarn --cwd test/cypress --frozen-lockfile
-  #       if: |
-  #         steps.cache-cypress.outputs.cache-hit != 'true'
-  #     - run: |
-  #         yarn bs
-  #         cd packages/base && yarn link
-  #         cd ../cli && yarn link
-  #         cd ../dev && yarn link
-  #         cd ../run && yarn link
-  #         cd ../rollup-plugin && yarn link
-  #         cd ../plugins/core-components && yarn link
-  #         cd /github/home && corejam createApp test
-  #         cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
-  #         DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
-  #         cypress run --spec "./cypress/integration/generateApp/**/*"
-  #       env:
-  #         CYPRESS_baseUrl: "http://localhost:3001"
-  #         CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
-  #     - uses: actions/upload-artifact@v1
-  #       if: failure()
-  #       with:
-  #         name: cypress-screenshots
-  #         path: test/cypress/cypress/screenshots
+  cypress-generateApp-standalone:
+    runs-on: ubuntu-latest
+    container:
+      image: "corejam/cypress:0.0.2"
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: test/cypress/node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+      - run: yarn --cwd test/cypress --frozen-lockfile
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true'
+      - run: |
+          yarn bs
+          cd packages/base && yarn link
+          cd ../cli && yarn link
+          cd ../dev && yarn link
+          cd ../run && yarn link
+          cd ../rollup-plugin && yarn link
+          cd ../plugins/core-components && yarn link
+          cd /github/home && corejam createApp test
+          cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
+          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
+          cypress run --spec "./cypress/integration/generateApp/**/*"
+        env:
+          CYPRESS_baseUrl: "http://localhost:3001"
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
 
-  # cypress-generateApp-standaloneCLI:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: "corejam/cypress:0.0.2"
-  #   needs: build
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         path: ""
-  #     - uses: actions/download-artifact@v2
-  #       with:
-  #         name: dist
-  #     - run: tar -xzf artifact.tar
-  #     - run: chmod +x node_modules/.bin/corejam
-  #     - name: Cache Cypress
-  #       id: cache-cypress
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: test/cypress/node_modules
-  #         key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
-  #     - run: yarn --cwd test/cypress --frozen-lockfile
-  #       if: |
-  #         steps.cache-cypress.outputs.cache-hit != 'true'
-  #     - run: |
-  #         yarn bs
-  #         cd packages/base && yarn link
-  #         cd ../cli && export CLI_PATH=$(pwd) && yarn link
-  #         cd ../dev && yarn link
-  #         cd ../run && yarn link
-  #         cd ../rollup-plugin && yarn link
-  #         cd ../plugins/core-components && yarn link
-  #         cd /github/home && cp -r $CLI_PATH . && cd cli && yarn link @corejam/base --ignore-scripts && yarn --ignore-scripts
-  #         cd /github/home && /github/home/cli/dist/index.js createApp test
-  #         cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
-  #         DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
-  #         cypress run --spec "./cypress/integration/generateApp/**/*"
-  #       env:
-  #         CYPRESS_baseUrl: "http://localhost:3001"
-  #         CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
-  #     - uses: actions/upload-artifact@v1
-  #       if: failure()
-  #       with:
-  #         name: cypress-screenshots
-  #         path: test/cypress/cypress/screenshots
+  cypress-generateApp-standaloneCLI:
+    runs-on: ubuntu-latest
+    container:
+      image: "corejam/cypress:0.0.2"
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: test/cypress/node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+      - run: yarn --cwd test/cypress --frozen-lockfile
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true'
+      - run: |
+          yarn bs
+          cd packages/base && yarn link
+          cd ../cli && export CLI_PATH=$(pwd) && yarn link
+          cd ../dev && yarn link
+          cd ../run && yarn link
+          cd ../rollup-plugin && yarn link
+          cd ../plugins/core-components && yarn link
+          cd /github/home && cp -r $CLI_PATH . && cd cli && yarn link @corejam/base --ignore-scripts && yarn --ignore-scripts
+          cd /github/home && /github/home/cli/dist/index.js createApp test
+          cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
+          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
+          cypress run --spec "./cypress/integration/generateApp/**/*"
+        env:
+          CYPRESS_baseUrl: "http://localhost:3001"
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
 
-  # cypress:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: "corejam/cypress:0.0.2"
-  #   needs:
-  #     - integration-tests
-  #     - cypress-static-plugin-auth
-  #     - core-components-test
-  #     - cypress-generateApp-monorepo
-  #     - cypress-generateApp-standalone
-  #     - cypress-generateApp-standaloneCLI
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         path: ""
-  #     - uses: actions/download-artifact@v2
-  #       with:
-  #         name: dist
-  #     - run: tar -xzf artifact.tar
-  #     - run: chmod +x node_modules/.bin/corejam
-  #     - name: Cache Cypress
-  #       id: cache-cypress
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: test/cypress/node_modules
-  #         key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
-  #     - run: yarn --cwd test/cypress --frozen-lockfile
-  #       if: |
-  #         steps.cache-cypress.outputs.cache-hit != 'true'
-  #     - run: |
-  #         if [ $GITHUB_REF = 'refs/heads/master' ]; then export DEPLOYED_URL="demo.dershop.dev"; else export DEPLOYED_URL="$GITHUB_SHA.pipeline.dershop.dev"; fi
-  #         cd packages/plugins/dershop && yarn corejam generateSchema
-  #         export SECRET=$(COMMIT_ID=cypress_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
-  #         cd ../../../examples/nextjs
-  #         export DEPLOYMENT=$(vercel --confirm --token $ZEIT_TOKEN --scope=dershop -e JWT_HASH=gitlab -e SECRET_KEY=$SECRET -e DB_DRIVER="DB_FAUNA" --build-env SECRET_KEY=$SECRET --build-env DB_DRIVER="DB_FAUNA" -e DEPLOYMENT_URL=https://$DEPLOYED_URL)
-  #         vercel alias $DEPLOYMENT $DEPLOYED_URL --token $ZEIT_TOKEN --scope dershop
-  #         wget $DEPLOYED_URL
-  #         cd ../../test/cypress
-  #         CYPRESS_baseUrl=https://$DEPLOYED_URL cypress run --spec "./cypress/integration/plugins/dershop/**/*"
-  #       env: # Or as an environment variable
-  #         SECRET_KEY: ${{ secrets.SECRET }}
-  #         GITHUB_SHA: ${{ github.sha }}
-  #         ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
-  #         CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
-  #     - uses: actions/upload-artifact@v1
-  #       if: failure()
-  #       with:
-  #         name: cypress-screenshots
-  #         path: test/cypress/cypress/screenshots
+  cypress:
+    runs-on: ubuntu-latest
+    container:
+      image: "corejam/cypress:0.0.2"
+    needs:
+      - integration-tests
+      - cypress-static-plugin-auth
+      - core-components-test
+      - cypress-generateApp-monorepo
+      - cypress-generateApp-standalone
+      - cypress-generateApp-standaloneCLI
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: test/cypress/node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+      - run: yarn --cwd test/cypress --frozen-lockfile
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true'
+      - run: |
+          if [ $GITHUB_REF = 'refs/heads/master' ]; then export DEPLOYED_URL="demo.dershop.dev"; else export DEPLOYED_URL="$GITHUB_SHA.pipeline.dershop.dev"; fi
+          cd packages/plugins/dershop && yarn corejam generateSchema
+          export SECRET=$(COMMIT_ID=cypress_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
+          cd ../../../examples/nextjs
+          export DEPLOYMENT=$(vercel --confirm --token $ZEIT_TOKEN --scope=dershop -e JWT_HASH=gitlab -e SECRET_KEY=$SECRET -e DB_DRIVER="DB_FAUNA" --build-env SECRET_KEY=$SECRET --build-env DB_DRIVER="DB_FAUNA" -e DEPLOYMENT_URL=https://$DEPLOYED_URL)
+          vercel alias $DEPLOYMENT $DEPLOYED_URL --token $ZEIT_TOKEN --scope dershop
+          wget $DEPLOYED_URL
+          cd ../../test/cypress
+          CYPRESS_baseUrl=https://$DEPLOYED_URL cypress run --spec "./cypress/integration/plugins/dershop/**/*"
+        env: # Or as an environment variable
+          SECRET_KEY: ${{ secrets.SECRET }}
+          GITHUB_SHA: ${{ github.sha }}
+          ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
   
   publish:
     name: Publish packages
     runs-on: ubuntu-latest
-    # needs:
-    #   - integration-tests
-    #   - cypress-static-plugin-auth
-    #   - core-components-test
-    #   - cypress-generateApp-monorepo
-    #   - cypress-generateApp-standalone
-    #   - cypress-generateApp-standaloneCLI
-    #   - cypress
+    needs:
+      - integration-tests
+      - cypress-static-plugin-auth
+      - core-components-test
+      - cypress-generateApp-monorepo
+      - cypress-generateApp-standalone
+      - cypress-generateApp-standaloneCLI
+      - cypress
     if: github.ref == 'refs/heads/next' || github.ref == 'refs/heads/master'
     steps:
       - name: 📚 Checkout
