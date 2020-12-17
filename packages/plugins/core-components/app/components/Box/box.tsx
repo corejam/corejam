@@ -397,7 +397,11 @@ export class CorejamBox {
     this.hash = hash;
   }
 
+
   @Prop({ reflect: false, mutable: true }) droppableElements = ["dershop-ui-box", "dershop-ui-grid"];
+
+
+
 
   render() {
     return (

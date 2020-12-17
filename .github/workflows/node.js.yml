@@ -348,7 +348,7 @@ jobs:
       - name: 🐒 Authenticate with NPM
         run: |
           yarn logout
-          echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           npm whoami
         env:
@@ -356,12 +356,15 @@ jobs:
 
       - name: 🚽 Publish package
         run: |
+          yarn build
+          yarn logout
           npm whoami
-          npx lerna publish --yes $LERNA_TAG -- --access public
+          yarn lerna publish --yes $LERNA_TAG --no-verify-access
         env:
           GH_TOKEN: ${{ secrets.GH }}
           GITHUB_TOKEN: ${{ secrets.GH }}
-          NPM_TOKEN: ${{ secrets.NPM }}
+          NPM_TOKEN: NODE_AUTH_TOKEN
+          NODE_AUTH_TOKEN: NODE_AUTH_TOKEN
           LERNA_TAG: ${{ github.ref == 'refs/heads/next' && '--dist-tag next' || ''}}
           
 
