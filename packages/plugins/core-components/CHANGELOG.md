@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.18](https://github.com/Corejam/Corejam/compare/@corejam/core-components@0.0.17...@corejam/core-components@0.0.18) (2020-12-17)
+
+
+### Bug Fixes
+
+* box ([211b554](https://github.com/Corejam/Corejam/commit/211b554b4232d8d2082ce5ee4218a1ad11d9a947))
+
+
+
+
+
 ## [0.0.17](https://github.com/Corejam/Corejam/compare/@corejam/core-components@0.0.16...@corejam/core-components@0.0.17) (2020-12-17)
 
 
