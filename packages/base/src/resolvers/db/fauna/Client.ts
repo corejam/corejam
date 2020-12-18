@@ -8,4 +8,4 @@ export const FaunaClient = () =>
     return new Client({
       secret: SECRET_KEY,
     });
-  }) as Client;
+  }, true) as Client;
