@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: "corejam/ci:node14.0.0.2"
-    if: (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository) || !contains(github.event.head_commit.message, 'Merge master into next')
+    if: (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository) && !contains(github.event.head_commit.message, 'Merge master into next')
     steps:
       - name: Cancel Previous Run preventing duplicate pipelines
         uses: styfle/cancel-workflow-action@0.6.0
