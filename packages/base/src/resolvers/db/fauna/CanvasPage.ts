@@ -71,22 +71,24 @@ export function canvasPageById(id: string): Promise<CanvasPageDB | null> {
 export async function canvasOpenPeers(id: string, peerInput: CanvasPeer): Promise<CanvasPeers> {
   const canvas = (await canvasPageById(id)) as CanvasPageDB;
 
+  const peers: CanvasPeers = {
+    key: "test",
+    peers: [] as CanvasPeer[],
+  };
+
   if (!canvas.peers) {
-    canvas.peers = {
-      key: "test",
-      peers: [] as CanvasPeer[],
-    };
+    canvas.peers = peers;
   }
 
   canvas.peers.peers.push({ ...peerInput });
-  const editResult = await canvasPageEdit(id, { ...canvas });
+  await canvasPageEdit(id, { ...canvas });
 
-  return new Promise((res) => res(editResult.peers));
+  return new Promise((res) => res(peers));
 }
 
-export async function canvasPollPeers(id: string): Promise<CanvasPeers> {
-  const canvas = await canvasPageById(id);
-  return new Promise((res) => res(canvas?.peers));
+export async function canvasPollPeers(id: string): Promise<CanvasPeers | null> {
+  const canvas = (await canvasPageById(id)) as CanvasPage;
+  return new Promise((res) => res(canvas.peers ?? null));
 }
 
 export async function canvasClosePeers(id: string): Promise<CanvasPage> {

@@ -1,6 +1,6 @@
 {
   "name": "@corejam/dev",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Corejam Dev Components",
   "main": "dist/index.cjs.js",
   "module": "dist/custom-elements/index.js",
@@ -18,11 +18,12 @@
     "build": "stencil build --docs",
     "postbuild": "shx cp ./app/index.html ./dist",
     "test": "stencil test --spec",
-    "test.watch": "stencil test --spec --watchAll"
+    "test.watch": "stencil test --spec --watchAll",
+    "prepublish": "yarn build"
   },
   "dependencies": {
-    "@corejam/router": "0.0.6",
-    "@corejam/run": "0.0.3",
+    "@corejam/router": "0.0.7",
+    "@corejam/run": "0.0.4",
     "@stencil/core": "2.3.0",
     "stencil-router-v2": "0.6.0"
   },

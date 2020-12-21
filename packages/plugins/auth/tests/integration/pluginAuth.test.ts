@@ -1,7 +1,7 @@
 import { eventEmitter } from "@corejam/base/src/Server";
 import { testClient } from "@corejam/base/src/TestClient";
 import * as faker from "faker";
-import { IncomingMessage, ServerResponse } from "http";
+import { IncomingMessage } from "http";
 import { Socket } from "net";
 import * as sinon from "ts-sinon";
 import { AccountExistsError, AuthenticationError } from "../../server/Errors";
@@ -12,8 +12,9 @@ import {
   userRegisterMutationGQL,
   userTokenRefreshMutationGQL, userUpdatePasswordMutationGQL
 } from "../../shared/graphql/Mutations";
-import { paginateUsersGQL } from "../../shared/graphql/Queries";
-import { RegisterInput, UpdatePasswordInput, UserCreateInput, UserDB, UserInput, UserList } from "../../shared/types/User";
+import { RegisterInput, UserCreateInput, UserDB, UserInput, UserList, UpdatePasswordInput } from "../../shared/types/User";
+import { paginateUsersGQL } from "../../shared/graphql/Queries"
+import Response from "@corejam/base/src/Response";
 
 describe("Test Auth Plugin", () => {
   //This is the document ID we use to run various tests against instead of reading in every test
@@ -97,7 +98,7 @@ describe("Test Auth Plugin", () => {
       passwordConfirm: "valid123Password@",
     };
 
-    const mockResponse = new ServerResponse(new IncomingMessage(new Socket()));
+    const mockResponse = new Response(new IncomingMessage(new Socket()));
 
     const { mutate } = await testClient({
       req: { headers: {} },
@@ -137,7 +138,7 @@ describe("Test Auth Plugin", () => {
     expect(spy.calledWith({ user: newValues.email })).toBe(true);
 
     //Make a request with token in header
-    const authResponse = new ServerResponse(new IncomingMessage(new Socket()))
+    const authResponse = new Response(new IncomingMessage(new Socket()))
     const authClient = await testClient({
       req: {
         headers: {
@@ -154,7 +155,7 @@ describe("Test Auth Plugin", () => {
     });
     expect(meResponse.data.me.email).toEqual(newValues.email)
 
-    const cookieResponseHeaders = new ServerResponse(new IncomingMessage(new Socket()))
+    const cookieResponseHeaders = new Response(new IncomingMessage(new Socket()))
     const { mutate: cookieMutate } = await testClient({
       req: {
         headers: {
@@ -246,7 +247,7 @@ describe("Test Auth Plugin", () => {
 
     console.log(registerValues)
 
-    const mockResponse = new ServerResponse(new IncomingMessage(new Socket()));
+    const mockResponse = new Response(new IncomingMessage(new Socket()));
 
     const { mutate } = await testClient({
       req: { headers: {} },
@@ -275,7 +276,7 @@ describe("Test Auth Plugin", () => {
           authorization: loginResponse.data.userAuthenticate.token,
         },
       },
-      res: new ServerResponse(new IncomingMessage(new Socket())),
+      res: new Response(new IncomingMessage(new Socket())),
     });
 
     const updatePasswordRequest = await authClient.mutate({

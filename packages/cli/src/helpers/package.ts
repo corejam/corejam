@@ -1,4 +1,4 @@
-{
+export const packageJson = (mono = false) => `{
   "name": "pluginName",
   "version": "0.1.0",
   "private": true,
@@ -25,22 +25,22 @@
   ],
   "devDependencies": {
     "tslib": "2.0.3",
-    "typescript": "4.0.5",
+    "typescript": "4.1.2",
     "@types/faker": "5.1.4",
-    "@corejam/base": "0.0.10",
-    "@corejam/core-components": "0.0.10",
-    "@corejam/cli": "0.0.15",
+    "@corejam/base": "${mono ?  require("../../../base/package.json").version : "latest"}",
+    "@corejam/core-components": "${mono ? require("../../../plugins/core-components/package.json").version : "latest"}",
+    "@corejam/cli": "${mono ? require("../../../cli/package.json").version : "latest"}",
+    "@corejam/dev": "${mono ? require("../../../dev/package.json").version : "latest"}",
+    "@corejam/run": "${mono ? require("../../../run/package.json").version : "latest"}",
+    "@corejam/rollup-plugin": "${mono ? require("../../../rollup-plugin/package.json").version : "latest"}",
     "faker": "5.1.0",
     "dotenv": "8.2.0",
-    "@corejam/dev": "0.0.8",
-    "@corejam/run": "0.0.3",
-    "@corejam/rollup-plugin": "0.0.2",
     "@rollup/plugin-replace": "2.3.4",
     "@stencil/react-output-target": "0.0.9",
-    "@stencil/core": "2.2.0"
+    "@stencil/core": "2.3.0"
   },
   "corejam": {
     "wrapper": [],
     "recommendations": []
   }
-}
+}`

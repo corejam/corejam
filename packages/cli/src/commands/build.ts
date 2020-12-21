@@ -8,7 +8,7 @@ import { copySchemaToDist } from "../helpers/copy";
 import { prependNoCheckToComponents } from "../helpers/prependInFile";
 
 export default async function run(options: any) {
-  return new Promise(async (res, rej) => {
+  return new Promise<void>(async (res, rej) => {
     try {
       const envPackage = require(envRoot + "/package.json");
       const envPackageName = envPackage.name;
