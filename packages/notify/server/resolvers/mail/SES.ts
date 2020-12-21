@@ -33,7 +33,7 @@ export default class SES extends Transporter {
             Destination: {
                 BccAddresses: mail.bcc,
                 CcAddresses: mail.cc,
-                ToAddresses: mail.to
+                ToAddresses: Array.isArray(mail.to) ? mail.to : [mail.to]
             }
         }))
     }

@@ -16,9 +16,12 @@ export default abstract class MailTransport {
     abstract send(mail: Mail): void
 }
 
+/**
+ * See https://github.com/corejam/corejam/tree/next/packages/notify/README.md
+ */
 export class EmptyMailTransport extends MailTransport {
 
     send(_mail: Mail): void {
-        console.log("Mail Transport not configured. See https://github.com/corejam/corejam/tree/next/packages/notify/README.md")
+        console.error("Mail Transport not configured!")
     }
 }

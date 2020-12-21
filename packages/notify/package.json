@@ -6,7 +6,7 @@
   "description": "This package provides Email, SMS & Push notifications to your Corejam applications",
   "scripts": {
     "build": "corejam build --server",
-    "test": "corejam test",
+    "test": "jest",
     "precommit": "lint-staged",
     "clean": "rimraf dist & rimraf react & rimraf web-components"
   },
