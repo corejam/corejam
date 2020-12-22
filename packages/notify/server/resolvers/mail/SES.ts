@@ -1,3 +1,4 @@
+
 /**
  * Amazon SES Mail client
  */
@@ -35,7 +36,7 @@ export default class SES extends Transporter {
                     Data: mail.subject
                 }
             },
-            Source: process.env.NOTIFY_SENDER_EMAIL,
+            Source: process.env.MAIL_SENDER_EMAIL,
             Destination: {
                 BccAddresses: mail.bcc,
                 CcAddresses: mail.cc,
