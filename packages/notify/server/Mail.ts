@@ -15,9 +15,6 @@ export default class Mail {
         body: string,
         cc: string[] = [],
         bcc: string[] = []) {
-        if (!to.length) {
-            throw new Error("Missing recipient to")
-        }
 
         this.subject = subject;
         this.body = body;

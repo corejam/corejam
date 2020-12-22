@@ -5,7 +5,7 @@ import MailTransport from "./mail/Transporter";
 let mailTransport: MailTransport;
 
 if (process.env.MAIL_TRANSPORT === MailTransport.TRANSPORT.AWS_SES) {
-  const SES = require("./mail/SES")
+  const SES = require("./mail/SES").default
   mailTransport = new SES();
 }
 

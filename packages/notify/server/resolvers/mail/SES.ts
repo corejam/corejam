@@ -10,15 +10,20 @@ import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses"
  */
 export default class SES extends Transporter {
 
-    private SES = new SESClient({
+    private client: SESClient;
+
+    constructor(client = new SESClient({
         credentials: {
             accessKeyId: process.env.SES_ACCESS_KEY_ID as string,
             secretAccessKey: process.env.SES_SECRET_ACCESS_KEY as string
         }
-    })
+    })) {
+        super()
+        this.client = client;
+    }
 
     send(mail: Mail): void {
-        this.SES.send(new SendEmailCommand({
+        this.client.send(new SendEmailCommand({
             Message: {
                 Body: {
                     Html: {

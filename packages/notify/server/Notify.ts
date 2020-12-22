@@ -6,7 +6,7 @@ import MailTransport, { EmptyMailTransport } from "./resolvers/mail/Transporter"
  * applications
  */
 export default class Notify {
-    private mailTransport: MailTransport;
+    public readonly mailTransport: MailTransport;
 
     constructor(mailTrainsport: MailTransport = new EmptyMailTransport()) {
         this.mailTransport = mailTrainsport;
@@ -19,6 +19,7 @@ export default class Notify {
         this.mailTransport.send(mail)
     }
 
+    /*
     sendSMS() {
         //TODO implement
     }
@@ -26,4 +27,5 @@ export default class Notify {
     pushNotification() {
         //TODO implement
     }
+    */
 }
