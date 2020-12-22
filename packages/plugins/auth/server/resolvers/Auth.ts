@@ -2,6 +2,7 @@ import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { roles, UserList } from "../../shared/types/User";
 import { AccountExistsError } from "../Errors";
 import { checkUserHasRole, validateAuthInput, validatePasswordCreate } from "../Functions";
+import RegisterVerifyMail from "../mail/RegisterVerify";
 
 function setRefreshHeaders(jwt, { req, res }) {
   const JWT_REFRESH_EXPIRES = process.env.JWT_REFRESH_EXPIRES as string;
@@ -58,7 +59,7 @@ export default {
 
       return models.userEdit(args.id, args.userInput);
     },
-    userRegister: async (_obj: any, args: any, { models }: MergedServerContext) => {
+    userRegister: async (_obj: any, args: any, { models, notify }: MergedServerContext) => {
       validateAuthInput(args.data.email);
       validatePasswordCreate(args.data);
 
@@ -66,7 +67,10 @@ export default {
         throw new AccountExistsError();
       }
 
-      return models.userRegister(args.data);
+      const user = await models.userRegister(args.data);
+      notify.sendMail(new RegisterVerifyMail(user));
+
+      return user;
     },
     userAuthenticate: async (_obj: any, args: any, { models, eventEmitter, res, req }: MergedServerContext) => {
       validateAuthInput(args.email);

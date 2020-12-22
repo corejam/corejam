@@ -1,20 +1,26 @@
-import { eventEmitter } from "@corejam/base/src/Server";
+import Response from "@corejam/base/src/Response";
+import { CorejamServer, eventEmitter } from "@corejam/base/src/Server";
 import { testClient } from "@corejam/base/src/TestClient";
+import * as OriginalNotify from "@corejam/notify/server/Notify";
 import * as faker from "faker";
 import { IncomingMessage } from "http";
 import { Socket } from "net";
 import * as sinon from "ts-sinon";
 import { AccountExistsError, AuthenticationError } from "../../server/Errors";
+import RegisterVerifyMail from "../../server/mail/RegisterVerify";
 import {
   meGQL,
   userAuthenticateMutationGQL,
   userEditMutationGQL,
   userRegisterMutationGQL,
-  userTokenRefreshMutationGQL,
+  userTokenRefreshMutationGQL
 } from "../../shared/graphql/Mutations";
+import { paginateUsersGQL } from "../../shared/graphql/Queries";
 import { RegisterInput, UserCreateInput, UserDB, UserInput, UserList } from "../../shared/types/User";
-import { paginateUsersGQL } from "../../shared/graphql/Queries"
-import Response from "@corejam/base/src/Response";
+
+jest.mock("@corejam/notify/server/Notify")
+const MockedNotify = OriginalNotify as jest.Mocked<typeof OriginalNotify>
+const Notify = new MockedNotify.default;
 
 describe("Test Auth Plugin", () => {
   //This is the document ID we use to run various tests against instead of reading in every test
@@ -232,5 +238,36 @@ describe("Test Auth Plugin", () => {
     expect(expectFail.errors[0]).toEqual(new AccountExistsError());
   });
 
+  it("Expect register verify email to be sent", async () => {
+    const newValues: RegisterInput = {
+      email: faker.internet.email(),
+      password: "valid123Password@",
+      passwordConfirm: "valid123Password@",
+    };
 
+    const mockResponse = new Response(new IncomingMessage(new Socket()));
+
+    const server = CorejamServer()
+    const mockContext = () => ({
+      ...server.context({ req: {}, res: {} }),
+      notify: Notify
+    })
+
+    const { mutate } = await testClient({
+      req: { headers: {} },
+      res: mockResponse,
+    }, mockContext);
+
+    await mutate({
+      mutation: userRegisterMutationGQL,
+      variables: {
+        data: newValues,
+      },
+    });
+
+    expect(Notify.sendMail).toBeCalledTimes(1)
+    expect(Notify.sendMail).toBeCalledWith(new RegisterVerifyMail({
+      email: newValues.email
+    } as UserDB))
+  })
 });

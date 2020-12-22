@@ -4,7 +4,7 @@ const fs = require("fs")
 /**
  * Prevent hoisted files hanging around
  */
-if(fs.existsSync(process.cwd() + "/resolvers.js")) {
+if (fs.existsSync(process.cwd() + "/resolvers.js")) {
     fs.unlinkSync(process.cwd() + "/resolvers.js")
 }
 
@@ -39,6 +39,8 @@ module.exports = {
     moduleNameMapper: {
         "@corejam/base/dist/(.*)": __dirname + "/src/$1",
         "@corejam/base/(.*)": __dirname + "/$1",
+        "@corejam/notify/dist/(.*)": path.resolve(__dirname + "/../notify") + "/$1",
+        "@corejam/notify/(.*)": path.resolve(__dirname + "/../notify") + "/$1",
         "@corejam/plugin-auth/dist/(.*)": path.resolve(__dirname + "/../plugins/auth") + "/$1",
         "@corejam/plugin-auth/(.*)": path.resolve(__dirname + "/../plugins/auth") + "/$1",
         "@corejam/plugin-dershop/dist/(.*)": path.resolve(__dirname + "/../plugins/dershop") + "/$1",
