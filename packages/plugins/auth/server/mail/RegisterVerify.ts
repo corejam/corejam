@@ -1,9 +1,12 @@
 import Mail from "@corejam/notify/dist/server/Mail";
 import { UserDB } from "../../shared/types/User";
 
-const Template = (_user: UserDB) => `
-In order to activate you account please click on the following link
-`
+const Template = (user: UserDB) => {
+    return (
+        `
+In order to activate you account please click on the following link: <a href="">${user.verifyHash}</a>
+`)
+}
 
 /**
  * Verification email with link to activate a users account

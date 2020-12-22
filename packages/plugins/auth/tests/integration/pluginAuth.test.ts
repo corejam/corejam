@@ -16,6 +16,7 @@ import {
   userTokenRefreshMutationGQL
 } from "../../shared/graphql/Mutations";
 import { paginateUsersGQL } from "../../shared/graphql/Queries";
+import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { RegisterInput, UserCreateInput, UserDB, UserInput, UserList } from "../../shared/types/User";
 
 jest.mock("@corejam/notify/server/Notify")
@@ -258,16 +259,17 @@ describe("Test Auth Plugin", () => {
       res: mockResponse,
     }, mockContext);
 
-    await mutate({
+    const register = await mutate({
       mutation: userRegisterMutationGQL,
       variables: {
         data: newValues,
       },
     });
 
+    const context = mockContext() as MergedServerContext
+    const user = await context.models.userById(register.data.userRegister.id) as UserDB
+
     expect(Notify.sendMail).toBeCalledTimes(1)
-    expect(Notify.sendMail).toBeCalledWith(new RegisterVerifyMail({
-      email: newValues.email
-    } as UserDB))
+    expect(Notify.sendMail).toBeCalledWith(new RegisterVerifyMail(user))
   })
 });

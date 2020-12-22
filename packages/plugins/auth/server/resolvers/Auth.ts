@@ -1,7 +1,7 @@
 import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { roles, UserList } from "../../shared/types/User";
 import { AccountExistsError } from "../Errors";
-import { checkUserHasRole, validateAuthInput, validatePasswordCreate } from "../Functions";
+import { checkUserHasRole, generateVerifyHash, validateAuthInput, validatePasswordCreate } from "../Functions";
 import RegisterVerifyMail from "../mail/RegisterVerify";
 
 function setRefreshHeaders(jwt, { req, res }) {
@@ -68,6 +68,7 @@ export default {
       }
 
       const user = await models.userRegister(args.data);
+      user.verifyHash = await generateVerifyHash(user, models.userEdit)
       notify.sendMail(new RegisterVerifyMail(user));
 
       return user;

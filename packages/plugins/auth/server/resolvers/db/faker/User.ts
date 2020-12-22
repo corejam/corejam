@@ -3,7 +3,7 @@ import * as bcrypt from "bcryptjs";
 import { random } from "faker";
 import { decodeJWT, generateTokensForUser, hashPassword } from "../../../Functions";
 import { AuthenticationError } from "../../../Errors";
-import { JWT, RegisterInput, UserCreateInput, UserDB, UserInput, roles } from "../../../../shared/types/User";
+import { JWT, RegisterInput, UserCreateInput, UserDB, UserInput, roles, STATUS } from "../../../../shared/types/User";
 import { generateUser } from "./Generator";
 
 export let users = [] as UserDB[];
@@ -24,6 +24,7 @@ export function userCreate(userCreateInput: UserCreateInput): Promise<UserDB> {
   const user: UserDB = {
     id: random.uuid(),
     role: [roles.USER],
+    status: STATUS.PENDING,
     ...userCreateInput,
     ...updateDates(),
   };
@@ -78,6 +79,7 @@ export async function userRegister(userInput: RegisterInput): Promise<UserDB> {
     email: userInput.email ? userInput.email : "",
     password: await hashPassword(userInput.password),
     active: true,
+    status: STATUS.PENDING,
     role: [roles.USER],
     ...updateDates(),
   };
