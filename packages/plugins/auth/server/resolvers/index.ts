@@ -22,5 +22,5 @@ export function getPluginContext({ req, models }): MergedServerContext {
 
   const user = async () => (req.headers.authorization ? await models.userByToken(req.headers.authorization) : null);
 
-  return { user, models };
+  return { user, models } as MergedServerContext;
 }
