@@ -5,6 +5,7 @@ import Notify from "../server/Notify";
 import { MergedServerContext } from "../server/types/PluginResolver"
 import * as OriginalSES from "@aws-sdk/client-ses"
 import MailTransport from "../server/resolvers/mail/Transporter";
+import SMTP from "../server/resolvers/mail/SMTP";
 
 /**
  * Need to do some bending to get typescript to mock classes
@@ -13,6 +14,12 @@ import MailTransport from "../server/resolvers/mail/Transporter";
 jest.mock("@aws-sdk/client-ses")
 const MockedSES = OriginalSES as jest.Mocked<typeof OriginalSES>
 const SESClient = new MockedSES.SESClient({});
+
+jest.mock("nodemailer");
+const nodemailer = require("nodemailer")
+nodemailer.createTransport.mockReturnValue({sendMail: jest.fn()})
+const nodemailerMock = nodemailer.createTransport()
+const sendMock = jest.spyOn(nodemailerMock, "sendMail")
 
 describe("Mail Transporter", () => {
 
@@ -53,6 +60,20 @@ describe("Mail Transporter", () => {
     delete process.env.MAIL_TRANSPORT //clean up
   });
 
+  it("Test SMTP transportinstance initiated over env", async () => {
+    process.env.MAIL_TRANSPORT = MailTransport.TRANSPORT.SMTP
+    delete require.cache[process.cwd() + "/server/index.ts"]
+
+    const server = CorejamServer(() => getServerContext({ req: {}, res: {} }));
+    const context = server.context(getServerContext({ req: {}, res: {} })) as MergedServerContext
+
+    expect(context).toHaveProperty("notify")
+    const smtpClass = require("../server/resolvers/mail/SMTP").default
+    expect(context.notify.mailTransport).toBeInstanceOf(smtpClass)
+
+    delete process.env.MAIL_TRANSPORT //clean up
+  });
+
   it("Test SES Send is called when using transporter send", async () => {
     const testMail = new Mail("test@test.com", "Test Subject", "Test Body")
 
@@ -64,6 +85,20 @@ describe("Mail Transporter", () => {
 
     new Notify(sesTransport).sendMail(testMailMultipleTo);
     expect(SESClient.send).toBeCalled()
+
+  });
+
+  it("Test nodemailer Send is called when using SMTP transporter", async () => {
+    const testMail = new Mail("test@test.com", "Test Subject", "Test Body")
+
+    const smtpTransport = new SMTP(nodemailerMock);
+    new Notify(smtpTransport).sendMail(testMail);
+    expect(sendMock).toBeCalled()
+
+    const testMailMultipleTo = new Mail(["test@test.com", "test2@test.com"], "Test Subject", "Test Body")
+
+    new Notify(smtpTransport).sendMail(testMailMultipleTo);
+    expect(sendMock).toBeCalled()
 
   });
 });

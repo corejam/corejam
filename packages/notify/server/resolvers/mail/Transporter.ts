@@ -2,6 +2,7 @@ import Mail from "../../Mail";
 
 enum Transport {
     AWS_SES = "AWS_SES",
+    SMTP = "SMTP"
 }
 
 /**
