@@ -14,9 +14,10 @@ export default class SES extends Transporter {
 
     constructor(client = new SESClient({
         credentials: {
-            accessKeyId: process.env.SES_ACCESS_KEY_ID as string,
-            secretAccessKey: process.env.SES_SECRET_ACCESS_KEY as string
-        }
+            accessKeyId: process.env.MAIL_SES_ACCESS_KEY_ID as string,
+            secretAccessKey: process.env.MAIL_SES_SECRET_ACCESS_KEY as string
+        },
+        region: process.env.MAIL_SES_REGION as string
     })) {
         super()
         this.client = client;
