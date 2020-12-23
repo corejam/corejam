@@ -6,6 +6,7 @@ import { MergedServerContext } from "../server/types/PluginResolver"
 import * as OriginalSES from "@aws-sdk/client-ses"
 import MailTransport from "../server/resolvers/mail/Transporter";
 import SMTP from "../server/resolvers/mail/SMTP";
+const fetch = require("node-fetch")
 
 /**
  * Need to do some bending to get typescript to mock classes
@@ -15,13 +16,7 @@ jest.mock("@aws-sdk/client-ses")
 const MockedSES = OriginalSES as jest.Mocked<typeof OriginalSES>
 const SESClient = new MockedSES.SESClient({});
 
-jest.mock("nodemailer");
-const nodemailer = require("nodemailer")
-nodemailer.createTransport.mockReturnValue({ sendMail: jest.fn() })
-const nodemailerMock = nodemailer.createTransport()
-const sendMock = jest.spyOn(nodemailerMock, "sendMail")
-
-describe("Mail Transporter", () => {
+describe("Mail Transporter Integration tests", () => {
 
   beforeEach(() => {
     jest.resetModules();
@@ -88,8 +83,46 @@ describe("Mail Transporter", () => {
 
   });
 
+  /**
+   * This needs to run before nodemailer Send below due to mock not being reset
+   */
+  it("Integration test SMTP over ethereal.email", async () => {
+    const testMail = new TestMail("test@test.com", "Test Subject")
+    const nodemailer = require("nodemailer")
+    const account = await nodemailer.createTestAccount()
+
+    // create reusable transporter object using the default SMTP transport
+    const initTransport = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: account.user, // generated ethereal user
+        pass: account.pass  // generated ethereal password
+      }
+    });
+
+    const info = await new Notify(new SMTP(initTransport)).sendMail(testMail) as unknown as Promise<any>;
+    const message = nodemailer.getTestMessageUrl(info)
+    console.info("Email url", message)
+
+    const test = await fetch(message + "/message.eml", {
+      method: "GET",
+    })
+
+    const response = await test.text()
+    expect(response).toContain("test@test.com")
+    expect(response).toContain("Subject: Test Subject")
+  });
+
   it("Test nodemailer Send is called when using SMTP transporter", async () => {
     const testMail = new TestMail("test@test.com", "Test Subject")
+
+    jest.mock("nodemailer");
+    const nodemailer = require("nodemailer")
+    nodemailer.createTransport.mockReturnValue({ sendMail: jest.fn() })
+    const nodemailerMock = nodemailer.createTransport()
+    const sendMock = jest.spyOn(nodemailerMock, "sendMail")
 
     const smtpTransport = new SMTP(nodemailerMock);
     new Notify(smtpTransport).sendMail(testMail);
@@ -99,8 +132,8 @@ describe("Mail Transporter", () => {
 
     new Notify(smtpTransport).sendMail(testMailMultipleTo);
     expect(sendMock).toBeCalled()
-
   });
+
 });
 
 class TestMail extends Mail {

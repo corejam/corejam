@@ -24,10 +24,10 @@ export default class SMTP extends Transporter {
     }
 
     send(mail: Mail): void {
-        this.client.sendMail({
+        return this.client.sendMail({
             from: process.env.MAIL_SENDER_EMAIL,
             to: Array.isArray(mail.to) ? mail.to.join() : mail.to,
-            html: mail.body,
+            html: mail.getBody(),
             subject: mail.subject
         })
     }
