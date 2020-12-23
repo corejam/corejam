@@ -7,7 +7,7 @@ describe("Bootstrap", () => {
     expect(collectPlugins()).toHaveLength(1);
 
     //In the manifest we should have process.cwd() listed too as we are inside a plugin
-    expect(loadManifest().plugins).toHaveLength(2)
+    expect(loadManifest().plugins).toHaveLength(3)
   });
 
   /**
