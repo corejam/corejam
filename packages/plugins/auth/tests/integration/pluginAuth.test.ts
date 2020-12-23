@@ -6,18 +6,19 @@ import * as faker from "faker";
 import { IncomingMessage } from "http";
 import { Socket } from "net";
 import * as sinon from "ts-sinon";
-import { AccountExistsError, AuthenticationError } from "../../server/Errors";
+import { AccountExistsError, AuthenticationError, InvalidEmailError, InvalidVerificationError } from "../../server/Errors";
 import RegisterVerifyMail from "../../server/mail/RegisterVerify";
 import {
   meGQL,
   userAuthenticateMutationGQL,
   userEditMutationGQL,
   userRegisterMutationGQL,
-  userTokenRefreshMutationGQL
+  userTokenRefreshMutationGQL,
+  verifyEmailGQL
 } from "../../shared/graphql/Mutations";
 import { paginateUsersGQL } from "../../shared/graphql/Queries";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
-import { RegisterInput, UserCreateInput, UserDB, UserInput, UserList } from "../../shared/types/User";
+import { RegisterInput, STATUS, UserCreateInput, UserDB, UserInput, UserList } from "../../shared/types/User";
 
 jest.mock("@corejam/notify/server/Notify")
 const MockedNotify = OriginalNotify as jest.Mocked<typeof OriginalNotify>
@@ -271,5 +272,56 @@ describe("Test Auth Plugin", () => {
 
     expect(Notify.sendMail).toBeCalledTimes(1)
     expect(Notify.sendMail).toBeCalledWith(new RegisterVerifyMail(user))
+  })
+
+  it("Can verify newly registered user", async () => {
+    const newUser: RegisterInput = {
+      email: faker.internet.email(),
+      password: "valid123Password@",
+      passwordConfirm: "valid123Password@",
+    };
+
+    const { mutate, models } = await testClient();
+
+    await mutate({
+      mutation: userRegisterMutationGQL,
+      variables: {
+        data: newUser,
+      },
+    });
+
+    const user = await models.userByEmail(newUser.email) as UserDB;
+    expect(user).toHaveProperty("verifyHash")
+    expect(user.status).toBe(STATUS.PENDING)
+
+    const failedVerifyToken = (await mutate({
+      mutation: verifyEmailGQL,
+      variables: {
+        email: user.email,
+        token: "staticWrongToken"
+      },
+    }));
+
+    expect(failedVerifyToken.errors[0]).toEqual(new InvalidVerificationError());
+
+    const failedVerifyEmail = (await mutate({
+      mutation: verifyEmailGQL,
+      variables: {
+        email: "random@email.com",
+        token: "staticWrongToken"
+      },
+    }));
+
+    expect(failedVerifyEmail.errors[0]).toEqual(new InvalidEmailError());
+
+    const verify = (await mutate({
+      mutation: verifyEmailGQL,
+      variables: {
+        email: user.email,
+        token: user.verifyHash
+      },
+    })).data.userVerify;
+
+    expect(verify.status).toBe(STATUS.VERIFIED)
   })
 });

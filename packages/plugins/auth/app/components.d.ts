@@ -38,6 +38,10 @@ export namespace Components {
     }
     interface CorejamAuthHeader {
     }
+    interface CorejamAuthRouteVerify {
+    }
+    interface CorejamAuthVerify {
+    }
     interface CorejamIconsAccount {
     }
     interface CorejamIdentity {
@@ -112,6 +116,18 @@ declare global {
         prototype: HTMLCorejamAuthHeaderElement;
         new (): HTMLCorejamAuthHeaderElement;
     };
+    interface HTMLCorejamAuthRouteVerifyElement extends Components.CorejamAuthRouteVerify, HTMLStencilElement {
+    }
+    var HTMLCorejamAuthRouteVerifyElement: {
+        prototype: HTMLCorejamAuthRouteVerifyElement;
+        new (): HTMLCorejamAuthRouteVerifyElement;
+    };
+    interface HTMLCorejamAuthVerifyElement extends Components.CorejamAuthVerify, HTMLStencilElement {
+    }
+    var HTMLCorejamAuthVerifyElement: {
+        prototype: HTMLCorejamAuthVerifyElement;
+        new (): HTMLCorejamAuthVerifyElement;
+    };
     interface HTMLCorejamIconsAccountElement extends Components.CorejamIconsAccount, HTMLStencilElement {
     }
     var HTMLCorejamIconsAccountElement: {
@@ -136,6 +152,8 @@ declare global {
         "corejam-auth-form-login": HTMLCorejamAuthFormLoginElement;
         "corejam-auth-form-register": HTMLCorejamAuthFormRegisterElement;
         "corejam-auth-header": HTMLCorejamAuthHeaderElement;
+        "corejam-auth-route-verify": HTMLCorejamAuthRouteVerifyElement;
+        "corejam-auth-verify": HTMLCorejamAuthVerifyElement;
         "corejam-icons-account": HTMLCorejamIconsAccountElement;
         "corejam-identity": HTMLCorejamIdentityElement;
     }
@@ -173,6 +191,10 @@ declare namespace LocalJSX {
     }
     interface CorejamAuthHeader {
     }
+    interface CorejamAuthRouteVerify {
+    }
+    interface CorejamAuthVerify {
+    }
     interface CorejamIconsAccount {
     }
     interface CorejamIdentity {
@@ -191,6 +213,8 @@ declare namespace LocalJSX {
         "corejam-auth-form-login": CorejamAuthFormLogin;
         "corejam-auth-form-register": CorejamAuthFormRegister;
         "corejam-auth-header": CorejamAuthHeader;
+        "corejam-auth-route-verify": CorejamAuthRouteVerify;
+        "corejam-auth-verify": CorejamAuthVerify;
         "corejam-icons-account": CorejamIconsAccount;
         "corejam-identity": CorejamIdentity;
     }
@@ -210,6 +234,8 @@ declare module "@stencil/core" {
             "corejam-auth-form-login": LocalJSX.CorejamAuthFormLogin & JSXBase.HTMLAttributes<HTMLCorejamAuthFormLoginElement>;
             "corejam-auth-form-register": LocalJSX.CorejamAuthFormRegister & JSXBase.HTMLAttributes<HTMLCorejamAuthFormRegisterElement>;
             "corejam-auth-header": LocalJSX.CorejamAuthHeader & JSXBase.HTMLAttributes<HTMLCorejamAuthHeaderElement>;
+            "corejam-auth-route-verify": LocalJSX.CorejamAuthRouteVerify & JSXBase.HTMLAttributes<HTMLCorejamAuthRouteVerifyElement>;
+            "corejam-auth-verify": LocalJSX.CorejamAuthVerify & JSXBase.HTMLAttributes<HTMLCorejamAuthVerifyElement>;
             "corejam-icons-account": LocalJSX.CorejamIconsAccount & JSXBase.HTMLAttributes<HTMLCorejamIconsAccountElement>;
             "corejam-identity": LocalJSX.CorejamIdentity & JSXBase.HTMLAttributes<HTMLCorejamIdentityElement>;
         }

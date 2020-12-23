@@ -16,6 +16,12 @@ export class AccountExistsError extends Error {
   }
 }
 
+export class InvalidVerificationError extends Error {
+  constructor() {
+    super("Verification token not valid. Please try again");
+  }
+}
+
 export class InvalidEmailError extends Error {
   constructor() {
     super("Invalid Email");

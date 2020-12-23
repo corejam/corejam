@@ -59,3 +59,15 @@ export const meGQL = `
         }
     }
 `;
+
+export const verifyEmailGQL = `
+  mutation UserVerify($email: String!, $token: String!) {
+    userVerify(email: $email, token: $token ) {
+      id
+      email
+      role
+      status
+      active
+    }
+  } 
+`
