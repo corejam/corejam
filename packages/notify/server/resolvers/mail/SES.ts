@@ -29,7 +29,7 @@ export default class SES extends Transporter {
             Message: {
                 Body: {
                     Html: {
-                        Data: mail.body
+                        Data: mail.getBody()
                     },
                 },
                 Subject: {
