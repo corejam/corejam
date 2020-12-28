@@ -124,15 +124,13 @@ export async function userTokenRefresh(refreshToken: string): Promise<JWT> {
 }
 
 export async function userUpdatePassword(user: UserDB, passwordInput: UpdatePasswordInput): Promise<Boolean> {
-
   const hashedPass = await hashPassword(passwordInput.password);
 
   users = users.map((userDb: UserDB) => {
     if (user.id === userDb.id) {
-
-      user = { ...user, password: hashedPass };
+      userDb = { ...userDb, password: hashedPass };
     }
-    return user;
+    return userDb;
   });
 
   return new Promise((res) => res(typeof hashedPass === "string"));

@@ -241,7 +241,7 @@ describe("Test Auth Plugin", () => {
     expect(expectFail.errors[0]).toEqual(new AccountExistsError());
   });
 
-  it.only("update password", async () => {
+  it("update password", async () => {
     const updatePassword: UpdatePasswordInput = {
       oldPassword: "valid123Password@",
       password: "newPass",
@@ -253,7 +253,6 @@ describe("Test Auth Plugin", () => {
       password: "valid123Password@",
       passwordConfirm: "valid123Password@",
     };
-    console.log(registerValues)
 
     const mockResponse = new Response(new IncomingMessage(new Socket()));
 
@@ -304,7 +303,6 @@ describe("Test Auth Plugin", () => {
       },
     });
 
-    console.log(loginResponse2)
     expect(loginResponse2.errors[0]).toEqual(new AuthenticationError());
   });
 
