@@ -3,7 +3,7 @@ import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 import { query as q } from "faunadb";
 import { AuthenticationError } from "../../../Errors";
 import { decodeJWT, generateTokensForUser } from "../../../Functions";
-import type { JWT, RegisterInput, UpdatePasswordInput, UserCreateInput, roles, STATUS, UserDB, UserInput } from "../../../../shared/types/User";
+import { JWT, RegisterInput, UpdatePasswordInput, UserCreateInput, roles, STATUS, UserDB, UserInput } from "../../../../shared/types/User";
 
 export function allUsers(): Promise<UserDB[]> {
   return FaunaClient()

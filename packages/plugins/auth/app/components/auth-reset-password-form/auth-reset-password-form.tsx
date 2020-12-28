@@ -1,6 +1,6 @@
 import { coreState } from '@corejam/core-components';
 import { Component, h, Listen } from '@stencil/core';
-import { userUpdatePasswordMutationGQL } from 'shared/graphql/Mutations';
+import { userUpdatePasswordMutationGQL } from '../../../shared/graphql/Mutations';
 
 @Component({
   tag: 'auth-reset-password-form',
