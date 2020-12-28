@@ -128,6 +128,9 @@ export async function userTokenRefresh(refreshToken: string): Promise<JWT> {
   return await generateTokensForUser(user, userEdit);
 }
 
-export async function userUpdatePassword(_user: UserDB, _passwordInput: UpdatePasswordInput): Promise<Boolean> {
-  return new Promise(res => res(true))
+export async function userUpdatePassword(user: UserDB, passwordInput: UpdatePasswordInput): Promise<Boolean> {
+  const edited = await userEdit(user.id, { password: passwordInput.password })
+
+  //TODO better return boolean check
+  return new Promise(res => res(edited.id === user.id))
 }
