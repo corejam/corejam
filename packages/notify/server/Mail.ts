@@ -3,7 +3,7 @@
  */
 export default abstract class Mail {
 
-    public readonly to: string | string[]
+    public readonly to: string | string[];
     public readonly bcc: string[];
     public readonly cc: string[];
     public readonly subject: string;

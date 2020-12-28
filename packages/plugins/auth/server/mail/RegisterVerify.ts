@@ -14,8 +14,11 @@ export default class RegisterVerifyMail extends Mail {
     }
 
     getBody(): string {
+        const link = `/register/verify?email=${this.user.email}&token=${this.user.verifyHash}`
+
         return (`
-            In order to activate you account please click on the following link: <a href="">${this.user.verifyHash}</a>
+            In order to activate you account please click on the following link:
+             <a href="${link}">${link}</a>
         `)
     }
 }

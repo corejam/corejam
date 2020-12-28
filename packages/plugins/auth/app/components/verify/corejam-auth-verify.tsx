@@ -12,11 +12,13 @@ export class VerifyComponent {
     @State() verifyState = false;
 
     async componentDidLoad() {
+        const params = new URLSearchParams(location.search);
+
         const request = await coreState.client.mutate({
             mutation: gql(verifyEmailGQL),
             variables: {
-                email: new URLSearchParams(location.search).get("email"),
-                token: new URLSearchParams(location.search).get("token"),
+                email: params.get("email"),
+                token: params.get("token"),
             },
         });
 
