@@ -15,6 +15,7 @@ extend type Mutation {
   userDeactivate(id: ID!): Boolean
   userUpdatePassword(passwordInput: UserPasswordInput!): Boolean
   userUpdate(userUpdateInput: UserUpdateInput!): User
+  userVerify(email: String!, token: String!): User
   me: User
 }
 
@@ -33,11 +34,17 @@ enum userRoles {
   admin
 }
 
+enum verifiedStatus {
+  PENDING
+  VERIFIED
+}
+
 type User implements Timestamp {
   id: ID!
   email: String!
   password: String!
   active: Boolean!
+  status: verifiedStatus!
   role: [userRoles]!
   dateCreated: String!
   dateUpdated: String!

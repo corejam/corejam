@@ -1,6 +1,7 @@
 import { ServerContext } from "@corejam/base/dist/typings/Server";
 import { CoreResolver } from "@corejam/base/dist/typings/CoreResolver";
 import { JWT, RegisterInput, UpdatePasswordInput, UserCreateInput, UserDB, UserInput } from "./User";
+import { PluginServerContext as NotifyContext } from "@corejam/notify/dist/server/types/PluginResolver"
 
 /**
  * We are adding these resolvers to the existing CoreResolver
@@ -32,6 +33,7 @@ export declare type PluginServerContext = {
  * Override models to include our Plugin resolver
  */
 export declare type MergedServerContext = Partial<ServerContext> &
+  NotifyContext &
   PluginServerContext & {
     models: MergedServerResolver;
   };

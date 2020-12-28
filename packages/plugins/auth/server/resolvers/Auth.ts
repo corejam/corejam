@@ -1,7 +1,8 @@
 import { MergedServerContext } from "../../shared/types/PluginResolver";
-import { roles, UserList } from "../../shared/types/User";
-import { AccountExistsError } from "../Errors";
-import { checkUserHasRole, validateAuthInput, validatePasswordCreate } from "../Functions";
+import { roles, STATUS, UserList } from "../../shared/types/User";
+import { AccountExistsError, InvalidEmailError, InvalidVerificationError } from "../Errors";
+import { checkUserHasRole, generateVerifyHash, validateAuthInput, validatePasswordCreate } from "../Functions";
+import RegisterVerifyMail from "../mail/RegisterVerify";
 
 function setRefreshHeaders(jwt, { req, res }) {
   const JWT_REFRESH_EXPIRES = process.env.JWT_REFRESH_EXPIRES as string;
@@ -52,6 +53,7 @@ export default {
     }
   },
   Mutation: {
+
     userEdit: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
       const currentUser = await user();
       if (args.id !== currentUser.id) checkUserHasRole(await user(), roles.ADMIN)
@@ -63,7 +65,7 @@ export default {
 
       return models.userEdit(currentUser.id, args.userUpdateInput);
     },
-    userRegister: async (_obj: any, args: any, { models }: MergedServerContext) => {
+    userRegister: async (_obj: any, args: any, { models, notify }: MergedServerContext) => {
       validateAuthInput(args.data.email);
       validatePasswordCreate(args.data);
 
@@ -71,8 +73,13 @@ export default {
         throw new AccountExistsError();
       }
 
-      return models.userRegister(args.data);
+      const user = await models.userRegister(args.data);
+      user.verifyHash = await generateVerifyHash(user, models.userEdit)
+      notify.sendMail(new RegisterVerifyMail(user));
+
+      return user;
     },
+
     userAuthenticate: async (_obj: any, args: any, { models, eventEmitter, res, req }: MergedServerContext) => {
       validateAuthInput(args.email);
 
@@ -84,6 +91,7 @@ export default {
 
       return setRefreshHeaders(jwt, { req, res });
     },
+
     userTokenRefresh: async (_obj: any, _args: any, { req, res, models }: MergedServerContext) => {
       const rx = /([^;=\s]*)=([^;]*)/g;
       const obj = {};
@@ -95,14 +103,31 @@ export default {
 
       return setRefreshHeaders(jwt, { req, res });
     },
+
+    userVerify: async (_obj: any, { email, token }: any, { models }: MergedServerContext) => {
+      const user = await models.userByEmail(email);
+
+      if (!user) {
+        throw new InvalidEmailError();
+      }
+
+      if (user.verifyHash !== token) {
+        throw new InvalidVerificationError();
+      }
+
+      return await models.userEdit(user.id, { status: STATUS.VERIFIED })
+    },
+
     userCreate: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
       checkUserHasRole(await user(), roles.ADMIN);
 
       return models.userCreate(args.userCreateInput);
     },
+
     userUpdatePassword: async (_obj: any, args: any, { user, models }: MergedServerContext) => {
       return models.userUpdatePassword(await user(), args.passwordInput)
     },
+
     me: async (_obj: any, _args: any, { user }: MergedServerContext) => {
       return await user();
     }
