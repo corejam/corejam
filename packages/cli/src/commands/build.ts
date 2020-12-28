@@ -18,14 +18,19 @@ export default async function run(options: any) {
       const logToConsole = options.l ? "inherit" : "ignore";
 
       await jetpack.removeAsync(envRoot + "/dist");
-      await jetpack.removeAsync(envRoot + "/react");
-      await jetpack.removeAsync(envRoot + "/web-components");
 
       bootSpinner.text = "Bundling server code";
       await buildServerCode();
       bootSpinner.text = "Finished server build";
 
+      if (options.s) {
+        bootSpinner.succeed();
+        return;
+      }
+
       bootSpinner.text = "Generating web components build";
+      await jetpack.removeAsync(envRoot + "/react");
+      await jetpack.removeAsync(envRoot + "/web-components");
 
       await kill(3001);
 

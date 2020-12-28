@@ -3,8 +3,7 @@ import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 import { query as q } from "faunadb";
 import { AuthenticationError } from "../../../Errors";
 import { decodeJWT, generateTokensForUser } from "../../../Functions";
-import type { JWT, RegisterInput, UserCreateInput, UserDB, UserInput } from "../../../../shared/types/User";
-import { roles } from "../../../../shared/types/User";
+import { JWT, RegisterInput, STATUS, UserCreateInput, UserDB, UserInput, roles } from "../../../../shared/types/User";
 
 export function allUsers(): Promise<UserDB[]> {
   return FaunaClient()
@@ -27,6 +26,7 @@ export function userCreate(userCreateInput: UserCreateInput): Promise<UserDB> {
           email: userCreateInput.email,
           role: [roles.USER],
           active: true,
+          status: STATUS.PENDING,
           ...updateDates(),
         },
         credentials: { password: userCreateInput.password },

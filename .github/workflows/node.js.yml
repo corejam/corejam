@@ -3,7 +3,6 @@
 
 name: Node.js CI
 
-
 on:
   push:
     paths-ignore:
@@ -40,7 +39,7 @@ jobs:
           API_ORIGIN=http://localhost:3000 yarn --cwd packages/plugins/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/run/dist packages/rollup-plugin/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
+      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/run/dist packages/rollup-plugin/dist packages/notify/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -75,6 +74,7 @@ jobs:
       - run: tar -xzf artifact.tar
       - run: chmod +x node_modules/.bin/corejam
       - run: cd packages/base && yarn corejam init && yarn test
+      - run: cd packages/notify && yarn corejam init && yarn test
       - run: |
           cd packages/plugins/auth && yarn corejam generateSchema
           yarn test
@@ -308,7 +308,7 @@ jobs:
         with:
           name: cypress-screenshots
           path: test/cypress/cypress/screenshots
-  
+
   publish:
     name: Publish packages
     runs-on: ubuntu-latest
@@ -326,7 +326,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      
+
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: 🟢 Setup Node ${{ matrix.node_version }}
@@ -365,22 +365,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH }}
           NPM_TOKEN: NODE_AUTH_TOKEN
           NODE_AUTH_TOKEN: NODE_AUTH_TOKEN
-          CANARY:  ${{ github.ref == 'refs/heads/next' && '--canary' || ''}}
+          CANARY: ${{ github.ref == 'refs/heads/next' && '--canary' || ''}}
           LERNA_TAG: ${{ github.ref == 'refs/heads/next' && '--dist-tag next' || ''}}
-          
 
   sync-branch:
-      if: github.ref == 'refs/heads/master'
-      needs:
-        - publish 
-      runs-on: ubuntu-latest
-      name: Merge master -> next
-      steps:
-        - name: "Merge"
-          uses: devmasx/merge-branch@v1.3.1
-          with:
-            type: now
-            from_branch: master
-            target_branch: next
-            github_token: ${{ secrets.GH}} 
-
+    if: github.ref == 'refs/heads/master'
+    needs:
+      - publish
+    runs-on: ubuntu-latest
+    name: Merge master -> next
+    steps:
+      - name: "Merge"
+        uses: devmasx/merge-branch@v1.3.1
+        with:
+          type: now
+          from_branch: master
+          target_branch: next
+          github_token: ${{ secrets.GH}}

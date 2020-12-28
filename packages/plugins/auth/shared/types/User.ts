@@ -5,9 +5,16 @@ export enum roles {
   USER = "user",
 }
 
+export enum STATUS {
+  PENDING = "PENDING",
+  VERIFIED = "VERIFIED"
+}
+
 export type User = Timestamp & {
   email: string;
   password?: string;
+  status: STATUS,
+  verifyHash?: string;
   active: boolean;
   role: [roles];
   refreshToken?: string;

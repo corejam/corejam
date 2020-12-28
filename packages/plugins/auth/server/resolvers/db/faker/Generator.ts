@@ -1,5 +1,5 @@
 import { date, internet, random } from "faker";
-import { User, roles } from "../../../../shared/types/User";
+import { User, roles, STATUS } from "../../../../shared/types/User";
 
 export function generateUser({
   active = random.boolean(),
@@ -13,6 +13,7 @@ export function generateUser({
     active: active,
     role: [role],
     email: email,
+    status: STATUS.PENDING,
     password: password,
     dateCreated: dateCreated,
     dateUpdated: dateUpdated,

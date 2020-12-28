@@ -10,7 +10,8 @@ import { ProductCoreInput, ProductDB } from "./Product";
 import { SEODocument, SEOInput } from "./Seo";
 import { Deliverability } from "@corejam/base/dist/typings/Utils";
 import { UserDB, RegisterInput, UserCreateInput } from "./User";
-import { MergedServerContext as ExtendedServerContext } from "@corejam/plugin-auth/shared/types/PluginResolver"
+import { MergedServerContext as ExtendedAuthContext } from "@corejam/plugin-auth/shared/types/PluginResolver"
+import { MergedServerContext as ExtendedNotifyContext } from "@corejam/notify/dist/server/types/PluginResolver"
 
 export type LinkResult = {
   result: Boolean
@@ -70,12 +71,13 @@ export declare type MergedServerResolver = CoreResolver & PluginResolver;
  * We are adding an optional user to the core context if we have it.
  * Merge with exisiting ServerContext
  */
-export declare type PluginServerContext = {} & Partial<ExtendedServerContext>;
+export declare type PluginServerContext = Partial<ExtendedAuthContext>;
 
 /**
  * Override models to include our Plugin resolver
  */
 export declare type MergedServerContext = Partial<ServerContext> &
+  ExtendedNotifyContext &
   PluginServerContext & {
     models: MergedServerResolver;
   };
