@@ -1,5 +1,6 @@
 import { coreState } from '@corejam/core-components';
 import { Component, h, Listen } from '@stencil/core';
+import gql from 'graphql-tag';
 import { userUpdatePasswordMutationGQL } from '../../../shared/graphql/Mutations';
 
 @Component({
@@ -12,23 +13,26 @@ export class AuthResetPasswordForm {
 
   @Listen("sendForm", { target: "window" })
   async formEventHandler({ detail }) {
-      if (detail.formId != this.updatePasswordFormId) return;
+    if (detail.formId != this.updatePasswordFormId) return;
 
-      return this.updatePassword(detail)
+    return this.updatePassword(detail)
   }
 
   async updatePassword(detail) {
-      const userInput = {};
+    const userInput = {};
 
-      Object.keys(detail).map(value => {
-          if (detail[value].key) {
-              userInput[detail[value].key] = detail[value].value
-          }
-      })
+    Object.keys(detail).map(value => {
+      if (detail[value].key) {
+        userInput[detail[value].key] = detail[value].value
+      }
+    })
 
-      await coreState.client.request(userUpdatePasswordMutationGQL, {
+    await coreState.client.mutate({
+      mutation: gql(userUpdatePasswordMutationGQL),
+      variables: {
         userPasswordInput: userInput
-      })
+      }
+    })
   }
 
   render() {
@@ -65,7 +69,7 @@ export class AuthResetPasswordForm {
           <corejam-box flex mb={8}>
             <corejam-box w={6}>
               <corejam-form-input
-                name="confirmPassword"
+                name="passwordConfirm"
                 type="password"
                 formId={this.updatePasswordFormId}
                 label="Confirm Password"

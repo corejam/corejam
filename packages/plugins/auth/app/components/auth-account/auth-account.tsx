@@ -29,7 +29,7 @@ export class AccountComponent {
             }
         })
 
-        await coreState.client.request(userUpdateGQL, {
+        await coreState.client.mutate(userUpdateGQL, {
             userInput
         })
     }

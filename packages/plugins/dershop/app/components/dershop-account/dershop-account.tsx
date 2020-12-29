@@ -129,7 +129,7 @@ export class AccountComponent {
                       <corejam-box mb={4}>
                         <corejam-base-link href="#" class="py-4 mb-1">
                           Personal details
-                                </corejam-base-link>
+                        </corejam-base-link>
                       </corejam-box>
                       <corejam-box mb={4}>
                         <corejam-base-link href="#" class="py-4 mb-1">
