@@ -134,5 +134,7 @@ export async function userUpdatePassword(user: UserDB, passwordInput: UpdatePass
       q.Update(q.Ref(q.Collection("users"), user.id), {
         credentials: { password: passwordInput.password }
       })
-    ).then((res: any) => res(true))
+    ).then((_res: any) => {
+      return true
+    })
 }

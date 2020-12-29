@@ -16,7 +16,7 @@ export declare type PluginResolver = {
   userByEmail(email: string): Promise<UserDB | null>;
   userAuthenticate(email: string, password: string): Promise<JWT>;
   userTokenRefresh(refreshToken: string): Promise<JWT>;
-  userUpdatePassword(user: UserDB, passwordInput: UpdatePasswordInput): Promise<Boolean>
+  userUpdatePassword(user: UserDB, passwordInput: UpdatePasswordInput): Promise<Boolean>;
 };
 
 export declare type MergedServerResolver = CoreResolver & PluginResolver;

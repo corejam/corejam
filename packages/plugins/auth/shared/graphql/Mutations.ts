@@ -53,7 +53,7 @@ export const userAddMutationGQL = `
 `;
 
 export const userUpdatePasswordMutationGQL = `
-  mutation UserUpdatePassword($userPasswordInput: UserPasswordInput!) {
+  mutation UserUpdatePassword($userPasswordInput: UpdatePasswordInput!) {
     userUpdatePassword(passwordInput: $userPasswordInput)
   }
 `;
@@ -84,5 +84,17 @@ export const verifyEmailGQL = `
       status
       active
     }
+  } 
+`
+
+export const requestPasswordResetGQL = `
+  mutation RequestPasswordReset($email: String!) {
+    userRequestPasswordReset(email: $email)
+  } 
+`
+
+export const passwordResetGQL = `
+  mutation PasswordReset($token: String!, $resetInput: ResetPasswordInput!) {
+    userResetPassword(token: $token, resetInput: $resetInput)
   } 
 `

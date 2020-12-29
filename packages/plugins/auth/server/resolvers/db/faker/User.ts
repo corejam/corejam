@@ -136,7 +136,6 @@ export async function userUpdatePassword(user: UserDB, passwordInput: UpdatePass
   return new Promise((res) => res(typeof hashedPass === "string"));
 }
 
-
 if (process.env.FAKER_MODULE === "auth") {
   if (users.length === 0) {
     for (let index = 0; index < 10; index++) {

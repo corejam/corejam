@@ -11,6 +11,8 @@ import PasswordResetConfirmed from "../../server/mail/PasswordResetConfirmed";
 import RegisterVerifyMail from "../../server/mail/RegisterVerify";
 import {
   meGQL,
+  passwordResetGQL,
+  requestPasswordResetGQL,
   userAuthenticateMutationGQL,
   userEditMutationGQL,
   userRegisterMutationGQL,
@@ -411,5 +413,103 @@ describe("Test Auth Plugin", () => {
     })).data.userVerify;
 
     expect(verify.status).toBe(STATUS.VERIFIED)
+  })
+
+  it("Can reset password", async () => {
+
+    const newUser: RegisterInput = {
+      email: faker.internet.email(),
+      password: "valid123Password@",
+      passwordConfirm: "valid123Password@",
+    };
+
+    const { mutate, models } = await testClient();
+
+    await mutate({
+      mutation: userRegisterMutationGQL,
+      variables: {
+        data: newUser,
+      },
+    });
+
+    /**
+     * request password reset
+     * expect password reset email to be sent
+     * 
+     * expect user.authReset to not be null
+     */
+    const server = CorejamServer()
+    const mockContext = () => ({
+      ...server.context({
+        req: {},
+        res: {}
+      }),
+      notify: Notify
+    })
+
+    const contextClient = await testClient({
+      req: { headers: {} }, res: new Response(new IncomingMessage(new Socket()))
+    }, mockContext)
+
+    const requestReset = await contextClient.mutate({
+      mutation: requestPasswordResetGQL,
+      variables: {
+        email: newUser.email,
+      },
+    });
+
+    expect(requestReset.data.userRequestPasswordReset).toBe(true)
+    expect(Notify.sendMail).toBeCalledTimes(1)
+
+    const userByEmail = await models.userByEmail(newUser.email) as UserDB;
+    expect(userByEmail.authReset).toBeDefined()
+
+    //@ts-ignore we are accessing a mock
+    const requestResultToken = Notify.sendMail.mock.calls[0][0].token
+
+    /**
+     * Expect to be able to use token to reset the password 
+     * expect the user object to no longer have user.authReset
+     * expect to no longer be able to login with old password
+     * expect to be able to login with new password 
+     */
+    const newPassword = "valid543Password@"
+    const resetReq = await contextClient.mutate({
+      mutation: passwordResetGQL,
+      variables: {
+        token: requestResultToken,
+        resetInput: {
+          password: newPassword,
+          passwordConfirm: newPassword,
+        }
+      },
+    });
+
+    expect(resetReq.data.userResetPassword).toBe(true)
+    expect(Notify.sendMail).toBeCalledTimes(2)
+
+
+    //Test login with old password 
+    const loginOldResponse = await mutate({
+      mutation: userAuthenticateMutationGQL,
+      variables: {
+        email: newUser.email,
+        password: newUser.password,
+      },
+    });
+
+    expect(loginOldResponse.errors[0]).toEqual(new AuthenticationError());
+
+    //Test new password
+    const loginResponse = await mutate({
+      mutation: userAuthenticateMutationGQL,
+      variables: {
+        email: newUser.email,
+        password: newPassword,
+      },
+    });
+
+    expect(loginResponse.data.userAuthenticate).toHaveProperty("user.email");
+    expect(loginResponse.data.userAuthenticate).toHaveProperty("token");
   })
 });

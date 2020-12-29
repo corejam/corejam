@@ -19,8 +19,6 @@ export class AccountComponent {
     }
 
     async updateProfile(detail) {
-        console.log(detail)
-
         const userInput = {};
 
         Object.keys(detail).map(value => {
