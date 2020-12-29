@@ -129,8 +129,10 @@ export async function userTokenRefresh(refreshToken: string): Promise<JWT> {
 }
 
 export async function userUpdatePassword(user: UserDB, passwordInput: UpdatePasswordInput): Promise<Boolean> {
-  const edited = await userEdit(user.id, { password: passwordInput.password })
-
-  //TODO better return boolean check
-  return new Promise(res => res(edited.id === user.id))
+  return FaunaClient()
+    .query(
+      q.Update(q.Ref(q.Collection("users"), user.id), {
+        credentials: { password: passwordInput.password }
+      })
+    ).then((res: any) => res(true))
 }
