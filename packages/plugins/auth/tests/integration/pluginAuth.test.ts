@@ -7,6 +7,7 @@ import { IncomingMessage } from "http";
 import { Socket } from "net";
 import * as sinon from "ts-sinon";
 import { AccountExistsError, AuthenticationError, InvalidEmailError, InvalidVerificationError } from "../../server/Errors";
+import PasswordResetConfirmed from "../../server/mail/PasswordResetConfirmed";
 import RegisterVerifyMail from "../../server/mail/RegisterVerify";
 import {
   meGQL,
@@ -261,7 +262,7 @@ describe("Test Auth Plugin", () => {
       res: mockResponse,
     });
 
-    await mutate({
+    const register = await mutate({
       mutation: userRegisterMutationGQL,
       variables: {
         data: registerValues,
@@ -276,15 +277,30 @@ describe("Test Auth Plugin", () => {
       },
     });
 
+    const server = CorejamServer()
+    const mockContext = () => ({
+      ...server.context({
+        req: {
+          headers: {
+            authorization: loginResponse.data.userAuthenticate.token,
+          },
+        },
+        res: {}
+      }),
+      notify: Notify
+    })
+
     //Make a request with token in header
     const authClient = await testClient({
+      //TODO fix typings, we actually set the headers in context above 
+      //so we dont need to insert them here again
       req: {
         headers: {
           authorization: loginResponse.data.userAuthenticate.token,
         },
       },
       res: new Response(new IncomingMessage(new Socket())),
-    });
+    }, mockContext);
 
     const updatePasswordRequest = await authClient.mutate({
       mutation: userUpdatePasswordMutationGQL,
@@ -294,6 +310,12 @@ describe("Test Auth Plugin", () => {
     });
 
     expect(updatePasswordRequest.data.userUpdatePassword).toBe(true)
+
+    expect(Notify.sendMail).toBeCalledTimes(1)
+
+    const context = mockContext() as MergedServerContext
+    const user = await context.models.userById(register.data.userRegister.id) as UserDB
+    expect(Notify.sendMail).toBeCalledWith(new PasswordResetConfirmed(user))
 
     const loginResponse2 = await (await testClient()).mutate({
       mutation: userAuthenticateMutationGQL,

@@ -2,6 +2,7 @@ import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { roles, STATUS, UserList } from "../../shared/types/User";
 import { AccountExistsError, InvalidEmailError, InvalidVerificationError } from "../Errors";
 import { checkUserHasRole, generateVerifyHash, validateAuthInput, validatePasswordCreate } from "../Functions";
+import PasswordResetConfirmed from "../mail/PasswordResetConfirmed";
 import RegisterVerifyMail from "../mail/RegisterVerify";
 
 function setRefreshHeaders(jwt, { req, res }) {
@@ -124,8 +125,15 @@ export default {
       return models.userCreate(args.userCreateInput);
     },
 
-    userUpdatePassword: async (_obj: any, args: any, { user, models }: MergedServerContext) => {
-      return models.userUpdatePassword(await user(), args.passwordInput)
+    userUpdatePassword: async (_obj: any, args: any, { user, models, notify }: MergedServerContext) => {
+      const currentUser = await user();
+      const updatePassword = await models.userUpdatePassword(currentUser, args.passwordInput)
+
+      if (updatePassword === true) {
+        notify.sendMail(new PasswordResetConfirmed(currentUser));
+      }
+
+      return updatePassword
     },
 
     me: async (_obj: any, _args: any, { user }: MergedServerContext) => {
