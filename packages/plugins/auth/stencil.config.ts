@@ -50,6 +50,7 @@ if (targets.includes("prerender")) {
   config.outputTargets.push({
     type: "www",
     empty: false,
+    prerenderConfig: './prerender.config.ts',
     serviceWorker: null,
     baseUrl: "http://localhost:3000",
   });

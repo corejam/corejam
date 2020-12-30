@@ -42,6 +42,7 @@ export class AuthLoginForm {
     return (
       <Host>
         <corejam-box p={8} max="md" mx="auto" px={4} lgPx={0} flex justify="between" mb={24}>
+          <corejam-error></corejam-error>
           <corejam-box w={5} mx="auto">
             <corejam-form-container name={this.formId}>
               <corejam-box>

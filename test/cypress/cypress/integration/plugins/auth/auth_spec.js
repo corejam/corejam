@@ -5,15 +5,7 @@ describe("Basic Authentication checks", function () {
     let password = "valid123Password@";
     let email = faker.internet.email();
 
-    cy.log("Register a user & Login");
-    cy.visit("/register");
-
-    cy.getTag("register-email").type(email);
-    cy.getTag("register-password").type(password);
-    cy.getTag("register-passwordConfirm").type(password);
-
-    cy.getTag("submit-register").click();
-    cy.url().should("include", "/login");
+    cy.register(email, password);
 
     cy.login(email, password, false);
     expect(cy.getCookie("refreshToken")).to.exist;
@@ -47,5 +39,38 @@ describe("Basic Authentication checks", function () {
 
     cy.wait(1000);
     cy.url().should("include", "/login");
+  });
+
+  it("Can change password", function () {
+    let oldPassword = "valid123Password@";
+    let newPassword = "valid123Password@123";
+    let email = faker.internet.email();
+
+    cy.register(email, oldPassword);
+    cy.login(email, oldPassword, true);
+
+    cy.visit("/account")
+
+    cy.getTag("updatePassword-oldPassword").type(oldPassword)
+    cy.getTag("updatePassword-password").type(newPassword)
+    cy.getTag("updatePassword-passwordConfirm").type(newPassword)
+
+    cy.getTag("submit-updatePassword").click();
+
+    sessionStorage.clear();
+    cy.clearCookies();
+    cy.clearCookie("refreshToken");
+    cy.clearLocalStorage();
+    cy.reload();
+
+    cy.visit("/login");
+    cy.getTag("login-email").type(email);
+    cy.getTag("login-password").type(oldPassword);
+    cy.getTag("submit-login").click();
+
+    cy.wait(1000);
+    cy.url().should("include", "/login");
+
+    cy.login(email, newPassword, true);
   });
 });

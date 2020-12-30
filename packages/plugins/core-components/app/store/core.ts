@@ -1,6 +1,7 @@
 import { InMemoryCache } from '@apollo/client/cache';
 import { ApolloClient } from '@apollo/client/core';
 import { createHttpLink } from "@apollo/client/link/http";
+import { ErrorLink } from "@apollo/client/link/error"
 import { createPersistedQueryLink } from "@apollo/link-persisted-queries";
 import { Build } from "@stencil/core";
 import { createStore } from "@stencil/store";
@@ -13,14 +14,36 @@ if (Build.isBrowser) {
     credentials: "include",
   });
 
+  /**
+   * When we receive an error sent down from the server we dispatch a custom event
+   * to trigger the corejam-error component to display
+   */
+  const errorLink = new ErrorLink(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      graphQLErrors.forEach(({ message, locations, path }) => {
+        if (message === "PersistedQueryNotFound") return;
+
+        const error = new CustomEvent('corejam:error', { detail: { msg: message } })
+        document.dispatchEvent(error)
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+        )
+      });
+      return null
+    }
+    if (networkError) console.log(`[Network error]: ${networkError}`);
+  })
+
   const link = createPersistedQueryLink({ useGETForHashedQueries: true })
     //@ts-ignore
-    .concat(httpLink);
+    .concat(errorLink)
+    //@ts-ignore
+    .concat(httpLink)
 
   client = new ApolloClient({
     cache: new InMemoryCache(),
     //@ts-ignore
-    link,
+    link
   });
 }
 
