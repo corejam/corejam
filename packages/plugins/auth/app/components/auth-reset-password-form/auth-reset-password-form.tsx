@@ -4,8 +4,7 @@ import gql from 'graphql-tag';
 import { userUpdatePasswordMutationGQL } from '../../../shared/graphql/Mutations';
 
 @Component({
-  tag: 'auth-reset-password-form',
-  shadow: true,
+  tag: 'auth-reset-password-form'
 })
 export class AuthResetPasswordForm {
 
@@ -86,8 +85,6 @@ export class AuthResetPasswordForm {
           </corejam-base-link>
         </corejam-form-container>
       </corejam-box>
-
     );
   }
-
 }

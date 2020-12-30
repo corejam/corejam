@@ -5,7 +5,6 @@ import { userUpdateGQL } from "../../../shared/graphql/Mutations";
 
 @Component({
     tag: "corejam-auth-account",
-    shadow: true,
 })
 export class AccountComponent {
 
