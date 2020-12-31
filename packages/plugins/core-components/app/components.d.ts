@@ -279,6 +279,7 @@ export namespace Components {
         "gapCol": GridType.Gap;
         "gapRow": GridType.Gap;
         "grid": Boolean;
+        "h": string;
         "lgAutoFlow": GridType.Flow;
         "lgCols": GridType.Cols;
         "lgColsEnd": GridType.ColsEnd;
@@ -286,6 +287,7 @@ export namespace Components {
         "lgGap": GridType.Gap;
         "lgGapCol": GridType.Gap;
         "lgGapRow": GridType.Gap;
+        "lgH": string;
         "lgRows": GridType.Rows;
         "lgRowsEnd": GridType.RowsEnd;
         "lgRowsStart": GridType.RowsStart;
@@ -298,11 +300,13 @@ export namespace Components {
         "mdGap": GridType.Gap;
         "mdGapCol": GridType.Gap;
         "mdGapRow": GridType.Gap;
+        "mdH": string;
         "mdRows": GridType.Rows;
         "mdRowsEnd": GridType.RowsEnd;
         "mdRowsStart": GridType.RowsStart;
         "mdTemplateColumns": GridType.TemplateColumns;
         "mdTemplateRows": GridType.TemplateRows;
+        "position": Position;
         "rows": GridType.Rows;
         "rowsEnd": GridType.RowsEnd;
         "rowsStart": GridType.RowsStart;
@@ -313,6 +317,7 @@ export namespace Components {
         "smGap": GridType.Gap;
         "smGapCol": GridType.Gap;
         "smGapRow": GridType.Gap;
+        "smH": string;
         "smRows": GridType.Rows;
         "smRowsEnd": GridType.RowsEnd;
         "smRowsStart": GridType.RowsStart;
@@ -327,6 +332,7 @@ export namespace Components {
         "xlGap": GridType.Gap;
         "xlGapCol": GridType.Gap;
         "xlGapRow": GridType.Gap;
+        "xlH": string;
         "xlRows": GridType.Rows;
         "xlRowsEnd": GridType.RowsEnd;
         "xlRowsStart": GridType.RowsStart;
@@ -346,6 +352,10 @@ export namespace Components {
     }
     interface CorejamInit {
         "router": any;
+    }
+    interface CorejamModal {
+        "message": string;
+        "type": "error" | "warning" | "success";
     }
     interface CorejamPagination {
         "paginator": any;
@@ -453,6 +463,12 @@ declare global {
         prototype: HTMLCorejamInitElement;
         new (): HTMLCorejamInitElement;
     };
+    interface HTMLCorejamModalElement extends Components.CorejamModal, HTMLStencilElement {
+    }
+    var HTMLCorejamModalElement: {
+        prototype: HTMLCorejamModalElement;
+        new (): HTMLCorejamModalElement;
+    };
     interface HTMLCorejamPaginationElement extends Components.CorejamPagination, HTMLStencilElement {
     }
     var HTMLCorejamPaginationElement: {
@@ -491,6 +507,7 @@ declare global {
         "corejam-grid": HTMLCorejamGridElement;
         "corejam-image": HTMLCorejamImageElement;
         "corejam-init": HTMLCorejamInitElement;
+        "corejam-modal": HTMLCorejamModalElement;
         "corejam-pagination": HTMLCorejamPaginationElement;
         "corejam-type": HTMLCorejamTypeElement;
         "corejam-ui-base": HTMLCorejamUiBaseElement;
@@ -772,6 +789,7 @@ declare namespace LocalJSX {
         "gapCol"?: GridType.Gap;
         "gapRow"?: GridType.Gap;
         "grid"?: Boolean;
+        "h"?: string;
         "lgAutoFlow"?: GridType.Flow;
         "lgCols"?: GridType.Cols;
         "lgColsEnd"?: GridType.ColsEnd;
@@ -779,6 +797,7 @@ declare namespace LocalJSX {
         "lgGap"?: GridType.Gap;
         "lgGapCol"?: GridType.Gap;
         "lgGapRow"?: GridType.Gap;
+        "lgH"?: string;
         "lgRows"?: GridType.Rows;
         "lgRowsEnd"?: GridType.RowsEnd;
         "lgRowsStart"?: GridType.RowsStart;
@@ -791,11 +810,13 @@ declare namespace LocalJSX {
         "mdGap"?: GridType.Gap;
         "mdGapCol"?: GridType.Gap;
         "mdGapRow"?: GridType.Gap;
+        "mdH"?: string;
         "mdRows"?: GridType.Rows;
         "mdRowsEnd"?: GridType.RowsEnd;
         "mdRowsStart"?: GridType.RowsStart;
         "mdTemplateColumns"?: GridType.TemplateColumns;
         "mdTemplateRows"?: GridType.TemplateRows;
+        "position"?: Position;
         "rows"?: GridType.Rows;
         "rowsEnd"?: GridType.RowsEnd;
         "rowsStart"?: GridType.RowsStart;
@@ -806,6 +827,7 @@ declare namespace LocalJSX {
         "smGap"?: GridType.Gap;
         "smGapCol"?: GridType.Gap;
         "smGapRow"?: GridType.Gap;
+        "smH"?: string;
         "smRows"?: GridType.Rows;
         "smRowsEnd"?: GridType.RowsEnd;
         "smRowsStart"?: GridType.RowsStart;
@@ -820,6 +842,7 @@ declare namespace LocalJSX {
         "xlGap"?: GridType.Gap;
         "xlGapCol"?: GridType.Gap;
         "xlGapRow"?: GridType.Gap;
+        "xlH"?: string;
         "xlRows"?: GridType.Rows;
         "xlRowsEnd"?: GridType.RowsEnd;
         "xlRowsStart"?: GridType.RowsStart;
@@ -839,6 +862,11 @@ declare namespace LocalJSX {
     }
     interface CorejamInit {
         "router"?: any;
+    }
+    interface CorejamModal {
+        "message"?: string;
+        "onCorejam:modal:close"?: (event: CustomEvent<any>) => void;
+        "type"?: "error" | "warning" | "success";
     }
     interface CorejamPagination {
         "paginator"?: any;
@@ -880,6 +908,7 @@ declare namespace LocalJSX {
         "corejam-grid": CorejamGrid;
         "corejam-image": CorejamImage;
         "corejam-init": CorejamInit;
+        "corejam-modal": CorejamModal;
         "corejam-pagination": CorejamPagination;
         "corejam-type": CorejamType;
         "corejam-ui-base": CorejamUiBase;
@@ -903,6 +932,7 @@ declare module "@stencil/core" {
             "corejam-grid": LocalJSX.CorejamGrid & JSXBase.HTMLAttributes<HTMLCorejamGridElement>;
             "corejam-image": LocalJSX.CorejamImage & JSXBase.HTMLAttributes<HTMLCorejamImageElement>;
             "corejam-init": LocalJSX.CorejamInit & JSXBase.HTMLAttributes<HTMLCorejamInitElement>;
+            "corejam-modal": LocalJSX.CorejamModal & JSXBase.HTMLAttributes<HTMLCorejamModalElement>;
             "corejam-pagination": LocalJSX.CorejamPagination & JSXBase.HTMLAttributes<HTMLCorejamPaginationElement>;
             "corejam-type": LocalJSX.CorejamType & JSXBase.HTMLAttributes<HTMLCorejamTypeElement>;
             "corejam-ui-base": LocalJSX.CorejamUiBase & JSXBase.HTMLAttributes<HTMLCorejamUiBaseElement>;

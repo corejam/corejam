@@ -5,6 +5,7 @@ import { ErrorLink } from "@apollo/client/link/error"
 import { createPersistedQueryLink } from "@apollo/link-persisted-queries";
 import { Build } from "@stencil/core";
 import { createStore } from "@stencil/store";
+import { Components } from "../components"
 
 let client;
 
@@ -28,6 +29,12 @@ if (Build.isBrowser) {
         console.log(
           `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
         )
+
+        const modal = document.createElement("corejam-modal") as Components.CorejamModal & HTMLElement
+        modal.message = message
+        modal.type = "error"
+        document.body.appendChild(modal)
+
       });
       return null
     }
