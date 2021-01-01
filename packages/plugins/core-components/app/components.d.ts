@@ -227,7 +227,7 @@ export namespace Components {
     interface CorejamDataProvider {
         "url": string;
     }
-    interface CorejamError {
+    interface CorejamFlash {
     }
     interface CorejamFormContainer {
         "name": string;
@@ -415,11 +415,11 @@ declare global {
         prototype: HTMLCorejamDataProviderElement;
         new (): HTMLCorejamDataProviderElement;
     };
-    interface HTMLCorejamErrorElement extends Components.CorejamError, HTMLStencilElement {
+    interface HTMLCorejamFlashElement extends Components.CorejamFlash, HTMLStencilElement {
     }
-    var HTMLCorejamErrorElement: {
-        prototype: HTMLCorejamErrorElement;
-        new (): HTMLCorejamErrorElement;
+    var HTMLCorejamFlashElement: {
+        prototype: HTMLCorejamFlashElement;
+        new (): HTMLCorejamFlashElement;
     };
     interface HTMLCorejamFormContainerElement extends Components.CorejamFormContainer, HTMLStencilElement {
     }
@@ -499,7 +499,7 @@ declare global {
         "corejam-button": HTMLCorejamButtonElement;
         "corejam-data-fetcher": HTMLCorejamDataFetcherElement;
         "corejam-data-provider": HTMLCorejamDataProviderElement;
-        "corejam-error": HTMLCorejamErrorElement;
+        "corejam-flash": HTMLCorejamFlashElement;
         "corejam-form-container": HTMLCorejamFormContainerElement;
         "corejam-form-input": HTMLCorejamFormInputElement;
         "corejam-form-select": HTMLCorejamFormSelectElement;
@@ -731,7 +731,7 @@ declare namespace LocalJSX {
     interface CorejamDataProvider {
         "url"?: string;
     }
-    interface CorejamError {
+    interface CorejamFlash {
     }
     interface CorejamFormContainer {
         "name"?: string;
@@ -900,7 +900,7 @@ declare namespace LocalJSX {
         "corejam-button": CorejamButton;
         "corejam-data-fetcher": CorejamDataFetcher;
         "corejam-data-provider": CorejamDataProvider;
-        "corejam-error": CorejamError;
+        "corejam-flash": CorejamFlash;
         "corejam-form-container": CorejamFormContainer;
         "corejam-form-input": CorejamFormInput;
         "corejam-form-select": CorejamFormSelect;
@@ -924,7 +924,7 @@ declare module "@stencil/core" {
             "corejam-button": LocalJSX.CorejamButton & JSXBase.HTMLAttributes<HTMLCorejamButtonElement>;
             "corejam-data-fetcher": LocalJSX.CorejamDataFetcher & JSXBase.HTMLAttributes<HTMLCorejamDataFetcherElement>;
             "corejam-data-provider": LocalJSX.CorejamDataProvider & JSXBase.HTMLAttributes<HTMLCorejamDataProviderElement>;
-            "corejam-error": LocalJSX.CorejamError & JSXBase.HTMLAttributes<HTMLCorejamErrorElement>;
+            "corejam-flash": LocalJSX.CorejamFlash & JSXBase.HTMLAttributes<HTMLCorejamFlashElement>;
             "corejam-form-container": LocalJSX.CorejamFormContainer & JSXBase.HTMLAttributes<HTMLCorejamFormContainerElement>;
             "corejam-form-input": LocalJSX.CorejamFormInput & JSXBase.HTMLAttributes<HTMLCorejamFormInputElement>;
             "corejam-form-select": LocalJSX.CorejamFormSelect & JSXBase.HTMLAttributes<HTMLCorejamFormSelectElement>;

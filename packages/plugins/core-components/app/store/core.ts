@@ -6,6 +6,7 @@ import { createPersistedQueryLink } from "@apollo/link-persisted-queries";
 import { Build } from "@stencil/core";
 import { createStore } from "@stencil/store";
 import { Components } from "../components"
+import { FlashEvent, FlashTypes } from '../utils/events';
 
 let client;
 
@@ -24,16 +25,24 @@ if (Build.isBrowser) {
       graphQLErrors.forEach(({ message, locations, path }) => {
         if (message === "PersistedQueryNotFound") return;
 
-        const error = new CustomEvent('corejam:error', { detail: { msg: message } })
+        const error = new FlashEvent(FlashTypes.ERROR, message)
         document.dispatchEvent(error)
         console.log(
           `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
         )
 
-        const modal = document.createElement("corejam-modal") as Components.CorejamModal & HTMLElement
-        modal.message = message
-        modal.type = "error"
-        document.body.appendChild(modal)
+        /**
+         * If there is no defined flash space within the currenty route we
+         * default back to the modal
+         */
+        const checkForExistingFlash = document.querySelectorAll("corejam-flash:not([data-flash='isolated'])")
+
+        if (checkForExistingFlash.length === 0) {
+          const modal = document.createElement("corejam-modal") as Components.CorejamModal & HTMLElement
+          modal.message = message
+          modal.type = "error"
+          document.body.appendChild(modal)
+        }
 
       });
       return null

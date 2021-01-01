@@ -118,6 +118,7 @@ export class CorejamIdentity {
               </corejam-box>
             ) : (
                 <corejam-form-container name={this.formId}>
+                  <corejam-flash data-flash="isolated"></corejam-flash>
                   <corejam-box pb={5} flex direction="col">
                     <corejam-box w={12}>
                       <corejam-form-input name="email" type="text" formId={this.formId} label="Email" />
