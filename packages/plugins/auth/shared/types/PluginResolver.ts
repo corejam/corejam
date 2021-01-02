@@ -1,6 +1,6 @@
 import { ServerContext } from "@corejam/base/dist/typings/Server";
 import { CoreResolver } from "@corejam/base/dist/typings/CoreResolver";
-import { JWT, RegisterInput, UserCreateInput, UserDB, UserInput } from "./User";
+import { JWT, RegisterInput, UpdatePasswordInput, UserCreateInput, UserDB, UserInput } from "./User";
 import { PluginServerContext as NotifyContext } from "@corejam/notify/dist/server/types/PluginResolver"
 
 /**
@@ -16,6 +16,7 @@ export declare type PluginResolver = {
   userByEmail(email: string): Promise<UserDB | null>;
   userAuthenticate(email: string, password: string): Promise<JWT>;
   userTokenRefresh(refreshToken: string): Promise<JWT>;
+  userUpdatePassword(user: UserDB, passwordInput: UpdatePasswordInput): Promise<Boolean>;
 };
 
 export declare type MergedServerResolver = CoreResolver & PluginResolver;

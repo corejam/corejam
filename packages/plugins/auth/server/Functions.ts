@@ -8,7 +8,7 @@ import {
   UnauthorizedException,
   AuthenticationError,
 } from "./Errors";
-import { JWT, UserDB } from "../shared/types/User";
+import { JWT, UpdatePasswordInput, UserDB } from "../shared/types/User";
 import * as crypto from "crypto"
 
 //Set some defaults
@@ -67,7 +67,7 @@ export function validateAuthInput(email: string) {
   }
 }
 
-export function validatePasswordCreate(input) {
+export function validatePasswordCreate(input: UpdatePasswordInput) {
   if (input.password !== input.passwordConfirm) {
     throw new PasswordsMustMatchException();
   }

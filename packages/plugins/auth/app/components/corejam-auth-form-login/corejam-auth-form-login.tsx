@@ -41,7 +41,8 @@ export class AuthLoginForm {
   render() {
     return (
       <Host>
-        <corejam-box p={8} max="md" mx="auto" px={4} lgPx={0} flex justify="between" mb={24}>
+        <corejam-box p={8} max="md" mx="auto" px={4} lgPx={0} flex direction="col" justify="between" mb={24}>
+          <corejam-flash></corejam-flash>
           <corejam-box w={5} mx="auto">
             <corejam-form-container name={this.formId}>
               <corejam-box>

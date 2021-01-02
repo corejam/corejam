@@ -52,6 +52,21 @@ export const userAddMutationGQL = `
   }
 `;
 
+export const userUpdatePasswordMutationGQL = `
+  mutation UserUpdatePassword($userPasswordInput: UpdatePasswordInput!) {
+    userUpdatePassword(passwordInput: $userPasswordInput)
+  }
+`;
+
+export const userUpdateGQL = `
+  mutation userUpdate($userInput: UserUpdateInput!) {
+    userUpdate(userUpdateInput: $userInput) {
+      id
+      email
+    }
+  }
+`;
+
 export const meGQL = `
     mutation {
         me {
@@ -69,5 +84,17 @@ export const verifyEmailGQL = `
       status
       active
     }
+  } 
+`
+
+export const requestPasswordResetGQL = `
+  mutation RequestPasswordReset($email: String!) {
+    userRequestPasswordReset(email: $email)
+  } 
+`
+
+export const passwordResetGQL = `
+  mutation PasswordReset($token: String!, $resetInput: ResetPasswordInput!) {
+    userResetPassword(token: $token, resetInput: $resetInput)
   } 
 `

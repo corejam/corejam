@@ -83,16 +83,16 @@ export default async () => {
         data.orders.push(createdOrder);
     }
 
-    const user = await models.userRegister({
+    let user = await models.userRegister({
         firstName: "Test",
         lastName: "Account",
         email: "test@test.com",
         password: "valid123Password@",
         passwordConfirm: "valid123Password@",
     })
+    user = await models.userEdit(user.id, { role: [roles.ADMIN] }) as UserDB;
 
     data.users.push(user)
-    await models.userEdit(user.id, { role: [roles.ADMIN] });
 
     return data
 }

@@ -3,7 +3,7 @@ import * as bcrypt from "bcryptjs";
 import { random } from "faker";
 import { decodeJWT, generateTokensForUser, hashPassword } from "../../../Functions";
 import { AuthenticationError } from "../../../Errors";
-import { JWT, RegisterInput, UserCreateInput, UserDB, UserInput, roles, STATUS } from "../../../../shared/types/User";
+import { JWT, RegisterInput, UserCreateInput, UserDB, UserInput, roles, STATUS, UpdatePasswordInput } from "../../../../shared/types/User";
 import { generateUser } from "./Generator";
 
 export let users = [] as UserDB[];
@@ -121,6 +121,19 @@ export async function userTokenRefresh(refreshToken: string): Promise<JWT> {
   }
 
   return await generateTokensForUser(user, userEdit);
+}
+
+export async function userUpdatePassword(user: UserDB, passwordInput: UpdatePasswordInput): Promise<Boolean> {
+  const hashedPass = await hashPassword(passwordInput.password);
+
+  users = users.map((userDb: UserDB) => {
+    if (user.id === userDb.id) {
+      userDb = { ...userDb, password: hashedPass };
+    }
+    return userDb;
+  });
+
+  return new Promise((res) => res(typeof hashedPass === "string"));
 }
 
 if (process.env.FAKER_MODULE === "auth") {

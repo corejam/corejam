@@ -1,7 +1,6 @@
 {
   "name": "@corejam/notify",
   "version": "0.0.1",
-  "private": true,
   "license": "MIT",
   "description": "This package provides Email, SMS & Push notifications to your Corejam applications",
   "main": "dist/server/index.js",

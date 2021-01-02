@@ -31,6 +31,7 @@ module.exports = {
     coverageReporters: ["clover", "lcov"],
     collectCoverage: true,
     rootDir: process.cwd(),
+    resetMocks: true,
     coverageDirectory: `<rootDir>/tests/.coverage/db/${DBDriverPaths[DB_DRIVER].coverageDirectory}`,
     collectCoverageFrom: [
         `<rootDir>/src/**/*.ts`,
