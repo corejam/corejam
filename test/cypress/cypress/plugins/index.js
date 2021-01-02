@@ -20,6 +20,7 @@ module.exports = (on, config) => {
       console.log("disabled shm");
       launchOptions.args.push("--disable-dev-shm-usage");
       launchOptions.args.push('--disable-gpu');
+      launchOptions.args.push('--js-flags=--expose-gc');
     }
 
     return launchOptions;
