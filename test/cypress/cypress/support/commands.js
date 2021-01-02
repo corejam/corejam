@@ -34,7 +34,7 @@ Cypress.Commands.add("login", (email, password, expectIdentity = true) => {
   cy.getTag("login-password").type(password)
   cy.getTag("submit-login").click()
 
-  cy.wait(500);
+  cy.wait(1000);
   cy.url().should("eq", Cypress.config().baseUrl + "/");
 
   if (expectIdentity) cy.getTag("identity-email").invoke("text").should("be.equal", email)
