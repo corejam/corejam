@@ -297,7 +297,7 @@ jobs:
           vercel alias $DEPLOYMENT $DEPLOYED_URL --token $ZEIT_TOKEN --scope dershop
           wget $DEPLOYED_URL
           cd ../../test/cypress
-          CYPRESS_baseUrl=https://$DEPLOYED_URL cypress run --spec "./cypress/integration/dershop/**/*"
+          CYPRESS_baseUrl=https://$DEPLOYED_URL cypress run --spec "./cypress/integration/plugins/dershop/**/*"
         env: # Or as an environment variable
           SECRET_KEY: ${{ secrets.SECRET }}
           GITHUB_SHA: ${{ github.sha }}
