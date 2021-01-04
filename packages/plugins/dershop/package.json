@@ -74,7 +74,7 @@
     "deep-parse-json": "1.0.1",
     "faker": "5.1.0",
     "faunadb": "4.0.0",
-    "fuse.js": "6.4.3",
+    "fuse.js": "6.4.5",
     "graphql-tag": "2.11.0",
     "stencil-router-v2": "0.6.0",
     "xstate": "4.15.1"
