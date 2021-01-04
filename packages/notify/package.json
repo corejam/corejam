@@ -34,7 +34,7 @@
     ]
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "3.0.0",
+    "@aws-sdk/client-ses": "3.1.0",
     "nodemailer": "6.4.17"
   }
 }
