@@ -30,7 +30,7 @@ We currently offer a bootstrap script to launch a new FaunaDB and have it bootst
 Head over to [FaunaDB](https://fauna.com/) and under Account settings generate a new `Admin Key`. We will use this to bootstrap a new db, generate a new key and add data.
 
 ```bash
-$ cd packages/plugins/dershop
+$ cd packages/dershop
 $ node tests/bootstrap.js --help
   Usage: bootstrap.js [options] [command]
 

@@ -1,5 +1,8 @@
 {
-  "packages": ["packages/*", "packages/plugins/*", "examples/*"],
+  "packages": [
+    "packages/*",
+    "examples/*"
+  ],
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
@@ -14,11 +17,17 @@
   "command": {
     "version": {
       "exact": true,
-      "allowBranch": ["master", "next"]
+      "allowBranch": [
+        "master",
+        "next"
+      ]
     },
     "publish": {
       "npmClient": "npm",
-      "allowBranch": ["master", "next"],
+      "allowBranch": [
+        "master",
+        "next"
+      ],
       "registry": "https://registry.npmjs.org/",
       "conventionalCommits": true,
       "message": "chore(release): Release"

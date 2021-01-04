@@ -83,7 +83,7 @@ A hassle free plug and play JWT authentication package for your Corejam applicat
 <img width="50%" src="https://dershop.dev/static/images/previewAlpha.jpg" />
 </p>
 
-Serverless webshop built with Corejam. [Read more](packages/plugins/dershop/README.md)
+Serverless webshop built with Corejam. [Read more](packages/dershop/README.md)
 
 We currently only build React output targets but we plan on supporting all Stencil.js supported targets. Feel free to contact us if you want to help out.
 

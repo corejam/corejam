@@ -45,7 +45,6 @@
     "prettier": "2.2.1"
   },
   "workspaces": [
-    "packages/plugins/*",
     "packages/*",
     "examples/*"
   ],
