@@ -80,50 +80,46 @@ export class Reset {
     render() {
         return (
             <Host>
-                <corejam-box>
-                    {this.resetWithToken == false ?
-                        <Fragment>
-                            {this.resetRequested == false ?
-                                <Fragment>
-                                    <corejam-box bWidthBottom={1} bColor="gray-400" mb={8} mt={12}>
-                                        <corejam-type as="h3" size="xl">
-                                            Update Password
+                <corejam-box p={8} max="md" mx="auto" px={4} lgPx={0} flex justify="between" mb={24}>
+                    <corejam-box w={5} mx="auto">
+                        {this.resetWithToken == false ?
+                            <Fragment>
+                                {this.resetRequested == false ?
+                                    <Fragment>
+                                        <corejam-box bWidthBottom={1} bColor="gray-400" mb={8} mt={12}>
+                                            <corejam-type as="h3" size="xl">
+                                                Reset Password
                                          </corejam-type>
-                                    </corejam-box>
-                                    <corejam-form-container name={this.resetEmailFormId}>
-                                        <corejam-box flex mb={8}>
-                                            <corejam-box w={6}>
-                                                <corejam-form-input
-                                                    name="email"
-                                                    type="text"
-                                                    formId={this.resetEmailFormId}
-                                                    label="Your Email"
-                                                    placeholder="Your email"
-                                                ></corejam-form-input>
-                                            </corejam-box>
                                         </corejam-box>
-                                        <corejam-base-link href="#">
-                                            <corejam-form-submit formId={this.resetEmailFormId} >
-                                                <corejam-type size="sm" weight="bold" transform="uppercase" decoration="underline">
-                                                    Reset
-                                </corejam-type>
-                                            </corejam-form-submit>
-                                        </corejam-base-link>
-                                    </corejam-form-container>
-                                </Fragment>
-                                : <corejam-type>Please check your mail</corejam-type>}
-                        </Fragment>
-                        : <Fragment>
-                            {this.resetCompleted == false ?
-                                <Fragment>
-                                    <corejam-box bWidthBottom={1} bColor="gray-400" mb={8} mt={12}>
-                                        <corejam-type as="h3" size="xl">
-                                            Update Password
+                                        <corejam-form-container name={this.resetEmailFormId}>
+                                            <corejam-form-input
+                                                name="email"
+                                                type="text"
+                                                formId={this.resetEmailFormId}
+                                                label="Your Email"
+                                                placeholder="Your email"
+                                            ></corejam-form-input>
+                                            <corejam-base-link href="#">
+                                                <corejam-form-submit formId={this.resetEmailFormId} >
+                                                    <corejam-type size="sm" weight="bold" transform="uppercase" decoration="underline">
+                                                        Reset
+                                                </corejam-type>
+                                                </corejam-form-submit>
+                                            </corejam-base-link>
+                                        </corejam-form-container>
+                                    </Fragment>
+                                    : <corejam-modal message="Please check your mail" type="success"></corejam-modal>}
+                            </Fragment>
+                            : <Fragment>
+                                {this.resetCompleted == false ?
+                                    <Fragment>
+                                        <corejam-box bWidthBottom={1} bColor="gray-400" mb={8} mt={12}>
+                                            <corejam-type as="h3" size="xl">
+                                                Update Password
                                      </corejam-type>
-                                    </corejam-box>
-                                    <corejam-form-container name={this.resetPasswordFormId}>
-                                        <corejam-box flex mb={8}>
-                                            <corejam-box w={6}>
+                                        </corejam-box>
+                                        <corejam-form-container name={this.resetPasswordFormId}>
+                                            <corejam-box flex mb={8}>
                                                 <corejam-form-input
                                                     name="password"
                                                     type="password"
@@ -132,9 +128,7 @@ export class Reset {
                                                     placeholder="Password"
                                                 ></corejam-form-input>
                                             </corejam-box>
-                                        </corejam-box>
-                                        <corejam-box flex mb={8}>
-                                            <corejam-box w={6}>
+                                            <corejam-box flex mb={8}>
                                                 <corejam-form-input
                                                     name="passwordConfirm"
                                                     type="password"
@@ -143,21 +137,21 @@ export class Reset {
                                                     placeholder="Confirm Password"
                                                 ></corejam-form-input>
                                             </corejam-box>
-                                        </corejam-box>
-                                        <corejam-base-link href="#">
-                                            <corejam-form-submit formId={this.resetPasswordFormId} >
-                                                <corejam-type size="sm" weight="bold" transform="uppercase" decoration="underline">
-                                                    Reset
+                                            <corejam-base-link href="#">
+                                                <corejam-form-submit formId={this.resetPasswordFormId} >
+                                                    <corejam-type size="sm" weight="bold" transform="uppercase" decoration="underline">
+                                                        Reset
                                             </corejam-type>
-                                            </corejam-form-submit>
-                                        </corejam-base-link>
-                                    </corejam-form-container>
-                                </Fragment>
-                                : <corejam-type>Please check your mail</corejam-type>}
-                        </Fragment>
-                    }
+                                                </corejam-form-submit>
+                                            </corejam-base-link>
+                                        </corejam-form-container>
+                                    </Fragment>
+                                    : <corejam-type>Please check your mail</corejam-type>}
+                            </Fragment>
+                        }
+                    </corejam-box>
                 </corejam-box>
-            </Host >
+            </Host>
         );
     }
 }

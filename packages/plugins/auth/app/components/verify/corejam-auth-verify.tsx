@@ -31,7 +31,10 @@ export class VerifyComponent {
         return (
             <Host>
                 <corejam-box mx="auto">
-                    {this.verifyState ? "verified" : "waiting"}
+                    {this.verifyState ?
+                        <corejam-modal message="Verified" type="success"></corejam-modal>
+                        : "waiting"
+                    }
                 </corejam-box>
             </Host>
         );

@@ -87,7 +87,9 @@ export class CorejamIdentity {
       <Host>
         <corejam-box position="relative" flex direction="row" justify="end">
           {authStore.identity ? (
-            <corejam-type data-cy="identity-email">{authStore.identity.user.email}</corejam-type>
+            <corejam-box pr={3}>
+              <corejam-type data-cy="identity-email">{authStore.identity.user.email}</corejam-type>
+            </corejam-box>
           ) : null}
           <corejam-icons-account onClick={() => this.toggleMenu()} />
           <corejam-box
@@ -119,18 +121,22 @@ export class CorejamIdentity {
             ) : (
                 <corejam-form-container name={this.formId}>
                   <corejam-flash data-flash="isolated"></corejam-flash>
-                  <corejam-box pb={5} flex direction="col">
+                  <corejam-box pb={3} flex direction="col">
                     <corejam-box w={12}>
                       <corejam-form-input name="email" type="text" formId={this.formId} label="Email" />
                       <corejam-form-input name="password" type="password" formId={this.formId} label="Password" />
                     </corejam-box>
-                    <corejam-box w={12} mt={8}>
-                      <corejam-form-submit formId={this.formId}>
-                        <corejam-button type="submit" bg="black-900" color="white" pl="5" pr="5" pt="3" pb="3">
-                          Login
-                      </corejam-button>{" "}
-                      or Register
-                    </corejam-form-submit>
+                    <corejam-box flex direction="row" w={12} mt={4}>
+                      <corejam-box w={6} bg="gray-900" rounded="md" flex justify="center">
+                        <corejam-form-submit formId={this.formId}>
+                          <corejam-button type="submit" color="white" pl="5" pr="5" pt="3" pb="3">
+                            <corejam-type style={{ color: "white" }}>Login</corejam-type>
+                          </corejam-button>
+                        </corejam-form-submit>
+                      </corejam-box>
+                      <corejam-box w={6} flex justify="center" items="center">
+                        <corejam-base-link href="/register">Register</corejam-base-link>
+                      </corejam-box>
                     </corejam-box>
                   </corejam-box>
                 </corejam-form-container>

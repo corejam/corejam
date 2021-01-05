@@ -80,7 +80,7 @@ export class AuthResetPasswordForm {
             <corejam-form-submit formId={this.updatePasswordFormId} >
               <corejam-type size="sm" weight="bold" transform="uppercase" decoration="underline">
                 Save
-            </corejam-type>
+              </corejam-type>
             </corejam-form-submit>
           </corejam-base-link>
         </corejam-form-container>
