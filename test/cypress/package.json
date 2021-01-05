@@ -9,7 +9,7 @@
     "cy:open": "cypress open --config watchForFileChanges=true"
   },
   "devDependencies": {
-    "cypress": "6.2.0",
+    "cypress": "6.2.1",
     "cypress-file-upload": "4.0.7",
     "faker": "5.1.0"
   }
