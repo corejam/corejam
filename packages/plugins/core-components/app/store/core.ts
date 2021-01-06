@@ -1,11 +1,12 @@
 import { InMemoryCache } from '@apollo/client/cache';
 import { ApolloClient } from '@apollo/client/core';
+import { ErrorLink } from "@apollo/client/link/error";
 import { createHttpLink } from "@apollo/client/link/http";
-import { ErrorLink } from "@apollo/client/link/error"
-import { createPersistedQueryLink } from "@apollo/link-persisted-queries";
+import { createPersistedQueryLink } from "@apollo/client/link/persisted-queries";
 import { Build } from "@stencil/core";
 import { createStore } from "@stencil/store";
-import { Components } from "../components"
+import { sha256 } from 'crypto-hash';
+import { Components } from "../components";
 import { FlashEvent, FlashTypes } from '../utils/events';
 
 let client;
@@ -50,15 +51,13 @@ if (Build.isBrowser) {
     if (networkError) console.log(`[Network error]: ${networkError}`);
   })
 
-  const link = createPersistedQueryLink({ useGETForHashedQueries: true })
-    //@ts-ignore
-    .concat(errorLink)
-    //@ts-ignore
-    .concat(httpLink)
+  const link = createPersistedQueryLink({
+    useGETForHashedQueries: true,
+    sha256
+  }).concat(errorLink).concat(httpLink)
 
   client = new ApolloClient({
     cache: new InMemoryCache(),
-    //@ts-ignore
     link
   });
 }
