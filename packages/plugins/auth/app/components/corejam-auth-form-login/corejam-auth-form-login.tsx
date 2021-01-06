@@ -55,10 +55,15 @@ export class AuthLoginForm {
                     label="Password"
                   ></corejam-form-input>
                 </corejam-box>
-                <corejam-box>
-                  <corejam-form-submit formId={this.formId}>
-                    <button type="submit">Login</button>
-                  </corejam-form-submit>
+                <corejam-box flex direction="col">
+                  <corejam-box>
+                    <corejam-form-submit formId={this.formId}>
+                      <button type="submit">Login</button>
+                    </corejam-form-submit>
+                  </corejam-box>
+                  <corejam-box>
+                    <corejam-base-link href="/login/reset">Reset Password</corejam-base-link>
+                  </corejam-box>
                 </corejam-box>
               </corejam-box>
             </corejam-form-container>
