@@ -39,7 +39,18 @@ jobs:
           API_ORIGIN=http://localhost:3000 yarn --cwd packages/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/run/web-components packages/rollup-plugin/dist packages/notify/dist packages/base/dist packages/auth/dist packages/auth/www packages/dershop/dist packages/canvas/dist
+      - run: tar -czf artifact.tar node_modules \
+          examples/nextjs \
+          packages/cli/dist \
+          packages/run/web-components \
+          packages/rollup-plugin/dist \
+          packages/notify/dist \
+          packages/base/dist \
+          packages/auth/dist \
+          packages/auth/www \
+          packages/dershop/dist \
+          packages/canvas/dist \
+          packages/derblog/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -94,6 +105,9 @@ jobs:
         env: # Or as an environment variable
           SECRET_KEY: ${{ secrets.SECRET }}
           GITHUB_SHA: ${{ github.sha }}
+      - run: |
+          cd packages/derblog && yarn corejam init
+          yarn test
       - uses: codecov/codecov-action@v1
         with:
           directory: packages # optional

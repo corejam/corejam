@@ -1,0 +1,17 @@
+type BlogArticle {
+  title: String!
+}
+
+extend type Query {
+  allArticles: [BlogArticle]
+}
+
+extend type Mutation {
+  createBlogArticle(articleCreateInput: BlogArticleCreate!): BlogArticle
+}
+
+input BlogArticleCreate {
+  title: String!
+  description: String,
+  content: String
+}
