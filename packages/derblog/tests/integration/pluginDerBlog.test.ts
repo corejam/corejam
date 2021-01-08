@@ -20,4 +20,10 @@ describe("Test DerBlog", () => {
     expect(returnedPagination.length).toBeGreaterThan(0);
   });
 
+  it("create blog post", async () => {
+    const returnedPagination: BlogArticleDB[] = await models.getAllBlogPosts();
+
+    expect(returnedPagination.length).toBeGreaterThan(0);
+  });
+
 });

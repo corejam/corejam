@@ -6,16 +6,27 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface DerblogArticleBox {
+    }
     interface DerblogFooter {
     }
     interface DerblogHeader {
     }
     interface DerblogLayout {
     }
+    interface DerblogList {
+        "page": number;
+    }
     interface DerblogRouteIndex {
     }
 }
 declare global {
+    interface HTMLDerblogArticleBoxElement extends Components.DerblogArticleBox, HTMLStencilElement {
+    }
+    var HTMLDerblogArticleBoxElement: {
+        prototype: HTMLDerblogArticleBoxElement;
+        new (): HTMLDerblogArticleBoxElement;
+    };
     interface HTMLDerblogFooterElement extends Components.DerblogFooter, HTMLStencilElement {
     }
     var HTMLDerblogFooterElement: {
@@ -34,6 +45,12 @@ declare global {
         prototype: HTMLDerblogLayoutElement;
         new (): HTMLDerblogLayoutElement;
     };
+    interface HTMLDerblogListElement extends Components.DerblogList, HTMLStencilElement {
+    }
+    var HTMLDerblogListElement: {
+        prototype: HTMLDerblogListElement;
+        new (): HTMLDerblogListElement;
+    };
     interface HTMLDerblogRouteIndexElement extends Components.DerblogRouteIndex, HTMLStencilElement {
     }
     var HTMLDerblogRouteIndexElement: {
@@ -41,25 +58,34 @@ declare global {
         new (): HTMLDerblogRouteIndexElement;
     };
     interface HTMLElementTagNameMap {
+        "derblog-article-box": HTMLDerblogArticleBoxElement;
         "derblog-footer": HTMLDerblogFooterElement;
         "derblog-header": HTMLDerblogHeaderElement;
         "derblog-layout": HTMLDerblogLayoutElement;
+        "derblog-list": HTMLDerblogListElement;
         "derblog-route-index": HTMLDerblogRouteIndexElement;
     }
 }
 declare namespace LocalJSX {
+    interface DerblogArticleBox {
+    }
     interface DerblogFooter {
     }
     interface DerblogHeader {
     }
     interface DerblogLayout {
     }
+    interface DerblogList {
+        "page"?: number;
+    }
     interface DerblogRouteIndex {
     }
     interface IntrinsicElements {
+        "derblog-article-box": DerblogArticleBox;
         "derblog-footer": DerblogFooter;
         "derblog-header": DerblogHeader;
         "derblog-layout": DerblogLayout;
+        "derblog-list": DerblogList;
         "derblog-route-index": DerblogRouteIndex;
     }
 }
@@ -67,9 +93,11 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "derblog-article-box": LocalJSX.DerblogArticleBox & JSXBase.HTMLAttributes<HTMLDerblogArticleBoxElement>;
             "derblog-footer": LocalJSX.DerblogFooter & JSXBase.HTMLAttributes<HTMLDerblogFooterElement>;
             "derblog-header": LocalJSX.DerblogHeader & JSXBase.HTMLAttributes<HTMLDerblogHeaderElement>;
             "derblog-layout": LocalJSX.DerblogLayout & JSXBase.HTMLAttributes<HTMLDerblogLayoutElement>;
+            "derblog-list": LocalJSX.DerblogList & JSXBase.HTMLAttributes<HTMLDerblogListElement>;
             "derblog-route-index": LocalJSX.DerblogRouteIndex & JSXBase.HTMLAttributes<HTMLDerblogRouteIndexElement>;
         }
     }

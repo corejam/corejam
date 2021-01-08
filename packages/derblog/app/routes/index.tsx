@@ -7,7 +7,7 @@ export class Index {
   render() {
     return (
       <Host>
-        
+        <derblog-list page={1}></derblog-list>
       </Host>
     );
   }
