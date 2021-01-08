@@ -1,5 +1,4 @@
 import { Component, h, Prop, State, Watch } from "@stencil/core";
-import { Button } from "./types";
 
 @Component({
   tag: "corejam-button",
@@ -19,7 +18,7 @@ export class CorejamButton {
   @Prop({ reflect: true }) outline = "none";
   @Prop({ reflect: true }) hoverOutline = "none";
   @Prop({ reflect: true }) focusOutline = "none";
-  @Prop({ reflect: true }) type: Button.Type = "button";
+  @Prop({ reflect: true }) type: "a" | "button" | "reset" = "button";
   @Prop({ reflect: true }) color: string;
   @Prop({ reflect: true }) hoverColor: string;
   @Prop({ reflect: true }) focusColor: string;
