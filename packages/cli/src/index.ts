@@ -97,8 +97,9 @@ prog.command("test:wc").action(async () => {
 prog
   .command("init")
   .describe("add `corejam init` as postInstall hook in your package.json")
-  .action(async () => {
-    await corejamInit();
+  .option("path", "Set a custom path to the root directory", process.cwd())
+  .action(async (options) => {
+    await corejamInit(options);
   });
 
 prog
@@ -106,7 +107,7 @@ prog
   .option("-l, --log", "Log output to console", false)
   .describe("build static html from app")
   .action(async (opts) => {
-    await corejamInit();
+    await corejamInit(opts);
     await buildStatic(opts);
   });
 

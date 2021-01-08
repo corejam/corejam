@@ -63,11 +63,16 @@ $ corejam static
 
 
 # Plugins maintained in this mono repo:
-## Auth
 
-Basic JWT authentication plugin for Corejam applications. [Read more](packages/plugins/auth/README.md)
+We keep a collection of plugins maintained inside this monorepo:
 
-A hassle free plug and play JWT authentication package for your Corejam applications.
+# Auth
+
+Basic GraphQL JWT authentication for Corejam applications. [Read more](packages/plugins/auth/README.md)
+
+A hassle free plug and play JWT authentication package for your Corejam applications to give you an authentication state to use inside your applications.
+
+<img width="200px" src="https://i.imgur.com/kHmFp4b.gif" />
 
 # DerShop -  <a href="https://demo.dershop.dev">demo.dershop.dev</a>
 

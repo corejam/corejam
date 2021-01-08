@@ -2,6 +2,8 @@
 
 This package provides basic GraphQL JWT authentication functionality for bootstrapping Corejam applications along with the relevant barebones web components to bootstrap your application with authentication.
 
+This package also makes use of the [@corejam/notify](../../notify/README.md) package to send verification / reset password emails.
+
 ## Installation
 
 ### npm
@@ -25,7 +27,9 @@ To quickly bootstrap your app simply include the identity component inside your 
 <corejam-identity></corejam-identity>
 ```
 
-This provides a quick login dropdown and logged in state for your application.
+This provides a quick login dropdown and logged in state for your application:
+
+<img width="200px" src="https://i.imgur.com/kHmFp4b.gif" />
 
 
 ## Routes
@@ -44,6 +48,12 @@ The following ready to go routes are available to quickly tie into your applicat
 ```html
 <cj-route-admin page={1}></cj-route-admin>
 ```
+
+```html
+<corejam-auth-route-account></corejam-auth-route-account>
+```
+
+<img style="max-width:450px" src="https://i.imgur.com/aytjp5V.png"/>
 
 # Manual API Usage
 

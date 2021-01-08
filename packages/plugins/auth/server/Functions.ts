@@ -8,7 +8,8 @@ import {
   UnauthorizedException,
   AuthenticationError,
 } from "./Errors";
-import { JWT, UserDB } from "../shared/types/User";
+import { JWT, UpdatePasswordInput, UserDB } from "../shared/types/User";
+import * as crypto from "crypto"
 
 //Set some defaults
 const JWT_EXPIRES = process.env.JWT_EXPIRES ?? "15";
@@ -47,6 +48,18 @@ export async function generateTokensForUser(user: UserDB, editFn: (userId, data)
   }
 }
 
+/**
+ * Sets the initial verify hash for email
+ */
+export async function generateVerifyHash(user: UserDB, editFn: (userId, data) => ({})): Promise<string> {
+  const verifyHash = crypto.randomBytes(20).toString('hex');
+  await editFn(user.id, {
+    verifyHash
+  })
+
+  return new Promise(res => res(verifyHash))
+}
+
 export function validateAuthInput(email: string) {
   const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (!pattern.test(String(email).toLowerCase())) {
@@ -54,7 +67,7 @@ export function validateAuthInput(email: string) {
   }
 }
 
-export function validatePasswordCreate(input) {
+export function validatePasswordCreate(input: UpdatePasswordInput) {
   if (input.password !== input.passwordConfirm) {
     throw new PasswordsMustMatchException();
   }

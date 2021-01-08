@@ -3,8 +3,7 @@ import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 import { query as q } from "faunadb";
 import { AuthenticationError } from "../../../Errors";
 import { decodeJWT, generateTokensForUser } from "../../../Functions";
-import type { JWT, RegisterInput, UserCreateInput, UserDB, UserInput } from "../../../../shared/types/User";
-import { roles } from "../../../../shared/types/User";
+import { JWT, RegisterInput, UpdatePasswordInput, UserCreateInput, roles, STATUS, UserDB, UserInput } from "../../../../shared/types/User";
 
 export function allUsers(): Promise<UserDB[]> {
   return FaunaClient()
@@ -27,6 +26,7 @@ export function userCreate(userCreateInput: UserCreateInput): Promise<UserDB> {
           email: userCreateInput.email,
           role: [roles.USER],
           active: true,
+          status: STATUS.PENDING,
           ...updateDates(),
         },
         credentials: { password: userCreateInput.password },
@@ -126,4 +126,15 @@ export async function userTokenRefresh(refreshToken: string): Promise<JWT> {
   }
 
   return await generateTokensForUser(user, userEdit);
+}
+
+export async function userUpdatePassword(user: UserDB, passwordInput: UpdatePasswordInput): Promise<Boolean> {
+  return FaunaClient()
+    .query(
+      q.Update(q.Ref(q.Collection("users"), user.id), {
+        credentials: { password: passwordInput.password }
+      })
+    ).then((_res: any) => {
+      return true
+    })
 }

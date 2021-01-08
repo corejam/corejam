@@ -34,10 +34,10 @@
     "analyzeShop": "ANALYZE=true yarn --cwd examples/shop build"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "4.10.0",
-    "@typescript-eslint/eslint-plugin": "4.10.0",
+    "@typescript-eslint/parser": "4.11.1",
+    "@typescript-eslint/eslint-plugin": "4.11.1",
     "args": "5.0.1",
-    "eslint": "7.15.0",
+    "eslint": "7.17.0",
     "eslint-plugin-import": "2.22.1",
     "husky": "4.3.6",
     "lerna": "3.22.1",

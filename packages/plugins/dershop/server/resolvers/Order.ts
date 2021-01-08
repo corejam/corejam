@@ -1,17 +1,21 @@
 import { OrderList } from "../../shared/types/Order";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { UserDB } from "../../shared/types/User";
+import OrderConfirmation from "../mail/OrderConfirmation";
 
 export default {
   Mutation: {
-    orderCreate: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
+    orderCreate: async (_obj: any, args: any, { models, user, notify }: MergedServerContext) => {
       if (!user) {
         throw new Error("missing user")
       }
 
       const orderUser = await user() as unknown as UserDB;
+      const order = await models.orderCreate(args.orderInput, orderUser);
 
-      return models.orderCreate(args.orderInput, orderUser);
+      notify.sendMail(new OrderConfirmation(order))
+
+      return order;
     },
     orderUpdate: (_obj: any, _args: any, _ctx: MergedServerContext) => {
       //return models.updateOrder(args.id, args.orderInput);

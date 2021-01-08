@@ -14,6 +14,8 @@ export namespace Components {
         "data": any;
         "page": number;
     }
+    interface AuthResetPasswordForm {
+    }
     interface CjRouteAdmin {
         "param": any;
     }
@@ -28,6 +30,8 @@ export namespace Components {
     }
     interface CjRouteRegister {
     }
+    interface CorejamAuthAccount {
+    }
     interface CorejamAuthFormLogin {
         "onFail": Function;
         "onSuccess": Function;
@@ -37,6 +41,16 @@ export namespace Components {
         "onSuccess": Function;
     }
     interface CorejamAuthHeader {
+    }
+    interface CorejamAuthReset {
+    }
+    interface CorejamAuthRouteAccount {
+    }
+    interface CorejamAuthRouteReset {
+    }
+    interface CorejamAuthRouteVerify {
+    }
+    interface CorejamAuthVerify {
     }
     interface CorejamIconsAccount {
     }
@@ -57,6 +71,12 @@ declare global {
     var HTMLAuthAdminUserListElement: {
         prototype: HTMLAuthAdminUserListElement;
         new (): HTMLAuthAdminUserListElement;
+    };
+    interface HTMLAuthResetPasswordFormElement extends Components.AuthResetPasswordForm, HTMLStencilElement {
+    }
+    var HTMLAuthResetPasswordFormElement: {
+        prototype: HTMLAuthResetPasswordFormElement;
+        new (): HTMLAuthResetPasswordFormElement;
     };
     interface HTMLCjRouteAdminElement extends Components.CjRouteAdmin, HTMLStencilElement {
     }
@@ -94,6 +114,12 @@ declare global {
         prototype: HTMLCjRouteRegisterElement;
         new (): HTMLCjRouteRegisterElement;
     };
+    interface HTMLCorejamAuthAccountElement extends Components.CorejamAuthAccount, HTMLStencilElement {
+    }
+    var HTMLCorejamAuthAccountElement: {
+        prototype: HTMLCorejamAuthAccountElement;
+        new (): HTMLCorejamAuthAccountElement;
+    };
     interface HTMLCorejamAuthFormLoginElement extends Components.CorejamAuthFormLogin, HTMLStencilElement {
     }
     var HTMLCorejamAuthFormLoginElement: {
@@ -112,6 +138,36 @@ declare global {
         prototype: HTMLCorejamAuthHeaderElement;
         new (): HTMLCorejamAuthHeaderElement;
     };
+    interface HTMLCorejamAuthResetElement extends Components.CorejamAuthReset, HTMLStencilElement {
+    }
+    var HTMLCorejamAuthResetElement: {
+        prototype: HTMLCorejamAuthResetElement;
+        new (): HTMLCorejamAuthResetElement;
+    };
+    interface HTMLCorejamAuthRouteAccountElement extends Components.CorejamAuthRouteAccount, HTMLStencilElement {
+    }
+    var HTMLCorejamAuthRouteAccountElement: {
+        prototype: HTMLCorejamAuthRouteAccountElement;
+        new (): HTMLCorejamAuthRouteAccountElement;
+    };
+    interface HTMLCorejamAuthRouteResetElement extends Components.CorejamAuthRouteReset, HTMLStencilElement {
+    }
+    var HTMLCorejamAuthRouteResetElement: {
+        prototype: HTMLCorejamAuthRouteResetElement;
+        new (): HTMLCorejamAuthRouteResetElement;
+    };
+    interface HTMLCorejamAuthRouteVerifyElement extends Components.CorejamAuthRouteVerify, HTMLStencilElement {
+    }
+    var HTMLCorejamAuthRouteVerifyElement: {
+        prototype: HTMLCorejamAuthRouteVerifyElement;
+        new (): HTMLCorejamAuthRouteVerifyElement;
+    };
+    interface HTMLCorejamAuthVerifyElement extends Components.CorejamAuthVerify, HTMLStencilElement {
+    }
+    var HTMLCorejamAuthVerifyElement: {
+        prototype: HTMLCorejamAuthVerifyElement;
+        new (): HTMLCorejamAuthVerifyElement;
+    };
     interface HTMLCorejamIconsAccountElement extends Components.CorejamIconsAccount, HTMLStencilElement {
     }
     var HTMLCorejamIconsAccountElement: {
@@ -127,15 +183,22 @@ declare global {
     interface HTMLElementTagNameMap {
         "auth-admin-user-form": HTMLAuthAdminUserFormElement;
         "auth-admin-user-list": HTMLAuthAdminUserListElement;
+        "auth-reset-password-form": HTMLAuthResetPasswordFormElement;
         "cj-route-admin": HTMLCjRouteAdminElement;
         "cj-route-admin-index": HTMLCjRouteAdminIndexElement;
         "cj-route-admin-user-form": HTMLCjRouteAdminUserFormElement;
         "cj-route-index": HTMLCjRouteIndexElement;
         "cj-route-login": HTMLCjRouteLoginElement;
         "cj-route-register": HTMLCjRouteRegisterElement;
+        "corejam-auth-account": HTMLCorejamAuthAccountElement;
         "corejam-auth-form-login": HTMLCorejamAuthFormLoginElement;
         "corejam-auth-form-register": HTMLCorejamAuthFormRegisterElement;
         "corejam-auth-header": HTMLCorejamAuthHeaderElement;
+        "corejam-auth-reset": HTMLCorejamAuthResetElement;
+        "corejam-auth-route-account": HTMLCorejamAuthRouteAccountElement;
+        "corejam-auth-route-reset": HTMLCorejamAuthRouteResetElement;
+        "corejam-auth-route-verify": HTMLCorejamAuthRouteVerifyElement;
+        "corejam-auth-verify": HTMLCorejamAuthVerifyElement;
         "corejam-icons-account": HTMLCorejamIconsAccountElement;
         "corejam-identity": HTMLCorejamIdentityElement;
     }
@@ -148,6 +211,8 @@ declare namespace LocalJSX {
     interface AuthAdminUserList {
         "data"?: any;
         "page"?: number;
+    }
+    interface AuthResetPasswordForm {
     }
     interface CjRouteAdmin {
         "param"?: any;
@@ -163,6 +228,8 @@ declare namespace LocalJSX {
     }
     interface CjRouteRegister {
     }
+    interface CorejamAuthAccount {
+    }
     interface CorejamAuthFormLogin {
         "onFail"?: Function;
         "onSuccess"?: Function;
@@ -173,6 +240,16 @@ declare namespace LocalJSX {
     }
     interface CorejamAuthHeader {
     }
+    interface CorejamAuthReset {
+    }
+    interface CorejamAuthRouteAccount {
+    }
+    interface CorejamAuthRouteReset {
+    }
+    interface CorejamAuthRouteVerify {
+    }
+    interface CorejamAuthVerify {
+    }
     interface CorejamIconsAccount {
     }
     interface CorejamIdentity {
@@ -182,15 +259,22 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "auth-admin-user-form": AuthAdminUserForm;
         "auth-admin-user-list": AuthAdminUserList;
+        "auth-reset-password-form": AuthResetPasswordForm;
         "cj-route-admin": CjRouteAdmin;
         "cj-route-admin-index": CjRouteAdminIndex;
         "cj-route-admin-user-form": CjRouteAdminUserForm;
         "cj-route-index": CjRouteIndex;
         "cj-route-login": CjRouteLogin;
         "cj-route-register": CjRouteRegister;
+        "corejam-auth-account": CorejamAuthAccount;
         "corejam-auth-form-login": CorejamAuthFormLogin;
         "corejam-auth-form-register": CorejamAuthFormRegister;
         "corejam-auth-header": CorejamAuthHeader;
+        "corejam-auth-reset": CorejamAuthReset;
+        "corejam-auth-route-account": CorejamAuthRouteAccount;
+        "corejam-auth-route-reset": CorejamAuthRouteReset;
+        "corejam-auth-route-verify": CorejamAuthRouteVerify;
+        "corejam-auth-verify": CorejamAuthVerify;
         "corejam-icons-account": CorejamIconsAccount;
         "corejam-identity": CorejamIdentity;
     }
@@ -201,15 +285,22 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "auth-admin-user-form": LocalJSX.AuthAdminUserForm & JSXBase.HTMLAttributes<HTMLAuthAdminUserFormElement>;
             "auth-admin-user-list": LocalJSX.AuthAdminUserList & JSXBase.HTMLAttributes<HTMLAuthAdminUserListElement>;
+            "auth-reset-password-form": LocalJSX.AuthResetPasswordForm & JSXBase.HTMLAttributes<HTMLAuthResetPasswordFormElement>;
             "cj-route-admin": LocalJSX.CjRouteAdmin & JSXBase.HTMLAttributes<HTMLCjRouteAdminElement>;
             "cj-route-admin-index": LocalJSX.CjRouteAdminIndex & JSXBase.HTMLAttributes<HTMLCjRouteAdminIndexElement>;
             "cj-route-admin-user-form": LocalJSX.CjRouteAdminUserForm & JSXBase.HTMLAttributes<HTMLCjRouteAdminUserFormElement>;
             "cj-route-index": LocalJSX.CjRouteIndex & JSXBase.HTMLAttributes<HTMLCjRouteIndexElement>;
             "cj-route-login": LocalJSX.CjRouteLogin & JSXBase.HTMLAttributes<HTMLCjRouteLoginElement>;
             "cj-route-register": LocalJSX.CjRouteRegister & JSXBase.HTMLAttributes<HTMLCjRouteRegisterElement>;
+            "corejam-auth-account": LocalJSX.CorejamAuthAccount & JSXBase.HTMLAttributes<HTMLCorejamAuthAccountElement>;
             "corejam-auth-form-login": LocalJSX.CorejamAuthFormLogin & JSXBase.HTMLAttributes<HTMLCorejamAuthFormLoginElement>;
             "corejam-auth-form-register": LocalJSX.CorejamAuthFormRegister & JSXBase.HTMLAttributes<HTMLCorejamAuthFormRegisterElement>;
             "corejam-auth-header": LocalJSX.CorejamAuthHeader & JSXBase.HTMLAttributes<HTMLCorejamAuthHeaderElement>;
+            "corejam-auth-reset": LocalJSX.CorejamAuthReset & JSXBase.HTMLAttributes<HTMLCorejamAuthResetElement>;
+            "corejam-auth-route-account": LocalJSX.CorejamAuthRouteAccount & JSXBase.HTMLAttributes<HTMLCorejamAuthRouteAccountElement>;
+            "corejam-auth-route-reset": LocalJSX.CorejamAuthRouteReset & JSXBase.HTMLAttributes<HTMLCorejamAuthRouteResetElement>;
+            "corejam-auth-route-verify": LocalJSX.CorejamAuthRouteVerify & JSXBase.HTMLAttributes<HTMLCorejamAuthRouteVerifyElement>;
+            "corejam-auth-verify": LocalJSX.CorejamAuthVerify & JSXBase.HTMLAttributes<HTMLCorejamAuthVerifyElement>;
             "corejam-icons-account": LocalJSX.CorejamIconsAccount & JSXBase.HTMLAttributes<HTMLCorejamIconsAccountElement>;
             "corejam-identity": LocalJSX.CorejamIdentity & JSXBase.HTMLAttributes<HTMLCorejamIdentityElement>;
         }

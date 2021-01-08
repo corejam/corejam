@@ -34,11 +34,23 @@ Cypress.Commands.add("login", (email, password, expectIdentity = true) => {
   cy.getTag("login-password").type(password)
   cy.getTag("submit-login").click()
 
-  cy.wait(500);
+  cy.wait(1000);
   cy.url().should("eq", Cypress.config().baseUrl + "/");
 
   if (expectIdentity) cy.getTag("identity-email").invoke("text").should("be.equal", email)
 });
+
+Cypress.Commands.add("register", (email, password) => {
+  cy.log("Register a user & Login");
+  cy.visit("/register");
+
+  cy.getTag("register-email").type(email);
+  cy.getTag("register-password").type(password);
+  cy.getTag("register-passwordConfirm").type(password);
+
+  cy.getTag("submit-register").click();
+  cy.url().should("include", "/login");
+})
 
 Cypress.Commands.overwrite('visit', (originalFn, element, text, options) => {
   originalFn(element, text, options)

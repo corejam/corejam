@@ -1,11 +1,11 @@
 import { writeConfig } from "./generateConfig";
+export { writeConfig } from "./generateConfig";
 
 export default function corejam() {
   return {
     name: "corejam",
     async buildStart() {
-      const config = await writeConfig();
-      //@ts-ignore
+      const config = writeConfig();
       this.emitFile({
         type: "asset",
         name: "string",

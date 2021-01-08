@@ -1,10 +1,3 @@
-export function MissingJWTHashException() {
-  const error = new Error();
-  error.message = "JWT_HASH not set in environment";
-
-  return error;
-}
-
 /**
  * Generic error when we fail to load a plugin
  */

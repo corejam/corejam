@@ -13,7 +13,27 @@ extend type Mutation {
   userRegister(data: RegisterInput!): User
   userTokenRefresh: UserJWT
   userDeactivate(id: ID!): Boolean
+  userUpdatePassword(passwordInput: UpdatePasswordInput!): Boolean
+  userRequestPasswordReset(email: String!): Boolean
+  userResetPassword(token: String!, resetInput: ResetPasswordInput!): Boolean
+  userUpdate(userUpdateInput: UserUpdateInput!): User
+  userVerify(email: String!, token: String!): User
   me: User
+}
+
+input UserUpdateInput {
+  email: String!
+}
+
+input ResetPasswordInput {
+  password: String!
+  passwordConfirm: String!
+}
+
+input UpdatePasswordInput {
+  oldPassword: String!
+  password: String!
+  passwordConfirm: String!
 }
 
 enum userRoles {
@@ -21,15 +41,20 @@ enum userRoles {
   admin
 }
 
+enum verifiedStatus {
+  PENDING
+  VERIFIED
+}
+
 type User implements Timestamp {
   id: ID!
   email: String!
   password: String!
   active: Boolean!
+  status: verifiedStatus!
   role: [userRoles]!
   dateCreated: String!
   dateUpdated: String!
-  #refreshToken is available to db resolvers but hidden from outgoing
 }
 
 type UserJWT {

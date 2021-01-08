@@ -41,7 +41,8 @@ export class AuthLoginForm {
   render() {
     return (
       <Host>
-        <corejam-box p={8} max="md" mx="auto" px={4} lgPx={0} flex justify="between" mb={24}>
+        <corejam-box p={8} max="md" mx="auto" px={4} lgPx={0} flex direction="col" justify="between" mb={24}>
+          <corejam-flash></corejam-flash>
           <corejam-box w={5} mx="auto">
             <corejam-form-container name={this.formId}>
               <corejam-box>
@@ -54,10 +55,15 @@ export class AuthLoginForm {
                     label="Password"
                   ></corejam-form-input>
                 </corejam-box>
-                <corejam-box>
-                  <corejam-form-submit formId={this.formId}>
-                    <button type="submit">Login</button>
-                  </corejam-form-submit>
+                <corejam-box flex direction="col">
+                  <corejam-box>
+                    <corejam-form-submit formId={this.formId}>
+                      <button type="submit">Login</button>
+                    </corejam-form-submit>
+                  </corejam-box>
+                  <corejam-box>
+                    <corejam-base-link href="/login/reset">Reset Password</corejam-base-link>
+                  </corejam-box>
                 </corejam-box>
               </corejam-box>
             </corejam-form-container>

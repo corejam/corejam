@@ -1,4 +1,5 @@
 import { Component, h, Host, Prop, State } from "@stencil/core";
+import { Position } from "../Box/types";
 import type { GridType } from "./types";
 
 @Component({

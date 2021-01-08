@@ -28,7 +28,7 @@ export function getPluginContext({ models }): MergedServerContext {
     ...pluginModels,
   };
 
-  return { models };
+  return { models } as MergedServerContext;
 }
 
 export const resolvers = {

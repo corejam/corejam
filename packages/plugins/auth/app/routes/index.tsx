@@ -4,6 +4,7 @@ import { Component, Host, h } from "@stencil/core";
   tag: "cj-route-index",
 })
 export class AuthLoginForm {
+
   render() {
     return (
       <Host>
