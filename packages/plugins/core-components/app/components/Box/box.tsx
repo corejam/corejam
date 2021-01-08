@@ -402,9 +402,6 @@ export class CorejamBox {
     this.hash = hash;
   }
 
-  componentShouldUpdate(newValue, oldValue) {
-    return newValue != oldValue;
-  }
 
   render() {
     return (
