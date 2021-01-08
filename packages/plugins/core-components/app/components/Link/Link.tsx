@@ -12,11 +12,12 @@ export class BaseLink {
   @State() computedStyle: string;
   @State() hash: string;
 
-  @Prop() href: Link.Href;
-  @Prop() color: Link.Color | "--cj-color-primary" = "--cj-color-primary";
-  @Prop() hoverColor: Link.Color | "--cj-color-secondary" = "--cj-color-secondary";
-  @Prop() decoration: Link.Decoration | "--cj-link-decoration" = "--cj-link-decoration";
-  @Prop() hoverDecoration: Link.Decoration | "--cj-link-hover-decoration" = "--cj-link-hover-decoration";
+  @Prop({ reflect: true }) href: Link.Href;
+  @Prop({ reflect: true }) color: Link.Color | "--cj-color-primary" = "--cj-color-primary";
+  @Prop({ reflect: true }) hoverColor: Link.Color | "--cj-color-secondary" = "--cj-color-secondary";
+  @Prop({ reflect: true }) decoration: Link.Decoration | "--cj-link-decoration" = "--cj-link-decoration";
+  @Prop({ reflect: true }) hoverDecoration: Link.Decoration | "--cj-link-hover-decoration" =
+    "--cj-link-hover-decoration";
 
   @Event() routeChange: EventEmitter;
 

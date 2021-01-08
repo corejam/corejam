@@ -11,14 +11,14 @@ export declare type options = {
 })
 export class CorejamFormSelect implements ComponentInterface {
   @Element() el: HTMLElement;
-  @Prop() name: string;
-  @Prop() label: string;
-  @Prop() formId: string;
-  @Prop() options: Array<options>;
-  @Prop() selected: any;
+  @Prop({ reflect: true }) name: string;
+  @Prop({ reflect: true }) label: string;
+  @Prop({ reflect: true }) formId: string;
+  @Prop({ reflect: true }) options: Array<options>;
+  @Prop({ reflect: true }) selected: any;
   @Event() formEvent: EventEmitter;
   @State() inputValue: any;
-  @Prop() multiple = false;
+  @Prop({ reflect: true }) multiple = false;
 
   private extraProps = {};
 

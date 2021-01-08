@@ -6,8 +6,8 @@ import { coreState } from "../../store/core";
   tag: "corejam-data-fetcher",
 })
 export class DataFetcher {
-  @Prop() query: string;
-  @Prop() renderer: Function;
+  @Prop({ reflect: true }) query: string;
+  @Prop({ reflect: true }) renderer: Function;
   @State() data: any = null;
 
   async componentWillLoad() {

@@ -6,15 +6,15 @@ import { Component, h, Prop, Host, Element, Build, State } from "@stencil/core";
 export class Image {
   @State() hash: string;
   @Element() el: HTMLElement;
-  @Prop() src: string;
-  @Prop() alt: string;
-  @Prop() w = 12;
-  @Prop() maxWidth = 100;
-  @Prop() h: string;
-  @Prop() maxH: string;
-  @Prop() fit: "cover";
-  @Prop() rounded: "full";
-  @Prop() lazy = false;
+  @Prop({ reflect: true }) src: string;
+  @Prop({ reflect: true }) alt: string;
+  @Prop({ reflect: true }) w = 12;
+  @Prop({ reflect: true }) maxWidth = 100;
+  @Prop({ reflect: true }) h: string;
+  @Prop({ reflect: true }) maxH: string;
+  @Prop({ reflect: true }) fit: "cover";
+  @Prop({ reflect: true }) rounded: "full";
+  @Prop({ reflect: true }) lazy = false;
 
   private observer: IntersectionObserver;
 

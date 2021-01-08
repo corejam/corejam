@@ -10,7 +10,6 @@ const Router = state.router;
 })
 export class AppRouter {
   render() {
-    console.log(runState.routes)
     return (
       <Host>
         <Router.Switch>

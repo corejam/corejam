@@ -17,7 +17,7 @@ export class CjTabs {
 
   @Listen("propChanged")
   init() {
-    this.tabs = Array.from(this.el.querySelectorAll("corejam-tab")).filter((node) => node.parentNode === this.el);
+    this.tabs = Array.from(this.el.querySelectorAll("corejam-tab"));
     this.displayTab(this.activeTab);
   }
 
@@ -42,10 +42,11 @@ export class CjTabs {
   }
 
   render() {
-    console.log(this.activeTab);
     return (
       <Host>
-        <slot></slot>
+        <div style={this.activeTab === -1 && { display: "none" }}>
+          <slot></slot>
+        </div>
         <corejam-box position="absolute" bottom={25} flex role="tablist">
           {this.tabs.map((tab, index) => (
             <corejam-box
@@ -60,7 +61,7 @@ export class CjTabs {
                 hoverColor="white"
                 p="1"
                 bg={this.activeTab === index ? "green-300" : "initial"}
-                hoverBg="green-300"
+                hoverBg={this.activeTab === index ? "green-300" : "green-200"}
                 transition="colors"
                 rounded="sm"
               >

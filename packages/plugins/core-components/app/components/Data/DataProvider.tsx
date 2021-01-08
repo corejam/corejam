@@ -5,7 +5,7 @@ import { coreState } from "../../store/core";
   tag: "corejam-data-provider",
 })
 export class DataProvider {
-  @Prop() url: string;
+  @Prop({ reflect: true }) url: string;
 
   async componentWillLoad() {
     coreState.endpoint = this.url;

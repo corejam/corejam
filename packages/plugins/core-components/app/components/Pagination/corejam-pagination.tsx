@@ -4,7 +4,7 @@ import { Component, Host, h, Prop, State, Watch } from "@stencil/core";
   tag: "corejam-pagination",
 })
 export class CorejamPagination {
-  @Prop() paginator: any;
+  @Prop({ reflect: true }) paginator: any;
   @State() _paginator: any = { currentPage: 1, lastPage: 5, items: [] };
   @Watch("paginator")
   watchPaginator() {
@@ -53,7 +53,9 @@ export class CorejamPagination {
               d="M5.41 11H21a1 1 0 0 1 0 2H5.41l5.3 5.3a1 1 0 0 1-1.42 1.4l-7-7a1 1 0 0 1 0-1.4l7-7a1 1 0 0 1 1.42 1.4L5.4 11z"
             ></path>
           </svg>
-          <corejam-box flex direction="row">{this.renderPaginate()}</corejam-box>
+          <corejam-box flex direction="row">
+            {this.renderPaginate()}
+          </corejam-box>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
             <path
               class="heroicon-ui"
