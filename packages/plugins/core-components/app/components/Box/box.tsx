@@ -13,6 +13,7 @@ import { Flex, Position, Display } from "./types";
 export class CorejamBox {
   @State() hash: string;
 
+  //@todo check if valid
   @Prop({ reflect: true }) display: Display = "block";
   @Prop({ reflect: true }) smDisplay: Display;
   @Prop({ reflect: true }) mdDisplay: Display;
@@ -401,7 +402,6 @@ export class CorejamBox {
     const hash = await (await import("../../utils/style")).calculateStyles(this);
     this.hash = hash;
   }
-
 
   render() {
     return (
