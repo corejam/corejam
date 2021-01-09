@@ -7,7 +7,6 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Link } from "./components/Link/Link.types";
 import { Display, Flex, Position } from "./components/Box/types";
-import { Button } from "./components/Button/types";
 import { options } from "./components/FormSelect/corejam-select";
 import { GridType } from "./components/Grid/types";
 import { Font, General } from "./components/Type/types";
@@ -239,7 +238,7 @@ export namespace Components {
         "smW": number | string;
         "timing": string;
         "transition": string;
-        "type": Button.Type;
+        "type": "a" | "button" | "reset" | "submit";
         "w": number | string;
         "xlW": number | string;
     }
@@ -302,7 +301,7 @@ export namespace Components {
         "gapCol": GridType.Gap;
         "gapRow": GridType.Gap;
         "grid": Boolean;
-        "h": string;
+        "h": String;
         "lgAutoFlow": GridType.Flow;
         "lgCols": GridType.Cols;
         "lgColsEnd": GridType.ColsEnd;
@@ -310,7 +309,6 @@ export namespace Components {
         "lgGap": GridType.Gap;
         "lgGapCol": GridType.Gap;
         "lgGapRow": GridType.Gap;
-        "lgH": string;
         "lgRows": GridType.Rows;
         "lgRowsEnd": GridType.RowsEnd;
         "lgRowsStart": GridType.RowsStart;
@@ -323,13 +321,11 @@ export namespace Components {
         "mdGap": GridType.Gap;
         "mdGapCol": GridType.Gap;
         "mdGapRow": GridType.Gap;
-        "mdH": string;
         "mdRows": GridType.Rows;
         "mdRowsEnd": GridType.RowsEnd;
         "mdRowsStart": GridType.RowsStart;
         "mdTemplateColumns": GridType.TemplateColumns;
         "mdTemplateRows": GridType.TemplateRows;
-        "position": Position;
         "rows": GridType.Rows;
         "rowsEnd": GridType.RowsEnd;
         "rowsStart": GridType.RowsStart;
@@ -340,7 +336,6 @@ export namespace Components {
         "smGap": GridType.Gap;
         "smGapCol": GridType.Gap;
         "smGapRow": GridType.Gap;
-        "smH": string;
         "smRows": GridType.Rows;
         "smRowsEnd": GridType.RowsEnd;
         "smRowsStart": GridType.RowsStart;
@@ -355,7 +350,6 @@ export namespace Components {
         "xlGap": GridType.Gap;
         "xlGapCol": GridType.Gap;
         "xlGapRow": GridType.Gap;
-        "xlH": string;
         "xlRows": GridType.Rows;
         "xlRowsEnd": GridType.RowsEnd;
         "xlRowsStart": GridType.RowsStart;
@@ -766,7 +760,7 @@ declare namespace LocalJSX {
         "smW"?: number | string;
         "timing"?: string;
         "transition"?: string;
-        "type"?: Button.Type;
+        "type"?: "a" | "button" | "reset" | "submit";
         "w"?: number | string;
         "xlW"?: number | string;
     }
@@ -835,7 +829,7 @@ declare namespace LocalJSX {
         "gapCol"?: GridType.Gap;
         "gapRow"?: GridType.Gap;
         "grid"?: Boolean;
-        "h"?: string;
+        "h"?: String;
         "lgAutoFlow"?: GridType.Flow;
         "lgCols"?: GridType.Cols;
         "lgColsEnd"?: GridType.ColsEnd;
@@ -843,7 +837,6 @@ declare namespace LocalJSX {
         "lgGap"?: GridType.Gap;
         "lgGapCol"?: GridType.Gap;
         "lgGapRow"?: GridType.Gap;
-        "lgH"?: string;
         "lgRows"?: GridType.Rows;
         "lgRowsEnd"?: GridType.RowsEnd;
         "lgRowsStart"?: GridType.RowsStart;
@@ -856,13 +849,11 @@ declare namespace LocalJSX {
         "mdGap"?: GridType.Gap;
         "mdGapCol"?: GridType.Gap;
         "mdGapRow"?: GridType.Gap;
-        "mdH"?: string;
         "mdRows"?: GridType.Rows;
         "mdRowsEnd"?: GridType.RowsEnd;
         "mdRowsStart"?: GridType.RowsStart;
         "mdTemplateColumns"?: GridType.TemplateColumns;
         "mdTemplateRows"?: GridType.TemplateRows;
-        "position"?: Position;
         "rows"?: GridType.Rows;
         "rowsEnd"?: GridType.RowsEnd;
         "rowsStart"?: GridType.RowsStart;
@@ -873,7 +864,6 @@ declare namespace LocalJSX {
         "smGap"?: GridType.Gap;
         "smGapCol"?: GridType.Gap;
         "smGapRow"?: GridType.Gap;
-        "smH"?: string;
         "smRows"?: GridType.Rows;
         "smRowsEnd"?: GridType.RowsEnd;
         "smRowsStart"?: GridType.RowsStart;
@@ -888,7 +878,6 @@ declare namespace LocalJSX {
         "xlGap"?: GridType.Gap;
         "xlGapCol"?: GridType.Gap;
         "xlGapRow"?: GridType.Gap;
-        "xlH"?: string;
         "xlRows"?: GridType.Rows;
         "xlRowsEnd"?: GridType.RowsEnd;
         "xlRowsStart"?: GridType.RowsStart;

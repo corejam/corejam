@@ -104,25 +104,6 @@
   dependencies:
     cross-fetch "3.0.6"
 
-"@apollo/client@3.2.9":
-  version "3.2.9"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.2.9.tgz#a24a7792519adb3af8a74a60d9e83732238d0afd"
-  integrity sha512-AUvYITKhJNfRNU/Cf8t/N628ADdVah1+l9Qtjd09IwScRfDGvbBTkHMAgcb6hl7vuBVqGwQRq6fPKzHgWRlisg==
-  dependencies:
-    "@graphql-typed-document-node/core" "^3.0.0"
-    "@types/zen-observable" "^0.8.0"
-    "@wry/context" "^0.5.2"
-    "@wry/equality" "^0.2.0"
-    fast-json-stable-stringify "^2.0.0"
-    graphql-tag "^2.11.0"
-    hoist-non-react-statics "^3.3.2"
-    optimism "^0.13.0"
-    prop-types "^15.7.2"
-    symbol-observable "^2.0.0"
-    ts-invariant "^0.5.0"
-    tslib "^1.10.0"
-    zen-observable "^0.8.14"
-
 "@apollo/client@3.3.6":
   version "3.3.6"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.3.6.tgz#f359646308167f38d5bc498dfc2344c888400093"
@@ -141,13 +122,6 @@
     ts-invariant "^0.6.0"
     tslib "^1.10.0"
     zen-observable "^0.8.14"
-
-"@apollo/link-persisted-queries@https://github.com/corejam/apollo-link-persisted-queries/tarball/master":
-  version "0.2.2"
-  resolved "https://github.com/corejam/apollo-link-persisted-queries/tarball/master#9a37b90078382522589c3ad4138f914d04655b5f"
-  dependencies:
-    apollo-link "^1.2.1"
-    hash.js "^1.1.3"
 
 "@apollo/protobufjs@^1.0.3":
   version "1.0.5"
@@ -948,17 +922,6 @@
     replace-in-file "6.1.0"
     sade "1.7.4"
     serve "11.3.2"
-
-"@corejam/core-components@0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@corejam/core-components/-/core-components-0.0.11.tgz#64044eb805d697ce35378bd3422d415b18ac1557"
-  integrity sha512-FNC2mkPBFUqs/oKv2ymrAtlyjv+PXus42OePs6Fm/4GmNaoSvnqzZ5ItsInOj/jgP1NPR0XZOOOKp8mpmIbhSg==
-  dependencies:
-    "@apollo/client" "3.2.9"
-    "@apollo/link-persisted-queries" "https://github.com/corejam/apollo-link-persisted-queries/tarball/master"
-    "@corejam/rollup-plugin" "0.0.3"
-    "@corejam/router" "0.0.7"
-    graphql-tag "2.11.0"
 
 "@eslint/eslintrc@^0.2.2":
   version "0.2.2"
@@ -2927,13 +2890,6 @@
   dependencies:
     tslib "^1.9.3"
 
-"@wry/equality@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@wry/equality/-/equality-0.2.0.tgz#a312d1b6a682d0909904c2bcd355b02303104fb7"
-  integrity sha512-Y4d+WH6hs+KZJUC8YKLYGarjGekBrhslDbf/R20oV+AakHPINSitHfDRQz3EGcEWc1luXYNUvMhawWtZVWNGvQ==
-  dependencies:
-    tslib "^1.9.3"
-
 "@wry/equality@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@wry/equality/-/equality-0.3.0.tgz#4b022a0907f01f32c07a1a665d9430155a59ea06"
@@ -3319,7 +3275,7 @@ apollo-graphql@^0.6.0:
     apollo-env "^0.6.5"
     lodash.sortby "^4.7.0"
 
-apollo-link@^1.2.1, apollo-link@^1.2.14:
+apollo-link@^1.2.14:
   version "1.2.14"
   resolved "https://registry.yarnpkg.com/apollo-link/-/apollo-link-1.2.14.tgz#3feda4b47f9ebba7f4160bef8b977ba725b684d9"
   integrity sha512-p67CMEFP7kOG1JZ0ZkYZwRDa369w5PIjtMjvrQd/HnIV8FRsHRqLqK+oAZQnFa1DDdZtOtHTi+aMIW6EatC2jg==
@@ -7298,7 +7254,7 @@ hash-base@^3.0.0:
     readable-stream "^3.6.0"
     safe-buffer "^5.2.0"
 
-hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.3:
+hash.js@^1.0.0, hash.js@^1.0.3:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/hash.js/-/hash.js-1.1.7.tgz#0babca538e8d4ee4a0f8988d68866537a003cf42"
   integrity sha512-taOaskGt4z4SOANNseOviYDvjEJinIkRgmp7LbKP2YTTmVxWBl87s/uzK9r+44BclBSp2X7K1hqeNfz9JbBeXA==
@@ -10261,13 +10217,6 @@ optimism@^0.10.0:
   integrity sha512-9A5pqGoQk49H6Vhjb9kPgAeeECfUDF6aIICbMDL23kDLStBn1MWk3YvcZ4xWF9CsSf6XEgvRLkXy4xof/56vVw==
   dependencies:
     "@wry/context" "^0.4.0"
-
-optimism@^0.13.0:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/optimism/-/optimism-0.13.2.tgz#002a438b69652bfe8f8754a4493ed35c2e9d9821"
-  integrity sha512-kJkpDUEs/Rp8HsAYYlDzyvQHlT6YZa95P+2GGNR8p/VvsIkt6NilAk7oeTvMRKCq7BeclB7+bmdIexog2859GQ==
-  dependencies:
-    "@wry/context" "^0.5.2"
 
 optimism@^0.13.1:
   version "0.13.1"
@@ -13415,13 +13364,6 @@ ts-invariant@^0.4.0:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/ts-invariant/-/ts-invariant-0.4.4.tgz#97a523518688f93aafad01b0e80eb803eb2abd86"
   integrity sha512-uEtWkFM/sdZvRNNDL3Ehu4WVpwaulhwQszV8mrtcdeE8nN00BV9mAmQ88RkrBhFgl9gMgvjJLAQcZbnPXI9mlA==
-  dependencies:
-    tslib "^1.9.3"
-
-ts-invariant@^0.5.0:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/ts-invariant/-/ts-invariant-0.5.1.tgz#4171fdb85f72a40381c147afd97c12154ada2abc"
-  integrity sha512-k3UpDNrBZpqJFnAAkAHNmSHtNuCxcU6xLiziPgalHRKZHme6T6jnKC8CcXDmk1zbHLQM8pc+rNC1Q6FvXMAl+g==
   dependencies:
     tslib "^1.9.3"
 
