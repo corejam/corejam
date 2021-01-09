@@ -13,7 +13,7 @@ import { Flex, Position, Display } from "./types";
 export class CorejamBox {
   @State() hash: string;
 
-  //@todo check if valid
+  //@todo check if props are valid
   @Prop({ reflect: true }) display: Display = "block";
   @Prop({ reflect: true }) smDisplay: Display;
   @Prop({ reflect: true }) mdDisplay: Display;
