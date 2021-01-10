@@ -26,7 +26,7 @@
   "collection:main": "web-components/collection/index.js",
   "repository": {
     "url": "Corejam/Corejam",
-    "directory": "packages/plugins/auth"
+    "directory": "packages/auth"
   },
   "scripts": {
     "dev": "corejam dev",

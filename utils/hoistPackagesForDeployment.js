@@ -8,12 +8,10 @@ const LINKEDFOLDERNAME = "__LINKEDPKGS__";
 const paths = {
   examples: path.resolve(__dirname, "..", "examples"),
   packages: path.resolve(__dirname, "..", "packages"),
-  plugins: path.resolve(__dirname, "..", "packages", "plugins"),
 };
 
 const projects = fs.list("examples").filter(noDS).map(resolvePath("examples"));
 const pkgs = fs.list("packages").filter(noDS).filter(noPlugin);
-const plugins = fs.list("packages/plugins").filter(noDS);
 
 const depMap = new Map();
 
@@ -21,7 +19,6 @@ async function copyDirs(targetPath) {
   const linkedRoot = targetPath + "/" + LINKEDFOLDERNAME;
   fs.dir(linkedRoot);
   pkgs.forEach((p) => fs.copy(`${paths["packages"]}/${p}`, linkedRoot + "/" + p, { overwrite: true }));
-  plugins.forEach((p) => fs.copy(`${paths["plugins"]}/${p}`, linkedRoot + "/" + p, { overwrite: true }));
 }
 
 async function buildDependencyMap(targetPath, folderName) {
@@ -42,7 +39,7 @@ async function replaceVersions(targetPath) {
     }
   });
   if (packageJson)
-  fs.write(targetPath + "/package.json", packageJson);
+    fs.write(targetPath + "/package.json", packageJson);
 }
 
 async function removeNodeModules(targetPath) {

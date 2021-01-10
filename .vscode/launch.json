@@ -49,7 +49,7 @@
                 "${workspaceFolder}/node_modules/**/.js",
             ],
             "sourceMaps": true,
-            "cwd": "${workspaceFolder}/packages/plugins/auth",
+            "cwd": "${workspaceFolder}/packages/auth",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "disableOptimisticBPs": true,
