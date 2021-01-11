@@ -5,8 +5,10 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { BlogArticleDB } from "@shared/types/Blog";
 export namespace Components {
     interface DerblogArticleBox {
+        "article": BlogArticleDB;
     }
     interface DerblogFooter {
     }
@@ -16,6 +18,7 @@ export namespace Components {
     }
     interface DerblogList {
         "page": number;
+        "size": Number;
     }
     interface DerblogRouteIndex {
     }
@@ -68,6 +71,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DerblogArticleBox {
+        "article"?: BlogArticleDB;
     }
     interface DerblogFooter {
     }
@@ -77,6 +81,7 @@ declare namespace LocalJSX {
     }
     interface DerblogList {
         "page"?: number;
+        "size"?: Number;
     }
     interface DerblogRouteIndex {
     }

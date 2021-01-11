@@ -1,9 +1,26 @@
-type BlogArticle {
+type BlogArticle implements Timestamp {
+  id: ID!
   title: String!
+  description: String
+  content: String
+  dateCreated: String!
+  dateUpdated: String!
 }
 
 extend type Query {
   allArticles: [BlogArticle]
+}
+
+type ArticleList implements Paginated @cacheControl(maxAge: 300) {
+  totalItems: Int!
+  perPage: Int!
+  currentPage: Int!
+  lastPage: Int!
+  items: [BlogArticle]
+}
+
+extend type Query {
+  paginateArticles(page: Int!, size: Int!): ArticleList @cacheControl(maxAge: 300)
 }
 
 extend type Mutation {

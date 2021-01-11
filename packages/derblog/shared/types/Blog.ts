@@ -1,4 +1,4 @@
-import { DBDocument, Timestamp } from "@corejam/base/dist/typings/Utils"
+import { DBDocument, Paginated, Timestamp } from "@corejam/base/dist/typings/Utils"
 
 export type BlogArticle = Timestamp & {
     title: string,
@@ -12,4 +12,8 @@ export type BlogArticleInput = {
     title: string,
     description?: string,
     content?: string
+}
+
+export type ArticleList = Paginated & {
+    items?: BlogArticleDB[];
 }
