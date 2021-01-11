@@ -78,7 +78,7 @@
     "fuse.js": "6.4.5",
     "graphql-tag": "2.11.0",
     "stencil-router-v2": "0.6.0",
-    "xstate": "4.15.3"
+    "xstate": "4.15.4"
   },
   "lint-staged": {
     "src/**/*.ts": [

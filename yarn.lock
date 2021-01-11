@@ -13507,6 +13507,11 @@ tslib@2.0.1:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.1.tgz#410eb0d113e5b6356490eec749603725b021b43e"
   integrity sha512-SgIkNheinmEBgx1IUNirK0TUD4X9yjjBRTqqjggWCU3pUEqIk3/Uwl3yRixYKT6WjQuGiwDv4NomL3wqRCj+CQ==
 
+tslib@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"
+  integrity sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ==
+
 tslib@2.1.0, tslib@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
@@ -14301,15 +14306,10 @@ xss@^1.0.6:
     commander "^2.20.3"
     cssfilter "0.0.10"
 
-xstate@4.14.0:
-  version "4.14.0"
-  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.14.0.tgz#dd9f3f0af4acd04a01b3ad60d3d4c66c51ac1b5d"
-  integrity sha512-nz+T5rlPl0Vu1L9NZdI7JYVq57k/pKpyLwmztqgcj/HqUVsopnMKBP6cQJCb4Op9TC8kffyJSMwHDFthuRpooQ==
-
-xstate@4.15.3:
-  version "4.15.3"
-  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.15.3.tgz#9c8225cda3be2359c7d6d1d587e02fa5bf9bfff7"
-  integrity sha512-nf4zzLNs5W57stMZib9UG9PA5ywu89INsaXBMZf7iQxkYD9apbIOQcK8nu/iVZEDOVE+vR8GQnTaOg/8iDSK5Q==
+xstate@4.15.4:
+  version "4.15.4"
+  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.15.4.tgz#3618c676b173f8cd005ad04aa072372f45f1c6b8"
+  integrity sha512-ENrtRFKUzCmM4NytTCuTJG0+YdibpKXNjBwspHkCzbiSVtANo96Ok0owDFLP4/t7IVCwpG0GbJkS8LqOGbwMuw==
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"
