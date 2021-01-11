@@ -6,7 +6,63 @@ import type { Dragger } from "../corejam-canvas/canvas.machine";
   tag: "corejam-builder",
 })
 export class CorejamBuilder {
+  private demoDraggers: Dragger[] = [
+    {
+      id: "Row",
+      component: "corejam-box",
+      label: "Row",
+      props: {
+        flex: true,
+        h: "100px",
+      },
+    },
+    {
+      id: "1/2Box",
+      component: "corejam-box",
+      label: "Half Box",
+      props: {
+        w: 6,
+        h: "100px",
+      },
+    },
+    {
+      id: "Headline",
+      component: "corejam-type",
+      label: "Headline",
+      props: {
+        as: "h1",
+        weight: "black",
+        color: "blue-600",
+      },
+      initialContent: "Sub Headline",
+    },
+    {
+      id: "Sub headline",
+      component: "corejam-type",
+      label: "Sub Headline",
+      props: {
+        as: "h3",
+        weight: "black",
+        color: "blue-300",
+      },
+      initialContent: "Sub Headline",
+    },
+    {
+      id: "Paragrap",
+      component: "corejam-type",
+      label: "Paragraph",
+      props: {
+        as: "p",
+      },
+      initialContent: "Lorem Greenum",
+    },
+  ];
   @Prop({ mutable: true }) draggers: Dragger[] = [];
+  @Prop() demo = false;
+
+  componentDidLoad() {
+    if (this.demo) this.draggers = [...this.draggers, ...this.demoDraggers];
+  }
 
   @Listen("corejam:canvas:addDragger", { target: "document" })
   addDragger(evt: CustomEvent) {

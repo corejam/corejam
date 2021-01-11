@@ -10,6 +10,7 @@ export namespace Components {
     interface CanvasLayout {
     }
     interface CorejamBuilder {
+        "demo": boolean;
         "draggers": Dragger[];
     }
     interface CorejamCanvas {
@@ -28,6 +29,7 @@ export namespace Components {
           * @param tab
          */
         "addTab": (tab: any) => Promise<unknown>;
+        "demo": boolean;
     }
     interface CorejamTab {
         "activeFn": Function;
@@ -134,6 +136,7 @@ declare namespace LocalJSX {
     interface CanvasLayout {
     }
     interface CorejamBuilder {
+        "demo"?: boolean;
         "draggers"?: Dragger[];
     }
     interface CorejamCanvas {
@@ -147,6 +150,7 @@ declare namespace LocalJSX {
         "node"?: any;
     }
     interface CorejamMenu {
+        "demo"?: boolean;
     }
     interface CorejamTab {
         "activeFn"?: Function;

@@ -100,12 +100,10 @@ export const basketMachine = createMachine<CheckoutContext, CheckoutEvent, Check
             {
               target: CheckoutStates.ADDRESS,
               cond: (ctx) => ctx.items.length > 0 && authStore.identity,
-              actions: () => routerState.router.push("/checkout"),
             },
             {
               target: CheckoutStates.LOGIN_OR_REGISTER,
-              cond: (ctx) => ctx.items.length > 0 && !authStore.identity,
-              actions: () => routerState.router.push("/checkout"),
+              cond: (ctx) => ctx.items.length > 0 && !authStore.identity
             },
           ],
           CLEAR: {
@@ -117,6 +115,10 @@ export const basketMachine = createMachine<CheckoutContext, CheckoutEvent, Check
         on: {
           NEXT_STEP: {
             target: CheckoutStates.ADDRESS,
+            cond: (ctx) => ctx.items.length > 0 && authStore.identity,
+          },
+          ADDITEM: {
+            actions: ["addItemToBasket", "calculateBasket"],
           },
         },
       },

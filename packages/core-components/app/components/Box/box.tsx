@@ -14,7 +14,7 @@ export class CorejamBox {
   @State() hash: string;
 
   //@todo check if props are valid
-  @Prop({ reflect: true }) display: Display = "block";
+  @Prop() display: Display = "block";
   @Prop({ reflect: true }) smDisplay: Display;
   @Prop({ reflect: true }) mdDisplay: Display;
   @Prop({ reflect: true }) lgDisplay: Display;
@@ -206,6 +206,10 @@ export class CorejamBox {
   @Prop({ reflect: true }) transition: string;
   @Prop({ reflect: true }) overflow: string;
   @Prop({ reflect: true }) droppableElements = ["corejam-box"];
+
+  componentShouldUpdate(newValue, oldValue) {
+    return newValue != oldValue;
+  }
 
   async componentWillLoad() {
     await this.computeStyles();

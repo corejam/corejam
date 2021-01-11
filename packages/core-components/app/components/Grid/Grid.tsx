@@ -73,6 +73,11 @@ export class Grid {
     await this.computeStyles();
   }
 
+  componentShouldUpdate(newValue, oldValue) {
+    console.log("grid", newValue, oldValue);
+    return newValue != oldValue;
+  }
+
   async computeStyles() {
     const hash = await (await import("../../utils/style")).calculateStyles(this);
     this.hash = hash;

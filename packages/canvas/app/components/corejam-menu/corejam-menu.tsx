@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Listen, Method } from "@stencil/core";
+import { Component, Host, h, State, Listen, Method, Prop } from "@stencil/core";
 import { canvasState, sendEventToMachine } from "../corejam-canvas/canvas.machine";
 import { Corejam } from "./Corejam";
 
@@ -6,14 +6,27 @@ import { Corejam } from "./Corejam";
   tag: "corejam-menu",
 })
 export class CjDebugger {
+  @Prop() demo = false;
   @State() max = false;
   @State() machineId: string;
   @State() tabs = [
     {
       header: "Builder",
       component: "corejam-builder",
+      props: {
+        demo: this.demo,
+      },
       event: "builder",
       activeFn: () => sendEventToMachine({ type: "build" }),
+    },
+    {
+      header: "Deploy",
+      component: "corejam-deploy",
+      props: {
+        demo: this.demo,
+      },
+      event: "deploy",
+      activeFn: () => sendEventToMachine({ type: "reset" }),
     },
   ];
 
@@ -29,7 +42,7 @@ export class CjDebugger {
       const Cmp = tab.component;
       return (
         <corejam-tab header={tab.header} activeFn={tab.activeFn}>
-          <Cmp></Cmp>
+          <Cmp {...tab.props}></Cmp>
         </corejam-tab>
       );
     });

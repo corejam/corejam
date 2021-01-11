@@ -169,7 +169,7 @@ export class CheckoutRoute {
       case CheckoutStates.PAYMENT:
         return (
           <Layout>
-            <corejam-box flex direction="row">
+            <corejam-box flex w={12} direction="row">
               <corejam-box w={8} pl={10} flex direction="col">
                 <corejam-box w={12} py={5}>
                   <corejam-type size="2xl" weight="bold">

@@ -1,5 +1,5 @@
 import { propertyToTransformer } from "./transformerMap";
-import { generateHash, lowercaseFirstLetter, addStyleTagToHead } from "./utils";
+import { generateHash, lowercaseFirstLetter, uppercaseFirstLetter, addStyleTagToHead } from "./utils";
 import { computeStyle } from "./computeStyle";
 
 const stylesCache = new Map();
@@ -14,8 +14,9 @@ function normalizePropertyBasedOnPossibleIdentifiers(property) {
   const second = ["sm", "md", "lg", "xl", "hover", "focus"].includes(possibleCamelCaseSplit[1]);
 
   if (!first && !second) return property;
-  if (first && !second) return lowercaseFirstLetter(possibleCamelCaseSplit.slice(1).join(""));
-  if (first && second) return lowercaseFirstLetter(possibleCamelCaseSplit.slice(2).join(""));
+  //@todo better handling of names
+  if (first && !second) return lowercaseFirstLetter(possibleCamelCaseSplit.slice(1).map(uppercaseFirstLetter).join(""));
+  if (first && second) return lowercaseFirstLetter(possibleCamelCaseSplit.slice(2).map(uppercaseFirstLetter).join(""));
 }
 
 export const calculateStyles = async (instance) => {
@@ -43,6 +44,7 @@ export const calculateStyles = async (instance) => {
   if (Object.keys(normalizedObject).length > 0) {
     normalizedObject["instance"] = instanceName;
     const hash = "cj" + generateHash(JSON.stringify(normalizedObject));
+    console.log(hash)
     if (stylesCache.has(hash)) {
       const cacheEntry = stylesCache.get(hash);
       addStyleTagToHead(cacheEntry, hash);
