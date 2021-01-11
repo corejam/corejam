@@ -1,0 +1,93 @@
+{
+  "name": "@corejam/plugin-dershop",
+  "version": "0.0.20",
+  "license": "MIT",
+  "main": "dist/server/index.js",
+  "module": "web-components/custom-elements/index.js",
+  "es2015": "web-components/esm/index.js",
+  "es2017": "web-components/esm/index.js",
+  "types": "web-components/custom-elements/index.d.ts",
+  "collection": "web-components/collection/collection-manifest.json",
+  "collection:main": "web-components/collection/index.js",
+  "homepage": "https://dershop.dev/",
+  "description": "Corejam Canvas plugin - Serverless Jamstack Webshop",
+  "bugs": {
+    "url": "https://github.com/corejam/corejam/issues"
+  },
+  "keywords": [
+    "stenciljs",
+    "stencil-components",
+    "graphql",
+    "graqhql-server",
+    "typescript",
+    "web-components",
+    "webshop",
+    "ecommerce",
+    "serverless"
+  ],
+  "repository": {
+    "url": "Corejam/Corejam",
+    "directory": "packages/dershop"
+  },
+  "scripts": {
+    "dev": "corejam dev",
+    "build": "corejam build",
+    "postbuild": "perl -i -pe's|yield browser|yield fetch|g' ./web-components/hydrate/index.js",
+    "test": "jest --verbose ./tests",
+    "precommit": "lint-staged",
+    "static": "corejam static",
+    "static:serve": "corejam static:serve",
+    "clean": "rimraf dist & rimraf react & rimraf web-components",
+    "prepublish": "shx rm -f .env && yarn clean && yarn build",
+    "postpublish": "shx cp .env.sample .env"
+  },
+  "files": [
+    "dist",
+    "web-components",
+    "react"
+  ],
+  "devDependencies": {
+    "@corejam/cli": "0.0.19",
+    "@corejam/dev": "0.0.9",
+    "@rollup/plugin-replace": "2.3.4",
+    "@stencil/react-output-target": "0.0.9",
+    "@types/faker": "5.1.5",
+    "args": "5.0.1",
+    "dotenv": "8.2.0",
+    "jest-date-mock": "1.0.8",
+    "shx": "0.3.3",
+    "tslib": "2.1.0",
+    "typescript": "4.1.3"
+  },
+  "dependencies": {
+    "@alepop/stencil-env": "0.4.1",
+    "@corejam/base": "0.0.11",
+    "@corejam/core-components": "0.0.20",
+    "@corejam/notify": "0.0.1",
+    "@corejam/plugin-auth": "0.0.20",
+    "@corejam/plugin-canvas": "0.0.2",
+    "@corejam/rollup-plugin": "0.0.3",
+    "@corejam/router": "0.0.7",
+    "@corejam/run": "0.0.4",
+    "@stencil/core": "2.3.0",
+    "@stencil/store": "1.3.0",
+    "@xstate/fsm": "1.5.2",
+    "deep-parse-json": "1.0.1",
+    "faker": "5.1.0",
+    "faunadb": "4.0.0",
+    "fuse.js": "6.4.5",
+    "graphql-tag": "2.11.0",
+    "stencil-router-v2": "0.6.0",
+    "xstate": "4.15.3"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "corejam": {
+    "wrapper": [],
+    "recommendations": []
+  }
+}

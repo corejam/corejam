@@ -1,0 +1,92 @@
+extend type Query {
+  allUsers: [User]
+  paginateUsers(page: Int!, size: Int!): UserList
+  userByEmail(email: String!): User
+  userById(id: ID!): User
+  userByToken: User
+}
+
+extend type Mutation {
+  userCreate(userCreateInput: UserCreateInput!): User
+  userEdit(id: ID!, userInput: UserInput!): User
+  userAuthenticate(email: String!, password: String!): UserJWT
+  userRegister(data: RegisterInput!): User
+  userTokenRefresh: UserJWT
+  userDeactivate(id: ID!): Boolean
+  userUpdatePassword(passwordInput: UpdatePasswordInput!): Boolean
+  userRequestPasswordReset(email: String!): Boolean
+  userResetPassword(token: String!, resetInput: ResetPasswordInput!): Boolean
+  userUpdate(userUpdateInput: UserUpdateInput!): User
+  userVerify(email: String!, token: String!): User
+  me: User
+}
+
+input UserUpdateInput {
+  email: String!
+}
+
+input ResetPasswordInput {
+  password: String!
+  passwordConfirm: String!
+}
+
+input UpdatePasswordInput {
+  oldPassword: String!
+  password: String!
+  passwordConfirm: String!
+}
+
+enum userRoles {
+  user
+  admin
+}
+
+enum verifiedStatus {
+  PENDING
+  VERIFIED
+}
+
+type User implements Timestamp {
+  id: ID!
+  email: String!
+  password: String!
+  active: Boolean!
+  status: verifiedStatus!
+  role: [userRoles]!
+  dateCreated: String!
+  dateUpdated: String!
+}
+
+type UserJWT {
+  user: User!
+  token: String!
+}
+
+type UserList implements Paginated {
+  totalItems: Int!
+  perPage: Int!
+  currentPage: Int!
+  lastPage: Int!
+  items: [User]
+}
+
+input UserCreateInput {
+  email: String!
+  password: String!
+  role: String!
+  active: Boolean!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+  passwordConfirm: String!
+}
+
+input UserInput {
+  id: String
+  email: String
+  password: String
+  role: String
+  active: Boolean
+}

@@ -4,7 +4,7 @@ const fs = require("fs")
 /**
  * Prevent hoisted files hanging around
  */
-if(fs.existsSync(process.cwd() + "/resolvers.js")) {
+if (fs.existsSync(process.cwd() + "/resolvers.js")) {
     fs.unlinkSync(process.cwd() + "/resolvers.js")
 }
 
@@ -31,6 +31,7 @@ module.exports = {
     coverageReporters: ["clover", "lcov"],
     collectCoverage: true,
     rootDir: process.cwd(),
+    resetMocks: true,
     coverageDirectory: `<rootDir>/tests/.coverage/db/${DBDriverPaths[DB_DRIVER].coverageDirectory}`,
     collectCoverageFrom: [
         `<rootDir>/src/**/*.ts`,
@@ -39,9 +40,11 @@ module.exports = {
     moduleNameMapper: {
         "@corejam/base/dist/(.*)": __dirname + "/src/$1",
         "@corejam/base/(.*)": __dirname + "/$1",
-        "@corejam/plugin-auth/dist/(.*)": path.resolve(__dirname + "/../plugins/auth") + "/$1",
-        "@corejam/plugin-auth/(.*)": path.resolve(__dirname + "/../plugins/auth") + "/$1",
-        "@corejam/plugin-dershop/dist/(.*)": path.resolve(__dirname + "/../plugins/dershop") + "/$1",
-        "@corejam/plugin-dershop/(.*)": path.resolve(__dirname + "/../plugins/dershop") + "/$1",
+        "@corejam/notify/dist/(.*)": path.resolve(__dirname + "/../notify") + "/$1",
+        "@corejam/notify/(.*)": path.resolve(__dirname + "/../notify") + "/$1",
+        "@corejam/plugin-auth/dist/(.*)": path.resolve(__dirname + "/../auth") + "/$1",
+        "@corejam/plugin-auth/(.*)": path.resolve(__dirname + "/../auth") + "/$1",
+        "@corejam/plugin-dershop/dist/(.*)": path.resolve(__dirname + "/../dershop") + "/$1",
+        "@corejam/plugin-dershop/(.*)": path.resolve(__dirname + "/../dershop") + "/$1",
     }
 }

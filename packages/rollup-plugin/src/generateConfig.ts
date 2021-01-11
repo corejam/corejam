@@ -1,6 +1,6 @@
-import { listAsync, readAsync, existsAsync } from "fs-jetpack";
+import { list, read, exists } from "fs-jetpack";
 
-export async function writeConfig() {
+export function writeConfig() {
   const pluginPkg = require(process.cwd() + "/package.json");
   const root = process.cwd();
 
@@ -23,14 +23,14 @@ export async function writeConfig() {
 
   const regexTag = /tag: \"(.*)\"/;
 
-  const components = (await listAsync(root + "/app/components")) || [];
+  const components = (list(root + "/app/components")) || [];
 
   for (const component of components) {
     if (!component.includes(".ts")) {
-      const componentLevel = (await listAsync(root + "/app/components/" + component)) || [];
+      const componentLevel = (list(root + "/app/components/" + component)) || [];
       for (const file of componentLevel) {
         if (file.includes("tsx")) {
-          const f = await readAsync(root + "/app/components/" + component + "/" + file);
+          const f = read(root + "/app/components/" + component + "/" + file);
 
           const tagMatch = f.match(regexTag);
           if (tagMatch) {
@@ -52,7 +52,7 @@ export async function writeConfig() {
   const traverse = async (lookupPath) => {
     let paths = [];
     if (!lookupPath.includes(".md")) {
-      paths = (await listAsync(lookupPath)) || [];
+      paths = (list(lookupPath)) || [];
     }
     for (const current of paths) {
       if (current.indexOf("tsx") > -1) {
@@ -64,10 +64,9 @@ export async function writeConfig() {
         const url =
           segments.length === 0
             ? `/${isIndex ? "" : current.replace(root, "").replace(".tsx", "")}`
-            : `/${segments.join("/").replace(root, "").replace("/app/routes", "")}/${
-                isIndex ? "" : current.replace(".tsx", "")
-              }`;
-        const f = await readAsync(lookupPath + "/" + current);
+            : `/${segments.join("/").replace(root, "").replace("/app/routes", "")}/${isIndex ? "" : current.replace(".tsx", "")
+            }`;
+        const f = read(lookupPath + "/" + current);
         const tagMatch = f.match(regexTag);
         if (tagMatch) {
           config.routes.push({
@@ -94,11 +93,11 @@ export async function writeConfig() {
           }
         }
       } else {
-        await traverse(lookupPath + "/" + current);
+        traverse(lookupPath + "/" + current);
       }
     }
   };
-  await traverse(root + "/app/routes");
+  traverse(root + "/app/routes");
 
   if (pluginPkg.corejam?.wrapper) config.wrapper = pluginPkg.corejam.wrapper;
   if (pluginPkg.corejam?.recommendations) config.recommendations = pluginPkg.corejam.recommendations;
@@ -121,11 +120,11 @@ export async function writeConfig() {
     config.external = pluginPkg.corejam.external;
   }
 
-  if (await existsAsync(root + "/app/layout")) {
-    const componentLevel = (await listAsync(root + "/app/layout")) || [];
+  if (exists(root + "/app/layout")) {
+    const componentLevel = (list(root + "/app/layout")) || [];
     for (const file of componentLevel) {
       if (file.includes("tsx")) {
-        const f = await readAsync(root + "/app/layout/" + file);
+        const f = read(root + "/app/layout/" + file);
         const tagMatch = f.match(regexTag);
         if (tagMatch)
           config["layout"] = {

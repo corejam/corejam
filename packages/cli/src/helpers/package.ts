@@ -24,11 +24,11 @@ export const packageJson = (mono = false) => `{
     "web-components"
   ],
   "devDependencies": {
-    "tslib": "2.0.3",
+    "tslib": "2.1.0",
     "typescript": "4.1.2",
     "@types/faker": "5.1.4",
-    "@corejam/base": "${mono ?  require("../../../base/package.json").version : "latest"}",
-    "@corejam/core-components": "${mono ? require("../../../plugins/core-components/package.json").version : "latest"}",
+    "@corejam/base": "${mono ? require("../../../base/package.json").version : "latest"}",
+    "@corejam/core-components": "${mono ? require("../../../core-components/package.json").version : "latest"}",
     "@corejam/cli": "${mono ? require("../../../cli/package.json").version : "latest"}",
     "@corejam/dev": "${mono ? require("../../../dev/package.json").version : "latest"}",
     "@corejam/run": "${mono ? require("../../../run/package.json").version : "latest"}",

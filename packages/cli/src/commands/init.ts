@@ -11,12 +11,12 @@ type CollectedPluginType = {
 
 const collectedPlugins: Array<CollectedPluginType> = []
 
-export function corejamInit() {
+export function corejamInit(options?: any) {
     const envPackageName = require(envRoot + "/package.json").name;
     const bootSpinner = ora(`Initializing Corejam App for ${chalk.bold.green(envPackageName)}...`).start();
 
     //Root packages
-    if (isAPlugin()) collectedPlugins.push({ name: process.cwd(), depth: 0 })
+    if (isAPlugin()) collectedPlugins.push({ name: options?.path ?? process.cwd(), depth: 0 })
 
     const rootPlugins = collectPlugins();
     collectPluginsRecurse(rootPlugins)

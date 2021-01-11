@@ -40,6 +40,7 @@ describe("Products", function () {
     cy.login("test@test.com", "valid123Password@");
 
     cy.visit("/products");
+    cy.wait(2000)
     cy.getTag("product-list");
     cy.getTag("produx-box")
       .its("length")

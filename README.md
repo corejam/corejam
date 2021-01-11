@@ -63,11 +63,16 @@ $ corejam static
 
 
 # Plugins maintained in this mono repo:
-## Auth
 
-Basic JWT authentication plugin for Corejam applications. [Read more](packages/plugins/auth/README.md)
+We keep a collection of plugins maintained inside this monorepo:
 
-A hassle free plug and play JWT authentication package for your Corejam applications.
+# Auth
+
+Basic GraphQL JWT authentication for Corejam applications. [Read more](packages/plugins/auth/README.md)
+
+A hassle free plug and play JWT authentication package for your Corejam applications to give you an authentication state to use inside your applications.
+
+<img width="200px" src="https://i.imgur.com/kHmFp4b.gif" />
 
 # DerShop -  <a href="https://demo.dershop.dev">demo.dershop.dev</a>
 
@@ -78,7 +83,7 @@ A hassle free plug and play JWT authentication package for your Corejam applicat
 <img width="50%" src="https://dershop.dev/static/images/previewAlpha.jpg" />
 </p>
 
-Serverless webshop built with Corejam. [Read more](packages/plugins/dershop/README.md)
+Serverless webshop built with Corejam. [Read more](packages/dershop/README.md)
 
 We currently only build React output targets but we plan on supporting all Stencil.js supported targets. Feel free to contact us if you want to help out.
 

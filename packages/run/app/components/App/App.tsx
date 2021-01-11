@@ -7,29 +7,18 @@ import { runState } from "../../store/runStore";
 export class CorejamRun {
   @State() config: any;
   async componentWillLoad() {
-    return new Promise(async (res) => {
-      try {
-        const buildConfig = await fetch("/build/config.json");
-        const config = await buildConfig.json();
-        this.config = config;
-        runState.routes = config.router.routes;
-        runState.wrapper = config.wrapper;
-        runState.recommendations = config.recommendations;
-        runState.mode = config.mode;
-        runState.layout = config.layout;
-        res();
-        // if (process.env.MODE !== "static") {
-        //   const docs = await fetch("/assets/custom-elements.json");
-        //   if (docs) {
-        //     const data = await docs.json();
-        //     this.docs = data;
-        //     res();
-        //   }
-        // }
-      } catch (e) {
-        console.log(e);
-      }
-    });
+    try {
+      const buildConfig = await fetch("/build/config.json");
+      const config = await buildConfig.json();
+      this.config = config;
+      runState.routes = config.router.routes;
+      runState.wrapper = config.wrapper;
+      runState.recommendations = config.recommendations;
+      runState.mode = config.mode;
+      runState.layout = config.layout;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   renderRecos() {

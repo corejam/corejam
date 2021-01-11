@@ -3,7 +3,6 @@
 
 name: Node.js CI
 
-
 on:
   push:
     paths-ignore:
@@ -17,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: "corejam/ci:node14.0.0.2"
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+    if: (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository) && !contains(github.event.head_commit.message, 'Merge master into next')
     steps:
       - name: Cancel Previous Run preventing duplicate pipelines
         uses: styfle/cancel-workflow-action@0.6.0
@@ -37,10 +36,10 @@ jobs:
           yarn build
           yarn bs
           node ./utils/hoistPackagesForDeployment.js
-          API_ORIGIN=http://localhost:3000 yarn --cwd packages/plugins/auth corejam static
+          API_ORIGIN=http://localhost:3000 yarn --cwd packages/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/run/dist packages/rollup-plugin/dist packages/router/dist packages/base/dist packages/plugins/auth/dist packages/plugins/auth/www packages/plugins/dershop/dist
+      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/dev/dist packages/run/dist packages/rollup-plugin/dist packages/notify/dist packages/router/dist packages/base/dist packages/auth/dist packages/auth/www packages/dershop/dist packages/canvas/dist
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -59,7 +58,7 @@ jobs:
       - run: tar -xzf artifact.tar
       - run: chmod +x node_modules/.bin/corejam
       - run: |
-          cd packages/plugins/core-components/
+          cd packages/core-components/
           yarn test
 
   integration-tests:
@@ -75,8 +74,9 @@ jobs:
       - run: tar -xzf artifact.tar
       - run: chmod +x node_modules/.bin/corejam
       - run: cd packages/base && yarn corejam init && yarn test
+      - run: cd packages/notify && yarn corejam init && yarn test
       - run: |
-          cd packages/plugins/auth && yarn corejam generateSchema
+          cd packages/auth && yarn corejam generateSchema
           yarn test
           export SECRET=$(COMMIT_ID=auth_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
           SECRET_KEY=$SECRET DB_DRIVER=DB_FAUNA yarn test
@@ -84,7 +84,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET }}
           GITHUB_SHA: ${{ github.sha }}
       - run: |
-          cd packages/plugins/dershop && yarn corejam generateSchema
+          cd packages/dershop && yarn corejam generateSchema
           yarn test
           export SECRET_SHOP=$(COMMIT_ID=dershop_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
           SECRET_KEY=$SECRET_SHOP DB_DRIVER=DB_FAUNA yarn test
@@ -119,8 +119,8 @@ jobs:
         if: |
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
-          cd packages/plugins/auth
-          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../../test/cypress
+          cd packages/auth
+          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
           cypress run --spec "./cypress/integration/plugins/auth/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
@@ -200,7 +200,7 @@ jobs:
           cd ../dev && yarn link
           cd ../run && yarn link
           cd ../rollup-plugin && yarn link
-          cd ../plugins/core-components && yarn link
+          cd ../core-components && yarn link
           cd /github/home && corejam createApp test
           cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
           DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
@@ -244,7 +244,7 @@ jobs:
           cd ../dev && yarn link
           cd ../run && yarn link
           cd ../rollup-plugin && yarn link
-          cd ../plugins/core-components && yarn link
+          cd ../core-components && yarn link
           cd /github/home && cp -r $CLI_PATH . && cd cli && yarn link @corejam/base --ignore-scripts && yarn --ignore-scripts
           cd /github/home && /github/home/cli/dist/index.js createApp test
           cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
@@ -290,9 +290,9 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           if [ $GITHUB_REF = 'refs/heads/master' ]; then export DEPLOYED_URL="demo.dershop.dev"; else export DEPLOYED_URL="$GITHUB_SHA.pipeline.dershop.dev"; fi
-          cd packages/plugins/dershop && yarn corejam generateSchema
+          cd packages/dershop && yarn corejam generateSchema
           export SECRET=$(COMMIT_ID=cypress_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
-          cd ../../../examples/nextjs
+          cd ../../examples/nextjs
           export DEPLOYMENT=$(vercel --confirm --token $ZEIT_TOKEN --scope=dershop -e JWT_HASH=gitlab -e SECRET_KEY=$SECRET -e DB_DRIVER="DB_FAUNA" --build-env SECRET_KEY=$SECRET --build-env DB_DRIVER="DB_FAUNA" -e DEPLOYMENT_URL=https://$DEPLOYED_URL)
           vercel alias $DEPLOYMENT $DEPLOYED_URL --token $ZEIT_TOKEN --scope dershop
           wget $DEPLOYED_URL
@@ -308,7 +308,7 @@ jobs:
         with:
           name: cypress-screenshots
           path: test/cypress/cypress/screenshots
-  
+
   publish:
     name: Publish packages
     runs-on: ubuntu-latest
@@ -326,7 +326,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      
+
       - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: 🟢 Setup Node ${{ matrix.node_version }}
@@ -365,22 +365,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH }}
           NPM_TOKEN: NODE_AUTH_TOKEN
           NODE_AUTH_TOKEN: NODE_AUTH_TOKEN
-          CANARY:  ${{ github.ref == 'refs/heads/next' && '--canary' || ''}}
+          CANARY: ${{ github.ref == 'refs/heads/next' && '--canary' || ''}}
           LERNA_TAG: ${{ github.ref == 'refs/heads/next' && '--dist-tag next' || ''}}
-          
 
   sync-branch:
-      if: github.ref == 'refs/heads/master'
-      needs:
-        - publish 
-      runs-on: ubuntu-latest
-      name: Merge master -> next
-      steps:
-        - name: "Merge"
-          uses: devmasx/merge-branch@v1.3.1
-          with:
-            type: now
-            from_branch: master
-            target_branch: next
-            github_token: ${{ secrets.GH}} 
-
+    if: github.ref == 'refs/heads/master'
+    needs:
+      - publish
+    runs-on: ubuntu-latest
+    name: Merge master -> next
+    steps:
+      - name: "Merge"
+        uses: devmasx/merge-branch@v1.3.1
+        with:
+          type: now
+          from_branch: master
+          target_branch: next
+          github_token: ${{ secrets.GH}}
