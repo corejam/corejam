@@ -1,0 +1,90 @@
+@define-mixin bootstrapWidth $breakpoint {
+  &(.w$(breakpoint)-auto) {
+    width: auto;
+  }
+  &(.w$(breakpoint)-1) {
+    width: 8.333333%;
+  }
+
+  &(.w$(breakpoint)-2) {
+    width: 16.666667%;
+  }
+
+  &(.w$(breakpoint)-3) {
+    width: 25%;
+  }
+
+  &(.w$(breakpoint)-4) {
+    width: 33.333333%;
+  }
+
+  &(.w$(breakpoint)-5) {
+    width: 41.666667%;
+  }
+
+  &(.w$(breakpoint)-6) {
+    width: 50%;
+  }
+
+  &(.w$(breakpoint)-7) {
+    width: 58.333333%;
+  }
+
+  &(.w$(breakpoint)-8) {
+    width: 66.666667%;
+  }
+
+  &(.w$(breakpoint)-9) {
+    width: 75%;
+  }
+
+  &(.w$(breakpoint)-10) {
+    width: 83.333333%;
+  }
+
+  &(.w$(breakpoint)-11) {
+    width: 91.666667%;
+  }
+
+  &(.w$(breakpoint)-12) {
+    width: 100%;
+  }
+
+  &(.w$(breakpoint)-screen) {
+    width: 100vw;
+  }
+}
+
+:host {
+  @mixin bootstrapWidth;
+  &(.max-sm) {
+    max-width: 640px;
+  }
+
+  &(.max-md) {
+    max-width: 768px;
+  }
+
+  &(.max-lg) {
+    max-width: 1024px;
+  }
+
+  &(.max-xl) {
+    max-width: 1280px;
+  }
+  &(.max-full) {
+    max-width: 100%;
+  }
+  @media (min-width: 640px) {
+    @mixin bootstrapWidth Sm;
+  }
+  @media (min-width: 768px) {
+    @mixin bootstrapWidth Md;
+  }
+  @media (min-width: 1024px) {
+    @mixin bootstrapWidth L;
+  }
+  @media (min-width: 1280px) {
+    @mixin bootstrapWidth Xl;
+  }
+}

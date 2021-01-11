@@ -42,9 +42,9 @@ module.exports = {
         "@corejam/base/(.*)": __dirname + "/$1",
         "@corejam/notify/dist/(.*)": path.resolve(__dirname + "/../notify") + "/$1",
         "@corejam/notify/(.*)": path.resolve(__dirname + "/../notify") + "/$1",
-        "@corejam/plugin-auth/dist/(.*)": path.resolve(__dirname + "/../plugins/auth") + "/$1",
-        "@corejam/plugin-auth/(.*)": path.resolve(__dirname + "/../plugins/auth") + "/$1",
-        "@corejam/plugin-dershop/dist/(.*)": path.resolve(__dirname + "/../plugins/dershop") + "/$1",
-        "@corejam/plugin-dershop/(.*)": path.resolve(__dirname + "/../plugins/dershop") + "/$1",
+        "@corejam/plugin-auth/dist/(.*)": path.resolve(__dirname + "/../auth") + "/$1",
+        "@corejam/plugin-auth/(.*)": path.resolve(__dirname + "/../auth") + "/$1",
+        "@corejam/plugin-dershop/dist/(.*)": path.resolve(__dirname + "/../dershop") + "/$1",
+        "@corejam/plugin-dershop/(.*)": path.resolve(__dirname + "/../dershop") + "/$1",
     }
 }

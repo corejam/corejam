@@ -27,7 +27,7 @@
   ],
   "repository": {
     "url": "Corejam/Corejam",
-    "directory": "packages/plugins/dershop"
+    "directory": "packages/dershop"
   },
   "scripts": {
     "dev": "corejam dev",

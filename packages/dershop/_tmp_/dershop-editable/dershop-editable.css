@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+dershop-editable .fixed {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  right: 0;
+  background: white;
+  z-index: 10;
+  overflow-y: auto;
+}

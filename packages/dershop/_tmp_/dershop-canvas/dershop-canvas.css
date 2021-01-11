@@ -1,0 +1,28 @@
+:host {
+  position: relative;
+  display: block;
+  .drop {
+    position: relative;
+    min-height: 100px;
+  }
+  .submenu {
+    background: #000;
+    color: #fff;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    padding: 6px;
+    font-size: 0.8rem;
+    z-index: 10;
+    cursor: pointer;
+  }
+}
+
+.draggers {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  padding: 10px;
+  z-index: 200;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+}
