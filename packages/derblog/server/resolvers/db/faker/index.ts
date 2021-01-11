@@ -1,8 +1,9 @@
 import { PluginResolver } from "../../../types/PluginResolver";
 
-import { getAllBlogPosts, createBlogArticle } from "./derblog";
+import { getAllBlogPosts, createBlogArticle, blogArticleByUrl } from "./derblog";
 
 export const models: PluginResolver = {
   getAllBlogPosts,
   createBlogArticle,
+  blogArticleByUrl
 };

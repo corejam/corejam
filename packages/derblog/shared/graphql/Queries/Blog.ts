@@ -8,6 +8,12 @@ export const paginateArticlesGQL = `
       items {
         id
         title
+        coverImage {
+          src
+        }
+        seo {
+          url
+        }
         description
         dateCreated
       }

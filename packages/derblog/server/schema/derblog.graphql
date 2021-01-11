@@ -3,12 +3,18 @@ type BlogArticle implements Timestamp {
   title: String!
   description: String
   content: String
+  coverImage: Image
+  seo: SEO!
   dateCreated: String!
   dateUpdated: String!
 }
 
 extend type Query {
   allArticles: [BlogArticle]
+}
+
+extend type SEODocument {
+  article: BlogArticle
 }
 
 type ArticleList implements Paginated @cacheControl(maxAge: 300) {
@@ -29,6 +35,6 @@ extend type Mutation {
 
 input BlogArticleCreate {
   title: String!
-  description: String,
+  description: String
   content: String
 }

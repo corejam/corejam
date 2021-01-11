@@ -8,6 +8,7 @@ import type { BlogArticleDB, BlogArticleInput } from "../../shared/types/Blog";
 export declare type PluginResolver = {
   getAllBlogPosts(): Promise<BlogArticleDB[]>;
   createBlogArticle(articleCreateInput: BlogArticleInput): Promise<BlogArticleDB>;
+  blogArticleByUrl(slug: string): Promise<BlogArticleDB | null>;
 };
 
 export declare type MergedServerResolver = CoreResolver & PluginResolver;
