@@ -1,8 +1,8 @@
 import { coreState } from "@corejam/core-components";
 import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
-import { SEODocument } from "../../shared/types/Seo";
 import gql from "graphql-tag";
 import { getObjectFromURL } from "../../shared/graphql/Queries/URL";
+import { SEODocument } from "../../shared/types/Seo";
 
 @Component({
     tag: "dershop-url",
@@ -41,14 +41,14 @@ export class UrlRoute {
     }
 
     getComponentForRoute() {
-        if ((this._object = this._data?.article)) return <dershop-product product={this._object}></dershop-product>;
+        if ((this._object = this._data?.article)) return <derblog-article article={this._object}></derblog-article>;
     }
 
     render() {
         return (
             <Host>
                 {this._component}
-                {this._object?.seo ? <dershop-seo seo={this._object.seo}></dershop-seo> : null}
+                {this._object?.seo ? <corejam-seo seo={this._object.seo}></corejam-seo> : null}
             </Host>
         );
     }
