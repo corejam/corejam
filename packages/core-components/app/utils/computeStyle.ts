@@ -1,5 +1,9 @@
 function bucketSplit(property) {
-  const possibleCamelCaseSplit = property.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ");
+  const possibleCamelCaseSplit = property
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .split(" ")
+    .map((s) => s.toLowerCase());
+
   const first = ["sm", "md", "lg", "xl", "hover", "focus"].includes(possibleCamelCaseSplit[0]);
   const second = ["sm", "md", "lg", "xl", "hover", "focus"].includes(possibleCamelCaseSplit[1]);
 
@@ -68,7 +72,7 @@ export function computeStyle(styles, hash = null) {
     if (splitted.length === 2) collecters[splitted[0]].rules.push(prop.value);
     if (splitted.length === 3) collecters[`${splitted[0]}-${splitted[1]}`].rules.push(prop.value);
   });
-  let generated = `.${hash} { display: block; }\n `;
+  let generated = ``;
   Object.keys(collecters).map((key) => {
     if (key === "rules") {
       if (collecters[key].length > 0)

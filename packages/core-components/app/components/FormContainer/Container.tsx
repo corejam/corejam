@@ -4,12 +4,12 @@ import { Component, h, Host, Listen, State, Event, EventEmitter, Prop } from "@s
   tag: "corejam-form-container",
 })
 export class CorejamFormContainer {
-  @Prop() name: string;
+  @Prop({ reflect: true }) name: string;
   @State() formData: any = {};
   @Event() formEvent: EventEmitter;
   @Event() formSubmit: EventEmitter;
   @Event() sendForm: EventEmitter;
-  @Prop() submitHandler: Function;
+  @Prop({ reflect: true }) submitHandler: Function;
 
   @Listen("formSubmit")
   handleSubmit(e) {

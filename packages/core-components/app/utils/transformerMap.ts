@@ -76,4 +76,10 @@ export const propertyToTransformer = {
   self: async () => (await import("./transform/box/alignSelf")).default,
   shadow: async () => (await import("./transform/effects/shadow")).default,
   bStyle: async () => (await import("./transform/border/style")).default,
+  transition: async () => (await import("./transform/transition/transition")).default,
+  duration: async () => (await import("./transform/transition/duration")).default,
+  timing: async () => (await import("./transform/transition/timing")).default,
+  delay: async () => (await import("./transform/transition/delay")).default,
+  animation: async () => (await import("./transform/transition/animation")).default,
+  overflow: async () => (await import("./transform/layout/overflow")).default,
 };

@@ -1,21 +1,36 @@
 import { propertyToTransformer } from "./transformerMap";
-import { generateHash, lowercaseFirstLetter, addStyleTagToHead } from "./utils";
+import { generateHash, lowercaseFirstLetter, uppercaseFirstLetter, addStyleTagToHead } from "./utils";
 import { computeStyle } from "./computeStyle";
 
 const stylesCache = new Map();
 
 function normalizePropertyBasedOnPossibleIdentifiers(property) {
-  const possibleCamelCaseSplit = property.replace(/([a-z])([A-Z])/g, "$1 $2").split(" ");
+  const possibleCamelCaseSplit = property
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .split(" ")
+    .map((s) => s.toLowerCase());
 
   const first = ["sm", "md", "lg", "xl", "hover", "focus"].includes(possibleCamelCaseSplit[0]);
   const second = ["sm", "md", "lg", "xl", "hover", "focus"].includes(possibleCamelCaseSplit[1]);
 
   if (!first && !second) return property;
-  if (first && !second) return lowercaseFirstLetter(possibleCamelCaseSplit.slice(1).join(""));
-  if (first && second) return lowercaseFirstLetter(possibleCamelCaseSplit.slice(2).join(""));
+  //@todo better handling of names
+  if (first && !second) return lowercaseFirstLetter(possibleCamelCaseSplit.slice(1).map(uppercaseFirstLetter).join(""));
+  if (first && second) return lowercaseFirstLetter(possibleCamelCaseSplit.slice(2).map(uppercaseFirstLetter).join(""));
 }
 
 export const calculateStyles = async (instance) => {
+  if (stylesCache.has("first")) {
+    const styles = document && document.querySelectorAll("head styles");
+    styles.forEach((style) => {
+      if (style.id.includes("cj")) {
+        const hash = style.id;
+        const value = style.textContent;
+        stylesCache.set(hash, value);
+      }
+    });
+    stylesCache.set("first", true);
+  }
   const instanceName = instance.constructor.name;
   const normalizedObject = {};
   for (const property in instance) {
@@ -29,6 +44,7 @@ export const calculateStyles = async (instance) => {
   if (Object.keys(normalizedObject).length > 0) {
     normalizedObject["instance"] = instanceName;
     const hash = "cj" + generateHash(JSON.stringify(normalizedObject));
+    console.log(hash)
     if (stylesCache.has(hash)) {
       const cacheEntry = stylesCache.get(hash);
       addStyleTagToHead(cacheEntry, hash);
@@ -56,11 +72,11 @@ export const calculateStyles = async (instance) => {
               _property: property,
               value: mergePropertyAndValue,
             });
+            if (transformer.additional) {
+              collectedStyles.push(...transformer.additional(instancePropertyValue));
+            }
           } catch (e) {
             console.log(e);
-          }
-          if (transformer.additional) {
-            collectedStyles.push(transformer.additional());
           }
         }
       }

@@ -5,7 +5,7 @@ import { state, set } from "@corejam/router";
   tag: "corejam-init",
 })
 export class Init {
-  @Prop() router = null;
+  @Prop({ reflect: true }) router = null;
 
   async componentWillLoad() {
     if (!this.router) return;

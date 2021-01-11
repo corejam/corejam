@@ -6,7 +6,7 @@ import makeTheme from "./makeTheme";
   tag: "corejam-ui-base",
 })
 export class UiBase {
-  async componentWillRender() {
+  async componentWillLoad() {
     const styleRules = `
     ${reset}
     * {

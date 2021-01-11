@@ -5,7 +5,7 @@ import makeTheme from "../UIBase/makeTheme";
   tag: "corejam-ui-theme",
 })
 export class ThemeProvider {
-  @Prop() theme: object | string = null;
+  @Prop({ reflect: true }) theme: object | string = null;
 
   async componentWillRender() {
     if (this.theme) {

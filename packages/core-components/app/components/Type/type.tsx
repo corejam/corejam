@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Watch, Host } from "@stencil/core";
+import { Component, h, Prop, State, Watch } from "@stencil/core";
 import { Font, General } from "./types";
 
 @Component({
@@ -6,23 +6,23 @@ import { Font, General } from "./types";
 })
 export class CorejamType {
   @State() hash: string;
-  @Prop() family: Font.Family;
-  @Prop() weight: Font.Weight;
-  @Prop() size: Font.Size;
-  @Prop() smooth: Font.Smoothnes;
-  @Prop() fontStyle: Font.Style;
-  @Prop() spacing: Font.Spacing;
-  @Prop() decoration: Font.Decoration;
-  @Prop() mdWeight: Font.Weight;
-  @Prop() lgFocusWeight: string;
-  @Prop() transform: Font.Transform;
-  @Prop() textStyle: string;
-  @Prop() align: Font.Align;
-  @Prop() lineHeight: Font.lineHeight;
-  @Prop() color: General.Color;
-  @Prop() as: Font.As = "span";
+  @Prop({ reflect: true }) family: Font.Family;
+  @Prop({ reflect: true }) weight: Font.Weight;
+  @Prop({ reflect: true }) size: Font.Size;
+  @Prop({ reflect: true }) smooth: Font.Smoothnes;
+  @Prop({ reflect: true }) fontStyle: Font.Style;
+  @Prop({ reflect: true }) spacing: Font.Spacing;
+  @Prop({ reflect: true }) decoration: Font.Decoration;
+  @Prop({ reflect: true }) mdWeight: Font.Weight;
+  @Prop({ reflect: true }) lgFocusWeight: string;
+  @Prop({ reflect: true }) transform: Font.Transform;
+  @Prop({ reflect: true }) textStyle: string;
+  @Prop({ reflect: true }) align: Font.Align;
+  @Prop({ reflect: true }) lineHeight: Font.lineHeight;
+  @Prop({ reflect: true }) color: General.Color;
+  @Prop({ reflect: true }) as: Font.As = "span";
 
-  @Prop({ reflect: false, mutable: true }) droppableElements = ["dershop-ui-box", "dershop-ui-grid"];
+  @Prop({ reflect: false, mutable: true }) droppableElements = ["corejam-box"];
 
   async componentWillLoad() {
     await this.computeStyles();
@@ -44,11 +44,9 @@ export class CorejamType {
   render() {
     const Type = this.as;
     return (
-      <Host>
-        <Type class={this.hash}>
-          <slot></slot>
-        </Type>
-      </Host>
+      <Type class={this.hash}>
+        <slot />
+      </Type>
     );
   }
 }

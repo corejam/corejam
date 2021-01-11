@@ -10,7 +10,7 @@
   "collection": "web-components/collection/collection-manifest.json",
   "collection:main": "web-components/collection/index.js",
   "homepage": "https://dershop.dev/",
-  "description": "Corejam DerShop plugin - Serverless Jamstack Webshop",
+  "description": "Corejam Canvas plugin - Serverless Jamstack Webshop",
   "bugs": {
     "url": "https://github.com/corejam/corejam/issues"
   },
@@ -63,11 +63,12 @@
     "@alepop/stencil-env": "0.4.1",
     "@corejam/base": "0.0.11",
     "@corejam/core-components": "0.0.20",
+    "@corejam/notify": "0.0.1",
     "@corejam/plugin-auth": "0.0.20",
+    "@corejam/plugin-canvas": "0.0.2",
     "@corejam/rollup-plugin": "0.0.3",
     "@corejam/router": "0.0.7",
     "@corejam/run": "0.0.4",
-    "@corejam/notify": "0.0.1",
     "@stencil/core": "2.3.0",
     "@stencil/store": "1.3.0",
     "@xstate/fsm": "1.5.2",

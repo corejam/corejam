@@ -1,3 +1,3 @@
 export namespace Button {
-  export type Type = "submit" | "reset" | "button";
+  export type Type = "a" | "button" | "reset";
 }

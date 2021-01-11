@@ -45,20 +45,16 @@ export class DershopHeader implements ComponentInterface {
           </corejam-box>
           <corejam-box flex justify="center" grow={1} items="center">
             <corejam-box flex w={5} justify="evenly" mr={6} hide mdShow="flex">
-              {this._mainLinks.map((link, key) => (
-                <corejam-base-link href={link.href} key={key}>
-                  {link.title}
-                </corejam-base-link>
+              {this._mainLinks.map((link) => (
+                <corejam-base-link href={link.href}>{link.title}</corejam-base-link>
               ))}
             </corejam-box>
             <corejam-base-link href="/">
               <dershop-logo></dershop-logo>
             </corejam-base-link>
             <corejam-box flex justify="evenly" w={5} ml={6} hide mdShow="flex">
-              {this._secondaryLinks.map((link, key) => (
-                <corejam-base-link href={link.href} key={key}>
-                  {link.title}
-                </corejam-base-link>
+              {this._secondaryLinks.map((link) => (
+                <corejam-base-link href={link.href}>{link.title}</corejam-base-link>
               ))}
             </corejam-box>
           </corejam-box>

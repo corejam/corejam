@@ -7,7 +7,6 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Link } from "./components/Link/Link.types";
 import { Display, Flex, Position } from "./components/Box/types";
-import { Button } from "./components/Button/types";
 import { options } from "./components/FormSelect/corejam-select";
 import { GridType } from "./components/Grid/types";
 import { Font, General } from "./components/Type/types";
@@ -42,6 +41,7 @@ export namespace Components {
         "h": string;
         "hide": boolean;
         "hoverBg": string;
+        "hoverShadow": string;
         "items": Flex.AlignItems;
         "justify": Flex.Justify;
         "left": number;
@@ -76,7 +76,7 @@ export namespace Components {
         "lgSelf": Flex.Self;
         "lgShow": string;
         "lgShrink": number;
-        "lgW": number | string;
+        "lgW": string | number;
         "lgWrap": Flex.Wrap;
         "m": number;
         "max": string;
@@ -112,7 +112,7 @@ export namespace Components {
         "mdSelf": Flex.Self;
         "mdShow": string;
         "mdShrink": number;
-        "mdW": number | string;
+        "mdW": string | number;
         "mdWrap": Flex.Wrap;
         "minH": string;
         "ml": number;
@@ -121,6 +121,7 @@ export namespace Components {
         "mx": string;
         "my": number;
         "order": number;
+        "overflow": string;
         "p": number;
         "pb": number;
         "pl": number;
@@ -170,10 +171,11 @@ export namespace Components {
         "smSelf": Flex.Self;
         "smShow": string;
         "smShrink": number;
-        "smW": number | string;
+        "smW": string | number;
         "smWrap": Flex.Wrap;
         "top": number;
-        "w": number | string;
+        "transition": string;
+        "w": string | number;
         "wrap": Flex.Wrap;
         "xlAlignContent": Flex.AlignContent;
         "xlBasis": number;
@@ -205,20 +207,40 @@ export namespace Components {
         "xlSelf": Flex.Self;
         "xlShow": string;
         "xlShrink": number;
-        "xlW": number | string;
+        "xlW": string | number;
         "xlWrap": Flex.Wrap;
         "xljustify": Flex.Justify;
         "z": number;
     }
     interface CorejamButton {
+        "animation": string;
         "bg": string;
         "color": string;
+        "delay": number;
+        "display": string;
+        "duration": number;
+        "focusBg": string;
+        "focusColor": string;
+        "focusOutline": string;
+        "hoverBg": string;
+        "hoverColor": string;
+        "hoverOutline": string;
+        "justify": string;
+        "lgW": number | string;
+        "mdW": number | string;
+        "outline": string;
         "p": string;
         "pb": string;
         "pl": string;
         "pr": string;
         "pt": string;
-        "type": Button.Type;
+        "rounded": string;
+        "smW": number | string;
+        "timing": string;
+        "transition": string;
+        "type": "a" | "button" | "reset" | "submit";
+        "w": number | string;
+        "xlW": number | string;
     }
     interface CorejamDataFetcher {
         "query": string;
@@ -279,7 +301,7 @@ export namespace Components {
         "gapCol": GridType.Gap;
         "gapRow": GridType.Gap;
         "grid": Boolean;
-        "h": string;
+        "h": String;
         "lgAutoFlow": GridType.Flow;
         "lgCols": GridType.Cols;
         "lgColsEnd": GridType.ColsEnd;
@@ -287,7 +309,6 @@ export namespace Components {
         "lgGap": GridType.Gap;
         "lgGapCol": GridType.Gap;
         "lgGapRow": GridType.Gap;
-        "lgH": string;
         "lgRows": GridType.Rows;
         "lgRowsEnd": GridType.RowsEnd;
         "lgRowsStart": GridType.RowsStart;
@@ -300,13 +321,11 @@ export namespace Components {
         "mdGap": GridType.Gap;
         "mdGapCol": GridType.Gap;
         "mdGapRow": GridType.Gap;
-        "mdH": string;
         "mdRows": GridType.Rows;
         "mdRowsEnd": GridType.RowsEnd;
         "mdRowsStart": GridType.RowsStart;
         "mdTemplateColumns": GridType.TemplateColumns;
         "mdTemplateRows": GridType.TemplateRows;
-        "position": Position;
         "rows": GridType.Rows;
         "rowsEnd": GridType.RowsEnd;
         "rowsStart": GridType.RowsStart;
@@ -317,7 +336,6 @@ export namespace Components {
         "smGap": GridType.Gap;
         "smGapCol": GridType.Gap;
         "smGapRow": GridType.Gap;
-        "smH": string;
         "smRows": GridType.Rows;
         "smRowsEnd": GridType.RowsEnd;
         "smRowsStart": GridType.RowsStart;
@@ -332,7 +350,6 @@ export namespace Components {
         "xlGap": GridType.Gap;
         "xlGapCol": GridType.Gap;
         "xlGapRow": GridType.Gap;
-        "xlH": string;
         "xlRows": GridType.Rows;
         "xlRowsEnd": GridType.RowsEnd;
         "xlRowsStart": GridType.RowsStart;
@@ -546,6 +563,7 @@ declare namespace LocalJSX {
         "h"?: string;
         "hide"?: boolean;
         "hoverBg"?: string;
+        "hoverShadow"?: string;
         "items"?: Flex.AlignItems;
         "justify"?: Flex.Justify;
         "left"?: number;
@@ -580,7 +598,7 @@ declare namespace LocalJSX {
         "lgSelf"?: Flex.Self;
         "lgShow"?: string;
         "lgShrink"?: number;
-        "lgW"?: number | string;
+        "lgW"?: string | number;
         "lgWrap"?: Flex.Wrap;
         "m"?: number;
         "max"?: string;
@@ -616,7 +634,7 @@ declare namespace LocalJSX {
         "mdSelf"?: Flex.Self;
         "mdShow"?: string;
         "mdShrink"?: number;
-        "mdW"?: number | string;
+        "mdW"?: string | number;
         "mdWrap"?: Flex.Wrap;
         "minH"?: string;
         "ml"?: number;
@@ -625,6 +643,7 @@ declare namespace LocalJSX {
         "mx"?: string;
         "my"?: number;
         "order"?: number;
+        "overflow"?: string;
         "p"?: number;
         "pb"?: number;
         "pl"?: number;
@@ -674,10 +693,11 @@ declare namespace LocalJSX {
         "smSelf"?: Flex.Self;
         "smShow"?: string;
         "smShrink"?: number;
-        "smW"?: number | string;
+        "smW"?: string | number;
         "smWrap"?: Flex.Wrap;
         "top"?: number;
-        "w"?: number | string;
+        "transition"?: string;
+        "w"?: string | number;
         "wrap"?: Flex.Wrap;
         "xlAlignContent"?: Flex.AlignContent;
         "xlBasis"?: number;
@@ -709,20 +729,40 @@ declare namespace LocalJSX {
         "xlSelf"?: Flex.Self;
         "xlShow"?: string;
         "xlShrink"?: number;
-        "xlW"?: number | string;
+        "xlW"?: string | number;
         "xlWrap"?: Flex.Wrap;
         "xljustify"?: Flex.Justify;
         "z"?: number;
     }
     interface CorejamButton {
+        "animation"?: string;
         "bg"?: string;
         "color"?: string;
+        "delay"?: number;
+        "display"?: string;
+        "duration"?: number;
+        "focusBg"?: string;
+        "focusColor"?: string;
+        "focusOutline"?: string;
+        "hoverBg"?: string;
+        "hoverColor"?: string;
+        "hoverOutline"?: string;
+        "justify"?: string;
+        "lgW"?: number | string;
+        "mdW"?: number | string;
+        "outline"?: string;
         "p"?: string;
         "pb"?: string;
         "pl"?: string;
         "pr"?: string;
         "pt"?: string;
-        "type"?: Button.Type;
+        "rounded"?: string;
+        "smW"?: number | string;
+        "timing"?: string;
+        "transition"?: string;
+        "type"?: "a" | "button" | "reset" | "submit";
+        "w"?: number | string;
+        "xlW"?: number | string;
     }
     interface CorejamDataFetcher {
         "query"?: string;
@@ -789,7 +829,7 @@ declare namespace LocalJSX {
         "gapCol"?: GridType.Gap;
         "gapRow"?: GridType.Gap;
         "grid"?: Boolean;
-        "h"?: string;
+        "h"?: String;
         "lgAutoFlow"?: GridType.Flow;
         "lgCols"?: GridType.Cols;
         "lgColsEnd"?: GridType.ColsEnd;
@@ -797,7 +837,6 @@ declare namespace LocalJSX {
         "lgGap"?: GridType.Gap;
         "lgGapCol"?: GridType.Gap;
         "lgGapRow"?: GridType.Gap;
-        "lgH"?: string;
         "lgRows"?: GridType.Rows;
         "lgRowsEnd"?: GridType.RowsEnd;
         "lgRowsStart"?: GridType.RowsStart;
@@ -810,13 +849,11 @@ declare namespace LocalJSX {
         "mdGap"?: GridType.Gap;
         "mdGapCol"?: GridType.Gap;
         "mdGapRow"?: GridType.Gap;
-        "mdH"?: string;
         "mdRows"?: GridType.Rows;
         "mdRowsEnd"?: GridType.RowsEnd;
         "mdRowsStart"?: GridType.RowsStart;
         "mdTemplateColumns"?: GridType.TemplateColumns;
         "mdTemplateRows"?: GridType.TemplateRows;
-        "position"?: Position;
         "rows"?: GridType.Rows;
         "rowsEnd"?: GridType.RowsEnd;
         "rowsStart"?: GridType.RowsStart;
@@ -827,7 +864,6 @@ declare namespace LocalJSX {
         "smGap"?: GridType.Gap;
         "smGapCol"?: GridType.Gap;
         "smGapRow"?: GridType.Gap;
-        "smH"?: string;
         "smRows"?: GridType.Rows;
         "smRowsEnd"?: GridType.RowsEnd;
         "smRowsStart"?: GridType.RowsStart;
@@ -842,7 +878,6 @@ declare namespace LocalJSX {
         "xlGap"?: GridType.Gap;
         "xlGapCol"?: GridType.Gap;
         "xlGapRow"?: GridType.Gap;
-        "xlH"?: string;
         "xlRows"?: GridType.Rows;
         "xlRowsEnd"?: GridType.RowsEnd;
         "xlRowsStart"?: GridType.RowsStart;

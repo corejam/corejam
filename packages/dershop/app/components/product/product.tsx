@@ -45,13 +45,9 @@ export class ProductDetail {
       const data = await coreState.client.query({ query: gql(productByUrlGQL), variables });
       this._product = data.data.productByUrl;
     } else {
-      this._product = this.product
-        ? typeof this.product === "string"
-          ? JSON.parse(this.product)
-          : this.product
-        : null;
-      this._activeThumb = this._product.images[0]
+      this._product = typeof this.product === "string" ? JSON.parse(this.product) : this.product;
     }
+    this._activeThumb = this._product.images[0];
   }
 
   buyProduct(e) {
@@ -84,7 +80,7 @@ export class ProductDetail {
               src={this._activeThumb?.src}
               alt={this._product.name}
             ></dershop-image>
-             <corejam-box mt={6} pb={6}>
+            <corejam-box mt={6} pb={6}>
               <corejam-box flex direction="row">
                 {this._product.images?.map((image) => (
                   <corejam-box px={2}>
@@ -92,7 +88,9 @@ export class ProductDetail {
                       h="32"
                       fit="cover"
                       data-cy="product-thumb"
-                      onClick={() => { this._activeThumb = image }}
+                      onClick={() => {
+                        this._activeThumb = image;
+                      }}
                       src={image.src}
                       alt={this._product.name}
                     ></dershop-image>

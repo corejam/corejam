@@ -84,7 +84,7 @@ import { Component, Host, h, Prop, Element, State } from "@stencil/core";
   }
   `,
 })
-export class AppRouter {
+export class AppPlayground {
   private devices = [
     {
       name: "iPhone 6/7/8",

@@ -5,7 +5,7 @@ import { Component, ComponentInterface, Host, h, Prop, Event, EventEmitter } fro
   // styleUrl: "form-submit.css",
 })
 export class CorejamFormSubmit implements ComponentInterface {
-  @Prop() formId: string;
+  @Prop({ reflect: true }) formId: string;
   @Event() formSubmit: EventEmitter;
 
   onClick(e) {

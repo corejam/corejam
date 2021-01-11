@@ -4,6 +4,7 @@ export const generateHash = (s) => Math.floor(s.split("").reduce((a, b) => ((a <
 export const isBoolean = (val) => "boolean" === typeof val || val === "true";
 
 export const lowercaseFirstLetter = (string) => string.charAt(0).toLowerCase() + string.slice(1);
+export const uppercaseFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
 export const addStyleTagToHead = (styles: string, hash: string) => {
   if (!document.getElementById(hash)) {

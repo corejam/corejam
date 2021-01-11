@@ -12,29 +12,29 @@ export class CorejamFormInput {
    * Form specific props
    */
 
-  @Prop() _id?: string;
-  @Prop() name: string;
-  @Prop() type = "text";
-  @Prop() placeholder?: string;
-  @Prop() label?: string;
-  @Prop() formId: string;
-  @Prop() autocomplete = "off";
-  @Prop() required = false;
-  @Prop() value: string | number;
-  @Prop() checked? = false;
-  @Prop() autofocus = false;
+  @Prop({ reflect: true }) _id?: string;
+  @Prop({ reflect: true }) name: string;
+  @Prop({ reflect: true }) type = "text";
+  @Prop({ reflect: true }) placeholder?: string;
+  @Prop({ reflect: true }) label?: string;
+  @Prop({ reflect: true }) formId: string;
+  @Prop({ reflect: true }) autocomplete = "off";
+  @Prop({ reflect: true }) required = false;
+  @Prop({ reflect: true }) value: string | number;
+  @Prop({ reflect: true }) checked? = false;
+  @Prop({ reflect: true }) autofocus = false;
 
   /**
    * Style specific prop
    */
 
-  @Prop() w = 12;
-  @Prop() bg = "gray-100";
-  @Prop() hoverBg = "gray-300";
-  @Prop() focusBg = "gray-300";
-  @Prop() bWidth = 0;
-  @Prop() p = 4;
-  @Prop() focusOutline = "none";
+  @Prop({ reflect: true }) w = 12;
+  @Prop({ reflect: true }) bg = "gray-100";
+  @Prop({ reflect: true }) hoverBg = "gray-300";
+  @Prop({ reflect: true }) focusBg = "gray-300";
+  @Prop({ reflect: true }) bWidth = 0;
+  @Prop({ reflect: true }) p = 4;
+  @Prop({ reflect: true }) focusOutline = "none";
 
   @Event() formEvent: EventEmitter;
 

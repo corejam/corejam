@@ -1,5 +1,5 @@
 export default {
-  property: "flex-order",
+  property: "order",
   transform: (value) => {
     return value;
   },

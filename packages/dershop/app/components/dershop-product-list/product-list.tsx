@@ -85,7 +85,6 @@ export class ProductList {
                   image={product.images ? product.images[0].src : null}
                   price={product.price ? product.price.net : null}
                   url={product.seo ? product.seo.url : null}
-                  key={product.id}
                 />
               ))}
             </corejam-grid>

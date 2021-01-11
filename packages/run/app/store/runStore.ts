@@ -5,11 +5,12 @@ export type CorejamMode = "development" | "production" | "static";
 export type CorejamRoute = {
   url: string;
   exact: boolean;
+  canvasPage?: boolean;
   component: string;
 };
 
 type CorejamRunStore = {
-  routes: [CorejamRoute];
+  routes: CorejamRoute[];
   mode: CorejamMode;
   wrapper: [string] | [];
   recommendations: [string];
