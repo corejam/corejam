@@ -56,7 +56,7 @@
     "dotenv": "8.2.0",
     "jest-date-mock": "1.0.8",
     "shx": "0.3.3",
-    "tslib": "2.0.3",
+    "tslib": "2.1.0",
     "typescript": "4.1.3"
   },
   "dependencies": {
