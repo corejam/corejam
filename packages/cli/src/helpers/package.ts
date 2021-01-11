@@ -24,7 +24,7 @@ export const packageJson = (mono = false) => `{
     "web-components"
   ],
   "devDependencies": {
-    "tslib": "2.0.3",
+    "tslib": "2.1.0",
     "typescript": "4.1.2",
     "@types/faker": "5.1.4",
     "@corejam/base": "${mono ? require("../../../base/package.json").version : "latest"}",
