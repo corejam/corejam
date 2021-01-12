@@ -60,6 +60,9 @@ jobs:
       - run: |
           cd packages/core-components/
           yarn test
+      - uses: codecov/codecov-action@v1
+        with:
+          directory: packages # optional
 
   integration-tests:
     runs-on: ubuntu-latest

@@ -9,3 +9,4 @@ angular
 web-components
 .env
 static
+coverage
