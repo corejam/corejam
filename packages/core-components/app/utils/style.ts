@@ -44,7 +44,6 @@ export const calculateStyles = async (instance) => {
   if (Object.keys(normalizedObject).length > 0) {
     normalizedObject["instance"] = instanceName;
     const hash = "cj" + generateHash(JSON.stringify(normalizedObject));
-    console.log(hash)
     if (stylesCache.has(hash)) {
       const cacheEntry = stylesCache.get(hash);
       addStyleTagToHead(cacheEntry, hash);
