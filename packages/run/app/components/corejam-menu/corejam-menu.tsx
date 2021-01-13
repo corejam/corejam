@@ -106,12 +106,12 @@ export class CjDebugger {
     return (
       <Host>
         <div class="menu">
-          <Corejam w="30px" h="30px" class="icon" onClick={() => this.toggleMenu()} />
+          <Corejam data-cy="corejam-builder" w="30px" h="30px" class="icon" onClick={() => this.toggleMenu()} />
           <div
             class="menu-inner"
             // animation="all"
             style={{ display: this.max ? "flex" : "none" }}
-            // bWidthTop={canvasState.machine.value !== "inactive" ? 1 : 0}
+          // bWidthTop={canvasState.machine.value !== "inactive" ? 1 : 0}
           >
             <corejam-tabs>{this.renderTabs()}</corejam-tabs>
           </div>
