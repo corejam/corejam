@@ -1,6 +1,6 @@
 {
   "name": "dershop-static",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "private": true,
   "main": "api/graphql.js",
   "license": "MIT",
@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "0.11.1",
-    "@corejam/base": "0.0.11",
+    "@corejam/base": "0.0.12",
     "dotenv": "8.2.0",
     "micro": "9.3.4",
     "npm-run-all": "4.1.5"
