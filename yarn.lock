@@ -893,6 +893,18 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@corejam/base@0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@corejam/base/-/base-0.0.11.tgz#db4e18f645d1975904a36efa73b6aa46c8099e2e"
+  integrity sha512-p6eDX+LolMrs9KUi6yCun3n0A6fZH4sIINRA+0khbBCtJePVmxG5unxn3EPHuo/lx0IkiBa3Orr52HoCzsCQzA==
+  dependencies:
+    apollo-cache-inmemory "1.6.6"
+    apollo-server-caching "0.5.2"
+    apollo-server-micro "2.19.0"
+    faker "5.1.0"
+    faunadb "4.0.0"
+    graphql "15.4.0"
+
 "@corejam/cli@0.0.16":
   version "0.0.16"
   resolved "https://registry.yarnpkg.com/@corejam/cli/-/cli-0.0.16.tgz#4bf74023c91da91890adfbaa2a352d54f08bcd66"

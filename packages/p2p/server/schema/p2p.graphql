@@ -1,0 +1,15 @@
+type P2p {
+  name: String
+}
+
+extend type Query {
+  allP2p: [P2p]
+}
+
+extend type Mutation {
+  p2pCreate(p2pCreateInput: P2pCreate!): P2p
+}
+
+input P2pCreate {
+  name: String!
+}

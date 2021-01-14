@@ -1,0 +1,46 @@
+{
+  "name": "@corejam/p2p",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "main": "web-components/index.cjs.js",
+  "module": "web-components/custom-elements/index.js",
+  "es2015": "web-components/esm/index.js",
+  "es2017": "web-components/esm/index.js",
+  "types": "web-components/custom-elements/index.d.ts",
+  "collection": "web-components/collection/collection-manifest.json",
+  "collection:main": "web-components/collection/index.js",
+  "scripts": {
+    "dev": "corejam dev",
+    "build": "corejam build",
+    "test": "corejam test",
+    "precommit": "lint-staged",
+    "static": "corejam static -l",
+    "static:serve": "corejam static:serve",
+    "clean": "rimraf dist & rimraf react & rimraf web-components"
+  },
+  "files": [
+    "dist",
+    "web-components"
+  ],
+  "devDependencies": {
+    "tslib": "2.1.0",
+    "typescript": "4.1.2",
+    "@types/faker": "5.1.4",
+    "@corejam/base": "0.0.12",
+    "@corejam/core-components": "0.0.21",
+    "@corejam/cli": "0.0.20",
+    "@corejam/dev": "0.0.10",
+    "@corejam/run": "0.0.5",
+    "@corejam/rollup-plugin": "0.0.4",
+    "faker": "5.1.0",
+    "dotenv": "8.2.0",
+    "@rollup/plugin-replace": "2.3.4",
+    "@stencil/react-output-target": "0.0.9",
+    "@stencil/core": "2.3.0"
+  },
+  "corejam": {
+    "wrapper": [],
+    "recommendations": []
+  }
+}
