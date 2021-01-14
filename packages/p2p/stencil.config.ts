@@ -8,10 +8,8 @@ import replace from "@rollup/plugin-replace";
 
 const targets = process.env.targets?.split(",") || [];
 
-const name = require("./package.json").name;
-
 const config: Config = {
-  namespace: process.env.NODE_ENV === "production" ? name : "corejam-dev",
+  namespace: process.env.NODE_ENV === "production" ? "corejam-app-p2p" : "corejam-dev",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
   srcIndexHtml: require.resolve("@corejam/run/dist/index.html"),
@@ -23,10 +21,9 @@ const config: Config = {
     replace({
       "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
     }),
-    corejam()
+    corejam(),
   ],
 };
-
 
 if (targets.includes("dist")) {
   config.outputTargets.push({
@@ -59,7 +56,7 @@ if (targets.includes("react")) {
   if (!fs.existsSync("./react")) fs.mkdirSync("./react");
   config.outputTargets.push(
     reactOutputTarget({
-      componentCorePackage: name,
+      componentCorePackage: "@corejam/app-p2p",
       proxiesFile: "react/index.ts",
       loaderDir: "web-components/loader",
       includeDefineCustomElements: true,
