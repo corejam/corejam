@@ -37,7 +37,8 @@
   },
   "files": [
     "web-components",
-    "react"
+    "react",
+    "app"
   ],
   "devDependencies": {
     "@corejam/base": "0.0.12",

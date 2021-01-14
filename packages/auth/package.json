@@ -42,7 +42,8 @@
   "files": [
     "dist",
     "web-components",
-    "react"
+    "react",
+    "app"
   ],
   "devDependencies": {
     "@corejam/cli": "0.0.20",
