@@ -5,7 +5,6 @@ export const { state, get, reset, set, onChange } = createStore({
   router: createRouter(),
 });
 
-
 export type CorejamMode = "development" | "production" | "static";
 
 export type CorejamRoute = {
@@ -13,10 +12,11 @@ export type CorejamRoute = {
   exact: boolean;
   canvasPage?: boolean;
   component: string;
+  dev?: boolean;
 };
 
 export type CorejamRunStore = {
-  router: Router,
+  router: Router;
   routes: CorejamRoute[];
   mode: CorejamMode;
   wrapper: [string] | [];
@@ -33,9 +33,8 @@ export const {
   get: runGet,
   reset: runReset,
   set: runSet,
-  onChange: runChange } = createStore<
-  CorejamRunStore
->({
+  onChange: runChange,
+} = createStore<CorejamRunStore>({
   router: createRouter(),
   routes: null,
   mode: null,

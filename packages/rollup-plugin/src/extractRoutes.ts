@@ -19,6 +19,7 @@ export function extractComponentsToRoutes(root: string, name = null): any[] {
               url: name ? `plugin/${name}/component/${tagMatch[1]}` : `/component/${tagMatch[1]}`,
               exact: true,
               component: tagMatch[1],
+              dev: false,
             });
           }
         }
@@ -64,12 +65,14 @@ export function extractRoutes(root: string, name = null): any[] {
               url: newUrl,
               exact: false,
               component: tagMatch[1],
+              dev: false,
             });
           } else {
             namedRoutes.push({
               url: name ? `plugin/${name}/${url}` : url,
               exact: true,
               component: tagMatch[1],
+              dev: false,
             });
           }
         }

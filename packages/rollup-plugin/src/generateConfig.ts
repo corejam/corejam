@@ -41,11 +41,13 @@ export function writeConfig() {
       url: "/_corejam",
       exact: true,
       component: "app-welcome",
+      dev: true,
     });
     componentRoutes.push({
       url: "/liveview",
       exact: true,
       component: "app-liveview",
+      dev: true,
     });
   }
 
