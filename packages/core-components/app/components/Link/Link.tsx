@@ -1,8 +1,7 @@
-import { Component, Host, h, Prop, State, Event } from "@stencil/core";
+import { Component, Host, h, Prop, State, Event, EventEmitter } from "@stencil/core";
 import { href } from "stencil-router-v2";
 import { runState } from "@corejam/run";
 import { Link } from "./Link.types";
-import { EventEmitter } from "@corejam/run/dist/types/stencil-public-runtime";
 
 @Component({
   tag: "corejam-base-link",
