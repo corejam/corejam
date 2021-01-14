@@ -1,9 +1,8 @@
 import { Component, Host, h } from "@stencil/core";
 import { Route, match } from "stencil-router-v2";
-import { state } from "@corejam/router";
 import { CorejamRoute, runState } from "../../store/runStore";
 
-const Router = state.router;
+const Router = runState.router;
 
 @Component({
   tag: "corejam-run-router",
@@ -19,8 +18,7 @@ export class AppRouter {
             //We have a canvasPage object coming in
             if (route.exact && route.canvasPage === true) {
               return (
-                <Route
-                  path={match(route.url, { exact: true })}>
+                <Route path={match(route.url, { exact: true })}>
                   <div innerHTML={JSON.parse(route.component)}></div>
                 </Route>
               );

@@ -73,7 +73,6 @@
     "@corejam/core-components": "0.0.21",
     "@corejam/notify": "0.0.2",
     "@corejam/rollup-plugin": "0.0.4",
-    "@corejam/router": "0.0.7",
     "@corejam/run": "0.0.5",
     "@stencil/core": "2.3.0",
     "@stencil/store": "1.3.0",

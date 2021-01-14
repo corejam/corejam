@@ -68,7 +68,6 @@
     "@corejam/plugin-auth": "0.0.21",
     "@corejam/plugin-canvas": "0.0.3",
     "@corejam/rollup-plugin": "0.0.4",
-    "@corejam/router": "0.0.7",
     "@corejam/run": "0.0.5",
     "@stencil/core": "2.3.0",
     "@stencil/store": "1.3.0",

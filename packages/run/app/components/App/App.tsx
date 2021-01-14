@@ -32,7 +32,7 @@ export class CorejamRun {
 
   renderLayout(children: [JSX.Element]) {
     if (this.config.layout) {
-      const Layout = this.config.layout.component;
+      const Layout = this.config.layout[0].component;
       return <Layout>{children}</Layout>;
     }
     return children;

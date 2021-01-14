@@ -22,7 +22,6 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@corejam/router": "0.0.7",
     "@corejam/run": "0.0.5",
     "@stencil/core": "2.3.0",
     "stencil-router-v2": "0.6.0"

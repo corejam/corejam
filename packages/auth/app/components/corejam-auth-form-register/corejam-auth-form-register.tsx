@@ -1,6 +1,6 @@
 import { Component, h, Host, Listen, Prop } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
-import { state as routerState } from "@corejam/router";
+import { runState } from "@corejam/run";
 import gql from "graphql-tag";
 import { userRegisterMutationGQL } from "../../../shared/graphql/Mutations";
 import { authStore } from "../../store/authStore";
@@ -30,14 +30,14 @@ export class AuthRegister {
     });
 
     if (request.data.userRegister) {
-      this.onSuccess ? this.onSuccess() : routerState.router.push("/login");
+      this.onSuccess ? this.onSuccess() : runState.router.push("/login");
     } else {
       this.onFail ? this.onFail() : null;
     }
   }
 
   componentWillLoad() {
-    if (authStore.identity) routerState.router.push("/");
+    if (authStore.identity) runState.router.push("/");
   }
 
   render() {
