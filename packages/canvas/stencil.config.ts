@@ -15,7 +15,7 @@ const config: Config = {
   tsconfig: "./tsconfig.json",
   srcDir: "app",
   globalScript: "app/global.ts",
-  srcIndexHtml: require.resolve("@corejam/run/dist/index.html"),
+  srcIndexHtml: require.resolve("@corejam/run/web-components/index.html"),
   devServer: {
     port: 3001,
   },
@@ -24,7 +24,7 @@ const config: Config = {
     replace({
       "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
     }),
-    corejam()
+    corejam(),
   ],
 };
 

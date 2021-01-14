@@ -11,7 +11,7 @@ const config: Config = {
   namespace: process.env.NODE_ENV === "production" ? "corejam-plugin-auth" : "corejam-dev",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
-  srcIndexHtml: require.resolve("@corejam/run/dist/index.html"),
+  srcIndexHtml: require.resolve("@corejam/run/web-components/index.html"),
   devServer: {
     port: 3001,
   },
@@ -50,7 +50,7 @@ if (targets.includes("prerender")) {
   config.outputTargets.push({
     type: "www",
     empty: false,
-    prerenderConfig: './prerender.config.ts',
+    prerenderConfig: "./prerender.config.ts",
     serviceWorker: null,
     baseUrl: "http://localhost:3000",
   });

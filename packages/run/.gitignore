@@ -2,7 +2,7 @@ dist/
 www/
 loader/
 web-components/
-
+react/
 *~
 *.sw[mnpcod]
 *.log

@@ -1,28 +1,71 @@
 import { Config } from "@stencil/core";
+import { reactOutputTarget } from "@stencil/react-output-target";
 import corejam from "@corejam/rollup-plugin";
-export const config: Config = {
-  namespace: "corejam-run",
+import fs from "fs";
+
+const targets = process.env.targets?.split(",") || [];
+
+const config: Config = {
+  namespace: process.env.NODE_ENV === "production" ? "corejam-run" : "corejam-dev",
+  tsconfig: "./tsconfig.json",
   srcDir: "app",
   devServer: {
     port: 3001,
   },
-  outputTargets: [
-    {
-      type: "dist",
-      dir: "dist",
-      esmLoaderPath: "../loader",
-    },
-    {
-      type: "dist-custom-elements-bundle",
-      dir: "dist/custom-elements",
-    },
-    {
-      type: "docs-readme",
-    },
-    {
-      type: "www",
-      serviceWorker: null, // disable service workers
-    },
-  ],
-  plugins: [corejam()],
+  outputTargets: [],
+  plugins: [],
 };
+
+if (process.env.NODE_ENV !== "production") {
+  config.plugins.push(corejam());
+}
+
+if (targets.includes("dist")) {
+  config.outputTargets.push({
+    type: "dist",
+    dir: "web-components",
+    esmLoaderPath: "loader",
+  });
+}
+if (targets.includes("custom")) {
+  config.outputTargets.push({
+    type: "dist-custom-elements-bundle",
+    dir: "web-components/custom-elements",
+  });
+}
+if (targets.includes("hydrate")) {
+  config.outputTargets.push({
+    type: "dist-hydrate-script",
+    dir: "web-components/hydrate",
+  });
+}
+if (targets.includes("prerender")) {
+  config.outputTargets.push({
+    type: "www",
+    empty: false,
+    prerenderConfig: "./prerender.config.ts",
+    serviceWorker: null,
+    baseUrl: "http://localhost:3000",
+  });
+}
+if (targets.includes("react")) {
+  if (!fs.existsSync("./react")) fs.mkdirSync("./react");
+  config.outputTargets.push(
+    reactOutputTarget({
+      componentCorePackage: "@corejam/plugin-auth",
+      proxiesFile: "react/index.ts",
+      loaderDir: "web-components/loader",
+      includeDefineCustomElements: true,
+      excludeComponents: [
+        "app-liveview",
+        "app-playground",
+        "app-test-comp",
+        "app-welcome",
+        "corejam-run-app",
+        "corejam-run-router",
+      ],
+    })
+  );
+}
+
+export { config };
