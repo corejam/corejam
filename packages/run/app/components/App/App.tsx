@@ -40,17 +40,12 @@ export class CorejamRun {
 
   renderWrapperComponent() {
     if (this.config.wrapper.length > 0) {
-      /**
-       * TODO
-       * Check if multiple wrapper components.
-       */
-      const Wrapper = this.config.wrapper[0];
-      return (
-        <Wrapper>
-          {this.renderRecos()}
-          {this.renderLayout(<corejam-run-router />)}
-        </Wrapper>
-      );
+      let Res = [this.renderRecos(), this.renderLayout(<corejam-run-router />)];
+      this.config.wrapper.reverse().forEach((component) => {
+        const Component = component;
+        Res = <Component>{Res}</Component>;
+      });
+      return Res;
     }
     return [this.renderRecos(), this.renderLayout(<corejam-run-router></corejam-run-router>)];
   }
