@@ -32,8 +32,8 @@ export class CorejamRun {
 
   renderLayout(children: [JSX.Element]) {
     if (this.config.layout) {
-      const Layout = this.config.layout[0].component;
-      return <Layout>{children}</Layout>;
+      const Layout = this.config.layout[0]?.component;
+      if (Layout) return <Layout>{children}</Layout>;
     }
     return children;
   }
