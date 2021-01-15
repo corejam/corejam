@@ -11,10 +11,10 @@ const targets = process.env.targets?.split(",") || [];
 const name = require("./package.json").name;
 
 const config: Config = {
-  namespace: process.env.NODE_ENV === "production" ? name : "corejam-dev",
+  namespace: process.env.NODE_ENV === "production" ? name.replace("@", "").replace("/", "-") : "corejam-dev",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
-  srcIndexHtml: require.resolve("@corejam/run/dist/index.html"),
+  srcIndexHtml: require.resolve("@corejam/run/web-components/index.html"),
   devServer: {
     port: 3001,
   },
@@ -23,10 +23,9 @@ const config: Config = {
     replace({
       "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
     }),
-    corejam()
+    corejam(),
   ],
 };
-
 
 if (targets.includes("dist")) {
   config.outputTargets.push({
