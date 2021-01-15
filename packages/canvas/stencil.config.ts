@@ -11,11 +11,10 @@ const targets = process.env.targets?.split(",") || [];
 const name = require("./package.json").name;
 
 const config: Config = {
-  namespace: process.env.NODE_ENV === "production" ? "corejam-plugin-canvas" : "corejam-dev",
+  namespace: "corejam-plugin-canvas",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
   globalScript: "app/global.ts",
-  srcIndexHtml: require.resolve("@corejam/run/web-components/index.html"),
   devServer: {
     port: 3001,
   },

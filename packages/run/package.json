@@ -21,7 +21,6 @@
   "scripts": {
     "dev": "corejam dev",
     "build": "corejam build",
-    "postbuild": "shx cp ./app/index.html ./web-components",
     "prepublish": "shx rm -f .env && yarn clean && yarn build",
     "postpublish": "shx cp .env.sample .env",
     "test": "stencil test --spec --e2e",

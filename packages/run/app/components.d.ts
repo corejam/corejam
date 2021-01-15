@@ -6,45 +6,45 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface CorejamRunApp {
+    interface CorejamApp {
     }
-    interface CorejamRunRouter {
+    interface CorejamRouter {
     }
 }
 declare global {
-    interface HTMLCorejamRunAppElement extends Components.CorejamRunApp, HTMLStencilElement {
+    interface HTMLCorejamAppElement extends Components.CorejamApp, HTMLStencilElement {
     }
-    var HTMLCorejamRunAppElement: {
-        prototype: HTMLCorejamRunAppElement;
-        new (): HTMLCorejamRunAppElement;
+    var HTMLCorejamAppElement: {
+        prototype: HTMLCorejamAppElement;
+        new (): HTMLCorejamAppElement;
     };
-    interface HTMLCorejamRunRouterElement extends Components.CorejamRunRouter, HTMLStencilElement {
+    interface HTMLCorejamRouterElement extends Components.CorejamRouter, HTMLStencilElement {
     }
-    var HTMLCorejamRunRouterElement: {
-        prototype: HTMLCorejamRunRouterElement;
-        new (): HTMLCorejamRunRouterElement;
+    var HTMLCorejamRouterElement: {
+        prototype: HTMLCorejamRouterElement;
+        new (): HTMLCorejamRouterElement;
     };
     interface HTMLElementTagNameMap {
-        "corejam-run-app": HTMLCorejamRunAppElement;
-        "corejam-run-router": HTMLCorejamRunRouterElement;
+        "corejam-app": HTMLCorejamAppElement;
+        "corejam-router": HTMLCorejamRouterElement;
     }
 }
 declare namespace LocalJSX {
-    interface CorejamRunApp {
+    interface CorejamApp {
     }
-    interface CorejamRunRouter {
+    interface CorejamRouter {
     }
     interface IntrinsicElements {
-        "corejam-run-app": CorejamRunApp;
-        "corejam-run-router": CorejamRunRouter;
+        "corejam-app": CorejamApp;
+        "corejam-router": CorejamRouter;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "corejam-run-app": LocalJSX.CorejamRunApp & JSXBase.HTMLAttributes<HTMLCorejamRunAppElement>;
-            "corejam-run-router": LocalJSX.CorejamRunRouter & JSXBase.HTMLAttributes<HTMLCorejamRunRouterElement>;
+            "corejam-app": LocalJSX.CorejamApp & JSXBase.HTMLAttributes<HTMLCorejamAppElement>;
+            "corejam-router": LocalJSX.CorejamRouter & JSXBase.HTMLAttributes<HTMLCorejamRouterElement>;
         }
     }
 }

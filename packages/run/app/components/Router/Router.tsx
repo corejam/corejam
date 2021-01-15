@@ -5,9 +5,9 @@ import { CorejamRoute, runState } from "../../store/runStore";
 const Router = runState.router;
 
 @Component({
-  tag: "corejam-run-router",
+  tag: "corejam-router",
 })
-export class AppRouter {
+export class CorejamRouter {
   render() {
     return (
       <Host>

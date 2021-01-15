@@ -6,7 +6,7 @@ import fs from "fs";
 const targets = process.env.targets?.split(",") || [];
 
 const config: Config = {
-  namespace: process.env.NODE_ENV === "production" ? "corejam-run" : "corejam-dev",
+  namespace: "corejam-run",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
   devServer: {

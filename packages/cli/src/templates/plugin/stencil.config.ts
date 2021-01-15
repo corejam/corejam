@@ -8,13 +8,10 @@ import replace from "@rollup/plugin-replace";
 
 const targets = process.env.targets?.split(",") || [];
 
-const name = require("./package.json").name;
-
 const config: Config = {
-  namespace: process.env.NODE_ENV === "production" ? name.replace("@", "").replace("/", "-") : "corejam-dev",
+  namespace: "corejam-pluginName",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
-  srcIndexHtml: require.resolve("@corejam/run/web-components/index.html"),
   devServer: {
     port: 3001,
   },
@@ -58,7 +55,7 @@ if (targets.includes("react")) {
   if (!fs.existsSync("./react")) fs.mkdirSync("./react");
   config.outputTargets.push(
     reactOutputTarget({
-      componentCorePackage: name,
+      componentCorePackage: "pluginName",
       proxiesFile: "react/index.ts",
       loaderDir: "web-components/loader",
       includeDefineCustomElements: true,
@@ -67,8 +64,8 @@ if (targets.includes("react")) {
         "app-playground",
         "app-test-comp",
         "app-welcome",
-        "corejam-run-app",
-        "corejam-run-router",
+        "corejam-app",
+        "corejam-router",
       ],
     })
   );
