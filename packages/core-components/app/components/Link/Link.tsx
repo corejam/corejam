@@ -36,7 +36,7 @@ export class BaseLink {
         ...defaultProps,
         onClick: (ev: MouseEvent) => {
           this.routeChange.emit({ type: "routechange", newUrl: this.href });
-          defaultProps.onClick(ev);
+          if (typeof defaultProps.onClick === "function") defaultProps.onClick(ev);
           window.scrollTo({ top: 0 });
         },
       };
