@@ -51,6 +51,11 @@ export class CorejamRun {
   }
 
   render() {
-    return <Host>{this.renderWrapperComponent()}</Host>;
+    return (
+      <Host>
+        {this.renderWrapperComponent()}
+        <corejam-menu></corejam-menu>
+      </Host>
+    );
   }
 }
