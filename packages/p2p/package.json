@@ -39,6 +39,11 @@
     "@stencil/react-output-target": "0.0.9",
     "@stencil/core": "2.3.0"
   },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "prettier --write"
+    ]
+  },
   "corejam": {
     "wrapper": [],
     "recommendations": []

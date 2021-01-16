@@ -21,7 +21,8 @@
   "scripts": {
     "dev": "corejam dev",
     "build": "corejam build",
-    "prepublish": "yarn build"
+    "prepublish": "yarn build",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@corejam/cli": "0.0.20",
@@ -34,6 +35,11 @@
     "@corejam/rollup-plugin": "0.0.4",
     "tslib": "2.1.0",
     "typescript": "4.1.3"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "prettier --write"
+    ]
   },
   "license": "MIT"
 }

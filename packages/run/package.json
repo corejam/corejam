@@ -23,13 +23,13 @@
     "build": "corejam build",
     "prepublish": "shx rm -f .env && yarn clean && yarn build",
     "postpublish": "shx cp .env.sample .env",
+    "precommit": "lint-staged",
     "test": "stencil test --spec --e2e",
     "clean": "rimraf web-components & rimraf react"
   },
   "dependencies": {
     "@corejam/base": "0.0.12",
     "@corejam/cli": "0.0.20",
-    "@corejam/core-components": "0.0.21",
     "@stencil/core": "2.3.0",
     "@stencil/store": "1.3.0",
     "@stencil/router": "2.0.0-1"
@@ -39,6 +39,11 @@
     "@corejam/rollup-plugin": "0.0.4",
     "tslib": "2.1.0",
     "typescript": "4.1.3"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "prettier --write"
+    ]
   },
   "license": "MIT"
 }

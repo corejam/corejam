@@ -1,11 +1,11 @@
 import { Component, Host, h, State, Listen, Element } from "@stencil/core";
-import { onCanvasChange } from "../corejam-canvas/canvas.machine";
+// import { onCanvasChange } from "../../../../canvas/app/components/corejam-canvas/canvas.machine";
 
 @Component({
   tag: "corejam-tabs",
 })
 export class CjTabs {
-  private mutationO?: MutationObserver;
+  // private mutationO?: MutationObserver;
   @Element()
   el!: HTMLElement;
   @State() activeTab = -1;
@@ -21,17 +21,17 @@ export class CjTabs {
     this.displayTab(this.activeTab);
   }
 
-  connectedCallback() {
-    onCanvasChange("machine", (state) => {
-      if (state.value === "inactive") this.activeTab = -1;
-    });
-    this.mutationO = new MutationObserver(() => {
-      this.init();
-    });
-    this.mutationO.observe(this.el, {
-      childList: true,
-    });
-  }
+  // connectedCallback() {
+  //   onCanvasChange("machine", (state) => {
+  //     if (state.value === "inactive") this.activeTab = -1;
+  //   });
+  //   this.mutationO = new MutationObserver(() => {
+  //     this.init();
+  //   });
+  //   this.mutationO.observe(this.el, {
+  //     childList: true,
+  //   });
+  // }
 
   displayTab(index: number) {
     this.activeTab = index;

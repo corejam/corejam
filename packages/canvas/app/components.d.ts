@@ -23,21 +23,11 @@ export namespace Components {
     interface CorejamEdit {
         "node": any;
     }
-    interface CorejamMenu {
-        /**
-          * Add tab via public component method
-          * @param tab
-         */
-        "addTab": (tab: any) => Promise<unknown>;
-        "demo": boolean;
-    }
     interface CorejamTab {
         "activeFn": Function;
         "header": string;
     }
     interface CorejamTabs {
-    }
-    interface CorejamTest {
     }
     interface RouteEditor {
     }
@@ -81,12 +71,6 @@ declare global {
         prototype: HTMLCorejamEditElement;
         new (): HTMLCorejamEditElement;
     };
-    interface HTMLCorejamMenuElement extends Components.CorejamMenu, HTMLStencilElement {
-    }
-    var HTMLCorejamMenuElement: {
-        prototype: HTMLCorejamMenuElement;
-        new (): HTMLCorejamMenuElement;
-    };
     interface HTMLCorejamTabElement extends Components.CorejamTab, HTMLStencilElement {
     }
     var HTMLCorejamTabElement: {
@@ -98,12 +82,6 @@ declare global {
     var HTMLCorejamTabsElement: {
         prototype: HTMLCorejamTabsElement;
         new (): HTMLCorejamTabsElement;
-    };
-    interface HTMLCorejamTestElement extends Components.CorejamTest, HTMLStencilElement {
-    }
-    var HTMLCorejamTestElement: {
-        prototype: HTMLCorejamTestElement;
-        new (): HTMLCorejamTestElement;
     };
     interface HTMLRouteEditorElement extends Components.RouteEditor, HTMLStencilElement {
     }
@@ -124,10 +102,8 @@ declare global {
         "corejam-debugger": HTMLCorejamDebuggerElement;
         "corejam-deploy": HTMLCorejamDeployElement;
         "corejam-edit": HTMLCorejamEditElement;
-        "corejam-menu": HTMLCorejamMenuElement;
         "corejam-tab": HTMLCorejamTabElement;
         "corejam-tabs": HTMLCorejamTabsElement;
-        "corejam-test": HTMLCorejamTestElement;
         "route-editor": HTMLRouteEditorElement;
         "route-index": HTMLRouteIndexElement;
     }
@@ -149,16 +125,11 @@ declare namespace LocalJSX {
     interface CorejamEdit {
         "node"?: any;
     }
-    interface CorejamMenu {
-        "demo"?: boolean;
-    }
     interface CorejamTab {
         "activeFn"?: Function;
         "header"?: string;
     }
     interface CorejamTabs {
-    }
-    interface CorejamTest {
     }
     interface RouteEditor {
     }
@@ -171,10 +142,8 @@ declare namespace LocalJSX {
         "corejam-debugger": CorejamDebugger;
         "corejam-deploy": CorejamDeploy;
         "corejam-edit": CorejamEdit;
-        "corejam-menu": CorejamMenu;
         "corejam-tab": CorejamTab;
         "corejam-tabs": CorejamTabs;
-        "corejam-test": CorejamTest;
         "route-editor": RouteEditor;
         "route-index": RouteIndex;
     }
@@ -189,10 +158,8 @@ declare module "@stencil/core" {
             "corejam-debugger": LocalJSX.CorejamDebugger & JSXBase.HTMLAttributes<HTMLCorejamDebuggerElement>;
             "corejam-deploy": LocalJSX.CorejamDeploy & JSXBase.HTMLAttributes<HTMLCorejamDeployElement>;
             "corejam-edit": LocalJSX.CorejamEdit & JSXBase.HTMLAttributes<HTMLCorejamEditElement>;
-            "corejam-menu": LocalJSX.CorejamMenu & JSXBase.HTMLAttributes<HTMLCorejamMenuElement>;
             "corejam-tab": LocalJSX.CorejamTab & JSXBase.HTMLAttributes<HTMLCorejamTabElement>;
             "corejam-tabs": LocalJSX.CorejamTabs & JSXBase.HTMLAttributes<HTMLCorejamTabsElement>;
-            "corejam-test": LocalJSX.CorejamTest & JSXBase.HTMLAttributes<HTMLCorejamTestElement>;
             "route-editor": LocalJSX.RouteEditor & JSXBase.HTMLAttributes<HTMLRouteEditorElement>;
             "route-index": LocalJSX.RouteIndex & JSXBase.HTMLAttributes<HTMLRouteIndexElement>;
         }

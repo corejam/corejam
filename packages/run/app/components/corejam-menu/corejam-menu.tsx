@@ -4,6 +4,31 @@ import { Corejam } from "./Corejam";
 
 @Component({
   tag: "corejam-menu",
+  styles: `
+    .menu {
+      background: #fff;
+      position: fixed;
+      bottom: 0;
+      height: 400px; 
+      width: 100%;
+    }
+
+    .menu-inner {
+      width: 100%;
+      height: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 4rem;
+      padding-left: 16rem;
+    }
+    .icon {
+      position="absolute" bottom={25} left={25} 
+      position: absolute;
+      bottom: 25px;
+      left: 25px;
+      z-index: 300;
+    }
+  `,
 })
 export class CjDebugger {
   @Prop() demo = false;
@@ -80,23 +105,17 @@ export class CjDebugger {
   render() {
     return (
       <Host>
-        <corejam-box bg="white" position="fixed" h="400px" bottom={0} w={12}>
-          <corejam-box position="absolute" bottom={25} left={25} onClick={() => this.toggleMenu()} z={300}>
-            <Corejam w="30px" h="30px" />
-          </corejam-box>
-          <corejam-box
-            w={12}
-            h="100%"
-            mx="auto"
-            p={4}
-            pl={16}
-            animation="all"
-            show={this.max ? "flex" : "none"}
+        <div class="menu">
+          <Corejam w="30px" h="30px" class="icon" onClick={() => this.toggleMenu()} />
+          <div
+            class="menu-inner"
+            // animation="all"
+            style={{ display: this.max ? "flex" : "none" }}
             // bWidthTop={canvasState.machine.value !== "inactive" ? 1 : 0}
           >
             <corejam-tabs>{this.renderTabs()}</corejam-tabs>
-          </corejam-box>
-        </corejam-box>
+          </div>
+        </div>
       </Host>
     );
   }
