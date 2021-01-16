@@ -28,7 +28,7 @@
     "recommendations": []
   },
   "lint-staged": {
-    "src/**/*.ts": [
+    "server/**/*.ts": [
       "prettier --write"
     ]
   },

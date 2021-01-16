@@ -59,7 +59,10 @@
     "xstate": "4.15.4"
   },
   "lint-staged": {
-    "src/**/*.ts": [
+    "app/**/*.ts": [
+      "prettier --write"
+    ],
+    "app/**/*.tsx": [
       "prettier --write"
     ]
   },
