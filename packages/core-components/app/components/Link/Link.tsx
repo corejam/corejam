@@ -1,6 +1,5 @@
 import { Component, Host, h, Prop, State, Event, EventEmitter } from "@stencil/core";
-import { href } from "@stencil/router";
-import { runState } from "@corejam/run";
+import { runState, href } from "@corejam/run";
 import { Link } from "./Link.types";
 
 @Component({

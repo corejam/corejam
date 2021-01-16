@@ -54,7 +54,7 @@ export class CorejamRun {
     return (
       <Host>
         {this.renderWrapperComponent()}
-        <corejam-menu></corejam-menu>
+        <corejam-menu style={{ display: this.config.mode === "development" ? "block" : "none" }} />
       </Host>
     );
   }

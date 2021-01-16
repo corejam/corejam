@@ -6,65 +6,84 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface CorejamApp {
-    }
-    interface CorejamMenu {
-        /**
-          * Add tab via public component method
-          * @param tab
-         */
-        "addTab": (tab: any) => Promise<unknown>;
-        "demo": boolean;
-    }
-    interface CorejamRouter {
-    }
+  interface CorejamApp {}
+  interface CorejamMenu {
+    /**
+     * Add tab via public component method
+     * @param tab
+     */
+    addTab: (tab: any) => Promise<unknown>;
+    demo: boolean;
+  }
+  interface CorejamRouter {}
+  interface CorejamTab {
+    activeFn: Function;
+    header: string;
+  }
+  interface CorejamTabs {}
 }
 declare global {
-    interface HTMLCorejamAppElement extends Components.CorejamApp, HTMLStencilElement {
-    }
-    var HTMLCorejamAppElement: {
-        prototype: HTMLCorejamAppElement;
-        new (): HTMLCorejamAppElement;
-    };
-    interface HTMLCorejamMenuElement extends Components.CorejamMenu, HTMLStencilElement {
-    }
-    var HTMLCorejamMenuElement: {
-        prototype: HTMLCorejamMenuElement;
-        new (): HTMLCorejamMenuElement;
-    };
-    interface HTMLCorejamRouterElement extends Components.CorejamRouter, HTMLStencilElement {
-    }
-    var HTMLCorejamRouterElement: {
-        prototype: HTMLCorejamRouterElement;
-        new (): HTMLCorejamRouterElement;
-    };
-    interface HTMLElementTagNameMap {
-        "corejam-app": HTMLCorejamAppElement;
-        "corejam-menu": HTMLCorejamMenuElement;
-        "corejam-router": HTMLCorejamRouterElement;
-    }
+  interface HTMLCorejamAppElement extends Components.CorejamApp, HTMLStencilElement {}
+  var HTMLCorejamAppElement: {
+    prototype: HTMLCorejamAppElement;
+    new (): HTMLCorejamAppElement;
+  };
+  interface HTMLCorejamMenuElement extends Components.CorejamMenu, HTMLStencilElement {}
+  var HTMLCorejamMenuElement: {
+    prototype: HTMLCorejamMenuElement;
+    new (): HTMLCorejamMenuElement;
+  };
+  interface HTMLCorejamRouterElement extends Components.CorejamRouter, HTMLStencilElement {}
+  var HTMLCorejamRouterElement: {
+    prototype: HTMLCorejamRouterElement;
+    new (): HTMLCorejamRouterElement;
+  };
+  interface HTMLCorejamTabElement extends Components.CorejamTab, HTMLStencilElement {}
+  var HTMLCorejamTabElement: {
+    prototype: HTMLCorejamTabElement;
+    new (): HTMLCorejamTabElement;
+  };
+  interface HTMLCorejamTabsElement extends Components.CorejamTabs, HTMLStencilElement {}
+  var HTMLCorejamTabsElement: {
+    prototype: HTMLCorejamTabsElement;
+    new (): HTMLCorejamTabsElement;
+  };
+  interface HTMLElementTagNameMap {
+    "corejam-app": HTMLCorejamAppElement;
+    "corejam-menu": HTMLCorejamMenuElement;
+    "corejam-router": HTMLCorejamRouterElement;
+    "corejam-tab": HTMLCorejamTabElement;
+    "corejam-tabs": HTMLCorejamTabsElement;
+  }
 }
 declare namespace LocalJSX {
-    interface CorejamApp {
-    }
-    interface CorejamMenu {
-        "demo"?: boolean;
-    }
-    interface CorejamRouter {
-    }
-    interface IntrinsicElements {
-        "corejam-app": CorejamApp;
-        "corejam-menu": CorejamMenu;
-        "corejam-router": CorejamRouter;
-    }
+  interface CorejamApp {}
+  interface CorejamMenu {
+    demo?: boolean;
+  }
+  interface CorejamRouter {}
+  interface CorejamTab {
+    activeFn?: Function;
+    header?: string;
+  }
+  interface CorejamTabs {}
+  interface IntrinsicElements {
+    "corejam-app": CorejamApp;
+    "corejam-menu": CorejamMenu;
+    "corejam-router": CorejamRouter;
+    "corejam-tab": CorejamTab;
+    "corejam-tabs": CorejamTabs;
+  }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
-    export namespace JSX {
-        interface IntrinsicElements {
-            "corejam-app": LocalJSX.CorejamApp & JSXBase.HTMLAttributes<HTMLCorejamAppElement>;
-            "corejam-menu": LocalJSX.CorejamMenu & JSXBase.HTMLAttributes<HTMLCorejamMenuElement>;
-            "corejam-router": LocalJSX.CorejamRouter & JSXBase.HTMLAttributes<HTMLCorejamRouterElement>;
-        }
+  export namespace JSX {
+    interface IntrinsicElements {
+      "corejam-app": LocalJSX.CorejamApp & JSXBase.HTMLAttributes<HTMLCorejamAppElement>;
+      "corejam-menu": LocalJSX.CorejamMenu & JSXBase.HTMLAttributes<HTMLCorejamMenuElement>;
+      "corejam-router": LocalJSX.CorejamRouter & JSXBase.HTMLAttributes<HTMLCorejamRouterElement>;
+      "corejam-tab": LocalJSX.CorejamTab & JSXBase.HTMLAttributes<HTMLCorejamTabElement>;
+      "corejam-tabs": LocalJSX.CorejamTabs & JSXBase.HTMLAttributes<HTMLCorejamTabsElement>;
     }
+  }
 }

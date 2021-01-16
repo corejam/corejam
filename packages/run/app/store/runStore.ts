@@ -1,6 +1,8 @@
 import { createStore } from "@stencil/store";
 import { createRouter, Router } from "@stencil/router";
 
+export { href } from "@stencil/router";
+
 export const { state, get, reset, set, onChange } = createStore({
   router: createRouter(),
 });

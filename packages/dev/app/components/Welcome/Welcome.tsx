@@ -1,6 +1,5 @@
 import { Component, Host, h } from "@stencil/core";
-import { href } from "@stencil/router";
-import { runState } from "@corejam/run";
+import { runState, href } from "@corejam/run";
 
 @Component({
   tag: "app-welcome",

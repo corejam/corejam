@@ -27,8 +27,7 @@
   "dependencies": {
     "@corejam/cli": "0.0.20",
     "@corejam/run": "0.0.5",
-    "@stencil/core": "2.3.0",
-    "@stencil/router": "2.0.0-1"
+    "@stencil/core": "2.3.0"
   },
   "devDependencies": {
     "@stencil/react-output-target": "^0.0.9",
