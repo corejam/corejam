@@ -1,37 +1,36 @@
-import { coreState } from '@corejam/core-components';
-import { Component, h, Listen } from '@stencil/core';
-import gql from 'graphql-tag';
-import { userUpdatePasswordMutationGQL } from '../../../shared/graphql/Mutations';
+import { coreState } from "@corejam/core-components";
+import { Component, h, Listen } from "@stencil/core";
+import gql from "graphql-tag";
+import { userUpdatePasswordMutationGQL } from "../../../shared/graphql/Mutations";
 
 @Component({
-  tag: 'auth-reset-password-form'
+  tag: "auth-reset-password-form",
 })
 export class AuthResetPasswordForm {
-
   private updatePasswordFormId = "updatePassword";
 
   @Listen("sendForm", { target: "window" })
   async formEventHandler({ detail }) {
     if (detail.formId != this.updatePasswordFormId) return;
 
-    return this.updatePassword(detail)
+    return this.updatePassword(detail);
   }
 
   async updatePassword(detail) {
     const userInput = {};
 
-    Object.keys(detail).map(value => {
+    Object.keys(detail).map((value) => {
       if (detail[value].key) {
-        userInput[detail[value].key] = detail[value].value
+        userInput[detail[value].key] = detail[value].value;
       }
-    })
+    });
 
     await coreState.client.mutate({
       mutation: gql(userUpdatePasswordMutationGQL),
       variables: {
-        userPasswordInput: userInput
-      }
-    })
+        userPasswordInput: userInput,
+      },
+    });
   }
 
   render() {
@@ -76,13 +75,11 @@ export class AuthResetPasswordForm {
               ></corejam-form-input>
             </corejam-box>
           </corejam-box>
-          <corejam-base-link href="#">
-            <corejam-form-submit formId={this.updatePasswordFormId} >
-              <corejam-type size="sm" weight="bold" transform="uppercase" decoration="underline">
-                Save
-              </corejam-type>
-            </corejam-form-submit>
-          </corejam-base-link>
+          <corejam-form-submit formId={this.updatePasswordFormId}>
+            <corejam-type size="sm" weight="bold" transform="uppercase" decoration="underline">
+              Save
+            </corejam-type>
+          </corejam-form-submit>
         </corejam-form-container>
       </corejam-box>
     );
