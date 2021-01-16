@@ -8,6 +8,14 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface CorejamApp {
     }
+    interface CorejamMenu {
+        /**
+          * Add tab via public component method
+          * @param tab
+         */
+        "addTab": (tab: any) => Promise<unknown>;
+        "demo": boolean;
+    }
     interface CorejamRouter {
     }
 }
@@ -18,6 +26,12 @@ declare global {
         prototype: HTMLCorejamAppElement;
         new (): HTMLCorejamAppElement;
     };
+    interface HTMLCorejamMenuElement extends Components.CorejamMenu, HTMLStencilElement {
+    }
+    var HTMLCorejamMenuElement: {
+        prototype: HTMLCorejamMenuElement;
+        new (): HTMLCorejamMenuElement;
+    };
     interface HTMLCorejamRouterElement extends Components.CorejamRouter, HTMLStencilElement {
     }
     var HTMLCorejamRouterElement: {
@@ -26,16 +40,21 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "corejam-app": HTMLCorejamAppElement;
+        "corejam-menu": HTMLCorejamMenuElement;
         "corejam-router": HTMLCorejamRouterElement;
     }
 }
 declare namespace LocalJSX {
     interface CorejamApp {
     }
+    interface CorejamMenu {
+        "demo"?: boolean;
+    }
     interface CorejamRouter {
     }
     interface IntrinsicElements {
         "corejam-app": CorejamApp;
+        "corejam-menu": CorejamMenu;
         "corejam-router": CorejamRouter;
     }
 }
@@ -44,6 +63,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "corejam-app": LocalJSX.CorejamApp & JSXBase.HTMLAttributes<HTMLCorejamAppElement>;
+            "corejam-menu": LocalJSX.CorejamMenu & JSXBase.HTMLAttributes<HTMLCorejamMenuElement>;
             "corejam-router": LocalJSX.CorejamRouter & JSXBase.HTMLAttributes<HTMLCorejamRouterElement>;
         }
     }

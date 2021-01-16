@@ -77,7 +77,7 @@
     "faunadb": "4.0.0",
     "fuse.js": "6.4.5",
     "graphql-tag": "2.11.0",
-    "stencil-router-v2": "0.6.0",
+    "@stencil/router": "2.0.0-1",
     "xstate": "4.15.4"
   },
   "lint-staged": {

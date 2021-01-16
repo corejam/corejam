@@ -81,7 +81,7 @@
     "faunadb": "4.0.0",
     "graphql-tag": "2.11.0",
     "jsonwebtoken": "8.5.1",
-    "stencil-router-v2": "0.6.0"
+    "@stencil/router": "2.0.0-1"
   },
   "corejam": {
     "wrapper": [],

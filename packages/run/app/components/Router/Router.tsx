@@ -1,5 +1,5 @@
 import { Component, Host, h } from "@stencil/core";
-import { Route, match } from "stencil-router-v2";
+import { Route, match } from "@stencil/router";
 import { CorejamRoute, runState } from "../../store/runStore";
 
 const Router = runState.router;
