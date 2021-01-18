@@ -893,6 +893,18 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@corejam/base@0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@corejam/base/-/base-0.0.11.tgz#db4e18f645d1975904a36efa73b6aa46c8099e2e"
+  integrity sha512-p6eDX+LolMrs9KUi6yCun3n0A6fZH4sIINRA+0khbBCtJePVmxG5unxn3EPHuo/lx0IkiBa3Orr52HoCzsCQzA==
+  dependencies:
+    apollo-cache-inmemory "1.6.6"
+    apollo-server-caching "0.5.2"
+    apollo-server-micro "2.19.0"
+    faker "5.1.0"
+    faunadb "4.0.0"
+    graphql "15.4.0"
+
 "@corejam/cli@0.0.16":
   version "0.0.16"
   resolved "https://registry.yarnpkg.com/@corejam/cli/-/cli-0.0.16.tgz#4bf74023c91da91890adfbaa2a352d54f08bcd66"
@@ -2937,10 +2949,12 @@
   resolved "https://registry.yarnpkg.com/@xstate/fsm/-/fsm-1.5.2.tgz#54c9cda644f3e8edefbd00b777e1fef5eb67955f"
   integrity sha512-l2l7ztpLw/0EomJcvl86F8M6cLeMXhSEOtmI89fg34DbDMaatUKfiiAQpZpdcRqWHMjZYPAfC8EqmnHbmIlyEg==
 
-"@xstate/inspect@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@xstate/inspect/-/inspect-0.2.0.tgz#c76dacc457ba503e7ee2f8649a6dd31c73f1162f"
-  integrity sha512-HxxkEbJi7FwBCrKA4sw/fXu1c5S2fpRYN1ijPLrp4euSddOiVly9TtasnL3SyX2KI75c0qc6oOihwqbtDomJrg==
+"@xstate/inspect@0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@xstate/inspect/-/inspect-0.4.1.tgz#6b00b945c03280a333de8ddf10e91830c361052d"
+  integrity sha512-tcGBUCVymP8ij0K2fXZckrwrQkmNJL1DgQAM0eSILQKb8iBDN3GeqhYkNCS4HP29EzF2TZL0+k74FPWKaU9Fhw==
+  dependencies:
+    fast-safe-stringify "^2.0.7"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -6530,6 +6544,11 @@ fast-levenshtein@^2.0.6, fast-levenshtein@~2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
+
+fast-safe-stringify@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.0.7.tgz#124aa885899261f68aedb42a7c080de9da608743"
+  integrity sha512-Utm6CdzT+6xsDk2m8S6uL8VHxNwI6Jub+e9NYTcAms28T84pTa25GJQV9j0CY0N1rM8hK4x6grpF2BQf+2qwVA==
 
 fast-url-parser@1.1.3:
   version "1.1.3"
