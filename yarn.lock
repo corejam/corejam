@@ -3697,10 +3697,10 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-aws-sdk@2.807.0:
-  version "2.807.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.807.0.tgz#0040b14dd590c30b3f8b05ae87fe9cbcf3020512"
-  integrity sha512-C8eJlA/Sqwowbz4NupphwS5xFbaGkBCJetHzu+VjtmTPfg2AMpfh0Uqp5hG9qiiC1UjVlqlut99l5W9ZBGGj/w==
+aws-sdk@2.828.0:
+  version "2.828.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.828.0.tgz#6aa599c3582f219568f41fb287eb65753e4a9234"
+  integrity sha512-JoDujGdncSIF9ka+XFZjop/7G+fNGucwPwYj7OHYMmFIOV5p7YmqomdbVmH/vIzd988YZz8oLOinWc4jM6vvhg==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -7550,12 +7550,12 @@ icss-utils@^4.0.0, icss-utils@^4.1.1:
   dependencies:
     postcss "^7.0.14"
 
-ieee754@1.1.13, ieee754@^1.1.4:
+ieee754@1.1.13:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.13.tgz#ec168558e95aa181fd87d37f55c32bbcb6708b84"
   integrity sha512-4vf7I2LYV/HaWerSo3XmlMkp5eZ83i+/CDluXi/IGTs/O1sejBNhTtnxzmRZfvOUqj7lZjqHkeTvpgSFDlWZTg==
 
-ieee754@^1.1.13:
+ieee754@^1.1.13, ieee754@^1.1.4:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"
   integrity sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==

@@ -48,7 +48,7 @@
     "@corejam/run": "0.0.5",
     "@stencil/store": "1.3.0",
     "@xstate/inspect": "0.4.1",
-    "aws-sdk": "2.807.0",
+    "aws-sdk": "2.828.0",
     "deep-parse-json": "1.0.1",
     "faunadb": "4.0.0",
     "graphql-tag": "2.11.0",
