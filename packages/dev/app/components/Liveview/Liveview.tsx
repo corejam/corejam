@@ -1,9 +1,9 @@
 import { Component, Host, h, Element, State } from "@stencil/core";
 
 @Component({
-  tag: "app-liveview",
+  tag: "corejam-dev-liveview",
 })
-export class AppRouter {
+export class CorejamDevLiveview {
   @State() markup: string;
   @Element() component: HTMLElement;
   componentWillLoad() {

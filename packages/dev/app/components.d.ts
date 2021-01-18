@@ -6,75 +6,69 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface AppLiveview {
-    }
-    interface AppPlayground {
-        "cmp": string;
-        "data": any;
-    }
-    interface AppTestComp {
-    }
-    interface AppWelcome {
-    }
+  interface AppLiveview {}
+  interface AppPlayground {
+    cmp: string;
+    data: any;
+  }
+  interface AppTestComp {}
+  interface AppWelcome {
+    test: boolean;
+  }
 }
 declare global {
-    interface HTMLAppLiveviewElement extends Components.AppLiveview, HTMLStencilElement {
-    }
-    var HTMLAppLiveviewElement: {
-        prototype: HTMLAppLiveviewElement;
-        new (): HTMLAppLiveviewElement;
-    };
-    interface HTMLAppPlaygroundElement extends Components.AppPlayground, HTMLStencilElement {
-    }
-    var HTMLAppPlaygroundElement: {
-        prototype: HTMLAppPlaygroundElement;
-        new (): HTMLAppPlaygroundElement;
-    };
-    interface HTMLAppTestCompElement extends Components.AppTestComp, HTMLStencilElement {
-    }
-    var HTMLAppTestCompElement: {
-        prototype: HTMLAppTestCompElement;
-        new (): HTMLAppTestCompElement;
-    };
-    interface HTMLAppWelcomeElement extends Components.AppWelcome, HTMLStencilElement {
-    }
-    var HTMLAppWelcomeElement: {
-        prototype: HTMLAppWelcomeElement;
-        new (): HTMLAppWelcomeElement;
-    };
-    interface HTMLElementTagNameMap {
-        "app-liveview": HTMLAppLiveviewElement;
-        "app-playground": HTMLAppPlaygroundElement;
-        "app-test-comp": HTMLAppTestCompElement;
-        "app-welcome": HTMLAppWelcomeElement;
-    }
+  interface HTMLAppLiveviewElement extends Components.AppLiveview, HTMLStencilElement {}
+  var HTMLAppLiveviewElement: {
+    prototype: HTMLAppLiveviewElement;
+    new (): HTMLAppLiveviewElement;
+  };
+  interface HTMLAppPlaygroundElement extends Components.AppPlayground, HTMLStencilElement {}
+  var HTMLAppPlaygroundElement: {
+    prototype: HTMLAppPlaygroundElement;
+    new (): HTMLAppPlaygroundElement;
+  };
+  interface HTMLAppTestCompElement extends Components.AppTestComp, HTMLStencilElement {}
+  var HTMLAppTestCompElement: {
+    prototype: HTMLAppTestCompElement;
+    new (): HTMLAppTestCompElement;
+  };
+  interface HTMLAppWelcomeElement extends Components.AppWelcome, HTMLStencilElement {}
+  var HTMLAppWelcomeElement: {
+    prototype: HTMLAppWelcomeElement;
+    new (): HTMLAppWelcomeElement;
+  };
+  interface HTMLElementTagNameMap {
+    "app-liveview": HTMLAppLiveviewElement;
+    "app-playground": HTMLAppPlaygroundElement;
+    "app-test-comp": HTMLAppTestCompElement;
+    "app-welcome": HTMLAppWelcomeElement;
+  }
 }
 declare namespace LocalJSX {
-    interface AppLiveview {
-    }
-    interface AppPlayground {
-        "cmp"?: string;
-        "data"?: any;
-    }
-    interface AppTestComp {
-    }
-    interface AppWelcome {
-    }
-    interface IntrinsicElements {
-        "app-liveview": AppLiveview;
-        "app-playground": AppPlayground;
-        "app-test-comp": AppTestComp;
-        "app-welcome": AppWelcome;
-    }
+  interface AppLiveview {}
+  interface AppPlayground {
+    cmp?: string;
+    data?: any;
+  }
+  interface AppTestComp {}
+  interface AppWelcome {
+    test?: boolean;
+  }
+  interface IntrinsicElements {
+    "app-liveview": AppLiveview;
+    "app-playground": AppPlayground;
+    "app-test-comp": AppTestComp;
+    "app-welcome": AppWelcome;
+  }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
-    export namespace JSX {
-        interface IntrinsicElements {
-            "app-liveview": LocalJSX.AppLiveview & JSXBase.HTMLAttributes<HTMLAppLiveviewElement>;
-            "app-playground": LocalJSX.AppPlayground & JSXBase.HTMLAttributes<HTMLAppPlaygroundElement>;
-            "app-test-comp": LocalJSX.AppTestComp & JSXBase.HTMLAttributes<HTMLAppTestCompElement>;
-            "app-welcome": LocalJSX.AppWelcome & JSXBase.HTMLAttributes<HTMLAppWelcomeElement>;
-        }
+  export namespace JSX {
+    interface IntrinsicElements {
+      "app-liveview": LocalJSX.AppLiveview & JSXBase.HTMLAttributes<HTMLAppLiveviewElement>;
+      "app-playground": LocalJSX.AppPlayground & JSXBase.HTMLAttributes<HTMLAppPlaygroundElement>;
+      "app-test-comp": LocalJSX.AppTestComp & JSXBase.HTMLAttributes<HTMLAppTestCompElement>;
+      "app-welcome": LocalJSX.AppWelcome & JSXBase.HTMLAttributes<HTMLAppWelcomeElement>;
     }
+  }
 }

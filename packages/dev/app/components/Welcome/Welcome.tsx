@@ -1,8 +1,8 @@
-import { Component, Host, h } from "@stencil/core";
+import { Component, Host, h, Prop } from "@stencil/core";
 import { runState, href } from "@corejam/run";
 
 @Component({
-  tag: "app-welcome",
+  tag: "corejam-dev-welcome",
 })
 export class Welcome {
   render() {

@@ -1,7 +1,7 @@
 import { Component, Host, h, Prop, Element, State } from "@stencil/core";
 
 @Component({
-  tag: "app-playground",
+  tag: "corejam-dev-playground",
   styles: `
   .editor {
     width: 100%;
@@ -84,7 +84,7 @@ import { Component, Host, h, Prop, Element, State } from "@stencil/core";
   }
   `,
 })
-export class AppPlayground {
+export class CorejamDevPlayground {
   private devices = [
     {
       name: "iPhone 6/7/8",
