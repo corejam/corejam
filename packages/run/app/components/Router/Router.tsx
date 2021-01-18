@@ -8,77 +8,38 @@ const Router = runState.router;
   tag: "corejam-router",
 })
 export class CorejamRouter {
-  renderPluginRoutes() {
+  collectRoutesInRightOrder() {
     let routes = [];
 
-    runState.routes.map((route: CorejamRoute) => {
-      const Component = route.component;
-      //We have a canvasPage object coming in
+    runState.routes.forEach((route: CorejamRoute) => {
       if (route.exact && route.canvasPage === true) {
         routes = [...routes, route];
-        return (
-          <Route path={match(route.url, { exact: true })}>
-            <div innerHTML={JSON.parse(route.component)}></div>
-          </Route>
-        );
-      }
-
-      if (route.exact && route.url.includes("component")) {
+      } else if (route.exact && route.url.includes("component")) {
         routes = [route, ...routes];
-        return (
-          <Route path={route.url}>
-            <corejam-dev-playground cmp={route.component}></corejam-dev-playground>
-          </Route>
-        );
-      }
-
-      if (route.exact) {
+      } else if (route.exact) {
         routes = [route, ...routes];
-        return (
-          <Route path={route.url}>
-            <Component></Component>
-          </Route>
-        );
+      } else {
+        routes = [...routes, route];
       }
-      routes = [...routes, route];
-      return (
-        <Route path={match(route.url, { exact: true })} render={(router) => <Component param={router}></Component>} />
-      );
     });
     runState.plugins.forEach((plugin) =>
       plugin.router.routes.forEach((route) => {
-        const Component = route.component;
-        //We have a canvasPage object coming in
         if (route.exact && route.canvasPage === true) {
           routes = [...routes, route];
-          <Route path={match(route.url, { exact: true })}>
-            <div innerHTML={JSON.parse(route.component)}></div>
-          </Route>;
         } else if (route.exact && route.url.includes("component")) {
           routes = [route, ...routes];
-          <Route path={route.url}>
-            <corejam-dev-playground cmp={route.component}></corejam-dev-playground>
-          </Route>;
         } else if (route.exact) {
           routes = [route, ...routes];
-          <Route path={route.url}>
-            <Component></Component>
-          </Route>;
         } else {
           routes = [...routes, route];
-          <Route
-            path={match(route.url, { exact: true })}
-            render={(router) => <Component param={router}></Component>}
-          />;
         }
       })
     );
-    console.log(routes);
     return routes;
   }
 
   render() {
-    const routes = this.renderPluginRoutes();
+    const routes = this.collectRoutesInRightOrder();
     return (
       <Host>
         <Router.Switch>
