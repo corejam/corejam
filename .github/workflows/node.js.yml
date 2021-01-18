@@ -205,7 +205,7 @@ jobs:
           cd ../rollup-plugin && yarn link
           cd ../core-components && yarn link
           cd /github/home && corejam createApp test
-          cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
+          cd test && yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
           DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
@@ -250,7 +250,7 @@ jobs:
           cd ../core-components && yarn link
           cd /github/home && cp -r $CLI_PATH . && cd cli && yarn link @corejam/base --ignore-scripts && yarn --ignore-scripts
           cd /github/home && /github/home/cli/dist/index.js createApp test
-          cd test && yarn link @corejam/base @corejam/cli @corejam/dev @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
+          cd test && yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
           DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:

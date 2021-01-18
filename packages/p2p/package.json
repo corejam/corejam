@@ -30,7 +30,6 @@
     "@corejam/base": "0.0.12",
     "@corejam/core-components": "0.0.21",
     "@corejam/cli": "0.0.20",
-    "@corejam/dev": "0.0.10",
     "@corejam/run": "0.0.5",
     "@corejam/rollup-plugin": "0.0.4",
     "faker": "5.1.0",
