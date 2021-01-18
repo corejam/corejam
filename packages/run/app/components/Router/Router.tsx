@@ -40,7 +40,7 @@ export class CorejamRouter {
 
   render() {
     const routes = this.collectRoutesInRightOrder();
-    const Layout = runState.layout ? runState.layout[0].component : "div";
+    const Layout = runState.layout && runState.layout.length > 0 ? runState.layout[0].component : "div";
     return (
       <Host>
         <Router.Switch>

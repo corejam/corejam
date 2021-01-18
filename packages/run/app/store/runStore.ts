@@ -24,7 +24,7 @@ export type CorejamRunStore = {
   mode: CorejamMode;
   wrapper: string[] | [];
   recommendations: string[];
-  layout: LayoutEntry;
+  layout: LayoutEntry[];
   plugins: any[];
 };
 
