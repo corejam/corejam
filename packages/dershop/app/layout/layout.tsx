@@ -7,6 +7,7 @@ export class DerShopLayout {
   render() {
     return (
       <Fragment>
+        <corejam-ui-base></corejam-ui-base>
         <dershop-header></dershop-header>
         <corejam-box min-h="calc(100vh - 156px)">
           <slot></slot>

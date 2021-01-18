@@ -1,6 +1,6 @@
 import { Component, Element, h, Host, Prop, State, Listen } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
-import { state as routerState } from "@corejam/router";
+import { runState } from "@corejam/run";
 import { authStore } from "../../store/authStore";
 import { userAuthenticateMutationGQL } from "../../../shared/graphql/Mutations";
 import gql from "graphql-tag";
@@ -78,7 +78,7 @@ export class CorejamIdentity {
     if (request.data.userAuthenticate) {
       this.toggleMenu();
       authStore.identity = request.data.userAuthenticate;
-      routerState.router.push("/");
+      runState.router.push("/");
     }
   }
 
@@ -106,9 +106,7 @@ export class CorejamIdentity {
             {authStore.identity ? (
               <corejam-box w={12} flex direction="col">
                 <corejam-box>
-                  <corejam-base-link href="/account">
-                    My Account
-                  </corejam-base-link>
+                  <corejam-base-link href="/account">My Account</corejam-base-link>
                 </corejam-box>
                 <corejam-box
                   onClick={() => {
@@ -119,28 +117,28 @@ export class CorejamIdentity {
                 </corejam-box>
               </corejam-box>
             ) : (
-                <corejam-form-container name={this.formId}>
-                  <corejam-flash data-flash="isolated"></corejam-flash>
-                  <corejam-box pb={3} flex direction="col">
-                    <corejam-box w={12}>
-                      <corejam-form-input name="email" type="text" formId={this.formId} label="Email" />
-                      <corejam-form-input name="password" type="password" formId={this.formId} label="Password" />
+              <corejam-form-container name={this.formId}>
+                <corejam-flash data-flash="isolated"></corejam-flash>
+                <corejam-box pb={3} flex direction="col">
+                  <corejam-box w={12}>
+                    <corejam-form-input name="email" type="text" formId={this.formId} label="Email" />
+                    <corejam-form-input name="password" type="password" formId={this.formId} label="Password" />
+                  </corejam-box>
+                  <corejam-box flex direction="row" w={12} mt={4}>
+                    <corejam-box w={6} bg="gray-200" rounded="md" flex justify="center">
+                      <corejam-form-submit formId={this.formId}>
+                        <corejam-button type="button" color="gray-900" pl="5" pr="5" pt="3" pb="3">
+                          <corejam-type>Login</corejam-type>
+                        </corejam-button>
+                      </corejam-form-submit>
                     </corejam-box>
-                    <corejam-box flex direction="row" w={12} mt={4}>
-                      <corejam-box w={6} bg="gray-900" rounded="md" flex justify="center">
-                        <corejam-form-submit formId={this.formId}>
-                          <corejam-button type="submit" color="white" pl="5" pr="5" pt="3" pb="3">
-                            <corejam-type style={{ color: "white" }}>Login</corejam-type>
-                          </corejam-button>
-                        </corejam-form-submit>
-                      </corejam-box>
-                      <corejam-box w={6} flex justify="center" items="center">
-                        <corejam-base-link href="/register">Register</corejam-base-link>
-                      </corejam-box>
+                    <corejam-box w={6} flex justify="center" items="center">
+                      <corejam-base-link href="/register">Register</corejam-base-link>
                     </corejam-box>
                   </corejam-box>
-                </corejam-form-container>
-              )}
+                </corejam-box>
+              </corejam-form-container>
+            )}
           </corejam-box>
         </corejam-box>
       </Host>

@@ -1,6 +1,6 @@
 import { Component, Host, h, Prop, Listen } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
-import { state as routerState } from "@corejam/router";
+import { runState } from "@corejam/run";
 import { authStore } from "../../store/authStore";
 import { userAuthenticateMutationGQL } from "../../../shared/graphql/Mutations";
 import gql from "graphql-tag";
@@ -15,7 +15,7 @@ export class AuthLoginForm {
   @Prop() onFail: Function;
 
   componentWillLoad() {
-    if (authStore.identity) routerState.router.push("/");
+    if (authStore.identity) runState.router.push("/");
   }
 
   @Listen("sendForm", { target: "window" })
@@ -32,7 +32,7 @@ export class AuthLoginForm {
 
     if (request.data.userAuthenticate) {
       authStore.identity = request.data.userAuthenticate;
-      this.onSuccess ? this.onSuccess() : routerState.router.push("/");
+      this.onSuccess ? this.onSuccess() : runState.router.push("/");
     } else {
       this.onFail ? this.onFail() : null;
     }

@@ -4,7 +4,7 @@ import { AccountExistsError, InvalidEmailError, InvalidVerificationError } from 
 import { checkUserHasRole, generateVerifyHash, validateAuthInput, validatePasswordCreate } from "../Functions";
 import PasswordResetConfirmed from "../mail/PasswordResetConfirmed";
 import RegisterVerifyMail from "../mail/RegisterVerify";
-import * as crypto from "crypto"
+import * as crypto from "crypto";
 import PasswordResetRequest from "../mail/PasswordResetRequest";
 
 function setRefreshHeaders(jwt, { req, res }) {
@@ -25,11 +25,12 @@ function setRefreshHeaders(jwt, { req, res }) {
 }
 
 /**
+ *
+ *
  * Our resolvers for this plugin
  */
 export default {
   Query: {
-
     userById: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
       const currentUser = await user();
       if (currentUser.id === args.id || checkUserHasRole(currentUser, roles.ADMIN)) {
@@ -42,7 +43,7 @@ export default {
       // checkUserHasRole(await user(), roles.ADMIN);
 
       const offset = (page - 1) * size;
-      const allUsers = await models.allUsers()
+      const allUsers = await models.allUsers();
 
       const items = allUsers.slice(offset, offset + size);
 
@@ -55,13 +56,12 @@ export default {
       };
 
       return new Promise((res) => res(paginated));
-    }
+    },
   },
   Mutation: {
-
     userEdit: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
       const currentUser = await user();
-      if (args.id !== currentUser.id) checkUserHasRole(await user(), roles.ADMIN)
+      if (args.id !== currentUser.id) checkUserHasRole(await user(), roles.ADMIN);
 
       return models.userEdit(args.id, args.userInput);
     },
@@ -81,7 +81,7 @@ export default {
       }
 
       const user = await models.userRegister(args.data);
-      user.verifyHash = await generateVerifyHash(user, models.userEdit)
+      user.verifyHash = await generateVerifyHash(user, models.userEdit);
       notify.sendMail(new RegisterVerifyMail(user));
 
       return user;
@@ -102,7 +102,7 @@ export default {
     userTokenRefresh: async (_obj: any, _args: any, { req, res, models }: MergedServerContext) => {
       const rx = /([^;=\s]*)=([^;]*)/g;
       const obj = {};
-      for (let m; (m = rx.exec(req?.headers.cookie ?? ""));) {
+      for (let m; (m = rx.exec(req?.headers.cookie ?? "")); ) {
         obj[m[1]] = decodeURIComponent(m[2]);
       }
 
@@ -122,7 +122,7 @@ export default {
         throw new InvalidVerificationError();
       }
 
-      return await models.userEdit(user.id, { status: STATUS.VERIFIED })
+      return await models.userEdit(user.id, { status: STATUS.VERIFIED });
     },
 
     userCreate: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
@@ -133,13 +133,13 @@ export default {
 
     userUpdatePassword: async (_obj: any, args: any, { user, models, notify }: MergedServerContext) => {
       const currentUser = await user();
-      const updatePassword = await models.userUpdatePassword(currentUser, args.passwordInput)
+      const updatePassword = await models.userUpdatePassword(currentUser, args.passwordInput);
 
       if (updatePassword === true) {
         notify.sendMail(new PasswordResetConfirmed(currentUser));
       }
 
-      return updatePassword
+      return updatePassword;
     },
 
     /**
@@ -150,42 +150,43 @@ export default {
       const user = await models.userByEmail(email);
 
       if (user) {
-        const originalToken = crypto.randomBytes(20).toString('hex');
+        const originalToken = crypto.randomBytes(20).toString("hex");
 
-        const token = Buffer.from(JSON.stringify({
-          email,
-          token: originalToken
-        })).toString("base64")
+        const token = Buffer.from(
+          JSON.stringify({
+            email,
+            token: originalToken,
+          })
+        ).toString("base64");
 
-        notify.sendMail(new PasswordResetRequest(user, token))
+        notify.sendMail(new PasswordResetRequest(user, token));
 
         await models.userEdit(user.id, {
           authReset: {
             expires: "",
-            hash: crypto.createHash("sha512").update(originalToken).digest("hex")
-          }
-        })
+            hash: crypto.createHash("sha512").update(originalToken).digest("hex"),
+          },
+        });
       }
 
       return true;
     },
 
     userResetPassword: async (_obj: any, { token, resetInput }: any, { models, notify }: MergedServerContext) => {
-
-      const tokenResult = JSON.parse(Buffer.from(token, "base64").toString('ascii'));
+      const tokenResult = JSON.parse(Buffer.from(token, "base64").toString("ascii"));
       const user = await models.userByEmail(tokenResult.email);
 
       if (user) {
         validatePasswordCreate(resetInput);
 
         //Compare the hash
-        const hash = crypto.createHash("sha512").update(tokenResult.token).digest("hex")
+        const hash = crypto.createHash("sha512").update(tokenResult.token).digest("hex");
 
         if (user.authReset?.hash !== hash) {
-          throw new InvalidVerificationError()
+          throw new InvalidVerificationError();
         }
 
-        await models.userUpdatePassword(user, resetInput)
+        await models.userUpdatePassword(user, resetInput);
 
         notify.sendMail(new PasswordResetConfirmed(user));
       }
@@ -195,6 +196,6 @@ export default {
 
     me: async (_obj: any, _args: any, { user }: MergedServerContext) => {
       return await user();
-    }
-  }
+    },
+  },
 };

@@ -28,9 +28,8 @@
     "recommendations": []
   },
   "lint-staged": {
-    "src/**/*.ts": [
-      "prettier --write",
-      "git add"
+    "server/**/*.ts": [
+      "prettier --write"
     ]
   },
   "dependencies": {

@@ -8,10 +8,9 @@ import replace from "@rollup/plugin-replace";
 const targets = process.env.targets?.split(",") || [];
 
 const config: Config = {
-  namespace: process.env.NODE_ENV === "production" ? "corejam-plugin-auth" : "corejam-dev",
+  namespace: "corejam-plugin-auth",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
-  srcIndexHtml: require.resolve("@corejam/run/dist/index.html"),
   devServer: {
     port: 3001,
   },
@@ -50,7 +49,7 @@ if (targets.includes("prerender")) {
   config.outputTargets.push({
     type: "www",
     empty: false,
-    prerenderConfig: './prerender.config.ts',
+    prerenderConfig: "./prerender.config.ts",
     serviceWorker: null,
     baseUrl: "http://localhost:3000",
   });
@@ -67,7 +66,7 @@ if (targets.includes("react")) {
         "app-liveview",
         "app-playground",
         "app-test-comp",
-        "app-welcome",
+        "corejam-dev-welcome",
         "corejam-run-app",
         "corejam-run-router",
       ],

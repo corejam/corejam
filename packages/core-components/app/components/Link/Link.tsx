@@ -1,8 +1,6 @@
-import { Component, Host, h, Prop, State, Event } from "@stencil/core";
-import { href } from "stencil-router-v2";
-import { state as routerState } from "@corejam/router";
+import { Component, Host, h, Prop, State, Event, EventEmitter } from "@stencil/core";
+import { runState, href } from "@corejam/run";
 import { Link } from "./Link.types";
-import { EventEmitter } from "@corejam/run/dist/types/stencil-public-runtime";
 
 @Component({
   tag: "corejam-base-link",
@@ -31,15 +29,15 @@ export class BaseLink {
   }
 
   renderLink() {
-    if (routerState.router) {
-      const defaultProps = href(this.href, routerState.router);
+    if (runState.router) {
+      const defaultProps = href(this.href, runState.router);
 
       const overwrittenProps = {
         ...defaultProps,
         onClick: (ev: MouseEvent) => {
           this.routeChange.emit({ type: "routechange", newUrl: this.href });
-          defaultProps.onClick(ev);
-          window.scrollTo({ top: 0 })
+          if (typeof defaultProps.onClick === "function") defaultProps.onClick(ev);
+          window.scrollTo({ top: 0 });
         },
       };
 

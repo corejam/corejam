@@ -1,7 +1,7 @@
 import { authStore } from "@corejam/plugin-auth";
 import { assign, createMachine } from "xstate";
 import gql from "graphql-tag";
-import { state as routerState } from "@corejam/router";
+import { runState } from "@corejam/run";
 import { coreState } from "@corejam/core-components";
 import { orderCreateGQL } from "../../shared/graphql/Mutations/Order";
 import type { OrderCreateInput } from "../../shared/types/Order";
@@ -103,7 +103,7 @@ export const basketMachine = createMachine<CheckoutContext, CheckoutEvent, Check
             },
             {
               target: CheckoutStates.LOGIN_OR_REGISTER,
-              cond: (ctx) => ctx.items.length > 0 && !authStore.identity
+              cond: (ctx) => ctx.items.length > 0 && !authStore.identity,
             },
           ],
           CLEAR: {
@@ -214,7 +214,7 @@ export const basketMachine = createMachine<CheckoutContext, CheckoutEvent, Check
         },
       },
       thankyou: {
-        entry: () => routerState.router.push("/thankyou"),
+        entry: () => runState.router.push("/thankyou"),
         on: {
           "": [
             {

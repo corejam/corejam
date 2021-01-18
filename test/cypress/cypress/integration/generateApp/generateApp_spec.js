@@ -17,7 +17,7 @@ describe("Check our generated app is accessible", function () {
     })
 
     //Make sure we are not rendering duplicate elements
-    cy.get("corejam-run-app").its("length").should("be.eq", 1)
-    cy.get("corejam-run-router").its("length").should("be.eq", 1)
+    cy.get("corejam-app").its("length").should("be.eq", 1)
+    cy.get("corejam-router").its("length").should("be.eq", 1)
   });
 });
