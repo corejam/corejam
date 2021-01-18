@@ -74,7 +74,6 @@ export class Grid {
   }
 
   componentShouldUpdate(newValue, oldValue) {
-    console.log("grid", newValue, oldValue);
     return newValue != oldValue;
   }
 

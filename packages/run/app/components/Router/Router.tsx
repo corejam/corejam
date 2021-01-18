@@ -40,6 +40,7 @@ export class CorejamRouter {
 
   render() {
     const routes = this.collectRoutesInRightOrder();
+    const Layout = runState.layout ? runState.layout[0].component : "div";
     return (
       <Host>
         <Router.Switch>
@@ -54,15 +55,24 @@ export class CorejamRouter {
               );
             }
 
-            // if (route.exact && route.url.includes("component")) {
-            //   return (
-            //     <Route path={route.url}>
-            //       <corejam-dev-playground cmp={route.component}></corejam-dev-playground>
-            //     </Route>
-            //   );
-            // }
+            if (route.exact && route.url.includes("component")) {
+              return (
+                <Route path={route.url}>
+                  <corejam-dev-playground cmp={route.component}></corejam-dev-playground>
+                </Route>
+              );
+            }
 
-            if (route.exact) {
+            if (route.exact && !route.dev && !route.third) {
+              return (
+                <Route path={route.url}>
+                  <Layout>
+                    <Component></Component>
+                  </Layout>
+                </Route>
+              );
+            }
+            if (route.exact && (route.dev || route.third)) {
               return (
                 <Route path={route.url}>
                   <Component></Component>
@@ -72,7 +82,11 @@ export class CorejamRouter {
             return (
               <Route
                 path={match(route.url, { exact: true })}
-                render={(router) => <Component param={router}></Component>}
+                render={(router) => (
+                  <Layout>
+                    <Component param={router}></Component>
+                  </Layout>
+                )}
               />
             );
           })}

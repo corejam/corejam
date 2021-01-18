@@ -9,9 +9,7 @@ export class Welcome {
     const styles = {
       fontFamily: "Tahoma",
       display: "flex",
-      alignItems: "center",
       justifyContent: "center",
-      height: "95vh",
     };
 
     return (

@@ -15,6 +15,7 @@ export type CorejamRoute = {
   canvasPage?: boolean;
   component: string;
   dev?: boolean;
+  third?: boolean;
 };
 
 export type CorejamRunStore = {

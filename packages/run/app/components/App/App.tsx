@@ -1,4 +1,4 @@
-import { Component, Host, h, State } from "@stencil/core";
+import { Component, Host, h, State, Fragment } from "@stencil/core";
 import { runState } from "../../store/runStore";
 
 @Component({
@@ -35,24 +35,26 @@ export class CorejamRun {
     }
   }
 
-  renderLayout(children: [JSX.Element]) {
-    if (this.config.layout) {
-      const Layout = this.config.layout[0]?.component;
-      if (Layout) return <Layout>{children}</Layout>;
-    }
-    return children;
-  }
-
   renderWrapperComponent() {
     if (this.config.wrapper.length > 0) {
-      let Res = [this.renderRecos(), this.renderLayout(<corejam-router />)];
+      let Res = (
+        <Fragment>
+          {this.renderRecos()}
+          <corejam-router />
+        </Fragment>
+      );
       this.config.wrapper.reverse().forEach((component) => {
         const Component = component;
         Res = <Component>{Res}</Component>;
       });
       return Res;
     }
-    return [this.renderRecos(), this.renderLayout(<corejam-router></corejam-router>)];
+    return (
+      <Fragment>
+        {this.renderRecos()}
+        <corejam-router></corejam-router>
+      </Fragment>
+    );
   }
 
   render() {

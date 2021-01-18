@@ -20,6 +20,7 @@ export function extractComponentsToRoutes(root: string, name = null): any[] {
               exact: true,
               component: tagMatch[1],
               dev: false,
+              third: name ? true : false,
             });
           }
         }
@@ -66,6 +67,7 @@ export function extractRoutes(root: string, name = null): any[] {
               exact: false,
               component: tagMatch[1],
               dev: false,
+              third: name ? true : false,
             });
           } else {
             namedRoutes.push({
@@ -73,6 +75,7 @@ export function extractRoutes(root: string, name = null): any[] {
               exact: true,
               component: tagMatch[1],
               dev: false,
+              third: name ? true : false,
             });
           }
         }
