@@ -16,7 +16,7 @@ export function extractComponentsToRoutes(root: string, name = null): any[] {
           const tagMatch = f.match(regexTag);
           if (tagMatch) {
             routes.push({
-              url: name ? `plugin/${name}/component/${tagMatch[1]}` : `/component/${tagMatch[1]}`,
+              url: name ? `/plugin/${name}/component/${tagMatch[1]}` : `/component/${tagMatch[1]}`,
               exact: true,
               component: tagMatch[1],
               dev: false,
@@ -59,7 +59,7 @@ export function extractRoutes(root: string, name = null): any[] {
           if (url.indexOf("[") > -1) {
             const dynamicMatch = url.match(/\[.+\]/)[0];
             const paramName = dynamicMatch.replace("[", "").replace("]", "");
-            const raw = name ? `plugin/${name}/${url.replace(dynamicMatch, "")}` : url.replace(dynamicMatch, "");
+            const raw = name ? `/plugin/${name}${url.replace(dynamicMatch, "")}` : url.replace(dynamicMatch, "");
             const newUrl = raw + ":" + paramName;
             wildcardRoutes.push({
               url: newUrl,
@@ -69,7 +69,7 @@ export function extractRoutes(root: string, name = null): any[] {
             });
           } else {
             namedRoutes.push({
-              url: name ? `plugin/${name}/${url}` : url,
+              url: name ? `/plugin/${name}${url}` : url,
               exact: true,
               component: tagMatch[1],
               dev: false,

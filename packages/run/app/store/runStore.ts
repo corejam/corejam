@@ -21,9 +21,10 @@ export type CorejamRunStore = {
   router: Router;
   routes: CorejamRoute[];
   mode: CorejamMode;
-  wrapper: [string] | [];
-  recommendations: [string];
+  wrapper: string[] | [];
+  recommendations: string[];
   layout: LayoutEntry;
+  plugins: any[];
 };
 
 type LayoutEntry = {
@@ -43,4 +44,5 @@ export const {
   wrapper: null,
   recommendations: null,
   layout: null,
+  plugins: null,
 });

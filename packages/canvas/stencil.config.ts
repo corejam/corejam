@@ -66,7 +66,7 @@ if (targets.includes("react")) {
         "app-liveview",
         "app-playground",
         "app-test-comp",
-        "app-welcome",
+        "corejam-dev-welcome",
         "corejam-run-app",
         "corejam-run-router",
       ],

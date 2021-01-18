@@ -40,13 +40,13 @@ export function writeConfig() {
     componentRoutes.push({
       url: "/_corejam",
       exact: true,
-      component: "app-welcome",
+      component: "corejam-dev-welcome",
       dev: true,
     });
     componentRoutes.push({
       url: "/liveview",
       exact: true,
-      component: "app-liveview",
+      component: "corejam-dev-liveview",
       dev: true,
     });
   }
@@ -62,7 +62,7 @@ export function writeConfig() {
   config.description = pluginPkg.description;
   config.github_url = pluginPkg.bugs?.url.replace("/issues", "");
   config.github_issues = pluginPkg.bugs?.url;
-  const notToBeIncluded = ["@corejam/base", "@corejam/dev", "@corejam/cli", "@corejam/run", "@corejam/rollup-plugin"];
+  const notToBeIncluded = ["@corejam/base", "@corejam/cli", "@corejam/run", "@corejam/rollup-plugin"];
 
   if (pluginPkg?.dependencies) {
     for (const key of Object.keys(pluginPkg?.dependencies)) {

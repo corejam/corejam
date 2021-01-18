@@ -7,6 +7,10 @@ import { runState } from "../../store/runStore";
 export class CorejamRun {
   @State() config: any;
   async componentWillLoad() {
+    await this.getConfig();
+  }
+
+  async getConfig() {
     try {
       const buildConfig = await fetch("/build/config.json");
       const config = await buildConfig.json();
@@ -16,6 +20,7 @@ export class CorejamRun {
       runState.recommendations = config.recommendations;
       runState.mode = config.mode;
       runState.layout = config.layout;
+      runState.plugins = config.plugins;
     } catch (e) {
       console.log(e);
     }
