@@ -6,7 +6,7 @@ import { MergedServerContext } from "../server/types/PluginResolver";
 import * as OriginalSES from "@aws-sdk/client-ses";
 import MailTransport from "../server/resolvers/mail/Transporter";
 import SMTP from "../server/resolvers/mail/SMTP";
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
 
 /**
  * Need to do some bending to get typescript to mock classes
