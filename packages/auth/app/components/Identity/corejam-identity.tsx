@@ -125,7 +125,7 @@ export class CorejamIdentity {
                     <corejam-form-input name="password" type="password" formId={this.formId} label="Password" />
                   </corejam-box>
                   <corejam-box flex direction="row" w={12} mt={4}>
-                    <corejam-box w={6} bg="gray-900" rounded="md" flex justify="center">
+                    <corejam-box w={6} bg="gray-200" rounded="md" flex justify="center">
                       <corejam-form-submit formId={this.formId}>
                         <corejam-button type="button" color="gray-900" pl="5" pr="5" pt="3" pb="3">
                           <corejam-type>Login</corejam-type>
