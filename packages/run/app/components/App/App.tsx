@@ -53,6 +53,7 @@ export class CorejamRun {
       <Fragment>
         {this.renderRecos()}
         <corejam-router></corejam-router>
+        {runState.mode === "development" && <corejam-menu />}
       </Fragment>
     );
   }

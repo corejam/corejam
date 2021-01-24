@@ -47,3 +47,11 @@ export const {
   layout: null,
   plugins: null,
 });
+
+export const { state: menuState } = createStore({
+  tabs: [],
+});
+
+export function addMenuTab(tab) {
+  menuState.tabs = [...menuState.tabs, tab];
+}

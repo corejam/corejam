@@ -13,6 +13,8 @@ export const Corejam = (props) => (
     viewBox="0 0 450 450"
     enable-background="new 0 0 450 450"
     spacing="preserve"
+    class={props.class}
+    onClick={props.onClick}
   >
     {" "}
     <image
@@ -511,6 +513,7 @@ AKACAAQAAAABAAABwqADAAQAAAABAAABwgAAAABSEIIBAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIw
 LTEyLTEwVDE1OjI2OjA2KzAwOjAwLGs+3wAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMC0xMi0xMFQx
 NToyNjowNiswMDowMF02hmMAAAARdEVYdGV4aWY6Q29sb3JTcGFjZQAxD5sCSQAAABJ0RVh0ZXhp
 ZjpFeGlmT2Zmc2V0ADkwWYzemwAAABh0RVh0ZXhpZjpQaXhlbFhEaW1lbnNpb24ANDUwPY52wwAA
-ABh0RVh0ZXhpZjpQaXhlbFlEaW1lbnNpb24ANDUwoIGXtQAAAABJRU5ErkJggg=="/>
+ABh0RVh0ZXhpZjpQaXhlbFlEaW1lbnNpb24ANDUwoIGXtQAAAABJRU5ErkJggg=="
+    />
   </svg>
 );

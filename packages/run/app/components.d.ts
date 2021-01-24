@@ -23,7 +23,6 @@ export namespace Components {
   }
   interface CorejamRouter {}
   interface CorejamTab {
-    activeFn: Function;
     header: string;
   }
   interface CorejamTabs {}
@@ -93,10 +92,11 @@ declare namespace LocalJSX {
   }
   interface CorejamRouter {}
   interface CorejamTab {
-    activeFn?: Function;
     header?: string;
   }
-  interface CorejamTabs {}
+  interface CorejamTabs {
+    onTabSelected?: (event: CustomEvent<any>) => void;
+  }
   interface IntrinsicElements {
     "corejam-app": CorejamApp;
     "corejam-dev-liveview": CorejamDevLiveview;

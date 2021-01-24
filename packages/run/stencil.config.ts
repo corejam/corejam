@@ -12,6 +12,7 @@ const config: Config = {
   namespace: "corejam-run",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
+  globalScript: "app/global.ts",
   devServer: {
     port: 3001,
   },

@@ -6,7 +6,8 @@ import { isYarn } from "is-npm";
 import jetpack from "fs-jetpack";
 import execa from "execa";
 import { mono } from "../config";
-import {packageJson} from "../helpers/package"
+import { packageJson } from "../helpers/package";
+
 export default async function createApp(name: string) {
   return new Promise(async (res: any) => {
     const spinner = ora(`Creating new Corejam application: ${name}`).start();
@@ -16,7 +17,7 @@ export default async function createApp(name: string) {
 
     await jetpack.copyAsync(__dirname + "/../templates/plugin", pluginRootPath);
 
-    const json = packageJson(mono)
+    const json = packageJson(mono);
 
     await jetpack.writeAsync(pluginRootPath + "/package.json", json);
 

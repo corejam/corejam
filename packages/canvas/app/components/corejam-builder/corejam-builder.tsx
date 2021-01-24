@@ -58,7 +58,7 @@ export class CorejamBuilder {
     },
   ];
   @Prop({ mutable: true }) draggers: Dragger[] = [];
-  @Prop() demo = false;
+  @Prop() demo = true;
 
   componentDidLoad() {
     if (this.demo) this.draggers = [...this.draggers, ...this.demoDraggers];
