@@ -80,6 +80,7 @@ export class ProductList {
             <corejam-grid smTemplateColumns={2} mdTemplateColumns={3} lgTemplateColumns={4} gapCol={6} gapRow={12}>
               {this._list.items?.map((product) => (
                 <dershop-product-box
+                  key={product.name}
                   data-cy="produx-box"
                   name={product.name}
                   image={product.images ? product.images[0].src : null}

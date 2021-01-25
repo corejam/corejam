@@ -223,7 +223,7 @@ export class CheckoutRoute {
             )}
             <corejam-box px={5}>
               <corejam-box>
-                <corejam-box justify="evenly" flex direction="row">
+                <corejam-box justify="evenly" flex direction="row" w={12}>
                   <corejam-box bg="gray-200" p={5}>
                     <corejam-box>
                       <corejam-type weight="bold">Shipping Address</corejam-type>
