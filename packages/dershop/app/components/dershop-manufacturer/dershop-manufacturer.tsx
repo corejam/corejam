@@ -5,7 +5,7 @@ import { ManufacturerDB } from "../../../shared/types/Manufacturer";
   tag: "dershop-manufacturer",
 })
 export class DershopManufacturer {
-  @Prop() manufacturer: ManufacturerDB;
+  @Prop() manufacturer: ManufacturerDB | string;
   @State() _manufacturer: ManufacturerDB;
 
   async componentWillLoad() {
@@ -18,10 +18,10 @@ export class DershopManufacturer {
         <corejam-box display="block" data-cy="product-list" max="xl" mx="auto" px={2} xlPx={0}>
           <corejam-box flex direction="col">
             <corejam-type weight="bold" size="3xl">
-              {this.manufacturer.name}
+              {this._manufacturer.name}
             </corejam-type>
             <corejam-type as="p" color="gray-700">
-              {this.manufacturer.description}
+              {this._manufacturer.description}
             </corejam-type>
           </corejam-box>
           <dershop-product-list list={this._manufacturer.products}></dershop-product-list>

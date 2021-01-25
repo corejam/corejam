@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
-      <CorejamInit router={useRouter()}>
-        <Component {...pageProps} />
-      </CorejamInit>
-    </Layout>
+    <CorejamInit router={useRouter()}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+    </CorejamInit>
   );
 }
 
