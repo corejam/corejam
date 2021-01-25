@@ -1,7 +1,7 @@
-import { addMenuTab } from "./store/runStore";
+import { addTab } from "./utils";
 
 export default function () {
-  addMenuTab({
+  addTab({
     header: "Dev",
     content: "corejam-dev-welcome",
   });
