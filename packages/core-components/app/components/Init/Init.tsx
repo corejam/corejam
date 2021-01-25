@@ -1,11 +1,11 @@
 import { Component, Host, h, Prop, Watch } from "@stencil/core";
-import { runState, runSet } from "@corejam/run";
+import { runSet } from "@corejam/run";
 
 @Component({
   tag: "corejam-init",
 })
 export class Init {
-  @Prop({ reflect: true }) router = null;
+  @Prop({ reflect: false }) router = null;
 
   async componentWillLoad() {
     if (!this.router) return;
@@ -18,6 +18,10 @@ export class Init {
   }
 
   render() {
-    return <Host>{runState.router && <slot></slot>}</Host>;
+    return (
+      <Host>
+        <slot></slot>
+      </Host>
+    );
   }
 }

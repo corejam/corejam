@@ -8,11 +8,10 @@ import { getObjectFromURL } from "../../shared/graphql/Queries/URL";
   tag: "dershop-url",
 })
 export class UrlRoute {
-  @Prop() param: any;
+  @Prop({ reflect: true }) param: any;
   @State() _param: any;
   @State() _data: SEODocument;
   @State() _object: any;
-  @State() _component;
 
   @Watch("param")
   async rerenderForUrl() {
@@ -23,17 +22,16 @@ export class UrlRoute {
    * Query for the object from the url
    */
   async getComponentFromParam() {
-    this._param = typeof this.param === "string" ? JSON.parse(this.param) : this.param;
+    const p = typeof this.param === "string" ? JSON.parse(this.param) : this.param;
     this._data = await (
       await coreState.client.query({
         query: gql(getObjectFromURL),
         variables: {
-          url: this._param.url,
+          url: p.url,
         },
       })
     ).data?.objectFromURL;
-
-    this._component = this.getComponentForRoute();
+    console.log("seo", this._data);
   }
 
   async componentWillLoad() {
@@ -41,19 +39,14 @@ export class UrlRoute {
   }
 
   getComponentForRoute() {
-    if ((this._object = this._data?.product)) return <dershop-product product={this._object}></dershop-product>;
-    if ((this._object = this._data?.category))
-      return <dershop-product-list list={this._object?.products}></dershop-product-list>;
-    if ((this._object = this._data?.manufacturer))
-      return <dershop-manufacturer manufacturer={this._object}></dershop-manufacturer>;
+    if (this._data?.product) return <dershop-product product={JSON.stringify(this._data?.product)}></dershop-product>;
+    if (this._data?.category)
+      return <dershop-product-list list={JSON.stringify(this._data?.category.products)}></dershop-product-list>;
+    if (this._data?.manufacturer)
+      return <dershop-manufacturer manufacturer={JSON.stringify(this._data?.manufacturer)}></dershop-manufacturer>;
   }
 
   render() {
-    return (
-      <Host>
-        {this._component}
-        {this._object?.seo ? <dershop-seo seo={this._object.seo}></dershop-seo> : null}
-      </Host>
-    );
+    return <Host>{this.getComponentForRoute()}</Host>;
   }
 }

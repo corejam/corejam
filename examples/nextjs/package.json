@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "corejam generateSchema && corejam bootstrap",
+    "prebuild": "corejam generateSchema",
     "build": "next build",
     "start": "next start",
     "lint": "eslint pages/* components/*"
@@ -19,6 +19,7 @@
   "dependencies": {
     "@corejam/plugin-dershop": "0.0.21",
     "apollo-server-micro": "2.19.1",
+    "cheerio": "^1.0.0-rc.5",
     "dotenv-webpack": "6.0.0",
     "micro": "9.3.4",
     "micro-cors": "0.1.1",
