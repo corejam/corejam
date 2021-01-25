@@ -13,7 +13,6 @@ let client;
 
 if (Build.isBrowser) {
   const httpLink = createHttpLink({
-    useGETForQueries: true,
     uri: (process.env.API_ORIGIN ?? "") + "/api/graphql",
     credentials: "include",
     useGETForQueries: true,
