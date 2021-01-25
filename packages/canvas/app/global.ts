@@ -1,7 +1,7 @@
-import { addMenuTab } from "@corejam/run";
+import { addTab } from "@corejam/run";
 
 export default function () {
-  addMenuTab({
+  addTab({
     header: "Builder",
     content: "corejam-builder",
   });
