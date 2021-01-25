@@ -1,18 +1,19 @@
-import { InMemoryCache } from '@apollo/client/cache';
-import { ApolloClient } from '@apollo/client/core';
+import { InMemoryCache } from "@apollo/client/cache";
+import { ApolloClient } from "@apollo/client/core";
 import { ErrorLink } from "@apollo/client/link/error";
 import { createHttpLink } from "@apollo/client/link/http";
 import { createPersistedQueryLink } from "@apollo/client/link/persisted-queries";
 import { Build } from "@stencil/core";
 import { createStore } from "@stencil/store";
-import { sha256 } from 'crypto-hash';
+import { sha256 } from "crypto-hash";
 import { Components } from "../components";
-import { FlashEvent, FlashTypes } from '../utils/events';
+import { FlashEvent, FlashTypes } from "../utils/events";
 
 let client;
 
 if (Build.isBrowser) {
   const httpLink = createHttpLink({
+    useGETForQueries: true,
     uri: (process.env.API_ORIGIN ?? "") + "/api/graphql",
     credentials: "include",
   });
@@ -26,39 +27,38 @@ if (Build.isBrowser) {
       graphQLErrors.forEach(({ message, locations, path }) => {
         if (message === "PersistedQueryNotFound") return;
 
-        const error = new FlashEvent(FlashTypes.ERROR, message)
-        document.dispatchEvent(error)
-        console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-        )
+        const error = new FlashEvent(FlashTypes.ERROR, message);
+        document.dispatchEvent(error);
+        console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
 
         /**
          * If there is no defined flash space within the currenty route we
          * default back to the modal
          */
-        const checkForExistingFlash = document.querySelectorAll("corejam-flash:not([data-flash='isolated'])")
+        const checkForExistingFlash = document.querySelectorAll("corejam-flash:not([data-flash='isolated'])");
 
         if (checkForExistingFlash.length === 0) {
-          const modal = document.createElement("corejam-modal") as Components.CorejamModal & HTMLElement
-          modal.message = message
-          modal.type = "error"
-          document.body.appendChild(modal)
+          const modal = document.createElement("corejam-modal") as Components.CorejamModal & HTMLElement;
+          modal.message = message;
+          modal.type = "error";
+          document.body.appendChild(modal);
         }
-
       });
-      return null
+      return null;
     }
     if (networkError) console.log(`[Network error]: ${networkError}`);
-  })
+  });
 
   const link = createPersistedQueryLink({
     useGETForHashedQueries: true,
-    sha256
-  }).concat(errorLink).concat(httpLink)
+    sha256,
+  })
+    .concat(errorLink)
+    .concat(httpLink);
 
   client = new ApolloClient({
     cache: new InMemoryCache(),
-    link
+    link,
   });
 }
 
