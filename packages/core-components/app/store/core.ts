@@ -16,6 +16,7 @@ if (Build.isBrowser) {
     useGETForQueries: true,
     uri: (process.env.API_ORIGIN ?? "") + "/api/graphql",
     credentials: "include",
+    useGETForQueries: true,
   });
 
   /**
