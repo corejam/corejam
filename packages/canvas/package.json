@@ -56,7 +56,7 @@
     "server/**/*.ts": [
       "prettier --write"
     ],
-    "app/**/*.ts": [
+    "app/**/!(*.d).ts": [
       "prettier --write"
     ],
     "app/**/*.tsx": [
