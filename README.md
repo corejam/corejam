@@ -68,7 +68,7 @@ We keep a collection of plugins maintained inside this monorepo:
 
 # Auth
 
-Basic GraphQL JWT authentication for Corejam applications. [Read more](packages/plugins/auth/README.md)
+Basic GraphQL JWT authentication for Corejam applications. [Read more](packages/auth/README.md)
 
 A hassle free plug and play JWT authentication package for your Corejam applications to give you an authentication state to use inside your applications.
 

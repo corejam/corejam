@@ -1,12 +1,16 @@
-import { Component, Host, h, State } from "@stencil/core";
+import { Component, Host, h, State, Fragment } from "@stencil/core";
 import { runState } from "../../store/runStore";
 
 @Component({
-  tag: "corejam-run-app",
+  tag: "corejam-app",
 })
 export class CorejamRun {
   @State() config: any;
   async componentWillLoad() {
+    await this.getConfig();
+  }
+
+  async getConfig() {
     try {
       const buildConfig = await fetch("/build/config.json");
       const config = await buildConfig.json();
@@ -16,6 +20,7 @@ export class CorejamRun {
       runState.recommendations = config.recommendations;
       runState.mode = config.mode;
       runState.layout = config.layout;
+      runState.plugins = config.plugins;
     } catch (e) {
       console.log(e);
     }
@@ -30,29 +35,26 @@ export class CorejamRun {
     }
   }
 
-  renderLayout(children: [JSX.Element]) {
-    if (this.config.layout) {
-      const Layout = this.config.layout.component;
-      return <Layout>{children}</Layout>;
-    }
-    return children;
-  }
-
   renderWrapperComponent() {
     if (this.config.wrapper.length > 0) {
-      /**
-       * TODO
-       * Check if multiple wrapper components.
-       */
-      const Wrapper = this.config.wrapper[0];
-      return (
-        <Wrapper>
+      let Res = (
+        <Fragment>
           {this.renderRecos()}
-          {this.renderLayout(<corejam-run-router />)}
-        </Wrapper>
+          <corejam-router />
+        </Fragment>
       );
+      this.config.wrapper.reverse().forEach((component) => {
+        const Component = component;
+        Res = <Component>{Res}</Component>;
+      });
+      return Res;
     }
-    return [this.renderRecos(), this.renderLayout(<corejam-run-router></corejam-run-router>)];
+    return (
+      <Fragment>
+        {this.renderRecos()}
+        <corejam-router></corejam-router>
+      </Fragment>
+    );
   }
 
   render() {

@@ -1,5 +1,5 @@
-import { state } from "@corejam/router";
 import { Component, Host, h, State, Element, Listen } from "@stencil/core";
+import { runState } from "@corejam/run";
 import { dershopState } from "../../store/dershop";
 
 @Component({
@@ -22,7 +22,7 @@ export class DershopInlineSearch {
 
   @Listen("formEvent", { target: "document" })
   async formEvent({ detail }) {
-    if (detail.name === "inline-search") state.router.push(`/products?searchTerm=${detail.value}`);
+    if (detail.name === "inline-search") runState.router.push(`/products?searchTerm=${detail.value}`);
     dershopState.search = detail.value;
   }
 

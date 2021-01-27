@@ -30,7 +30,6 @@ export const packageJson = (mono = false) => `{
     "@corejam/base": "${mono ? require("../../../base/package.json").version : "latest"}",
     "@corejam/core-components": "${mono ? require("../../../core-components/package.json").version : "latest"}",
     "@corejam/cli": "${mono ? require("../../../cli/package.json").version : "latest"}",
-    "@corejam/dev": "${mono ? require("../../../dev/package.json").version : "latest"}",
     "@corejam/run": "${mono ? require("../../../run/package.json").version : "latest"}",
     "@corejam/rollup-plugin": "${mono ? require("../../../rollup-plugin/package.json").version : "latest"}",
     "faker": "5.1.0",
@@ -43,4 +42,4 @@ export const packageJson = (mono = false) => `{
     "wrapper": [],
     "recommendations": []
   }
-}`
+}`;

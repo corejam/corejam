@@ -13,7 +13,7 @@ export class ProductDetail {
   @State() _product: Product;
   @State() _activeThumb: Image;
   @Prop() url: string;
-  @Prop() product: string | Product;
+  @Prop({ reflect: true }) product: string | Product;
   /**
    * Main Product Name
    */
@@ -44,10 +44,13 @@ export class ProductDetail {
       };
       const data = await coreState.client.query({ query: gql(productByUrlGQL), variables });
       this._product = data.data.productByUrl;
+      this._activeThumb = data.data.productByUrl.images[0];
     } else {
-      this._product = typeof this.product === "string" ? JSON.parse(this.product) : this.product;
+      console.log(this.product);
+      const product = typeof this.product === "string" ? JSON.parse(this.product) : this.product;
+      this._product = product;
+      this._activeThumb = product.images[0];
     }
-    this._activeThumb = this._product.images[0];
   }
 
   buyProduct(e) {

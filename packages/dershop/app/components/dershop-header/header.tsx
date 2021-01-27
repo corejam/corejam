@@ -60,7 +60,7 @@ export class DershopHeader implements ComponentInterface {
           </corejam-box>
           <corejam-box flex w="60px" justify="between" direction="row-reverse">
             <corejam-base-link href={this.cartLink}>
-              <dershop-cart-mini />
+              <dershop-cart-mini></dershop-cart-mini>
             </corejam-base-link>
             <corejam-identity></corejam-identity>
           </corejam-box>

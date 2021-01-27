@@ -1,13 +1,23 @@
 import { list, read, exists } from "fs-jetpack";
+import { extractLayouts } from "./extractLayouts";
+import { extractComponentsToRoutes, extractRoutes } from "./extractRoutes";
+import { extractExternal, extractRecos, extractWrapper } from "./extractFromPackage";
 
 export function writeConfig() {
   const pluginPkg = require(process.cwd() + "/package.json");
+
   const root = process.cwd();
 
   const config = {
+    name: pluginPkg.name,
+    version: pluginPkg.version,
+    github_url: null,
+    github_issues: null,
+    author: null,
+    homepage: null,
+    description: null,
     mode: process.env.NODE_ENV,
     components: [],
-    routes: [],
     wrapper: [],
     recommendations: [],
     dependencies: [],
@@ -16,139 +26,91 @@ export function writeConfig() {
     router: {
       routes: [],
     },
+    plugins: [],
   };
 
-  const namedRoutes = [];
-  const wildcardRoutes = [];
-
-  const regexTag = /tag: \"(.*)\"/;
-
-  const components = (list(root + "/app/components")) || [];
-
-  for (const component of components) {
-    if (!component.includes(".ts")) {
-      const componentLevel = (list(root + "/app/components/" + component)) || [];
-      for (const file of componentLevel) {
-        if (file.includes("tsx")) {
-          const f = read(root + "/app/components/" + component + "/" + file);
-
-          const tagMatch = f.match(regexTag);
-          if (tagMatch) {
-            config["components"].push({
-              url: "/component/" + tagMatch[1],
-              component: tagMatch[1],
-            });
-            namedRoutes.push({
-              url: "/component/" + tagMatch[1],
-              exact: true,
-              component: tagMatch[1],
-            });
-          }
-        }
-      }
-    }
-  }
-
-  const traverse = async (lookupPath) => {
-    let paths = [];
-    if (!lookupPath.includes(".md")) {
-      paths = (list(lookupPath)) || [];
-    }
-    for (const current of paths) {
-      if (current.indexOf("tsx") > -1) {
-        const segments = lookupPath
-          .replace(root + "/app/routes", null)
-          .split("/")
-          .filter((s) => s !== "null");
-        const isIndex = current === "index.tsx";
-        const url =
-          segments.length === 0
-            ? `/${isIndex ? "" : current.replace(root, "").replace(".tsx", "")}`
-            : `/${segments.join("/").replace(root, "").replace("/app/routes", "")}/${isIndex ? "" : current.replace(".tsx", "")
-            }`;
-        const f = read(lookupPath + "/" + current);
-        const tagMatch = f.match(regexTag);
-        if (tagMatch) {
-          config.routes.push({
-            url,
-            component: tagMatch[1],
-          });
-
-          if (url.indexOf("[") > -1) {
-            const dynamicMatch = url.match(/\[.+\]/)[0];
-            const paramName = dynamicMatch.replace("[", "").replace("]", "");
-            const raw = url.replace(dynamicMatch, "");
-            const newUrl = raw + ":" + paramName;
-            wildcardRoutes.push({
-              url: newUrl,
-              exact: false,
-              component: tagMatch[1],
-            });
-          } else {
-            namedRoutes.push({
-              url: url,
-              exact: true,
-              component: tagMatch[1],
-            });
-          }
-        }
-      } else {
-        traverse(lookupPath + "/" + current);
-      }
-    }
-  };
-  traverse(root + "/app/routes");
-
-  if (pluginPkg.corejam?.wrapper) config.wrapper = pluginPkg.corejam.wrapper;
-  if (pluginPkg.corejam?.recommendations) config.recommendations = pluginPkg.corejam.recommendations;
-
-  const depsBlacklist = ["@corejam/base", "@corejam/dev", "@corejam/cli"];
-
-  //TODO should this be both dev and normal dependancies?
-  if (pluginPkg?.dependencies) {
-    for (const key of Object.keys(pluginPkg?.dependencies)) {
-      if (key.includes("@corejam/") && !depsBlacklist.includes(key)) {
-        const pkg = require(key + "/package.json");
-        if (pkg.corejam?.wrapper) config.wrapper = [...config.wrapper, ...pkg.corejam.wrapper];
-        if (pkg.corejam?.recommendations)
-          config.recommendations = [...config.recommendations, ...pkg.corejam.recommendations];
-      }
-    }
-  }
-
-  if (pluginPkg.corejam?.external) {
-    config.external = pluginPkg.corejam.external;
-  }
-
-  if (exists(root + "/app/layout")) {
-    const componentLevel = (list(root + "/app/layout")) || [];
-    for (const file of componentLevel) {
-      if (file.includes("tsx")) {
-        const f = read(root + "/app/layout/" + file);
-        const tagMatch = f.match(regexTag);
-        if (tagMatch)
-          config["layout"] = {
-            type: "layout",
-            component: tagMatch[1],
-          };
-      }
-    }
-  }
+  const componentRoutes = extractComponentsToRoutes(root);
+  const appRoutes = extractRoutes(root);
+  const layouts = extractLayouts(root);
+  const wrapper = extractWrapper(pluginPkg);
+  const recommendations = extractRecos(pluginPkg);
+  const external = extractExternal(pluginPkg);
 
   if (process.env.NODE_ENV === "development") {
-    namedRoutes.push({
+    componentRoutes.push({
       url: "/_corejam",
       exact: true,
-      component: "app-welcome",
+      component: "corejam-dev-welcome",
+      dev: true,
     });
-    namedRoutes.push({
+    componentRoutes.push({
       url: "/liveview",
       exact: true,
-      component: "app-liveview",
+      component: "corejam-dev-liveview",
+      dev: true,
     });
   }
 
-  config.router.routes = [...namedRoutes, ...wildcardRoutes];
+  config.router.routes = [...componentRoutes, ...appRoutes];
+  config.layout = [...layouts];
+  config.wrapper = [...wrapper];
+  config.recommendations = [...recommendations];
+  config.external = [...external];
+  config.components = componentRoutes.map((c) => c.component);
+  config.author = pluginPkg.author;
+  config.homepage = pluginPkg.homepage;
+  config.description = pluginPkg.description;
+  config.github_url = pluginPkg.bugs?.url.replace("/issues", "");
+  config.github_issues = pluginPkg.bugs?.url;
+  const notToBeIncluded = ["@corejam/base", "@corejam/cli", "@corejam/run", "@corejam/rollup-plugin"];
 
+  if (pluginPkg?.dependencies) {
+    for (const key of Object.keys(pluginPkg?.dependencies)) {
+      if (key.includes("@corejam/") && !notToBeIncluded.includes(key)) {
+        const pkgConfig = {
+          name: "",
+          version: null,
+          github_url: null,
+          github_issues: null,
+          author: null,
+          homepage: null,
+          description: null,
+          components: [],
+          wrapper: [],
+          recommendations: [],
+          dependencies: [],
+          external: [],
+          layout: null,
+          router: {
+            routes: [],
+          },
+        };
+        const pluginPkg = require(key + "/package.json");
+        const pkgRoot = require.resolve(key + "/package.json").replace("/package.json", "");
+
+        const componentRoutes = extractComponentsToRoutes(pkgRoot, pluginPkg.name);
+        const appRoutes = extractRoutes(pkgRoot, pluginPkg.name);
+        const layouts = extractLayouts(pkgRoot);
+        const wrapper = extractWrapper(pluginPkg);
+        const recommendations = extractRecos(pluginPkg);
+        const external = extractExternal(pluginPkg);
+        pkgConfig.name = pluginPkg.name;
+        pkgConfig.version = pluginPkg.version;
+        pkgConfig.author = pluginPkg.author;
+        pkgConfig.homepage = pluginPkg.homepage;
+        pkgConfig.description = pluginPkg.description;
+        pkgConfig.github_url = pluginPkg.bugs?.url.replace("/issues", "");
+        pkgConfig.github_issues = pluginPkg.bugs?.url;
+        pkgConfig.router.routes = [...componentRoutes, ...appRoutes];
+        pkgConfig.components = componentRoutes.map((c) => c.component);
+        pkgConfig.layout = [...layouts];
+        pkgConfig.wrapper = [...wrapper];
+        pkgConfig.recommendations = [...recommendations];
+        pkgConfig.external = [...external];
+
+        config.plugins.push(pkgConfig);
+      }
+    }
+  }
   return config;
 }

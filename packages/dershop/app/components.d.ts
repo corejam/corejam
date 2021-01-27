@@ -62,7 +62,7 @@ export namespace Components {
     interface DershopLogo {
     }
     interface DershopManufacturer {
-        "manufacturer": ManufacturerDB;
+        "manufacturer": ManufacturerDB | string;
     }
     interface DershopManufacturerList {
     }
@@ -500,7 +500,7 @@ declare namespace LocalJSX {
     interface DershopLogo {
     }
     interface DershopManufacturer {
-        "manufacturer"?: ManufacturerDB;
+        "manufacturer"?: ManufacturerDB | string;
     }
     interface DershopManufacturerList {
     }

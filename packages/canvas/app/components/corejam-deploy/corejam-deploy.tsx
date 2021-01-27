@@ -2,7 +2,6 @@ import { Component, Host, h } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
 import gql from "graphql-tag";
 import { PostCanvasGQL } from "../../../shared/graphql/Mutations";
-import { state as routerState } from "@corejam/router";
 import { runState } from "@corejam/run";
 import templateFnc from "./template";
 
@@ -40,7 +39,7 @@ export class CorejamDeploy {
           },
         ];
 
-        routerState.router.push(`/${name}`);
+        runState.router.push(`/${name}`);
       }
     }
   }

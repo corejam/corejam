@@ -2,7 +2,8 @@ dist/
 www/
 loader/
 web-components/
-
+react/
+.corejam/
 *~
 *.sw[mnpcod]
 *.log

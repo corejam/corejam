@@ -2,31 +2,53 @@
   "name": "@corejam/run",
   "version": "0.0.5",
   "description": "Corejam Runtime",
-  "main": "dist/index.cjs.js",
-  "module": "dist/custom-elements/index.js",
-  "es2015": "dist/esm/index.js",
-  "es2017": "dist/esm/index.js",
-  "types": "dist/custom-elements/index.d.ts",
-  "collection": "dist/collection/collection-manifest.json",
-  "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/esm/index.mjs",
+  "main": "web-components/index.cjs.js",
+  "module": "web-components/custom-elements/index.js",
+  "es2015": "web-components/esm/index.js",
+  "es2017": "web-components/esm/index.js",
+  "types": "web-components/custom-elements/index.d.ts",
+  "collection": "web-components/collection/collection-manifest.json",
+  "collection:main": "web-components/collection/index.js",
+  "homepage": "https://corejam.io/",
+  "bugs": {
+    "url": "https://github.com/corejam/corejam/issues"
+  },
   "files": [
-    "dist/"
+    "web-components",
+    "react",
+    "app"
   ],
   "scripts": {
-    "dev": "stencil build --dev --watch --serve",
-    "build": "stencil build --docs",
-    "postbuild": "shx cp ./app/index.html ./dist",
-    "prepublish": "yarn build",
+    "dev": "corejam dev",
+    "build": "corejam build",
+    "prepublish": "shx rm -f .env && yarn clean && yarn build",
+    "postpublish": "shx cp .env.sample .env",
+    "precommit": "lint-staged",
     "test": "stencil test --spec --e2e",
-    "clean": "rimraf dist"
+    "clean": "rimraf web-components & rimraf react"
   },
   "dependencies": {
-    "@corejam/rollup-plugin": "0.0.4",
-    "@corejam/router": "0.0.7",
+    "@corejam/base": "0.0.12",
+    "@corejam/cli": "0.0.20",
+    "@rollup/plugin-replace": "2.3.4",
     "@stencil/core": "2.3.0",
     "@stencil/store": "1.3.0",
+    "dotenv": "8.2.0",
     "stencil-router-v2": "0.6.0"
+  },
+  "devDependencies": {
+    "@corejam/rollup-plugin": "0.0.4",
+    "@stencil/react-output-target": "0.0.9",
+    "tslib": "2.1.0",
+    "typescript": "4.1.3"
+  },
+  "lint-staged": {
+    "app/**/!(*.d).ts": [
+      "prettier --write"
+    ],
+    "app/**/*.tsx": [
+      "prettier --write"
+    ]
   },
   "license": "MIT"
 }

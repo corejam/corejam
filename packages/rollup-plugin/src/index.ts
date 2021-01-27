@@ -1,5 +1,4 @@
 import { writeConfig } from "./generateConfig";
-export { writeConfig } from "./generateConfig";
 
 export default function corejam() {
   return {
