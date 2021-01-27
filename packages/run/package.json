@@ -1,6 +1,6 @@
 {
   "name": "@corejam/run",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Corejam Runtime",
   "main": "web-components/index.cjs.js",
   "module": "web-components/custom-elements/index.js",

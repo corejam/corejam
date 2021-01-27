@@ -1,7 +1,7 @@
 {
   "name": "nextjs",
   "description": "Corejam - DerShop running with Next.js",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "private": true,
   "homepage": "https://corejam.io",
   "repository": {
@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@corejam/plugin-dershop": "0.0.22",
+    "@corejam/plugin-dershop": "0.0.23",
     "apollo-server-micro": "2.19.2",
     "cheerio": "^1.0.0-rc.5",
     "dotenv-webpack": "6.0.0",
