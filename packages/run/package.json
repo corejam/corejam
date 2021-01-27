@@ -21,8 +21,6 @@
   "scripts": {
     "dev": "corejam dev",
     "build": "corejam build",
-    "prepublish": "shx rm -f .env && yarn clean && yarn build",
-    "postpublish": "shx cp .env.sample .env",
     "precommit": "lint-staged",
     "test": "stencil test --spec --e2e",
     "clean": "rimraf web-components & rimraf react"
@@ -43,7 +41,7 @@
     "typescript": "4.1.3"
   },
   "lint-staged": {
-    "app/**/*.ts": [
+    "app/**/!(*.d).ts": [
       "prettier --write"
     ],
     "app/**/*.tsx": [

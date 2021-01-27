@@ -22,7 +22,7 @@ export class CorejamRun {
       runState.layout = config.layout;
       runState.plugins = config.plugins;
     } catch (e) {
-      console.log(e);
+      console.log("Error", e);
     }
   }
 
