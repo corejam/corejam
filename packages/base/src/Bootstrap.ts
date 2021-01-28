@@ -119,13 +119,14 @@ export function bootstrapSchema(hoisted = false): string {
   }
 
   const schemaCachePath = path.join(cacheDir, "schema.graphql");
-  if (fs.existsSync(schemaCachePath)) {
+  if (fs.existsSync(schemaCachePath) && process.env.NODE_ENV === "production") {
     return fs.readFileSync(schemaCachePath, "utf-8");
   }
 
   const corePath = path.resolve(__dirname, "../utils/core.graphql");
   let mergedSchemas = fs.readFileSync(corePath, "utf-8");
 
+  //Merge all schemas provided by packages into one
   for (const plugin of loadManifest().plugins) {
     const isLocalPlugin = isAPlugin();
     const currentPlugin = importPlugin(plugin) as any;
