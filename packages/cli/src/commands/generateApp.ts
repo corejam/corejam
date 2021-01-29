@@ -9,6 +9,8 @@ import { mono } from "../config";
 import { packageJson } from "../helpers/package"
 export default async function createApp(name: string) {
   return new Promise(async (res: any) => {
+    name = name.toLowerCase();
+
     const spinner = ora(`Creating new Corejam application: ${name}`).start();
     const pluginRootPath = (mono ? process.env.INIT_CWD : process.cwd()) + "/" + name;
 

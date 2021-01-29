@@ -24,8 +24,11 @@ export default async function run(options: any) {
       await copySchemaToDist();
 
       isYarn
-        ? await execa("yarn", ["tsc", "-p", "tsconfig-cjs.json"], { stdio: "ignore", cwd: envRoot })
-        : await execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: "ignore", cwd: envRoot })
+        ? await execa("yarn", ["tsc", "-p", "tsconfig-cjs.json"], { stdio: logToConsole, cwd: envRoot })
+        : await execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
+
+      //Do it right after build so /dist/server is there for init
+      await corejamInit();
 
       isYarn
         ? set("server", execa("yarn", ["tsc", "-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot }))
@@ -34,7 +37,6 @@ export default async function run(options: any) {
           execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
         );
 
-      await corejamInit();
       set("api", execa("corejam", ["api:serve"], { stdio: logToConsole, cwd: envRoot }));
 
       setTimeout(() => {
