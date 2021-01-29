@@ -32,13 +32,13 @@ export class DerBlogList {
 
     render() {
         return (
-            <corejam-grid>
+            <corejam-box mt={10} mb={10}>
                 <corejam-grid smTemplateColumns={2} mdTemplateColumns={2} lgTemplateColumns={2} gapCol={6} gapRow={6}>
                     {this._list.items.map(article => {
                         return <derblog-article-box article={article}></derblog-article-box>
                     })}
                 </corejam-grid>
-            </corejam-grid>
+            </corejam-box>
         )
     }
 }
