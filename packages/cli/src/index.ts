@@ -44,7 +44,6 @@ prog
   .option("-l, --log", "Log output to console", false)
   .option("-ssr", "Server side render each request", false)
   .action(async (opts) => {
-    await corejamInit();
     await runDev(opts);
   });
 
