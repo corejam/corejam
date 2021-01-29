@@ -3,13 +3,16 @@ export const getObjectFromURL = `
     objectFromURL(url: $url) {
       article {
         title
-        coverImage
+        coverImage {
+          src
+        }
         content
         seo {
           url
           metaTitle
           metaDescription
         }
+      }
     }
   }
 `;

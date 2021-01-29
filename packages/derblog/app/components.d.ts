@@ -25,7 +25,7 @@ export namespace Components {
     }
     interface DerblogRouteIndex {
     }
-    interface DershopUrl {
+    interface DerblogUrl {
         "param": any;
     }
 }
@@ -72,11 +72,11 @@ declare global {
         prototype: HTMLDerblogRouteIndexElement;
         new (): HTMLDerblogRouteIndexElement;
     };
-    interface HTMLDershopUrlElement extends Components.DershopUrl, HTMLStencilElement {
+    interface HTMLDerblogUrlElement extends Components.DerblogUrl, HTMLStencilElement {
     }
-    var HTMLDershopUrlElement: {
-        prototype: HTMLDershopUrlElement;
-        new (): HTMLDershopUrlElement;
+    var HTMLDerblogUrlElement: {
+        prototype: HTMLDerblogUrlElement;
+        new (): HTMLDerblogUrlElement;
     };
     interface HTMLElementTagNameMap {
         "derblog-article": HTMLDerblogArticleElement;
@@ -86,7 +86,7 @@ declare global {
         "derblog-layout": HTMLDerblogLayoutElement;
         "derblog-list": HTMLDerblogListElement;
         "derblog-route-index": HTMLDerblogRouteIndexElement;
-        "dershop-url": HTMLDershopUrlElement;
+        "derblog-url": HTMLDerblogUrlElement;
     }
 }
 declare namespace LocalJSX {
@@ -108,7 +108,7 @@ declare namespace LocalJSX {
     }
     interface DerblogRouteIndex {
     }
-    interface DershopUrl {
+    interface DerblogUrl {
         "param"?: any;
     }
     interface IntrinsicElements {
@@ -119,7 +119,7 @@ declare namespace LocalJSX {
         "derblog-layout": DerblogLayout;
         "derblog-list": DerblogList;
         "derblog-route-index": DerblogRouteIndex;
-        "dershop-url": DershopUrl;
+        "derblog-url": DerblogUrl;
     }
 }
 export { LocalJSX as JSX };
@@ -133,7 +133,7 @@ declare module "@stencil/core" {
             "derblog-layout": LocalJSX.DerblogLayout & JSXBase.HTMLAttributes<HTMLDerblogLayoutElement>;
             "derblog-list": LocalJSX.DerblogList & JSXBase.HTMLAttributes<HTMLDerblogListElement>;
             "derblog-route-index": LocalJSX.DerblogRouteIndex & JSXBase.HTMLAttributes<HTMLDerblogRouteIndexElement>;
-            "dershop-url": LocalJSX.DershopUrl & JSXBase.HTMLAttributes<HTMLDershopUrlElement>;
+            "derblog-url": LocalJSX.DerblogUrl & JSXBase.HTMLAttributes<HTMLDerblogUrlElement>;
         }
     }
 }

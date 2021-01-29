@@ -10,7 +10,7 @@ export class ArticleBox {
 
     render() {
         return (
-            <corejam-box bColor="gray-200" bWidth={1}>
+            <corejam-box w={12} bColor="gray-200" bWidth={1}>
                 <corejam-box>
                     <corejam-image src={this.article.coverImage?.src}></corejam-image>
                 </corejam-box>
