@@ -101,7 +101,7 @@ export class CorejamMenu {
   render() {
     return (
       <Host>
-        <Corejam w="30px" h="30px" class="icon" onClick={() => this.toggleMenu()} />
+        <Corejam data-cy="corejam-builder" w="30px" h="30px" class="icon" onClick={() => this.toggleMenu()} />
         {this.show && (
           <Fragment>
             {this.max && (

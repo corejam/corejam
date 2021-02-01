@@ -83,6 +83,7 @@ export class CorejamBuilder {
                   py={2}
                   onPointerDown={sendEventToMachine}
                   data-component={dragItem}
+                  data-cy={`dragger-${dragItem.label.toLowerCase()}`}
                   style={{ userSelect: "none" }}
                   data-cmp={JSON.stringify(dragItem)}
                 >
