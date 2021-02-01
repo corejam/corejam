@@ -5,7 +5,7 @@ import { getObjectFromURL } from "../../shared/graphql/Queries/URL";
 import { SEODocument } from "../../shared/types/SEO";
 
 @Component({
-    tag: "derblog-url",
+    tag: "derblog-url"
 })
 export class UrlRoute {
 

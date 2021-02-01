@@ -11,7 +11,9 @@ export class DerBlogHeader {
                 <corejam-box w={12}>
                     <corejam-box max="xl" mx="auto" px={2} xlPx={0} flex items="center" py={4} justify="between">
                         <corejam-box>
-                            <img src="https://corejam.de/assets/logos/logo.png" />
+                            <corejam-base-link href="/">
+                                <img src="https://corejam.de/assets/logos/logo.png" />
+                            </corejam-base-link>
                         </corejam-box>
                         <corejam-box flex direction="row">
                             <corejam-box px={2}>Home</corejam-box>
