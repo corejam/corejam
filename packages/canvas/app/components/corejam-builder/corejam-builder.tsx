@@ -78,17 +78,19 @@ export class CorejamBuilder {
           {this.draggers.map((dragItem) => {
             const Tag = dragItem.component;
             return (
-              <corejam-box
-                py={2}
-                onPointerDown={sendEventToMachine}
-                data-component={dragItem}
-                style={{ userSelect: "none" }}
-                data-cmp={JSON.stringify(dragItem)}
-              >
-                <div style={{ display: "none" }}>
-                  <Tag {...dragItem.props}>{dragItem.initialContent}</Tag>
-                </div>
-                {dragItem.label}
+              <corejam-box h="25px">
+                <corejam-box
+                  py={2}
+                  onPointerDown={sendEventToMachine}
+                  data-component={dragItem}
+                  style={{ userSelect: "none" }}
+                  data-cmp={JSON.stringify(dragItem)}
+                >
+                  <div style={{ display: "none" }}>
+                    <Tag {...dragItem.props}>{dragItem.initialContent}</Tag>
+                  </div>
+                  {dragItem.label}
+                </corejam-box>
               </corejam-box>
             );
           })}

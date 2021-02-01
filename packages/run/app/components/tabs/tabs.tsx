@@ -19,8 +19,9 @@ import { Component, Host, h, State, Element, Event, EventEmitter } from "@stenci
 
     .tabButton {
       display: inline-block;
-      padding: .3rem 0.6rem;
+      padding: .1rem 0.4rem;
       background: var(--cj-colors-green-400, #4ade80);
+      font-size: .8rem;
       color: var(--cj-colors-gray-700, #3f3f46);
       border-radius: 0.125rem;
       cursor: pointer;
@@ -67,7 +68,7 @@ export class CorejamTabs {
     this.activeTab = index;
     this.tabs = this.tabs?.map((tab, i) => {
       if (index === i) {
-        this.tabSelected.emit();
+        this.tabSelected.emit(tab.children[0].localName);
         tab.style.display = "block";
       } else {
         tab.style.display = "none";

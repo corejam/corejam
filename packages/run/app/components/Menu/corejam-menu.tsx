@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Prop, Listen, Element, Method, Fragment } from "@stencil/core";
+import { Component, Host, h, State, Prop, Listen, Element, Method, Fragment, Event, EventEmitter } from "@stencil/core";
 import { menuState } from "../../store/runStore";
 import { Corejam } from "./Corejam";
 
@@ -49,8 +49,11 @@ export class CorejamMenu {
   @State() show = false;
   @State() max = false;
   @State() fullscreen = false;
+  @Event() showCorejamMenu: EventEmitter;
+  @Event() hideCorejamMenu: EventEmitter;
 
   toggleMenu() {
+    if (!this.show) this.showCorejamMenu.emit();
     this.show = !this.show;
   }
 
@@ -79,13 +82,16 @@ export class CorejamMenu {
   }
 
   pushTabToState(tab: any) {
-    menuState.tabs = [...menuState.tabs, tab];
+    if (!menuState.tabs.includes(tab)) {
+      menuState.tabs = [...menuState.tabs, tab];
+    }
   }
 
   @Listen("pointerdown", { target: "document" })
   click(e) {
     if (!this.show) return;
     if (!e.path.includes(this.instance)) {
+      this.hideCorejamMenu.emit();
       this.show = false;
       this.max = false;
       this.fullscreen = false;
