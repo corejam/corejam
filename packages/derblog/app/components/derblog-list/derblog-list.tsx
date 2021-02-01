@@ -38,6 +38,11 @@ export class DerBlogList {
                         return <derblog-article-box article={article}></derblog-article-box>
                     })}
                 </corejam-grid>
+                <corejam-pagination
+                    paginator={{
+                        currentPage: this._list.currentPage,
+                        lastPage: this._list.lastPage
+                    }}></corejam-pagination>
             </corejam-box>
         )
     }

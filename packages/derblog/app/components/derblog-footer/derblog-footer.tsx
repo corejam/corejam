@@ -7,8 +7,10 @@ export class DerBlogFooter {
 
     render() {
         return (
-            <corejam-box bg="gray-200" h="104px">
-                Footer
+            <corejam-box p={20} mt={20} flex bg="gray-100" justify="center" w={12} h="250px">
+                <corejam-box w={12}>
+                    Footer
+                </corejam-box>
             </corejam-box>
         );
     }
