@@ -210,7 +210,7 @@ export const canvasMachine = createMachine<CanvasContext, CanvasEvents, CanvasSt
         rootDropzone.addEventListener("pointerover", (e: MouseEvent) => {
           sendEventToMachine(e);
         });
-        rootDropzone.addEventListener("pointerout", (e: MouseEvent) => {
+        rootDropzone.addEventListener("pointerout", () => {
           sendEventToMachine({ type: "outside" });
         });
 
