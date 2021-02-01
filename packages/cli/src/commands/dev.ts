@@ -8,6 +8,7 @@ import kill from "kill-port";
 import { envRoot } from "../config";
 import { copySchemaToDist } from "../helpers/copy";
 import { set, get, kill as killProcess } from "../processes";
+import { corejamInit } from "./init";
 
 export default async function run(options: any) {
   try {
@@ -23,21 +24,34 @@ export default async function run(options: any) {
       await copySchemaToDist();
 
       isYarn
+        ? await execa("yarn", ["tsc", "-p", "tsconfig-cjs.json"], { stdio: logToConsole, cwd: envRoot })
+        : await execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
+
+      //Do it right after build so /dist/server is there for init
+      await corejamInit();
+
+      isYarn
         ? set("server", execa("yarn", ["tsc", "-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot }))
         : set(
-            "server",
-            execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
-          );
+          "server",
+          execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
+        );
+
       set("api", execa("corejam", ["api:serve"], { stdio: logToConsole, cwd: envRoot }));
 
       setTimeout(() => {
         const watcher = chokidar.watch(envRoot + "/server", {
           ignored: "*.d.ts",
         });
-        watcher.on("change", () => {
+        watcher.on("change", async () => {
           const api = get("api");
           if (api) killProcess("api");
           jetpack.removeAsync(envRoot + "/.corejam");
+
+          //We want schema changes to be there too
+          await copySchemaToDist();
+          await corejamInit();
+
           set("api", execa("corejam", ["api:serve"], { stdio: logToConsole, cwd: envRoot }));
         });
       }, 8000);

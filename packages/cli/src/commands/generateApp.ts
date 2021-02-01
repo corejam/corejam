@@ -7,11 +7,17 @@ import jetpack from "fs-jetpack";
 import execa from "execa";
 import { mono } from "../config";
 import { packageJson } from "../helpers/package";
-
 export default async function createApp(name: string) {
   return new Promise(async (res: any) => {
+    name = name.toLowerCase();
+
     const spinner = ora(`Creating new Corejam application: ${name}`).start();
     const pluginRootPath = (mono ? process.env.INIT_CWD : process.cwd()) + "/" + name;
+
+    if ((await jetpack.existsAsync(pluginRootPath)) != false) {
+      spinner.warn(kleur.red("Directory already exists!"));
+      return res();
+    }
 
     spinner.text = "Bootstrapping app";
 
@@ -39,7 +45,7 @@ export default async function createApp(name: string) {
     await jetpack.renameAsync(pluginRootPath + "/server/resolvers/db/faker/pluginName.ts", name + ".ts");
     await jetpack.renameAsync(pluginRootPath + "/server/resolvers/pluginName.ts", name + ".ts");
     await jetpack.renameAsync(pluginRootPath + "/server/schema/pluginName.graphql", name + ".graphql");
-    await jetpack.renameAsync(pluginRootPath + "/server/types/pluginName.ts", name + ".ts");
+    await jetpack.renameAsync(pluginRootPath + "/shared/types/pluginName.ts", name + ".ts");
     await jetpack.renameAsync(pluginRootPath + "/app/components/pluginName", name);
     await jetpack.renameAsync(pluginRootPath + "/app/components/" + name + "/pluginName.tsx", name + ".tsx");
     await jetpack.removeAsync(pluginRootPath + "/app/pluginName");
