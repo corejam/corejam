@@ -1,5 +1,3 @@
-import { canvasService, sendEventToMachine } from "./canvas.machine";
-
 /**
  *
  * @param tag
@@ -12,8 +10,9 @@ export const createNewNode = (instance: HTMLElement) => {
   const newNode = document.createElement(cmp.component);
   newNode.setAttribute("key", cmp.component + JSON.stringify(cmp.props));
   Object.keys(cmp.props).forEach((k) => newNode.setAttribute(k, cmp.props[k]));
-  if (cmp.component.includes("type")) newNode.innerText = "Dummy text";
-  newNode.addEventListener("pointerdown", (event) => canvasService.send(event), { passive: true });
+  if (cmp.component.includes("type")) newNode.innerText = cmp.initialContent || "Lorem";
+  newNode.dataset.draggable = true;
+  newNode.dataset.inCanvas = true;
   return newNode;
 };
 
@@ -37,12 +36,9 @@ export const highlight = (node: HTMLElement) => {
  *
  * Remove highlight from given domnode and potentially remove event listener.
  */
-export const removeHighlight = (node: HTMLElement, ev = true) => {
+export const removeHighlight = (node: HTMLElement) => {
   node.style.removeProperty("background");
   node.style.removeProperty("outline");
-  if (ev) {
-    node.removeEventListener("pointerover", sendEventToMachine, true);
-  }
 };
 
 /**
@@ -52,8 +48,9 @@ export const removeHighlight = (node: HTMLElement, ev = true) => {
  * Highlight a potential drop node with more ui feedback
  */
 export const highlightDrop = (node: HTMLElement) => {
-  const blacklist = ["corejame-type", "span", "h1", "h2", "h3", "h4", "h5", "h6", "p"];
-  if (!blacklist.includes(node.localName)) node.style.background = "var(--cj-colors-blue-300)";
+  if (node.localName.includes("corejam") && !node.localName.includes("type")) {
+    node.style.background = "var(--cj-colors-blue-300)";
+  }
 };
 
 /**

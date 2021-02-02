@@ -1,6 +1,5 @@
 import { Component, Host, h, Prop, Listen } from "@stencil/core";
-import { sendEventToMachine } from "../corejam-canvas/canvas.machine";
-import type { Dragger } from "../corejam-canvas/canvas.machine";
+import { Dragger, canvasService } from "../corejam-canvas/canvas.machine";
 
 @Component({
   tag: "corejam-builder",
@@ -34,7 +33,7 @@ export class CorejamBuilder {
         weight: "black",
         color: "blue-600",
       },
-      initialContent: "Sub Headline",
+      initialContent: "Headline",
     },
     {
       id: "Sub headline",
@@ -62,6 +61,7 @@ export class CorejamBuilder {
 
   componentDidLoad() {
     if (this.demo) this.draggers = [...this.draggers, ...this.demoDraggers];
+    canvasService.start();
   }
 
   @Listen("corejam:canvas:addDragger", { target: "document" })
@@ -81,11 +81,9 @@ export class CorejamBuilder {
               <corejam-box h="25px">
                 <corejam-box
                   py={2}
-                  onPointerDown={sendEventToMachine}
-                  data-component={dragItem}
                   data-cy={`dragger-${dragItem.label.toLowerCase()}`}
-                  style={{ userSelect: "none" }}
                   data-cmp={JSON.stringify(dragItem)}
+                  data-draggable
                 >
                   <div style={{ display: "none" }}>
                     <Tag {...dragItem.props}>{dragItem.initialContent}</Tag>

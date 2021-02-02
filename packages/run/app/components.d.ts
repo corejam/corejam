@@ -105,6 +105,8 @@ declare namespace LocalJSX {
     }
     interface CorejamMenu {
         "demo"?: boolean;
+        "onHideCorejamMenu"?: (event: CustomEvent<any>) => void;
+        "onShowCorejamMenu"?: (event: CustomEvent<any>) => void;
     }
     interface CorejamRouter {
     }

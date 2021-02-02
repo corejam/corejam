@@ -31,7 +31,7 @@ import { Corejam } from "./Corejam";
       border-top: 1px solid #ececec;
     }
     .full {
-      height: calc(100vh - 83px);
+      height: calc(100vh);
     }
     .max {
       position: fixed;
@@ -98,29 +98,36 @@ export class CorejamMenu {
     }
   }
 
+  private stockActions = {
+    fullscreen: (
+      <svg
+        class="max"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        onClick={() => (this.fullscreen = !this.fullscreen)}
+      >
+        <path
+          stroke="#374151"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 8V4m0 0h4M3 4l4 4m8 0V4m0 0h-4m4 0l-4 4m-8 4v4m0 0h4m-4 0l4-4m8 4l-4-4m4 4v-4m0 4h-4"
+        />
+      </svg>
+    ),
+  };
+
+  renderSubActions(tab) {
+    return tab.actions?.map((a) => this.stockActions[a]);
+  }
+
   render() {
     return (
       <Host>
         <Corejam data-cy="corejam-builder" w="30px" h="30px" class="icon" onClick={() => this.toggleMenu()} />
         {this.show && (
           <Fragment>
-            {this.max && (
-              <svg
-                class="max"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                onClick={() => (this.fullscreen = !this.fullscreen)}
-              >
-                <path
-                  stroke="#374151"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 8V4m0 0h4M3 4l4 4m8 0V4m0 0h-4m4 0l-4 4m-8 4v4m0 0h4m-4 0l4-4m8 4l-4-4m4 4v-4m0 4h-4"
-                />
-              </svg>
-            )}
             <div
               class={{
                 "menu-inner": true,
@@ -132,9 +139,12 @@ export class CorejamMenu {
                 {menuState.tabs.map((tab) => {
                   const Cmp = tab.content;
                   return (
-                    <corejam-tab header={tab.header}>
-                      <Cmp />
-                    </corejam-tab>
+                    <Fragment>
+                      <corejam-tab header={tab.header}>
+                        <Cmp />
+                        {this.renderSubActions(tab)}
+                      </corejam-tab>
+                    </Fragment>
                   );
                 })}
               </corejam-tabs>
