@@ -1,75 +1,108 @@
-import { Component, Host, h, State, Listen, Element } from "@stencil/core";
-// import { onCanvasChange } from "../../../../canvas/app/components/corejam-canvas/canvas.machine";
+import { Component, Host, h, State, Element, Event, EventEmitter } from "@stencil/core";
 
 @Component({
   tag: "corejam-tabs",
+  styles: `
+    .buttons {
+      position: absolute;
+      bottom: 25px;
+      left: 75px;
+      display: flex;
+      transition-property: height;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 1250ms;
+    }
+
+    .tab {
+      padding-right: 0.5rem;
+    }
+
+    .tabButton {
+      display: inline-block;
+      padding: .1rem 0.4rem;
+      background: var(--cj-colors-green-400, #4ade80);
+      font-size: .8rem;
+      color: var(--cj-colors-gray-700, #3f3f46);
+      border-radius: 0.125rem;
+      cursor: pointer;
+      transition-property: color;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+    }
+    .tabButton:hover {
+      color: #fff;
+    }
+    .tabButtonActive {
+      color: var(--cj-colors-gray-100, #fafafa);
+      background: var(--cj-colors-green-300, #86efac);
+    }
+  `,
+  scoped: true,
 })
-export class CjTabs {
-  // private mutationO?: MutationObserver;
-  @Element()
-  el!: HTMLElement;
+export class CorejamTabs {
+  private mutationO?: MutationObserver;
+  @Element() el: HTMLElement;
   @State() activeTab = -1;
   @State() tabs: any[];
   @State() max = false;
+  @Event() tabSelected: EventEmitter;
   componentWillLoad() {
     this.init();
   }
 
-  @Listen("propChanged")
   init() {
     this.tabs = Array.from(this.el.querySelectorAll("corejam-tab"));
     this.displayTab(this.activeTab);
   }
 
-  // connectedCallback() {
-  //   onCanvasChange("machine", (state) => {
-  //     if (state.value === "inactive") this.activeTab = -1;
-  //   });
-  //   this.mutationO = new MutationObserver(() => {
-  //     this.init();
-  //   });
-  //   this.mutationO.observe(this.el, {
-  //     childList: true,
-  //   });
-  // }
+  connectedCallback() {
+    this.mutationO = new MutationObserver(() => {
+      this.init();
+    });
+    this.mutationO.observe(this.el, {
+      childList: true,
+    });
+  }
 
   displayTab(index: number) {
     this.activeTab = index;
     this.tabs = this.tabs?.map((tab, i) => {
-      tab.style.display = index === i ? "block" : "none";
+      if (index === i) {
+        this.tabSelected.emit(tab.children[0].localName);
+        tab.style.display = "block";
+      } else {
+        tab.style.display = "none";
+      }
       return tab;
     });
   }
 
   render() {
     return (
-      <Host>
+      <Host style={{ display: "block", height: "100%", overflow: "scroll" }}>
+        <div class="buttons" role="tablist">
+          {this.tabs.map((tab, index) => (
+            <div
+              onClick={() => {
+                this.displayTab(index);
+              }}
+            >
+              <div class="tab">
+                <span
+                  class={{
+                    tabButton: true,
+                    tabButtonActive: this.activeTab === index,
+                  }}
+                >
+                  {tab.header}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
         <div style={this.activeTab === -1 && { display: "none" }}>
           <slot></slot>
         </div>
-        <corejam-box position="absolute" bottom={25} flex role="tablist">
-          {this.tabs.map((tab, index) => (
-            <corejam-box
-              onClick={() => {
-                if (tab.activeFn) tab.activeFn();
-                this.displayTab(index);
-              }}
-              mr={4}
-            >
-              <corejam-button
-                color={this.activeTab === index ? "gray-100" : "gray-700"}
-                hoverColor="white"
-                p="1"
-                bg={this.activeTab === index ? "green-300" : "initial"}
-                hoverBg={this.activeTab === index ? "green-300" : "green-200"}
-                transition="colors"
-                rounded="sm"
-              >
-                <corejam-type size="sm">{tab.header}</corejam-type>
-              </corejam-button>
-            </corejam-box>
-          ))}
-        </corejam-box>
       </Host>
     );
   }

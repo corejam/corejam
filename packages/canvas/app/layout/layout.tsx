@@ -9,7 +9,6 @@ export class CanvasLayout {
       <Fragment>
         <corejam-ui-base></corejam-ui-base>
         <slot></slot>
-        <corejam-menu demo></corejam-menu>
       </Fragment>
     );
   }

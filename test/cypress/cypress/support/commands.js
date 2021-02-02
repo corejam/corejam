@@ -66,3 +66,24 @@ Cypress.Commands.add("selectNth", { prevSubject: "element" }, (subject, pos) => 
       return cy.wrap(e);
     });
 });
+
+
+/**
+ * 
+ * We need to delay events for the app keep it up. cypress is too fast.
+ * For now we only include `trigger`, since we use that to test our 
+ * canvas drag and drop.
+ */
+
+const COMMAND_DELAY = 500;
+for (const command of ['trigger']) {
+    Cypress.Commands.overwrite(command, (originalFn, ...args) => {
+        const origVal = originalFn(...args);
+
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(origVal);
+            }, COMMAND_DELAY);
+        });
+    });
+} 
