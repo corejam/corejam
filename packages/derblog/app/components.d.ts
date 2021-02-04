@@ -13,6 +13,8 @@ export namespace Components {
     interface DerblogArticleBox {
         "article": BlogArticleDB;
     }
+    interface DerblogAuthorBox {
+    }
     interface DerblogFooter {
     }
     interface DerblogHeader {
@@ -41,6 +43,12 @@ declare global {
     var HTMLDerblogArticleBoxElement: {
         prototype: HTMLDerblogArticleBoxElement;
         new (): HTMLDerblogArticleBoxElement;
+    };
+    interface HTMLDerblogAuthorBoxElement extends Components.DerblogAuthorBox, HTMLStencilElement {
+    }
+    var HTMLDerblogAuthorBoxElement: {
+        prototype: HTMLDerblogAuthorBoxElement;
+        new (): HTMLDerblogAuthorBoxElement;
     };
     interface HTMLDerblogFooterElement extends Components.DerblogFooter, HTMLStencilElement {
     }
@@ -81,6 +89,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "derblog-article": HTMLDerblogArticleElement;
         "derblog-article-box": HTMLDerblogArticleBoxElement;
+        "derblog-author-box": HTMLDerblogAuthorBoxElement;
         "derblog-footer": HTMLDerblogFooterElement;
         "derblog-header": HTMLDerblogHeaderElement;
         "derblog-layout": HTMLDerblogLayoutElement;
@@ -95,6 +104,8 @@ declare namespace LocalJSX {
     }
     interface DerblogArticleBox {
         "article"?: BlogArticleDB;
+    }
+    interface DerblogAuthorBox {
     }
     interface DerblogFooter {
     }
@@ -114,6 +125,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "derblog-article": DerblogArticle;
         "derblog-article-box": DerblogArticleBox;
+        "derblog-author-box": DerblogAuthorBox;
         "derblog-footer": DerblogFooter;
         "derblog-header": DerblogHeader;
         "derblog-layout": DerblogLayout;
@@ -128,6 +140,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "derblog-article": LocalJSX.DerblogArticle & JSXBase.HTMLAttributes<HTMLDerblogArticleElement>;
             "derblog-article-box": LocalJSX.DerblogArticleBox & JSXBase.HTMLAttributes<HTMLDerblogArticleBoxElement>;
+            "derblog-author-box": LocalJSX.DerblogAuthorBox & JSXBase.HTMLAttributes<HTMLDerblogAuthorBoxElement>;
             "derblog-footer": LocalJSX.DerblogFooter & JSXBase.HTMLAttributes<HTMLDerblogFooterElement>;
             "derblog-header": LocalJSX.DerblogHeader & JSXBase.HTMLAttributes<HTMLDerblogHeaderElement>;
             "derblog-layout": LocalJSX.DerblogLayout & JSXBase.HTMLAttributes<HTMLDerblogLayoutElement>;

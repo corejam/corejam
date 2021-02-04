@@ -14,8 +14,8 @@ export class ArticleBox {
                 <corejam-box>
                     <corejam-image src={this.article.coverImage?.src}></corejam-image>
                 </corejam-box>
-                <corejam-box mb={5} flex direction="col">
-                    <corejam-box p={3} flex mt={5} direction="col">
+                <corejam-box px={5} flex direction="col">
+                    <corejam-box>
                         <corejam-box>
                             <corejam-base-link href={this.article.seo.url}>
                                 <corejam-type as="h3" weight="bold">
@@ -24,8 +24,13 @@ export class ArticleBox {
                             </corejam-base-link>
                         </corejam-box>
                     </corejam-box>
-                    <corejam-box>
+                    <corejam-box py={5} bWidthBottom={1} bColor="gray-200">
                         {this.article.description}
+                    </corejam-box>
+                    <corejam-box py={2}>
+                        <corejam-type fontStyle="italic">
+                            {this.article.dateCreated}
+                        </corejam-type>
                     </corejam-box>
                 </corejam-box>
             </corejam-box>
