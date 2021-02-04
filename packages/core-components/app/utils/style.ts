@@ -2,7 +2,15 @@ import { propertyToTransformer } from "./transformerMap";
 import { generateHash, lowercaseFirstLetter, uppercaseFirstLetter, addStyleTagToHead } from "./utils";
 import { computeStyle } from "./computeStyle";
 
+//@ts-ignore
+import postcss from "https://jspm.dev/postcss@8.1.10";
+//@ts-ignore
+import autoprefixer from "https://jspm.dev/autoprefixer@10.0.2";
+
 const stylesCache = new Map();
+
+export const DEFAULT_BROWSERS = ["last 4 version"];
+const params = { overrideBrowserslist: DEFAULT_BROWSERS, grid: "autoplace" };
 
 function normalizePropertyBasedOnPossibleIdentifiers(property) {
   const possibleCamelCaseSplit = property
@@ -81,9 +89,11 @@ export const calculateStyles = async (instance) => {
       }
       const computedStyleString = computeStyle(collectedStyles, hash);
 
-      stylesCache.set(hash, computedStyleString);
+      const postcssResult = await postcss([autoprefixer(params)]).process(computedStyleString, { from: undefined });
 
-      addStyleTagToHead(computedStyleString, hash);
+      stylesCache.set(hash, postcssResult.css);
+
+      addStyleTagToHead(postcssResult.css, hash);
       return hash;
     }
   }
