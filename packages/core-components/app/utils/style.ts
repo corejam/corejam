@@ -1,11 +1,8 @@
+import postcss from "postcss";
+import autoprefixer from "autoprefixer";
 import { propertyToTransformer } from "./transformerMap";
 import { generateHash, lowercaseFirstLetter, uppercaseFirstLetter, addStyleTagToHead } from "./utils";
 import { computeStyle } from "./computeStyle";
-
-//@ts-ignore
-import postcss from "https://jspm.dev/postcss@8.1.10";
-//@ts-ignore
-import autoprefixer from "https://jspm.dev/autoprefixer@10.0.2";
 
 const stylesCache = new Map();
 
@@ -89,6 +86,7 @@ export const calculateStyles = async (instance) => {
       }
       const computedStyleString = computeStyle(collectedStyles, hash);
 
+      //@ts-ignore
       const postcssResult = await postcss([autoprefixer(params)]).process(computedStyleString, { from: undefined });
 
       stylesCache.set(hash, postcssResult.css);
