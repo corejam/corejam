@@ -39,7 +39,7 @@ jobs:
           API_ORIGIN=http://localhost:3000 yarn --cwd packages/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/run/web-components packages/rollup-plugin/dist packages/notify/dist packages/base/dist packages/auth/dist packages/auth/www packages/dershop/dist packages/canvas/dist packages/web-components/node_modules
+      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/run/web-components packages/rollup-plugin/dist packages/notify/dist packages/base/dist packages/auth/dist packages/auth/www packages/dershop/dist packages/canvas/dist packages/core-components/node_modules
       - uses: actions/upload-artifact@v2
         with:
           name: dist
