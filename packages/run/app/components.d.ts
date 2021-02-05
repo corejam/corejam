@@ -6,122 +6,139 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-  interface CorejamApp {}
-  interface CorejamDevLiveview {}
-  interface CorejamDevPlayground {
-    cmp: string;
-    data: any;
-  }
-  interface CorejamDevWelcome {}
-  interface CorejamMenu {
-    /**
-     * Add tab via public component method
-     * @param tab
-     */
-    addTab: (tab: any) => Promise<unknown>;
-    demo: boolean;
-  }
-  interface CorejamRouter {}
-  interface CorejamTab {
-    header: string;
-  }
-  interface CorejamTabs {}
+    interface CorejamApp {
+    }
+    interface CorejamDevLiveview {
+    }
+    interface CorejamDevPlayground {
+        "cmp": string;
+        "data": any;
+    }
+    interface CorejamDevWelcome {
+    }
+    interface CorejamMenu {
+        /**
+          * Add tab via public component method
+          * @param tab
+         */
+        "addTab": (tab: any) => Promise<unknown>;
+        "demo": boolean;
+    }
+    interface CorejamRouter {
+    }
+    interface CorejamTab {
+        "header": string;
+    }
+    interface CorejamTabs {
+    }
 }
 declare global {
-  interface HTMLCorejamAppElement extends Components.CorejamApp, HTMLStencilElement {}
-  var HTMLCorejamAppElement: {
-    prototype: HTMLCorejamAppElement;
-    new (): HTMLCorejamAppElement;
-  };
-  interface HTMLCorejamDevLiveviewElement extends Components.CorejamDevLiveview, HTMLStencilElement {}
-  var HTMLCorejamDevLiveviewElement: {
-    prototype: HTMLCorejamDevLiveviewElement;
-    new (): HTMLCorejamDevLiveviewElement;
-  };
-  interface HTMLCorejamDevPlaygroundElement extends Components.CorejamDevPlayground, HTMLStencilElement {}
-  var HTMLCorejamDevPlaygroundElement: {
-    prototype: HTMLCorejamDevPlaygroundElement;
-    new (): HTMLCorejamDevPlaygroundElement;
-  };
-  interface HTMLCorejamDevWelcomeElement extends Components.CorejamDevWelcome, HTMLStencilElement {}
-  var HTMLCorejamDevWelcomeElement: {
-    prototype: HTMLCorejamDevWelcomeElement;
-    new (): HTMLCorejamDevWelcomeElement;
-  };
-  interface HTMLCorejamMenuElement extends Components.CorejamMenu, HTMLStencilElement {}
-  var HTMLCorejamMenuElement: {
-    prototype: HTMLCorejamMenuElement;
-    new (): HTMLCorejamMenuElement;
-  };
-  interface HTMLCorejamRouterElement extends Components.CorejamRouter, HTMLStencilElement {}
-  var HTMLCorejamRouterElement: {
-    prototype: HTMLCorejamRouterElement;
-    new (): HTMLCorejamRouterElement;
-  };
-  interface HTMLCorejamTabElement extends Components.CorejamTab, HTMLStencilElement {}
-  var HTMLCorejamTabElement: {
-    prototype: HTMLCorejamTabElement;
-    new (): HTMLCorejamTabElement;
-  };
-  interface HTMLCorejamTabsElement extends Components.CorejamTabs, HTMLStencilElement {}
-  var HTMLCorejamTabsElement: {
-    prototype: HTMLCorejamTabsElement;
-    new (): HTMLCorejamTabsElement;
-  };
-  interface HTMLElementTagNameMap {
-    "corejam-app": HTMLCorejamAppElement;
-    "corejam-dev-liveview": HTMLCorejamDevLiveviewElement;
-    "corejam-dev-playground": HTMLCorejamDevPlaygroundElement;
-    "corejam-dev-welcome": HTMLCorejamDevWelcomeElement;
-    "corejam-menu": HTMLCorejamMenuElement;
-    "corejam-router": HTMLCorejamRouterElement;
-    "corejam-tab": HTMLCorejamTabElement;
-    "corejam-tabs": HTMLCorejamTabsElement;
-  }
+    interface HTMLCorejamAppElement extends Components.CorejamApp, HTMLStencilElement {
+    }
+    var HTMLCorejamAppElement: {
+        prototype: HTMLCorejamAppElement;
+        new (): HTMLCorejamAppElement;
+    };
+    interface HTMLCorejamDevLiveviewElement extends Components.CorejamDevLiveview, HTMLStencilElement {
+    }
+    var HTMLCorejamDevLiveviewElement: {
+        prototype: HTMLCorejamDevLiveviewElement;
+        new (): HTMLCorejamDevLiveviewElement;
+    };
+    interface HTMLCorejamDevPlaygroundElement extends Components.CorejamDevPlayground, HTMLStencilElement {
+    }
+    var HTMLCorejamDevPlaygroundElement: {
+        prototype: HTMLCorejamDevPlaygroundElement;
+        new (): HTMLCorejamDevPlaygroundElement;
+    };
+    interface HTMLCorejamDevWelcomeElement extends Components.CorejamDevWelcome, HTMLStencilElement {
+    }
+    var HTMLCorejamDevWelcomeElement: {
+        prototype: HTMLCorejamDevWelcomeElement;
+        new (): HTMLCorejamDevWelcomeElement;
+    };
+    interface HTMLCorejamMenuElement extends Components.CorejamMenu, HTMLStencilElement {
+    }
+    var HTMLCorejamMenuElement: {
+        prototype: HTMLCorejamMenuElement;
+        new (): HTMLCorejamMenuElement;
+    };
+    interface HTMLCorejamRouterElement extends Components.CorejamRouter, HTMLStencilElement {
+    }
+    var HTMLCorejamRouterElement: {
+        prototype: HTMLCorejamRouterElement;
+        new (): HTMLCorejamRouterElement;
+    };
+    interface HTMLCorejamTabElement extends Components.CorejamTab, HTMLStencilElement {
+    }
+    var HTMLCorejamTabElement: {
+        prototype: HTMLCorejamTabElement;
+        new (): HTMLCorejamTabElement;
+    };
+    interface HTMLCorejamTabsElement extends Components.CorejamTabs, HTMLStencilElement {
+    }
+    var HTMLCorejamTabsElement: {
+        prototype: HTMLCorejamTabsElement;
+        new (): HTMLCorejamTabsElement;
+    };
+    interface HTMLElementTagNameMap {
+        "corejam-app": HTMLCorejamAppElement;
+        "corejam-dev-liveview": HTMLCorejamDevLiveviewElement;
+        "corejam-dev-playground": HTMLCorejamDevPlaygroundElement;
+        "corejam-dev-welcome": HTMLCorejamDevWelcomeElement;
+        "corejam-menu": HTMLCorejamMenuElement;
+        "corejam-router": HTMLCorejamRouterElement;
+        "corejam-tab": HTMLCorejamTabElement;
+        "corejam-tabs": HTMLCorejamTabsElement;
+    }
 }
 declare namespace LocalJSX {
-  interface CorejamApp {}
-  interface CorejamDevLiveview {}
-  interface CorejamDevPlayground {
-    cmp?: string;
-    data?: any;
-  }
-  interface CorejamDevWelcome {}
-  interface CorejamMenu {
-    demo?: boolean;
-    onHideCorejamMenu?: (event: CustomEvent<any>) => void;
-    onShowCorejamMenu?: (event: CustomEvent<any>) => void;
-  }
-  interface CorejamRouter {}
-  interface CorejamTab {
-    header?: string;
-  }
-  interface CorejamTabs {
-    onTabSelected?: (event: CustomEvent<any>) => void;
-  }
-  interface IntrinsicElements {
-    "corejam-app": CorejamApp;
-    "corejam-dev-liveview": CorejamDevLiveview;
-    "corejam-dev-playground": CorejamDevPlayground;
-    "corejam-dev-welcome": CorejamDevWelcome;
-    "corejam-menu": CorejamMenu;
-    "corejam-router": CorejamRouter;
-    "corejam-tab": CorejamTab;
-    "corejam-tabs": CorejamTabs;
-  }
+    interface CorejamApp {
+    }
+    interface CorejamDevLiveview {
+    }
+    interface CorejamDevPlayground {
+        "cmp"?: string;
+        "data"?: any;
+    }
+    interface CorejamDevWelcome {
+    }
+    interface CorejamMenu {
+        "demo"?: boolean;
+        "onHideCorejamMenu"?: (event: CustomEvent<any>) => void;
+        "onShowCorejamMenu"?: (event: CustomEvent<any>) => void;
+    }
+    interface CorejamRouter {
+    }
+    interface CorejamTab {
+        "header"?: string;
+    }
+    interface CorejamTabs {
+        "onTabSelected"?: (event: CustomEvent<any>) => void;
+    }
+    interface IntrinsicElements {
+        "corejam-app": CorejamApp;
+        "corejam-dev-liveview": CorejamDevLiveview;
+        "corejam-dev-playground": CorejamDevPlayground;
+        "corejam-dev-welcome": CorejamDevWelcome;
+        "corejam-menu": CorejamMenu;
+        "corejam-router": CorejamRouter;
+        "corejam-tab": CorejamTab;
+        "corejam-tabs": CorejamTabs;
+    }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
-  export namespace JSX {
-    interface IntrinsicElements {
-      "corejam-app": LocalJSX.CorejamApp & JSXBase.HTMLAttributes<HTMLCorejamAppElement>;
-      "corejam-dev-liveview": LocalJSX.CorejamDevLiveview & JSXBase.HTMLAttributes<HTMLCorejamDevLiveviewElement>;
-      "corejam-dev-playground": LocalJSX.CorejamDevPlayground & JSXBase.HTMLAttributes<HTMLCorejamDevPlaygroundElement>;
-      "corejam-dev-welcome": LocalJSX.CorejamDevWelcome & JSXBase.HTMLAttributes<HTMLCorejamDevWelcomeElement>;
-      "corejam-menu": LocalJSX.CorejamMenu & JSXBase.HTMLAttributes<HTMLCorejamMenuElement>;
-      "corejam-router": LocalJSX.CorejamRouter & JSXBase.HTMLAttributes<HTMLCorejamRouterElement>;
-      "corejam-tab": LocalJSX.CorejamTab & JSXBase.HTMLAttributes<HTMLCorejamTabElement>;
-      "corejam-tabs": LocalJSX.CorejamTabs & JSXBase.HTMLAttributes<HTMLCorejamTabsElement>;
+    export namespace JSX {
+        interface IntrinsicElements {
+            "corejam-app": LocalJSX.CorejamApp & JSXBase.HTMLAttributes<HTMLCorejamAppElement>;
+            "corejam-dev-liveview": LocalJSX.CorejamDevLiveview & JSXBase.HTMLAttributes<HTMLCorejamDevLiveviewElement>;
+            "corejam-dev-playground": LocalJSX.CorejamDevPlayground & JSXBase.HTMLAttributes<HTMLCorejamDevPlaygroundElement>;
+            "corejam-dev-welcome": LocalJSX.CorejamDevWelcome & JSXBase.HTMLAttributes<HTMLCorejamDevWelcomeElement>;
+            "corejam-menu": LocalJSX.CorejamMenu & JSXBase.HTMLAttributes<HTMLCorejamMenuElement>;
+            "corejam-router": LocalJSX.CorejamRouter & JSXBase.HTMLAttributes<HTMLCorejamRouterElement>;
+            "corejam-tab": LocalJSX.CorejamTab & JSXBase.HTMLAttributes<HTMLCorejamTabElement>;
+            "corejam-tabs": LocalJSX.CorejamTabs & JSXBase.HTMLAttributes<HTMLCorejamTabsElement>;
+        }
     }
-  }
 }
