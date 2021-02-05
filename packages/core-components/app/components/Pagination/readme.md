@@ -1,16 +1,12 @@
 # corejam-pagination
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
 | Property    | Attribute   | Description | Type  | Default     |
 | ----------- | ----------- | ----------- | ----- | ----------- |
 | `paginator` | `paginator` |             | `any` | `undefined` |
-
 
 ## Dependencies
 
@@ -21,6 +17,7 @@
 - [corejam-type](../Type)
 
 ### Graph
+
 ```mermaid
 graph TD;
   corejam-pagination --> corejam-box
@@ -29,6 +26,6 @@ graph TD;
   style corejam-pagination fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

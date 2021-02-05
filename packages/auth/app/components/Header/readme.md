@@ -1,20 +1,17 @@
 # corejam-auth-header
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Dependencies
 
 ### Used by
 
- - [cj-route-admin](../../routes/admin/users)
- - [cj-route-admin-index](../../routes/admin/users)
- - [cj-route-admin-user-form](../../routes/admin/users/edit)
- - [cj-route-index](../../routes)
- - [cj-route-login](../../routes)
- - [cj-route-register](../../routes)
+- [cj-route-admin](../../routes/admin/users)
+- [cj-route-admin-index](../../routes/admin/users)
+- [cj-route-admin-user-form](../../routes/admin/users/edit)
+- [cj-route-index](../../routes)
+- [cj-route-login](../../routes)
+- [cj-route-register](../../routes)
 
 ### Depends on
 
@@ -23,6 +20,7 @@
 - [corejam-identity](../Identity)
 
 ### Graph
+
 ```mermaid
 graph TD;
   corejam-auth-header --> corejam-box
@@ -46,6 +44,6 @@ graph TD;
   style corejam-auth-header fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

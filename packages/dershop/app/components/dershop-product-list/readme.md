@@ -2,7 +2,6 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property  | Attribute | Description | Type      | Default     |
@@ -12,14 +11,13 @@
 | `page`    | --        |             | `Number`  | `1`         |
 | `size`    | --        |             | `Number`  | `24`        |
 
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-manufacturer](../dershop-manufacturer)
- - [dershop-route-products](../../routes)
- - [dershop-url](../../routes)
+- [dershop-manufacturer](../dershop-manufacturer)
+- [dershop-route-products](../../routes)
+- [dershop-url](../../routes)
 
 ### Depends on
 
@@ -31,6 +29,7 @@
 - corejam-pagination
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-product-list --> corejam-box
@@ -55,6 +54,6 @@ graph TD;
   style dershop-product-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

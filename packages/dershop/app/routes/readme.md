@@ -1,16 +1,12 @@
 # dershop-route-register
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
 | Property | Attribute | Description | Type  | Default     |
 | -------- | --------- | ----------- | ----- | ----------- |
 | `param`  | `param`   |             | `any` | `undefined` |
-
 
 ## Dependencies
 
@@ -22,6 +18,7 @@
 - [dershop-seo](../components/seo)
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-url --> dershop-product
@@ -54,6 +51,6 @@ graph TD;
   style dershop-url fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

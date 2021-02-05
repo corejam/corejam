@@ -1,9 +1,6 @@
 # corejam-button
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -18,7 +15,6 @@
 | `pt`     | `pt`      |             | `string`                          | `undefined` |
 | `type`   | `type`    |             | `"button" \| "reset" \| "submit"` | `"button"`  |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

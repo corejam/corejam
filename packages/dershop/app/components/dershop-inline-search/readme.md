@@ -1,15 +1,12 @@
 # dershop-inline-search
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Dependencies
 
 ### Used by
 
- - [dershop-header](../dershop-header)
+- [dershop-header](../dershop-header)
 
 ### Depends on
 
@@ -18,6 +15,7 @@
 - corejam-form-input
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-inline-search --> dershop-icons-spotlight
@@ -29,6 +27,6 @@ graph TD;
   style dershop-inline-search fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

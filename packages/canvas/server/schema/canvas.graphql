@@ -53,5 +53,5 @@ extend type Query {
 }
 
 extend type SEODocument {
-    canvasPage: CanvasPage
+  canvasPage: CanvasPage
 }

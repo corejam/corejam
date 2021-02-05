@@ -1,5 +1,5 @@
-import { Component, Host, h } from "@stencil/core";
-import { runState, href } from "../../store/runStore";
+import { Component, h, Host } from "@stencil/core";
+import { href, runState } from "../../store/runStore";
 
 @Component({
   tag: "corejam-dev-welcome",

@@ -1,9 +1,6 @@
 # dershop-layout
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Dependencies
 
@@ -14,6 +11,7 @@
 - [dershop-footer](../components/dershop-footer)
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-layout --> dershop-header
@@ -48,6 +46,6 @@ graph TD;
   style dershop-layout fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

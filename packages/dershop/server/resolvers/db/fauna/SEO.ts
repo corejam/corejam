@@ -1,6 +1,6 @@
+import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 import { query as q } from "faunadb";
 import type { SEODocument } from "../../../../shared/types/Seo";
-import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 
 export function objectFromURL(url: string): Promise<SEODocument> {
   return FaunaClient()
@@ -33,12 +33,9 @@ export function objectFromURL(url: string): Promise<SEODocument> {
  * Get the full SEO index. This is mainly used for SSR
  */
 export async function getSEOIndex(): Promise<string[]> {
-  return FaunaClient().query(
-    q.Map(
-      q.Paginate(
-        q.Match(q.Index("seoIndex"))), 
-        q.Lambda("x", q.Take(1, q.Var("x"))))
-  ).then((response: any) => {
-    return response.data.flat();
-  })
+  return FaunaClient()
+    .query(q.Map(q.Paginate(q.Match(q.Index("seoIndex"))), q.Lambda("x", q.Take(1, q.Var("x")))))
+    .then((response: any) => {
+      return response.data.flat();
+    });
 }

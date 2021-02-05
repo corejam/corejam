@@ -1,9 +1,6 @@
 # corejam-form-select
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -16,13 +13,11 @@
 | `options`  | --         |             | `options[]` | `undefined` |
 | `selected` | `selected` |             | `any`       | `undefined` |
 
-
 ## Events
 
 | Event       | Description | Type               |
 | ----------- | ----------- | ------------------ |
 | `formEvent` |             | `CustomEvent<any>` |
-
 
 ## Dependencies
 
@@ -32,6 +27,7 @@
 - [corejam-type](../Type)
 
 ### Graph
+
 ```mermaid
 graph TD;
   corejam-form-select --> corejam-box
@@ -39,6 +35,6 @@ graph TD;
   style corejam-form-select fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

@@ -1,16 +1,14 @@
-import { Component, Host, h, Prop, State, Listen } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
-import { authStore } from "../../store/authStore";
-import type { UserDB, UserInput } from "../../../shared/types/User";
+import { Component, h, Host, Listen, Prop, State } from "@stencil/core";
+import gql from "graphql-tag";
 import { userEditMutationGQL } from "../../../shared/graphql/Mutations";
 import { userByIdGQL } from "../../../shared/graphql/Queries";
-import gql from "graphql-tag";
+import type { UserDB, UserInput } from "../../../shared/types/User";
+import { authStore } from "../../store/authStore";
 
 @Component({
   tag: "auth-admin-user-form",
-  
 })
-
 export class AuthAdminUserForm {
   @Prop() error = false;
   @Prop() formId: string;
@@ -24,10 +22,13 @@ export class AuthAdminUserForm {
       input[key] = detail[key].value;
     });
 
-    await coreState.client.mutate({mutation: gql(userEditMutationGQL), variables: {
-      id: this.formId,
-      userInput: input,
-    }});
+    await coreState.client.mutate({
+      mutation: gql(userEditMutationGQL),
+      variables: {
+        id: this.formId,
+        userInput: input,
+      },
+    });
   }
 
   private userRoles = [
@@ -36,9 +37,12 @@ export class AuthAdminUserForm {
   ];
 
   async queryData() {
-    const request = await coreState.client.query({query: gql(userByIdGQL), variables: {
-      id: this.formId,
-    }});
+    const request = await coreState.client.query({
+      query: gql(userByIdGQL),
+      variables: {
+        id: this.formId,
+      },
+    });
 
     if (request.data.userById) {
       this.user = request.data.userById;
@@ -107,9 +111,7 @@ export class AuthAdminUserForm {
                   </corejam-box>
                   <corejam-box>
                     <corejam-form-submit formId="userForm">
-                      <button type="submit">
-                        Edit
-                      </button>
+                      <button type="submit">Edit</button>
                     </corejam-form-submit>
                   </corejam-box>
                 </corejam-box>

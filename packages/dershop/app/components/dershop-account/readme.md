@@ -1,15 +1,12 @@
 # dershop-account
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Dependencies
 
 ### Used by
 
- - [dershop-route-account](../../routes)
+- [dershop-route-account](../../routes)
 
 ### Depends on
 
@@ -22,6 +19,7 @@
 - auth-reset-password-form
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-account --> corejam-box
@@ -43,6 +41,6 @@ graph TD;
   style dershop-account fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

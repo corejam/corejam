@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, State } from "@stencil/core";
+import { Component, h, Host, Prop, State } from "@stencil/core";
 
 @Component({
   tag: "corejam-debugger",

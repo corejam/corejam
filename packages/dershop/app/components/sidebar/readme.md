@@ -1,9 +1,6 @@
 # dershop-sidebar
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -11,12 +8,11 @@
 | --------- | --------- | ----------- | ------------------------------------------------------- | ----------- |
 | `sidebar` | --        |             | `{ categories: SidebarItem[]; brands: SidebarItem[]; }` | `undefined` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-product-list](../dershop-product-list)
+- [dershop-product-list](../dershop-product-list)
 
 ### Depends on
 
@@ -25,6 +21,7 @@
 - corejam-base-link
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-sidebar --> corejam-box
@@ -34,6 +31,6 @@ graph TD;
   style dershop-sidebar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

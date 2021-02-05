@@ -4,7 +4,7 @@
 <a href="mailto:hello@corejam.io">hello@corejam.io</a>
 </p>
 
-DerShop is a serverless webshop built with Corejam. 
+DerShop is a serverless webshop built with Corejam.
 
 # Usage
 
@@ -66,9 +66,11 @@ SECRET_KEY=<new_generated_db_secret>
 Your local development instance should now connect to faunadB.
 
 ### Netlify deploy
+
 Coming soon
 
-### AWS Lambda Deploy 
+### AWS Lambda Deploy
+
 Coming soon
 
 ### Vercel Deploy

@@ -1,9 +1,6 @@
 # dershop-seo
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -11,15 +8,15 @@
 | -------- | --------- | ----------- | ------------------------------------------------------------------------------------- | ----------- |
 | `seo`    | --        |             | `{ metaTitle?: string; metaDescription?: string; keywords?: string[]; url: string; }` | `undefined` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-route-index](../../routes)
- - [dershop-url](../../routes)
+- [dershop-route-index](../../routes)
+- [dershop-url](../../routes)
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-route-index --> dershop-seo
@@ -27,6 +24,6 @@ graph TD;
   style dershop-seo fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

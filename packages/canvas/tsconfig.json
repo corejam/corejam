@@ -4,10 +4,7 @@
     "allowUnreachableCode": false,
     "declaration": false,
     "experimentalDecorators": true,
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es2017",
@@ -21,20 +18,10 @@
     "keyofStringsOnly": false,
     "skipLibCheck": true,
     "paths": {
-      "@store/*": [
-        "store/*"
-      ],
-      "@shared/*": [
-        "shared/*"
-      ]
+      "@store/*": ["store/*"],
+      "@shared/*": ["shared/*"]
     }
   },
-  "include": [
-    "app",
-    "shared/types/jsx.d.ts",
-    "shared"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["app", "shared/types/jsx.d.ts", "shared"],
+  "exclude": ["node_modules"]
 }

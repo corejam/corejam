@@ -1,8 +1,8 @@
 import chalk from "chalk";
-import ora from "ora";
 import execa from "execa";
 import jetpack from "fs-jetpack";
 import kill from "kill-port";
+import ora from "ora";
 import { envRoot } from "../config";
 import { copySchemaToDist } from "../helpers/copy";
 import { prependNoCheckToComponents } from "../helpers/prependInFile";

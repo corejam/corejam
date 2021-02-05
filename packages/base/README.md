@@ -2,7 +2,7 @@
 
 This package provides bootstraping functionality to Corejam applications.
 
-Usage: 
+Usage:
 
 ```bash
 npm install @corejam/base
@@ -10,7 +10,7 @@ npm install @corejam/base
 
 ### Bootstrap process
 
-In order to bootstrap corejam apps we go through the dependancies defined in your project `package.json` in order to find corejam packages. 
+In order to bootstrap corejam apps we go through the dependancies defined in your project `package.json` in order to find corejam packages.
 
 After finding relevant packages we iterate over them & their dependancies recursively in order to find all corejam schemas / server resolvers that need to be loaded in the correct order.
 

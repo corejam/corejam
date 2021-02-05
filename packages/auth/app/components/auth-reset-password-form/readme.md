@@ -1,15 +1,12 @@
 # auth-reset-password-form
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Dependencies
 
 ### Used by
 
- - [corejam-auth-account](../auth-account)
+- [corejam-auth-account](../auth-account)
 
 ### Depends on
 
@@ -21,6 +18,7 @@
 - corejam-form-submit
 
 ### Graph
+
 ```mermaid
 graph TD;
   auth-reset-password-form --> corejam-box
@@ -35,6 +33,6 @@ graph TD;
   style auth-reset-password-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

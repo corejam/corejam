@@ -11,17 +11,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "allowSyntheticDefaultImports": true,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "moduleResolution": "node",
     "declaration": true,
     "sourceMap": true
   },
-  "include": [
-    "./src"
-  ],
-  "exclude": [
-    "src/cli/templates"
-  ]
+  "include": ["./src"],
+  "exclude": ["src/cli/templates"]
 }

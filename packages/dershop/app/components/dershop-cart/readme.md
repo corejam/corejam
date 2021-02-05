@@ -1,15 +1,12 @@
 # dershop-cart
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Dependencies
 
 ### Used by
 
- - [dershop-route-cart](../../routes)
+- [dershop-route-cart](../../routes)
 
 ### Depends on
 
@@ -20,6 +17,7 @@
 - [dershop-order-totals](../dershop-order-totals)
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-cart --> corejam-box
@@ -37,6 +35,6 @@ graph TD;
   style dershop-cart fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

@@ -1,10 +1,10 @@
-import kleur from "kleur";
-import ora from "ora";
-import logSymbol from "log-symbols";
-import replace from "replace-in-file";
-import { isYarn } from "is-npm";
-import jetpack from "fs-jetpack";
 import execa from "execa";
+import jetpack from "fs-jetpack";
+import { isYarn } from "is-npm";
+import kleur from "kleur";
+import logSymbol from "log-symbols";
+import ora from "ora";
+import replace from "replace-in-file";
 import { mono } from "../config";
 import { packageJson } from "../helpers/package";
 export default async function createApp(name: string) {

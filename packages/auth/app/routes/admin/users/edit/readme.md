@@ -1,16 +1,12 @@
 # cj-route-admin-user-form
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
 | Property | Attribute | Description | Type  | Default     |
 | -------- | --------- | ----------- | ----- | ----------- |
 | `param`  | `param`   |             | `any` | `undefined` |
-
 
 ## Dependencies
 
@@ -20,6 +16,7 @@
 - [auth-admin-user-form](../../../../components/auth-admin-user-form)
 
 ### Graph
+
 ```mermaid
 graph TD;
   cj-route-admin-user-form --> corejam-auth-header
@@ -47,6 +44,6 @@ graph TD;
   style cj-route-admin-user-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

@@ -1,9 +1,6 @@
 # auth-admin-user-form
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -12,12 +9,11 @@
 | `error`  | `error`   |             | `boolean` | `false`     |
 | `formId` | `form-id` |             | `string`  | `undefined` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [cj-route-admin-user-form](../../routes/admin/users/edit)
+- [cj-route-admin-user-form](../../routes/admin/users/edit)
 
 ### Depends on
 
@@ -29,6 +25,7 @@
 - corejam-form-submit
 
 ### Graph
+
 ```mermaid
 graph TD;
   auth-admin-user-form --> corejam-box
@@ -45,6 +42,6 @@ graph TD;
   style auth-admin-user-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

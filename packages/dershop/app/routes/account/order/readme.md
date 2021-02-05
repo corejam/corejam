@@ -1,16 +1,12 @@
 # dershop-route-account-order
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
 | Property | Attribute | Description | Type  | Default     |
 | -------- | --------- | ----------- | ----- | ----------- |
 | `param`  | `param`   |             | `any` | `undefined` |
-
 
 ## Dependencies
 
@@ -19,6 +15,7 @@
 - [dershop-order-view](../../../components/order-view)
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-route-account-order --> dershop-order-view
@@ -27,6 +24,6 @@ graph TD;
   style dershop-route-account-order fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

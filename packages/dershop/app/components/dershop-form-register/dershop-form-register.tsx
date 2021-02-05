@@ -1,8 +1,8 @@
-import { userRegisterMutationGQL } from "@corejam/plugin-auth/shared/graphql/Mutations";
-import { Component, h, Host, Listen } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
-import { runState } from "@corejam/run";
 import { authStore } from "@corejam/plugin-auth";
+import { userRegisterMutationGQL } from "@corejam/plugin-auth/shared/graphql/Mutations";
+import { runState } from "@corejam/run";
+import { Component, h, Host, Listen } from "@stencil/core";
 import gql from "graphql-tag";
 
 @Component({

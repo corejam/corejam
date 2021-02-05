@@ -1,14 +1,14 @@
-import { Component, Host, h } from "@stencil/core";
+import { Component, h, Host } from "@stencil/core";
 
 @Component({
-    tag: "dershop-brands",
+  tag: "dershop-brands",
 })
 export class BrandsRoute {
-    render() {
-        return (
-            <Host>
-                <dershop-manufacturer-list></dershop-manufacturer-list>
-            </Host>
-        )
-    }
+  render() {
+    return (
+      <Host>
+        <dershop-manufacturer-list></dershop-manufacturer-list>
+      </Host>
+    );
+  }
 }

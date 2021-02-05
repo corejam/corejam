@@ -1,9 +1,6 @@
 # auth-admin-user-list
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -12,13 +9,12 @@
 | `data`   | `data`    |             | `any`    | `undefined` |
 | `page`   | `page`    |             | `number` | `undefined` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [cj-route-admin](../../routes/admin/users)
- - [cj-route-admin-index](../../routes/admin/users)
+- [cj-route-admin](../../routes/admin/users)
+- [cj-route-admin-index](../../routes/admin/users)
 
 ### Depends on
 
@@ -28,6 +24,7 @@
 - corejam-pagination
 
 ### Graph
+
 ```mermaid
 graph TD;
   auth-admin-user-list --> corejam-box
@@ -42,6 +39,6 @@ graph TD;
   style auth-admin-user-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

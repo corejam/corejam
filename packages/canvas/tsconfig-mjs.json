@@ -11,24 +11,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "allowSyntheticDefaultImports": true,
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "moduleResolution": "node",
     "declaration": true,
     "rootDir": "./"
   },
-  "include": [
-    "server/**/*",
-    "cli/**/*",
-    "shared/graphql/**/*",
-    "shared/types/**/*",
-    "index.ts"
-  ],
-  "exclude": [
-    "routes/**/*",
-    "components/**/*",
-    "dist/**/*",
-    "_tmp_"
-  ]
+  "include": ["server/**/*", "cli/**/*", "shared/graphql/**/*", "shared/types/**/*", "index.ts"],
+  "exclude": ["routes/**/*", "components/**/*", "dist/**/*", "_tmp_"]
 }

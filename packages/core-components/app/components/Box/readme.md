@@ -1,9 +1,6 @@
 # dershop-ui-box
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -199,24 +196,23 @@
 | `xljustify`         | `xljustify`        |             | `"around" \| "between" \| "center" \| "end" \| "evenly" \| "start"` | `undefined`                             |
 | `z`                 | `z`                |             | `number`                                                            | `undefined`                             |
 
-
 ## Slots
 
 | Slot        | Description                   |
 | ----------- | ----------------------------- |
 | `"default"` | The box content. \| Type: any |
 
-
 ## Dependencies
 
 ### Used by
 
- - [corejam-error](../Error)
- - [corejam-form-input](../FormInput)
- - [corejam-form-select](../FormSelect)
- - [corejam-pagination](../Pagination)
+- [corejam-error](../Error)
+- [corejam-form-input](../FormInput)
+- [corejam-form-select](../FormSelect)
+- [corejam-pagination](../Pagination)
 
 ### Graph
+
 ```mermaid
 graph TD;
   corejam-error --> corejam-box
@@ -226,6 +222,6 @@ graph TD;
   style corejam-box fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

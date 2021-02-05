@@ -1,9 +1,6 @@
 # dershop-product
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -18,19 +15,17 @@
 | `product`           | `product`     |                                                                                                                                  | `Timestamp & { sku?: string; ean?: string; manufacturer_number?: string; active: boolean; promoted: boolean; manufacturer?: ManufacturerRefence; categories?: CategoryDB[]; name: string; description?: string; deliverability?: Deliverability; seo?: SEO; images?: Image[]; price?: Price; canvas?: object; dateCreated: string; dateUpdated: string; } \| string` | `undefined`                             |
 | `url`               | `url`         |                                                                                                                                  | `string`                                                                                                                                                                                                                                                                                                                                                             | `undefined`                             |
 
-
 ## Events
 
 | Event                | Description | Type               |
 | -------------------- | ----------- | ------------------ |
 | `productAddedToCart` |             | `CustomEvent<any>` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-url](../../routes)
+- [dershop-url](../../routes)
 
 ### Depends on
 
@@ -40,6 +35,7 @@
 - corejam-base-link
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-product --> corejam-box
@@ -50,6 +46,6 @@ graph TD;
   style dershop-product fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

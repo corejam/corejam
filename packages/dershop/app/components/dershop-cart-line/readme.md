@@ -1,9 +1,6 @@
 # dershop-cart-line
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -11,13 +8,12 @@
 | -------- | --------- | ----------- | ----- | ----------- |
 | `item`   | `item`    |             | `any` | `undefined` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-cart](../dershop-cart)
- - [dershop-checkout](../../routes)
+- [dershop-cart](../dershop-cart)
+- [dershop-checkout](../../routes)
 
 ### Depends on
 
@@ -27,6 +23,7 @@
 - corejam-type
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-cart-line --> corejam-box
@@ -38,6 +35,6 @@ graph TD;
   style dershop-cart-line fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

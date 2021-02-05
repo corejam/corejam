@@ -1,9 +1,6 @@
 # dershop-form-submit
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -11,14 +8,12 @@
 | -------- | --------- | ----------- | -------- | ----------- |
 | `formId` | `form-id` |             | `string` | `undefined` |
 
-
 ## Events
 
 | Event        | Description | Type               |
 | ------------ | ----------- | ------------------ |
 | `formSubmit` |             | `CustomEvent<any>` |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

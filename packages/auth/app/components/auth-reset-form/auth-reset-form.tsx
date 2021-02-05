@@ -1,6 +1,6 @@
-import { Component, Host, h, Listen, State, Fragment } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
 import { runState } from "@corejam/run";
+import { Component, Fragment, h, Host, Listen, State } from "@stencil/core";
 import gql from "graphql-tag";
 import { passwordResetGQL, requestPasswordResetGQL } from "../../../shared/graphql/Mutations";
 

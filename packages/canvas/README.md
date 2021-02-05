@@ -4,11 +4,10 @@ The Visual Canvas CMS plugin allows you to create dynamic "canvas" pages inside 
 
 In short, this package gives you a static site builder that works directly inside your browser and deploys directly to a CDN (currently only supports S3, more coming soon)
 
-It currently supports the following data connectors: 
+It currently supports the following data connectors:
 
 - FaunaDB
 - S3 Bucket
-
 
 ## Getting Started
 
@@ -27,7 +26,6 @@ npm i @corejam/plugin-canvas
 When you create a new canvas page everything happens on the client side. The app is already bootstrapped and we take the `<corejam-run-router>` innerHTML and post it to your corejam API which includes the following endpoints:
 
 ```graphql
-
 type CanvasPage implements Timestamp @cacheControl(maxAge: 300) {
   id: ID!
   canvas: String!
@@ -54,25 +52,25 @@ extend type Query {
 }
 ```
 
-The `CanvasPage` object contains a `canvas: String!` attribute which is the `<corejam-run-router>` outerHTML contents. 
+The `CanvasPage` object contains a `canvas: String!` attribute which is the `<corejam-run-router>` outerHTML contents.
 
 Creating a new canvas page:
 
 ```graphql
 mutation createCanvas($canvasPageInput: CanvasPageInput!) {
-    canvasPageCreate(canvasPageInput: $canvasPageInput) {
-        id
-        seo {
-            url
-        }
-        canvas
+  canvasPageCreate(canvasPageInput: $canvasPageInput) {
+    id
+    seo {
+      url
     }
+    canvas
+  }
 }
 ```
 
 ## Canvas Peers
 
-** This is work in progress
+\*\* This is work in progress
 
 The canvas has the ability to open a peer to peer connection with another user for realtime collaboriation.
 

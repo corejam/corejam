@@ -2,14 +2,12 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property        | Attribute | Description | Type       | Default     |
 | --------------- | --------- | ----------- | ---------- | ----------- |
 | `name`          | `name`    |             | `string`   | `undefined` |
 | `submitHandler` | --        |             | `Function` | `undefined` |
-
 
 ## Events
 
@@ -19,7 +17,6 @@
 | `formSubmit` |             | `CustomEvent<any>` |
 | `sendForm`   |             | `CustomEvent<any>` |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

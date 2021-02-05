@@ -1,9 +1,6 @@
 # dershop-image
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -14,20 +11,20 @@
 | `h`      | `h`       |             | `string`                                                                                                                                                                         | `undefined` |
 | `src`    | `src`     |             | `string`                                                                                                                                                                         | `undefined` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-product](../product)
+- [dershop-product](../product)
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-product --> dershop-image
   style dershop-image fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

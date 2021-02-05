@@ -2,7 +2,6 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property            | Attribute     | Description | Type                                                                                                       | Default                                 |
@@ -21,16 +20,16 @@
 | `transform`         | `transform`   |             | `"capitalize" \| "lowercase" \| "normal-case" \| "uppercase"`                                              | `undefined`                             |
 | `weight`            | `weight`      |             | `"black" \| "bold" \| "extrabold" \| "hairline" \| "medium" \| "normal" \| "semibold" \| "thin"`           | `undefined`                             |
 
-
 ## Dependencies
 
 ### Used by
 
- - [corejam-form-input](../FormInput)
- - [corejam-form-select](../FormSelect)
- - [corejam-pagination](../Pagination)
+- [corejam-form-input](../FormInput)
+- [corejam-form-select](../FormSelect)
+- [corejam-pagination](../Pagination)
 
 ### Graph
+
 ```mermaid
 graph TD;
   corejam-form-input --> corejam-type
@@ -39,6 +38,6 @@ graph TD;
   style corejam-type fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

@@ -2,7 +2,6 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Dependencies
 
 ### Depends on
@@ -11,6 +10,7 @@
 - [corejam-auth-form-register](../components/corejam-auth-form-register)
 
 ### Graph
+
 ```mermaid
 graph TD;
   cj-route-register --> corejam-auth-header
@@ -34,6 +34,6 @@ graph TD;
   style cj-route-register fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

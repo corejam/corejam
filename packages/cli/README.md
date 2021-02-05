@@ -1,4 +1,4 @@
-# Corejam 
+# Corejam
 
 ### Usage
 
@@ -31,9 +31,9 @@ corejam dev                 # start the corejam dev playground
     api:serve         Start graphql Server
     api:dev           Start graphql server and set up hot reloading
     createApp         Bootstraps new corejam app
-    generateSchema    
-    test              
-    test:wc           
+    generateSchema
+    test
+    test:wc
     static            build static html from app
     static:serve      Serve static folder
 
@@ -44,13 +44,13 @@ corejam dev                 # start the corejam dev playground
   Options
     -v, --version    Displays current version
     -h, --help       Displays this message
-   
+
 ```
 
 ### Env vars (move to correct package)
 
 We need to define different env variables for the following use cases: dev, pre-render (static html), ssr (production)
 
-Dev, static: client url has to be prefixed because we are running on 2 different ports (3001 stenciljs, 3000 api). Client url has to be prefixed for client bundle + hydration. 
+Dev, static: client url has to be prefixed because we are running on 2 different ports (3001 stenciljs, 3000 api). Client url has to be prefixed for client bundle + hydration.
 
 Production: url has to be prefixed with absolute url for hydration. Client bundle without prefix due to same origin

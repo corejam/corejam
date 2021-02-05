@@ -1,9 +1,6 @@
 # corejam-identity
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -12,12 +9,11 @@
 | `loginLink`    | `login-link`    |             | `string` | `"/login/"`    |
 | `registerLink` | `register-link` |             | `string` | `"/register/"` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [corejam-auth-header](../Header)
+- [corejam-auth-header](../Header)
 
 ### Depends on
 
@@ -30,6 +26,7 @@
 - corejam-button
 
 ### Graph
+
 ```mermaid
 graph TD;
   corejam-identity --> corejam-box
@@ -45,6 +42,6 @@ graph TD;
   style corejam-identity fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

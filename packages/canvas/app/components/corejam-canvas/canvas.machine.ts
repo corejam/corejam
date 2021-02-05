@@ -1,5 +1,5 @@
-import { createMachine, assign, interpret, State } from "xstate";
 import { createStore } from "@stencil/store";
+import { assign, createMachine, interpret, State } from "xstate";
 import { createNewNode, highlight, highlightDrop, removeHighlight, removeHighlightDrop } from "./utils";
 
 export type Dragger = {

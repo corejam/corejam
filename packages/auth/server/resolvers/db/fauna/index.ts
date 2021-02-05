@@ -1,14 +1,13 @@
 import { PluginResolver } from "../../../../shared/types/PluginResolver";
-
 import {
   allUsers,
-  userRegister,
   userAuthenticate,
   userByEmail,
   userById,
   userByToken,
   userCreate,
   userEdit,
+  userRegister,
   userTokenRefresh,
   userUpdatePassword,
 } from "./User";
@@ -23,5 +22,5 @@ export const models: PluginResolver = {
   userCreate,
   userEdit,
   userTokenRefresh,
-  userUpdatePassword
+  userUpdatePassword,
 };

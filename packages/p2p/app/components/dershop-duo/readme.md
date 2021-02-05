@@ -1,9 +1,6 @@
 # dershop-duo
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Events
 
@@ -12,7 +9,6 @@
 | `disconnectP2P` |             | `CustomEvent<any>` |
 | `establishP2P`  |             | `CustomEvent<any>` |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

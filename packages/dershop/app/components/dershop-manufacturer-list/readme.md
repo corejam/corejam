@@ -1,15 +1,12 @@
 # dershop-manufacturer-list
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Dependencies
 
 ### Used by
 
- - [dershop-brands](../../routes)
+- [dershop-brands](../../routes)
 
 ### Depends on
 
@@ -19,6 +16,7 @@
 - corejam-image
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-manufacturer-list --> corejam-box
@@ -29,6 +27,6 @@ graph TD;
   style dershop-manufacturer-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

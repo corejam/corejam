@@ -1,9 +1,6 @@
 # dershop-order-view
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -11,13 +8,12 @@
 | --------- | ---------- | ----------- | -------- | ----------- |
 | `orderId` | `order-id` |             | `string` | `undefined` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-route-account-order](../../routes/account/order)
- - [dershop-route-admin-order-view](../../routes/admin/order/view)
+- [dershop-route-account-order](../../routes/account/order)
+- [dershop-route-admin-order-view](../../routes/admin/order/view)
 
 ### Depends on
 
@@ -25,6 +21,7 @@
 - corejam-type
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-order-view --> corejam-box
@@ -34,6 +31,6 @@ graph TD;
   style dershop-order-view fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

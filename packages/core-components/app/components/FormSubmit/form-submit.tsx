@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, Host, h, Prop, Event, EventEmitter } from "@stencil/core";
+import { Component, ComponentInterface, Event, EventEmitter, h, Host, Prop } from "@stencil/core";
 
 @Component({
   tag: "corejam-form-submit",

@@ -1,9 +1,6 @@
 # corejam-grid
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -71,7 +68,6 @@
 | `xlTemplateColumns` | `xl-template-columns` |             | `"none" \| number`                                   | `undefined` |
 | `xlTemplateRows`    | `xl-template-rows`    |             | `"none" \| number`                                   | `undefined` |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

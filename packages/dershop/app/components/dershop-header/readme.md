@@ -2,7 +2,6 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property         | Attribute         | Description | Type     | Default     |
@@ -13,12 +12,11 @@
 | `secondaryLinks` | `secondary-links` |             | `any`    | `undefined` |
 | `xAlign`         | `x-align`         |             | `string` | `"auto"`    |
 
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-layout](../../layout)
+- [dershop-layout](../../layout)
 
 ### Depends on
 
@@ -31,6 +29,7 @@
 - corejam-identity
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-header --> corejam-box
@@ -61,6 +60,6 @@ graph TD;
   style dershop-header fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

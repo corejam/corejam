@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Prop, Listen, Element, Method, Fragment, Event, EventEmitter } from "@stencil/core";
+import { Component, Element, Event, EventEmitter, Fragment, h, Host, Listen, Method, Prop, State } from "@stencil/core";
 import { menuState } from "../../store/runStore";
 import { Corejam } from "./Corejam";
 

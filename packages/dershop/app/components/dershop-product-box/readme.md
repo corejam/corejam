@@ -2,7 +2,6 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property | Attribute | Description | Type     | Default     |
@@ -12,25 +11,19 @@
 | `price`  | `price`   |             | `number` | `undefined` |
 | `url`    | `url`     |             | `string` | `undefined` |
 
-
 ## Methods
 
 ### `getDroppableElements() => Promise<string[]>`
-
-
 
 #### Returns
 
 Type: `Promise<string[]>`
 
-
-
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-product-list](../dershop-product-list)
+- [dershop-product-list](../dershop-product-list)
 
 ### Depends on
 
@@ -40,6 +33,7 @@ Type: `Promise<string[]>`
 - corejam-type
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-product-box --> corejam-box
@@ -50,6 +44,6 @@ graph TD;
   style dershop-product-box fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

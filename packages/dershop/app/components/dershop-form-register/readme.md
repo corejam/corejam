@@ -1,15 +1,12 @@
 # dershop-form-register
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Dependencies
 
 ### Used by
 
- - [dershop-route-register](../../routes)
+- [dershop-route-register](../../routes)
 
 ### Depends on
 
@@ -20,6 +17,7 @@
 - corejam-form-submit
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-form-register --> corejam-box
@@ -33,6 +31,6 @@ graph TD;
   style dershop-form-register fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

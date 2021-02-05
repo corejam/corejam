@@ -1,9 +1,6 @@
 # corejam-image
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -18,7 +15,6 @@
 | `src`      | `src`       |             | `string`  | `undefined` |
 | `w`        | `w`         |             | `number`  | `12`        |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

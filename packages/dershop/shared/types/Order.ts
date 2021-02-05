@@ -4,7 +4,7 @@ import { Price } from "./Price";
 import { UserDB } from "./User";
 
 export type Order = Timestamp & {
-  user: UserDB,
+  user: UserDB;
   status: OrderStatus;
   items: OrderItem[];
   dateCreated: string;
@@ -33,9 +33,9 @@ export type OrderItem = {
 };
 
 export type OrderProduct = {
-  id: string,
-  name: string,
-}
+  id: string;
+  name: string;
+};
 
 export type OrderList = Paginated & {
   totalItems: number;

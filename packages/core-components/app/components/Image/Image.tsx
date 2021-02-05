@@ -1,4 +1,4 @@
-import { Component, h, Prop, Host, Element, Build, State } from "@stencil/core";
+import { Build, Component, Element, h, Host, Prop, State } from "@stencil/core";
 
 @Component({
   tag: "corejam-image",

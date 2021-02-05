@@ -1,9 +1,6 @@
 # dershop-admin-order-list
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -12,12 +9,11 @@
 | `data`   | `data`    |             | `any`    | `undefined` |
 | `page`   | `page`    |             | `number` | `undefined` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-route-admin-orders](../../routes/admin/order)
+- [dershop-route-admin-orders](../../routes/admin/order)
 
 ### Depends on
 
@@ -27,6 +23,7 @@
 - corejam-pagination
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-admin-order-list --> corejam-box
@@ -40,6 +37,6 @@ graph TD;
   style dershop-admin-order-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

@@ -1,5 +1,5 @@
-import { getDataClient } from "../../../PluginManager";
 import { Client } from "faunadb";
+import { getDataClient } from "../../../PluginManager";
 
 export const FaunaClient = () =>
   getDataClient(

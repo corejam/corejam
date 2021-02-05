@@ -2,7 +2,6 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Properties
 
 | Property       | Attribute       | Description         | Type               | Default      |
@@ -26,13 +25,11 @@
 | `value`        | `value`         |                     | `number \| string` | `undefined`  |
 | `w`            | `w`             | Style specific prop | `number`           | `12`         |
 
-
 ## Events
 
 | Event       | Description | Type               |
 | ----------- | ----------- | ------------------ |
 | `formEvent` |             | `CustomEvent<any>` |
-
 
 ## Dependencies
 
@@ -42,6 +39,7 @@
 - [corejam-type](../Type)
 
 ### Graph
+
 ```mermaid
 graph TD;
   corejam-form-input --> corejam-box
@@ -49,6 +47,6 @@ graph TD;
   style corejam-form-input fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

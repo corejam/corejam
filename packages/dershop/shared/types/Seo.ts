@@ -1,7 +1,7 @@
-import { ProductDB } from "./Product";
+import { CanvasPageDB } from "@corejam/plugin-canvas/dist/shared/types/Canvas";
 import { CategoryDB } from "./Category";
 import { ManufacturerDB } from "./Manufacturer";
-import { CanvasPageDB } from "@corejam/plugin-canvas/dist/shared/types/Canvas";
+import { ProductDB } from "./Product";
 
 export type SEO = {
   metaTitle?: string;

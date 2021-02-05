@@ -24,7 +24,4 @@ Currently we support the following mail transports:
 AMAZON SES
 ```
 
-
-
 ## Getting Started
-

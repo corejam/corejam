@@ -1,6 +1,6 @@
 //@ts-ignore
-import prepend from "prepend";
 import path from "path";
+import prepend from "prepend";
 import { envRoot } from "../config";
 
 export async function prependNoCheckToComponents() {

@@ -122,4 +122,4 @@ export const getSeoIndex = `
   query {
     getSEOIndex
   }
-`
+`;

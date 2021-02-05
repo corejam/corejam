@@ -2,12 +2,11 @@
 
 <!-- Auto Generated Below -->
 
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-layout](../../layout)
+- [dershop-layout](../../layout)
 
 ### Depends on
 
@@ -15,6 +14,7 @@
 - [dershop-logo](../icons/logo)
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-footer --> corejam-box
@@ -23,6 +23,6 @@ graph TD;
   style dershop-footer fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

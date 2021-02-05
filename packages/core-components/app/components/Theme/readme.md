@@ -1,9 +1,6 @@
 # corejam-ui-theme
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -11,7 +8,6 @@
 | -------- | --------- | ----------- | ------------------ | ------- |
 | `theme`  | `theme`   |             | `object \| string` | `null`  |
 
+---
 
-----------------------------------------------
-
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

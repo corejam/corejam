@@ -1,9 +1,6 @@
 # cj-route-admin
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Dependencies
 
@@ -13,6 +10,7 @@
 - [auth-admin-user-list](../../../components/auth-admin-user-list)
 
 ### Graph
+
 ```mermaid
 graph TD;
   cj-route-admin-index --> corejam-auth-header
@@ -39,6 +37,6 @@ graph TD;
   style cj-route-admin-index fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_

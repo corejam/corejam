@@ -1,9 +1,6 @@
 # dershop-manufacturer
 
-
-
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -11,12 +8,11 @@
 | -------------- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
 | `manufacturer` | --        |             | `Timestamp & { name: string; website?: string; description?: string; seo?: SEO; logo?: Image; products?: ProductDB[]; canvas?: object; } & DBDocument` | `undefined` |
 
-
 ## Dependencies
 
 ### Used by
 
- - [dershop-url](../../routes)
+- [dershop-url](../../routes)
 
 ### Depends on
 
@@ -25,6 +21,7 @@
 - [dershop-product-list](../dershop-product-list)
 
 ### Graph
+
 ```mermaid
 graph TD;
   dershop-manufacturer --> corejam-box
@@ -50,6 +47,6 @@ graph TD;
   style dershop-manufacturer fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-----------------------------------------------
+---
 
-*Built with [StencilJS](https://stenciljs.com/)*
+_Built with [StencilJS](https://stenciljs.com/)_
