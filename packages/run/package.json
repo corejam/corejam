@@ -39,7 +39,7 @@
     "@stencil/react-output-target": "0.0.9",
     "tslib": "2.1.0",
     "typescript": "4.1.3",
-    "autoprefixer": "10.2.4"
+    "autoprefixer": "9.0.0"
   },
   "lint-staged": {
     "app/**/!(*.d).ts": [
