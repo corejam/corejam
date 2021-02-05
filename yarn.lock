@@ -10981,7 +10981,7 @@ prepend@1.0.2:
   resolved "https://registry.yarnpkg.com/prepend/-/prepend-1.0.2.tgz#38ec726ab82c2f8a5880c70c1d2f831bb538faf9"
   integrity sha1-OOxyargsL4pYgMcMHS+DG7U4+vk=
 
-prettier-plugin-organize-imports@^1.1.1:
+prettier-plugin-organize-imports@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/prettier-plugin-organize-imports/-/prettier-plugin-organize-imports-1.1.1.tgz#7f1ac1a13d4d1752dc16881894dde1c10ccbf3c0"
   integrity sha512-rFA1lnek1FYkMGthm4xBKME41qUKItTovuo24bCGZu/Vu1n3gW71UPLAkIdwewwkZCe29gRVweSOPXvAdckFuw==
