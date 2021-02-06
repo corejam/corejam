@@ -57,9 +57,6 @@
     "xstate": "4.16.0"
   },
   "lint-staged": {
-    "app/**/*.ts": [
-      "prettier --write"
-    ],
     "app/**/!(*.d).ts": [
       "prettier --write"
     ],
