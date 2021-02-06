@@ -25,7 +25,3 @@ export type Deliverability = {
   min_order_qty?: number;
   max_order_qty?: number;
 };
-
-export type DBDocument = {
-  id: string;
-};
