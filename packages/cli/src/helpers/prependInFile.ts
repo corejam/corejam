@@ -1,5 +1,5 @@
-//@ts-ignore
 import path from "path";
+//@ts-ignore
 import prepend from "prepend";
 import { envRoot } from "../config";
 
