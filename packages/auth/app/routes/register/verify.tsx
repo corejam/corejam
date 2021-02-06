@@ -1,15 +1,15 @@
-import { Component, Host, h } from "@stencil/core";
+import { Component, h, Host } from "@stencil/core";
 
 @Component({
-    tag: "corejam-auth-route-verify",
+  tag: "corejam-auth-route-verify",
 })
 export class VerifyRoute {
-    render() {
-        return (
-            <Host>
-                <corejam-auth-header />
-                <corejam-auth-verify />
-            </Host>
-        );
-    }
+  render() {
+    return (
+      <Host>
+        <corejam-auth-header />
+        <corejam-auth-verify />
+      </Host>
+    );
+  }
 }

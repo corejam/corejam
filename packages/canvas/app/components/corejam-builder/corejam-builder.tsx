@@ -1,5 +1,5 @@
-import { Component, Host, h, Prop, Listen } from "@stencil/core";
-import { Dragger, canvasService } from "../corejam-canvas/canvas.machine";
+import { Component, h, Host, Listen, Prop } from "@stencil/core";
+import { canvasService, Dragger } from "../corejam-canvas/canvas.machine";
 
 @Component({
   tag: "corejam-builder",

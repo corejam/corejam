@@ -1,6 +1,6 @@
 import { settingsGQL } from "@corejam/base";
 import { coreState } from "@corejam/core-components";
-import { Component, Host, h } from "@stencil/core";
+import { Component, h, Host } from "@stencil/core";
 import gql from "graphql-tag";
 
 @Component({

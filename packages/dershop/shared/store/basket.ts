@@ -1,7 +1,7 @@
-import { createStore } from "@stencil/store";
-import { basketMachine } from "../machines/basket";
 import { Build } from "@stencil/core";
-import { State, interpret } from "xstate";
+import { createStore } from "@stencil/store";
+import { interpret, State } from "xstate";
+import { basketMachine } from "../machines/basket";
 
 const saveStateToLocalStorage = (state) => {
   const serializedState = JSON.stringify(state);

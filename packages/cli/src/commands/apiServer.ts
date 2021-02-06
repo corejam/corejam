@@ -1,8 +1,8 @@
 require("dotenv").config();
 
 import { CorejamServer } from "@corejam/base/dist/Server";
+import { ApolloServer } from "apollo-server-micro";
 import micro, { send } from "micro";
-import { ApolloServer } from "apollo-server-micro"
 
 const cors = require("micro-cors")({ origin: "http://localhost:3001" });
 

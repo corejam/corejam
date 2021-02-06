@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 
-import sade from "sade";
-import execa from "execa";
 import chokidar from "chokidar";
+import execa from "execa";
+import sade from "sade";
+import runApi from "./commands/apiServer";
+import { bootstrap } from "./commands/bootstrap";
 import runBuild, { buildStatic } from "./commands/build";
 import runDev from "./commands/dev";
-import runApi from "./commands/apiServer";
 import createApp from "./commands/generateApp";
 import generateSchema from "./commands/generateSchema";
+import { corejamInit } from "./commands/init";
 import { runWCTests } from "./commands/test";
 import { envRoot } from "./config";
 import { copySchemaToDist } from "./helpers/copy";
 import { killAll } from "./processes";
-import { corejamInit } from "./commands/init";
-import { bootstrap } from "./commands/bootstrap";
 
 const pkg = require("../package.json");
 const prog = sade("corejam");

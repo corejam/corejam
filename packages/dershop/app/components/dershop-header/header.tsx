@@ -1,4 +1,4 @@
-import { Component, h, Host, ComponentInterface, Prop } from "@stencil/core";
+import { Component, ComponentInterface, h, Host, Prop } from "@stencil/core";
 type Link = {
   title: string;
   href: string;

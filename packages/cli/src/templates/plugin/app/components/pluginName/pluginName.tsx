@@ -6,7 +6,6 @@ import store from "../../store/pluginName";
   tag: "cj-pluginName",
 })
 export class PluginName {
-
   render() {
     return (
       <corejam-box>
@@ -14,6 +13,5 @@ export class PluginName {
         {pluginName()}
       </corejam-box>
     );
-
   }
 }

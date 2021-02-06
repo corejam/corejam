@@ -1,6 +1,6 @@
-import { propertyToTransformer } from "./transformerMap";
-import { generateHash, lowercaseFirstLetter, uppercaseFirstLetter, addStyleTagToHead } from "./utils";
 import { computeStyle } from "./computeStyle";
+import { propertyToTransformer } from "./transformerMap";
+import { addStyleTagToHead, generateHash, lowercaseFirstLetter, uppercaseFirstLetter } from "./utils";
 
 const stylesCache = new Map();
 

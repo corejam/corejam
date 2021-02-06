@@ -15,15 +15,15 @@ import { manufacturerByID, manufacturerEdit, manufacturers } from "./Manufacture
 export let products = [] as ProductDB[];
 
 try {
-  const staticFile = require(process.cwd() + "/.corejam/faker.json")
-  products.push(...staticFile.products)
-  console.log("Load from static data")
+  const staticFile = require(process.cwd() + "/.corejam/faker.json");
+  products.push(...staticFile.products);
+  console.log("Load from static data");
 } catch (e) {
   //Nothing for now
 }
 
 if (products.length === 0) {
-  const staticCategoryIndex = Math.floor(Math.random() * categories.length)
+  const staticCategoryIndex = Math.floor(Math.random() * categories.length);
   const staticCategory = categories[staticCategoryIndex];
 
   const staticProduct = generateProduct({
@@ -46,7 +46,7 @@ if (products.length === 0) {
 
   products.push(staticProductDb);
   manufacturers[0].products?.push(staticProductDb);
-  staticCategory.products?.push(staticProductDb)
+  staticCategory.products?.push(staticProductDb);
 }
 
 if (products.length === 1) {
@@ -61,13 +61,13 @@ if (products.length === 1) {
       categories: [category],
       manufacturer: {
         id: manufacturer.id,
-        data: manufacturer
-      } as ManufacturerRefence
+        data: manufacturer,
+      } as ManufacturerRefence,
     };
 
     products.push(generatedDb as ProductDB);
-    productLinkManufacturer(generatedDb.id, manufacturer.id)
-    productLinkCategory(generatedDb.id, category.id)
+    productLinkManufacturer(generatedDb.id, manufacturer.id);
+    productLinkCategory(generatedDb.id, category.id);
   }
 }
 
@@ -196,11 +196,8 @@ export function productAddImage(id: string, imageInput: ImageInput): Promise<Pro
   return new Promise((res) => res(product));
 }
 
-export async function productLinkManufacturer(
-  id: string,
-  manufacturerId: string
-): Promise<LinkResult> {
-  const manufacturer = await manufacturerByID(manufacturerId) as ManufacturerDB;
+export async function productLinkManufacturer(id: string, manufacturerId: string): Promise<LinkResult> {
+  const manufacturer = (await manufacturerByID(manufacturerId)) as ManufacturerDB;
 
   products.map(async (product: ProductDB, key) => {
     if (product.id === id) {
@@ -208,22 +205,22 @@ export async function productLinkManufacturer(
         ...product,
         manufacturer: {
           id: manufacturerId,
-          data: manufacturer
-        }
+          data: manufacturer,
+        },
       };
 
       //Update the manufacturer item list
-      const items = manufacturer.products ? manufacturer.products : []
-      items.push(product)
+      const items = manufacturer.products ? manufacturer.products : [];
+      items.push(product);
 
       await manufacturerEdit(manufacturer.id, {
-        products: items
-      })
+        products: items,
+      });
     }
     products[key] = product;
   });
 
-  return new Promise((res) => res({ result: true }))
+  return new Promise((res) => res({ result: true }));
 }
 
 /*
@@ -233,29 +230,26 @@ export function productUnlinkManufacturer(
   return new Promise(res => res())
 }
  */
-export async function productLinkCategory(
-  id: string,
-  categoryId: string
-): Promise<LinkResult> {
-  const category = await categoryById(categoryId) as CategoryDB;
+export async function productLinkCategory(id: string, categoryId: string): Promise<LinkResult> {
+  const category = (await categoryById(categoryId)) as CategoryDB;
 
   products.map(async (product: ProductDB, key) => {
     if (product.id === id) {
       product = {
         ...product,
-        categories: product.categories ? product.categories.concat(category) : [category]
+        categories: product.categories ? product.categories.concat(category) : [category],
       };
 
       //Update the manufacturer item list
-      const items = category.products ? category.products.concat(product) : [product]
+      const items = category.products ? category.products.concat(product) : [product];
       await categoryEdit(category.id, {
-        products: items
-      })
+        products: items,
+      });
       products[key] = product;
     }
   });
 
-  return new Promise((res) => res({ result: true }))
+  return new Promise((res) => res({ result: true }));
 }
 
 /*

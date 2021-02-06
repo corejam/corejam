@@ -1,5 +1,5 @@
 import { coreState } from "@corejam/core-components";
-import { Component, h, Prop, Watch, State } from "@stencil/core";
+import { Component, h, Prop, State, Watch } from "@stencil/core";
 import gql from "graphql-tag";
 import { paginateProductsGQL } from "../../../shared/graphql/Queries/Product";
 import { ProductList as ProductListType } from "../../../shared/types/Product";

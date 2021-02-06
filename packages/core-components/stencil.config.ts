@@ -1,9 +1,9 @@
 require("dotenv").config();
+import corejam from "@corejam/rollup-plugin";
+import replace from "@rollup/plugin-replace";
 import { Config } from "@stencil/core";
 import { reactOutputTarget } from "@stencil/react-output-target";
-import corejam from "@corejam/rollup-plugin";
 import fs from "fs";
-import replace from "@rollup/plugin-replace";
 
 const targets = process.env.targets?.split(",") || [];
 

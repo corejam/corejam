@@ -1,4 +1,4 @@
-import { collectPlugins, bootstrapSchema, loadManifest } from "@corejam/base/src/Bootstrap";
+import { bootstrapSchema, collectPlugins, loadManifest } from "@corejam/base/src/Bootstrap";
 import { unlinkSync } from "fs";
 
 describe("Bootstrap", () => {
@@ -7,7 +7,7 @@ describe("Bootstrap", () => {
     expect(collectPlugins()).toHaveLength(3);
 
     //In the manifest we should have process.cwd() listed too as we are inside a plugin
-    expect(loadManifest().plugins).toHaveLength(4)
+    expect(loadManifest().plugins).toHaveLength(4);
   });
 
   /**
@@ -16,14 +16,14 @@ describe("Bootstrap", () => {
   it("creates .corejam/ cache file", async () => {
     //Clean
     try {
-      unlinkSync(process.cwd() + "/resolvers.js")
+      unlinkSync(process.cwd() + "/resolvers.js");
     } catch (e) {
       //Nothing to clean
     }
 
     const result = (await bootstrapSchema()) as any;
-    expect(result).toContain("extend type User")
-    expect(result).toContain("type Deliverability")
-    expect(result).toContain("input OrderItemInput")
+    expect(result).toContain("extend type User");
+    expect(result).toContain("type Deliverability");
+    expect(result).toContain("input OrderItemInput");
   });
 });

@@ -6,73 +6,62 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface AppLayout {
-    }
-    interface DershopDuo {
-    }
-    interface DershopP2pCursor {
-    }
-    interface RouteIndex {
-    }
+  interface AppLayout {}
+  interface DershopDuo {}
+  interface DershopP2pCursor {}
+  interface RouteIndex {}
 }
 declare global {
-    interface HTMLAppLayoutElement extends Components.AppLayout, HTMLStencilElement {
-    }
-    var HTMLAppLayoutElement: {
-        prototype: HTMLAppLayoutElement;
-        new (): HTMLAppLayoutElement;
-    };
-    interface HTMLDershopDuoElement extends Components.DershopDuo, HTMLStencilElement {
-    }
-    var HTMLDershopDuoElement: {
-        prototype: HTMLDershopDuoElement;
-        new (): HTMLDershopDuoElement;
-    };
-    interface HTMLDershopP2pCursorElement extends Components.DershopP2pCursor, HTMLStencilElement {
-    }
-    var HTMLDershopP2pCursorElement: {
-        prototype: HTMLDershopP2pCursorElement;
-        new (): HTMLDershopP2pCursorElement;
-    };
-    interface HTMLRouteIndexElement extends Components.RouteIndex, HTMLStencilElement {
-    }
-    var HTMLRouteIndexElement: {
-        prototype: HTMLRouteIndexElement;
-        new (): HTMLRouteIndexElement;
-    };
-    interface HTMLElementTagNameMap {
-        "app-layout": HTMLAppLayoutElement;
-        "dershop-duo": HTMLDershopDuoElement;
-        "dershop-p2p-cursor": HTMLDershopP2pCursorElement;
-        "route-index": HTMLRouteIndexElement;
-    }
+  interface HTMLAppLayoutElement extends Components.AppLayout, HTMLStencilElement {}
+  var HTMLAppLayoutElement: {
+    prototype: HTMLAppLayoutElement;
+    new (): HTMLAppLayoutElement;
+  };
+  interface HTMLDershopDuoElement extends Components.DershopDuo, HTMLStencilElement {}
+  var HTMLDershopDuoElement: {
+    prototype: HTMLDershopDuoElement;
+    new (): HTMLDershopDuoElement;
+  };
+  interface HTMLDershopP2pCursorElement extends Components.DershopP2pCursor, HTMLStencilElement {}
+  var HTMLDershopP2pCursorElement: {
+    prototype: HTMLDershopP2pCursorElement;
+    new (): HTMLDershopP2pCursorElement;
+  };
+  interface HTMLRouteIndexElement extends Components.RouteIndex, HTMLStencilElement {}
+  var HTMLRouteIndexElement: {
+    prototype: HTMLRouteIndexElement;
+    new (): HTMLRouteIndexElement;
+  };
+  interface HTMLElementTagNameMap {
+    "app-layout": HTMLAppLayoutElement;
+    "dershop-duo": HTMLDershopDuoElement;
+    "dershop-p2p-cursor": HTMLDershopP2pCursorElement;
+    "route-index": HTMLRouteIndexElement;
+  }
 }
 declare namespace LocalJSX {
-    interface AppLayout {
-    }
-    interface DershopDuo {
-        "onDisconnectP2P"?: (event: CustomEvent<any>) => void;
-        "onEstablishP2P"?: (event: CustomEvent<any>) => void;
-    }
-    interface DershopP2pCursor {
-    }
-    interface RouteIndex {
-    }
-    interface IntrinsicElements {
-        "app-layout": AppLayout;
-        "dershop-duo": DershopDuo;
-        "dershop-p2p-cursor": DershopP2pCursor;
-        "route-index": RouteIndex;
-    }
+  interface AppLayout {}
+  interface DershopDuo {
+    onDisconnectP2P?: (event: CustomEvent<any>) => void;
+    onEstablishP2P?: (event: CustomEvent<any>) => void;
+  }
+  interface DershopP2pCursor {}
+  interface RouteIndex {}
+  interface IntrinsicElements {
+    "app-layout": AppLayout;
+    "dershop-duo": DershopDuo;
+    "dershop-p2p-cursor": DershopP2pCursor;
+    "route-index": RouteIndex;
+  }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
-    export namespace JSX {
-        interface IntrinsicElements {
-            "app-layout": LocalJSX.AppLayout & JSXBase.HTMLAttributes<HTMLAppLayoutElement>;
-            "dershop-duo": LocalJSX.DershopDuo & JSXBase.HTMLAttributes<HTMLDershopDuoElement>;
-            "dershop-p2p-cursor": LocalJSX.DershopP2pCursor & JSXBase.HTMLAttributes<HTMLDershopP2pCursorElement>;
-            "route-index": LocalJSX.RouteIndex & JSXBase.HTMLAttributes<HTMLRouteIndexElement>;
-        }
+  export namespace JSX {
+    interface IntrinsicElements {
+      "app-layout": LocalJSX.AppLayout & JSXBase.HTMLAttributes<HTMLAppLayoutElement>;
+      "dershop-duo": LocalJSX.DershopDuo & JSXBase.HTMLAttributes<HTMLDershopDuoElement>;
+      "dershop-p2p-cursor": LocalJSX.DershopP2pCursor & JSXBase.HTMLAttributes<HTMLDershopP2pCursorElement>;
+      "route-index": LocalJSX.RouteIndex & JSXBase.HTMLAttributes<HTMLRouteIndexElement>;
     }
+  }
 }

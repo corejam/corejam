@@ -1,11 +1,11 @@
+import * as OriginalSES from "@aws-sdk/client-ses";
 import { CorejamServer, getServerContext } from "@corejam/base/dist/Server";
-import SES from "../server/resolvers/mail/SES";
 import Mail from "../server/Mail";
 import Notify from "../server/Notify";
-import { MergedServerContext } from "../server/types/PluginResolver";
-import * as OriginalSES from "@aws-sdk/client-ses";
-import MailTransport from "../server/resolvers/mail/Transporter";
+import SES from "../server/resolvers/mail/SES";
 import SMTP from "../server/resolvers/mail/SMTP";
+import MailTransport from "../server/resolvers/mail/Transporter";
+import { MergedServerContext } from "../server/types/PluginResolver";
 // const fetch = require("node-fetch");
 
 /**

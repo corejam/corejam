@@ -1,7 +1,7 @@
 import { DershopRouteIndex } from "@corejam/plugin-dershop/react";
 
 const Index = () => {
-  return <DershopRouteIndex />
+  return <DershopRouteIndex />;
 };
 
 export default Index;

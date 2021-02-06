@@ -1,10 +1,10 @@
 export default (value, styles, title) => {
-    let styleString = "";
-    styles.forEach((style) => {
-        styleString += style.outerHTML;
-    })
+  let styleString = "";
+  styles.forEach((style) => {
+    styleString += style.outerHTML;
+  });
 
-    return `
+  return `
 <html>
     <head>
         <title>${title}</title>
@@ -16,4 +16,5 @@ export default (value, styles, title) => {
         ${value}
     </body>
 </html>
-`}
+`;
+};

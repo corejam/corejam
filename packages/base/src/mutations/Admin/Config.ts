@@ -1,5 +1,3 @@
-
-
 export const updateConfigGQL = `
   mutation UpdateConfig($configInput: ConfigGeneralInput!) {
     updateConfig(configInput: $configInput) {

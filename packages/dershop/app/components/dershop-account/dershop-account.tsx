@@ -63,17 +63,17 @@ export class AccountComponent {
                 <corejam-box mb={4}>
                   <corejam-base-link href="#" class="py-4 mb-1">
                     Personal details
-                        </corejam-base-link>
+                  </corejam-base-link>
                 </corejam-box>
                 <corejam-box mb={4}>
                   <corejam-base-link href="#" class="py-4 mb-1">
                     Address book
-                                </corejam-base-link>
+                  </corejam-base-link>
                 </corejam-box>
                 <corejam-box mb={4}>
                   <corejam-base-link href="#" class="py-4 mb-1">
                     Settings
-                                </corejam-base-link>
+                  </corejam-base-link>
                 </corejam-box>
               </corejam-box>
             </corejam-box>
@@ -137,7 +137,7 @@ export class AccountComponent {
                   </corejam-box>
                 </corejam-box>
                 <corejam-base-link href="#">
-                  <corejam-form-submit formId={this.profileFormId} >
+                  <corejam-form-submit formId={this.profileFormId}>
                     <corejam-type size="sm" weight="bold" transform="uppercase" decoration="underline">
                       Save
                     </corejam-type>
@@ -150,7 +150,7 @@ export class AccountComponent {
         </corejam-form-container>
       </corejam-box>
     ) : (
-        <div>Login</div>
-      );
+      <div>Login</div>
+    );
   }
 }

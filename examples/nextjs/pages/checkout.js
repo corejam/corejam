@@ -1,8 +1,6 @@
-import { DershopCheckout } from "@corejam/plugin-dershop/react"
+import { DershopCheckout } from "@corejam/plugin-dershop/react";
 
 const Checkout = () => {
-    return (
-        <DershopCheckout />
-    )
-}
-export default Checkout
+  return <DershopCheckout />;
+};
+export default Checkout;
