@@ -1,6 +1,6 @@
 import { MergedServerContext } from "../../shared/types/PluginResolver";
-import { models as faunaModels } from "./db/fauna";
 import { models as fakerModels } from "./db/faker";
+import { models as faunaModels } from "./db/fauna";
 
 let pluginModels;
 

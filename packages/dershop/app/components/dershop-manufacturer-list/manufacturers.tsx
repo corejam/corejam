@@ -1,8 +1,8 @@
 import { coreState } from "@corejam/core-components";
-import { Component, Host, h } from "@stencil/core";
+import { Component, h, Host } from "@stencil/core";
 import gql from "graphql-tag";
-import { ManufacturerDB } from "../../../shared/types/Manufacturer";
 import { allManufacturersGQL } from "../../../shared/graphql/Queries/Manufacturer";
+import { ManufacturerDB } from "../../../shared/types/Manufacturer";
 
 @Component({
   tag: "dershop-manufacturer-list",

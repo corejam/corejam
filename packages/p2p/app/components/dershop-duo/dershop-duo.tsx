@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Component, Host, h, Event, State, EventEmitter } from "@stencil/core";
+import { Component, Event, EventEmitter, h, Host, State } from "@stencil/core";
 
 @Component({
   tag: "dershop-duo",

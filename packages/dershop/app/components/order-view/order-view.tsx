@@ -1,9 +1,9 @@
-import { Component, Host, h, Prop, State, Watch } from "@stencil/core";
-import { OrderDB } from "../../../shared/types/Order";
-import { authStore } from "@corejam/plugin-auth";
-import { orderById } from "../../../shared/graphql/Queries/Order";
 import { coreState } from "@corejam/core-components";
+import { authStore } from "@corejam/plugin-auth";
+import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
 import gql from "graphql-tag";
+import { orderById } from "../../../shared/graphql/Queries/Order";
+import { OrderDB } from "../../../shared/types/Order";
 
 @Component({
   tag: "dershop-order-view",
@@ -78,20 +78,20 @@ export class OrderView {
           <corejam-box max="xl" flex direction="col" mx="auto">
             <corejam-type as="h2" size="xl">
               Order Status
-          </corejam-type>
+            </corejam-type>
             {this._data.status}
           </corejam-box>
           <corejam-box max="xl" flex direction="col" mx="auto">
             <corejam-type as="h2" size="xl">
               Shipping Address
-          </corejam-type>
+            </corejam-type>
             {this._data.user.firstName} - {this._data.user.lastName} <br />
             {this._data.addressShipping.city} - {this._data.addressShipping.country}
           </corejam-box>
           <corejam-box max="xl" flex direction="col" mx="auto">
             <corejam-type as="h2" size="xl">
               Billing Address
-          </corejam-type>
+            </corejam-type>
             {this._data.addressBilling.city} - {this._data.addressBilling.country}
           </corejam-box>
           <corejam-box flex max="xl" mx="auto" px={2} xlPx={0}>

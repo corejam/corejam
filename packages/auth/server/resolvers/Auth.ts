@@ -1,11 +1,11 @@
+import * as crypto from "crypto";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { roles, STATUS, UserList } from "../../shared/types/User";
 import { AccountExistsError, InvalidEmailError, InvalidVerificationError } from "../Errors";
 import { checkUserHasRole, generateVerifyHash, validateAuthInput, validatePasswordCreate } from "../Functions";
 import PasswordResetConfirmed from "../mail/PasswordResetConfirmed";
-import RegisterVerifyMail from "../mail/RegisterVerify";
-import * as crypto from "crypto";
 import PasswordResetRequest from "../mail/PasswordResetRequest";
+import RegisterVerifyMail from "../mail/RegisterVerify";
 
 function setRefreshHeaders(jwt, { req, res }) {
   const JWT_REFRESH_EXPIRES = process.env.JWT_REFRESH_EXPIRES as string;

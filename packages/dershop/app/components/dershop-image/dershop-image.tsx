@@ -1,4 +1,4 @@
-import { Component, h, Prop, Host, Element } from "@stencil/core";
+import { Component, Element, h, Host, Prop } from "@stencil/core";
 
 export type objectFit =
   | "contain"

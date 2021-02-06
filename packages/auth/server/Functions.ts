@@ -1,15 +1,15 @@
-import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcryptjs";
+import * as crypto from "crypto";
+import * as jwt from "jsonwebtoken";
+import { JWT, UpdatePasswordInput, UserDB } from "../shared/types/User";
 import {
-  MissingJWTHashException,
+  AuthenticationError,
   InvalidEmailError,
+  MissingJWTHashException,
   PasswordsMustMatchException,
   PasswordValidateException,
   UnauthorizedException,
-  AuthenticationError,
 } from "./Errors";
-import { JWT, UpdatePasswordInput, UserDB } from "../shared/types/User";
-import * as crypto from "crypto"
 
 //Set some defaults
 const JWT_EXPIRES = process.env.JWT_EXPIRES ?? "15";
@@ -45,19 +45,19 @@ export async function generateTokensForUser(user: UserDB, editFn: (userId, data)
     user: user,
     token: token,
     refreshToken: refreshToken,
-  }
+  };
 }
 
 /**
  * Sets the initial verify hash for email
  */
-export async function generateVerifyHash(user: UserDB, editFn: (userId, data) => ({})): Promise<string> {
-  const verifyHash = crypto.randomBytes(20).toString('hex');
+export async function generateVerifyHash(user: UserDB, editFn: (userId, data) => {}): Promise<string> {
+  const verifyHash = crypto.randomBytes(20).toString("hex");
   await editFn(user.id, {
-    verifyHash
-  })
+    verifyHash,
+  });
 
-  return new Promise(res => res(verifyHash))
+  return new Promise((res) => res(verifyHash));
 }
 
 export function validateAuthInput(email: string) {
@@ -98,7 +98,7 @@ export function checkUserHasRole(user: UserDB, checkRole: string) {
 
 /**
  * Hash a password string using bcrypt
- * @param password 
+ * @param password
  */
 export async function hashPassword(password: string): Promise<string> {
   const saltRounds = 10;

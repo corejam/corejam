@@ -1,9 +1,9 @@
-import { Component, Element, h, Host, Prop, State, Listen } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
 import { runState } from "@corejam/run";
-import { authStore } from "../../store/authStore";
-import { userAuthenticateMutationGQL } from "../../../shared/graphql/Mutations";
+import { Component, Element, h, Host, Listen, Prop, State } from "@stencil/core";
 import gql from "graphql-tag";
+import { userAuthenticateMutationGQL } from "../../../shared/graphql/Mutations";
+import { authStore } from "../../store/authStore";
 
 /**
  * Component to handle authentication state / refresh.

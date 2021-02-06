@@ -1,7 +1,6 @@
-import { list, read, exists } from "fs-jetpack";
+import { extractExternal, extractRecos, extractWrapper } from "./extractFromPackage";
 import { extractLayouts } from "./extractLayouts";
 import { extractComponentsToRoutes, extractRoutes } from "./extractRoutes";
-import { extractExternal, extractRecos, extractWrapper } from "./extractFromPackage";
 
 export function writeConfig() {
   const pluginPkg = require(process.cwd() + "/package.json");

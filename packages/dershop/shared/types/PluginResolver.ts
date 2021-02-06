@@ -1,21 +1,21 @@
-import { ConfigDB, Config, ConfigEditInput } from "@corejam/base/dist/typings/Config";
+import { Config, ConfigDB, ConfigEditInput } from "@corejam/base/dist/typings/Config";
+import { CoreResolver } from "@corejam/base/dist/typings/CoreResolver";
 import { ImageInput } from "@corejam/base/dist/typings/Image";
 import { ServerContext } from "@corejam/base/dist/typings/Server";
-import { CoreResolver } from "@corejam/base/dist/typings/CoreResolver";
+import { Deliverability } from "@corejam/base/dist/typings/Utils";
+import { MergedServerContext as ExtendedNotifyContext } from "@corejam/notify/dist/server/types/PluginResolver";
+import { MergedServerContext as ExtendedAuthContext } from "@corejam/plugin-auth/shared/types/PluginResolver";
 import { Category, CategoryDB } from "./Category";
 import { ManufacturerCreateInput, ManufacturerDB, ManufacturerEditInput } from "./Manufacturer";
-import { OrderDB, OrderEditInput, OrderCreateInput, OrderList } from "./Order";
+import { OrderCreateInput, OrderDB, OrderEditInput, OrderList } from "./Order";
 import { PriceInput } from "./Price";
 import { ProductCoreInput, ProductDB } from "./Product";
 import { SEODocument, SEOInput } from "./Seo";
-import { Deliverability } from "@corejam/base/dist/typings/Utils";
-import { UserDB, RegisterInput, UserCreateInput } from "./User";
-import { MergedServerContext as ExtendedAuthContext } from "@corejam/plugin-auth/shared/types/PluginResolver"
-import { MergedServerContext as ExtendedNotifyContext } from "@corejam/notify/dist/server/types/PluginResolver"
+import { RegisterInput, UserCreateInput, UserDB } from "./User";
 
 export type LinkResult = {
-  result: Boolean
-}
+  result: Boolean;
+};
 
 /**
  * We are adding these resolvers to the existing CoreResolver
@@ -53,8 +53,8 @@ export declare type PluginResolver = {
   manufacturerEditSEO(id: string, seoInput: SEOInput): Promise<ManufacturerDB>;
   allManufacturers(): Promise<ManufacturerDB[]>;
 
-  userRegister(userInput: RegisterInput): Promise<UserDB>
-  userCreate?(userCreateInput: UserCreateInput): Promise<UserDB>
+  userRegister(userInput: RegisterInput): Promise<UserDB>;
+  userCreate?(userCreateInput: UserCreateInput): Promise<UserDB>;
 
   allCategories(): Promise<CategoryDB[]>;
   categoryCreate(manufacturerInput: Category): Promise<CategoryDB>;
@@ -62,7 +62,7 @@ export declare type PluginResolver = {
   categoryById(id: string): Promise<CategoryDB | null>;
 
   objectFromURL(url: string): Promise<SEODocument | null>;
-  getSEOIndex(): Promise<string[]>
+  getSEOIndex(): Promise<string[]>;
 };
 
 export declare type MergedServerResolver = CoreResolver & PluginResolver;

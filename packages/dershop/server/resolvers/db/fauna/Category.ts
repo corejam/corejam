@@ -1,7 +1,7 @@
 import { updateDates } from "@corejam/base";
+import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 import { query as q } from "faunadb";
 import type { Category, CategoryCreateInput, CategoryDB } from "../../../../shared/types/Category";
-import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 
 export function allCategories(): Promise<CategoryDB[]> {
   return FaunaClient()

@@ -1,7 +1,7 @@
-import { DershopBrands } from "@corejam/plugin-dershop/react"
+import { DershopBrands } from "@corejam/plugin-dershop/react";
 
 const ManufacturerList = () => {
-    return <DershopBrands />
-}
+  return <DershopBrands />;
+};
 
-export default ManufacturerList
+export default ManufacturerList;

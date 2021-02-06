@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from "@stencil/core";
+import { Component, h, Host, Prop } from "@stencil/core";
 
 @Component({
   tag: "dershop-route-admin-order-view",

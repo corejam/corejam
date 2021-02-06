@@ -1,4 +1,4 @@
-import { Component, h, Fragment } from "@stencil/core";
+import { Component, Fragment, h } from "@stencil/core";
 
 @Component({
   tag: "dershop-layout",

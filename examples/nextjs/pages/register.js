@@ -1,5 +1,5 @@
 import { DershopFormRegister } from "@corejam/plugin-dershop/react";
 
 export default () => {
-  return <DershopFormRegister />
-}
+  return <DershopFormRegister />;
+};

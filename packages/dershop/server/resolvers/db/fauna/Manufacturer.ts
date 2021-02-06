@@ -1,8 +1,12 @@
 import { updateDates } from "@corejam/base";
+import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 import type { SEOInput } from "@corejam/base/dist/typings/Seo";
 import { query as q } from "faunadb";
-import type { ManufacturerCreateInput, ManufacturerDB, ManufacturerEditInput } from "../../../../shared/types/Manufacturer";
-import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
+import type {
+  ManufacturerCreateInput,
+  ManufacturerDB,
+  ManufacturerEditInput,
+} from "../../../../shared/types/Manufacturer";
 
 export function allManufacturers(): Promise<ManufacturerDB[]> {
   return FaunaClient()
@@ -50,7 +54,7 @@ export function manufacturerByUrl(slug: string): Promise<ManufacturerDB | null> 
   return FaunaClient()
     .query(q.Get(q.Match(q.Index("seoSearch"), slug)))
     .then((response: any) => {
-      return manufacturerByID(response.ref.id)
+      return manufacturerByID(response.ref.id);
     });
 }
 

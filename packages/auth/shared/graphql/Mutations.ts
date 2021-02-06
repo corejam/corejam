@@ -85,16 +85,16 @@ export const verifyEmailGQL = `
       active
     }
   } 
-`
+`;
 
 export const requestPasswordResetGQL = `
   mutation RequestPasswordReset($email: String!) {
     userRequestPasswordReset(email: $email)
   } 
-`
+`;
 
 export const passwordResetGQL = `
   mutation PasswordReset($token: String!, $resetInput: ResetPasswordInput!) {
     userResetPassword(token: $token, resetInput: $resetInput)
   } 
-`
+`;

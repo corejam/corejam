@@ -1,5 +1,5 @@
-import { ServerContext } from "@corejam/base/dist/typings/Server";
 import { CoreResolver } from "@corejam/base/dist/typings/CoreResolver";
+import { ServerContext } from "@corejam/base/dist/typings/Server";
 import type { P2p, P2pCreateInput } from "./p2p";
 /**
  * We are adding these resolvers to the existing CoreResolver

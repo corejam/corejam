@@ -1,7 +1,7 @@
 import { coreState } from "@corejam/core-components";
-import { authStore } from "../../store/authStore";
 import { Component, h, Listen } from "@stencil/core";
 import { userUpdateGQL } from "../../../shared/graphql/Mutations";
+import { authStore } from "../../store/authStore";
 
 @Component({
   tag: "corejam-auth-account",

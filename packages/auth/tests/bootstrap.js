@@ -1,9 +1,7 @@
 const args = require("args");
 const { bootstrapSchema } = require("@corejam/base/dist/Bootstrap");
 const { getServerContext } = require("@corejam/base/dist/Server");
-const {
-  generateUser
-} = require("../dist/server/resolvers/db/faker/Generator");
+const { generateUser } = require("../dist/server/resolvers/db/faker/Generator");
 const { Client, query } = require("faunadb");
 const q = query;
 const { getDataClient } = require("@corejam/base/dist/PluginManager");

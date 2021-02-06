@@ -1,5 +1,5 @@
 //@ts-nocheck
-import { Component, Host, h, State, Listen } from "@stencil/core";
+import { Component, h, Listen, State } from "@stencil/core";
 
 @Component({
   tag: "dershop-p2p-cursor",

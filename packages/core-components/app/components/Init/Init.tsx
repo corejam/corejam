@@ -1,5 +1,5 @@
-import { Component, Host, h, Prop, Watch } from "@stencil/core";
 import { runSet } from "@corejam/run";
+import { Component, h, Host, Prop, Watch } from "@stencil/core";
 
 @Component({
   tag: "corejam-init",

@@ -1,5 +1,5 @@
-import { Component, Host, h, Prop, State, Watch } from "@stencil/core";
-import { Flex, Position, Display } from "./types";
+import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
+import { Display, Flex, Position } from "./types";
 
 /**
  * @since 2.0

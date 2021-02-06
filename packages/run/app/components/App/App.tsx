@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Fragment } from "@stencil/core";
+import { Component, Fragment, h, Host, State } from "@stencil/core";
 import { runState } from "../../store/runStore";
 
 @Component({

@@ -1,9 +1,9 @@
+import { updateDates } from "@corejam/base";
+import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 import { query as q } from "faunadb";
 import type { OrderDB, OrderEditInput } from "../../../../shared/types/Order";
-import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
+import { OrderCreateInput, OrderList } from "../../../../shared/types/Order";
 import { UserDB } from "../../../../shared/types/User";
-import { OrderList, OrderCreateInput } from "../../../../shared/types/Order";
-import { updateDates } from "@corejam/base";
 
 export function orderUpdate(id: string, orderInput: OrderEditInput): Promise<OrderDB> {
   return FaunaClient()
@@ -31,7 +31,7 @@ export function orderById(id: string): Promise<OrderDB | null> {
       const parsed = {
         user: {
           id: response.user.ref.id,
-          ...response.user.data
+          ...response.user.data,
         },
         ...response.order.data,
       };
@@ -43,11 +43,7 @@ export function orderById(id: string): Promise<OrderDB | null> {
     });
 }
 
-
-export function orderCreate(
-  orderInput: OrderCreateInput,
-  user: UserDB
-): Promise<OrderDB> {
+export function orderCreate(orderInput: OrderCreateInput, user: UserDB): Promise<OrderDB> {
   return FaunaClient()
     .query(
       q.Create(q.Collection("orders"), {
@@ -69,12 +65,16 @@ export function allOrders(): Promise<OrderDB[]> {
     .query(
       q.Map(
         q.Paginate(q.Match(q.Index("allOrders"))),
-        q.Lambda("x", q.Merge(
-          q.Select("data", q.Get(q.Var("x"))),
-          {
+        q.Lambda(
+          "x",
+          q.Merge(q.Select("data", q.Get(q.Var("x"))), {
             id: q.Select(["ref", "id"], q.Get(q.Var("x"))),
-            user: q.Select(["data"], q.Get(q.Ref(q.Collection("users"), q.Select(["data", "user", "id"], q.Get(q.Var("x"))))))
-          }))
+            user: q.Select(
+              ["data"],
+              q.Get(q.Ref(q.Collection("users"), q.Select(["data", "user", "id"], q.Get(q.Var("x")))))
+            ),
+          })
+        )
       )
     )
     .then((response: any) => {
@@ -82,24 +82,12 @@ export function allOrders(): Promise<OrderDB[]> {
     });
 }
 
-
 export function ordersByCustomer(user: UserDB): Promise<OrderList> {
   return FaunaClient()
     .query(
       q.Map(
-        q.Paginate(
-          q.Match(
-            q.Index("ordersByUser"),
-            q.Ref(q.Collection("users"), user.id)
-          )
-        ),
-        q.Lambda(
-          "x",
-          q.Merge(
-            { id: q.Select(["ref", "id"], q.Get(q.Var("x"))) },
-            q.Select("data", q.Get(q.Var("x")))
-          )
-        )
+        q.Paginate(q.Match(q.Index("ordersByUser"), q.Ref(q.Collection("users"), user.id))),
+        q.Lambda("x", q.Merge({ id: q.Select(["ref", "id"], q.Get(q.Var("x"))) }, q.Select("data", q.Get(q.Var("x")))))
       )
     )
     .then((response: any) => {
@@ -113,4 +101,4 @@ export function ordersByCustomer(user: UserDB): Promise<OrderList> {
 
       return parsedResponse;
     });
-} 
+}

@@ -1,8 +1,8 @@
-import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
+import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
+import gql from "graphql-tag";
 import { paginateUsersGQL } from "../../../shared/graphql/Queries";
 import { authStore } from "../../store/authStore";
-import gql from "graphql-tag";
 
 @Component({
   tag: "auth-admin-user-list",

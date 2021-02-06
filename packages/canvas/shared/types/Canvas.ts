@@ -1,5 +1,5 @@
 import { SEO } from "@corejam/base/dist/typings/Seo";
-import { Timestamp, DBDocument, Paginated } from "@corejam/base/dist/typings/Utils";
+import { DBDocument, Paginated, Timestamp } from "@corejam/base/dist/typings/Utils";
 
 export type CanvasPeer = {
   hash: string;

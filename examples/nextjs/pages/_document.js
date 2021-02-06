@@ -5,8 +5,12 @@ import cheerio from "cheerio";
 const Style = ({ style }) =>
   style.map((inline, index) => {
     return (
-      <style key={index} id={inline.id} corejamstyle={inline.id} dangerouslySetInnerHTML={{__html: inline.inner}}>
-      </style>
+      <style
+        key={index}
+        id={inline.id}
+        corejamstyle={inline.id}
+        dangerouslySetInnerHTML={{ __html: inline.inner }}
+      ></style>
     );
   });
 
@@ -17,7 +21,7 @@ export default class ShopDocument extends Document {
       runtimeLogging: false,
       clientHydrateAnnotations: false,
       removeBooleanAttributeQuotes: true,
-      removeHtmlComments: true
+      removeHtmlComments: true,
     });
 
     if (res.diagnostics.length) {
@@ -34,7 +38,7 @@ export default class ShopDocument extends Document {
       let s = null;
       s = cheerio.load(res.html);
       s("head style").each((i, el) => {
-          styles.push({ inner: s(el).html(), id: s(el).attr("id") });
+        styles.push({ inner: s(el).html(), id: s(el).attr("id") });
       });
       const regex = new RegExp(' class="hydrated"', "g");
       const r2 = new RegExp(/ hydrated/, "g");
@@ -50,7 +54,7 @@ export default class ShopDocument extends Document {
           <Style style={styles} />
         </>
       ),
-      html: finalMarkup
+      html: finalMarkup,
     };
   }
 }

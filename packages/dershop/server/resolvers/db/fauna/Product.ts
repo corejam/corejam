@@ -13,20 +13,30 @@ export function allProducts(): Promise<ProductDB[]> {
     .query(
       q.Map(
         q.Paginate(q.Match(q.Index("allProducts"))),
-        q.Lambda("x", q.Merge(q.Select("data", q.Get(q.Var("x"))),
-          {
+        q.Lambda(
+          "x",
+          q.Merge(q.Select("data", q.Get(q.Var("x"))), {
             id: q.Select(["ref", "id"], q.Get(q.Var("x"))),
-            categories: q.If(q.IsArray(q.Select(["data", "categories"], q.Get(q.Var("x")), false)),
+            categories: q.If(
+              q.IsArray(q.Select(["data", "categories"], q.Get(q.Var("x")), false)),
               q.Map(
                 q.Select(["data", "categories"], q.Get(q.Var("x"))),
-                q.Lambda("category", q.Merge(q.Select(["data"], q.Get(q.Var("category"))), {
-                  id: q.Select(["ref", "id"], q.Get(q.Var("category")))
-                }))),
-              null),
-            manufacturer: q.If(q.ContainsField("manufacturer", q.Select("data", q.Get(q.Var("x")))),
-              q.Select(["data"], q.Get(q.Select(["data", "manufacturer", "data"], q.Get(q.Var("x")))))
-              , null)
-          }))
+                q.Lambda(
+                  "category",
+                  q.Merge(q.Select(["data"], q.Get(q.Var("category"))), {
+                    id: q.Select(["ref", "id"], q.Get(q.Var("category"))),
+                  })
+                )
+              ),
+              null
+            ),
+            manufacturer: q.If(
+              q.ContainsField("manufacturer", q.Select("data", q.Get(q.Var("x")))),
+              q.Select(["data"], q.Get(q.Select(["data", "manufacturer", "data"], q.Get(q.Var("x"))))),
+              null
+            ),
+          })
+        )
       )
     )
     .then((response: any) => {
@@ -40,38 +50,40 @@ export function productByID(id: string): Promise<ProductDB | null> {
       q.Merge(
         {
           product: q.Select(["data"], q.Get(q.Ref(q.Collection("products"), id))),
-          categories: q.If(q.IsArray(q.Select(["data", "categories"], q.Get(q.Ref(q.Collection("products"), id)), false)), q.Map(
-            q.Select(["data", "categories"], q.Get(q.Ref(q.Collection("products"), id))),
-            q.Lambda(["ref"], q.Get(q.Var("ref")))), null
-          )
+          categories: q.If(
+            q.IsArray(q.Select(["data", "categories"], q.Get(q.Ref(q.Collection("products"), id)), false)),
+            q.Map(
+              q.Select(["data", "categories"], q.Get(q.Ref(q.Collection("products"), id))),
+              q.Lambda(["ref"], q.Get(q.Var("ref")))
+            ),
+            null
+          ),
         },
         {
-          manufacturer: q.If(q.IsObject(q.Select(["data", "manufacturer"], q.Get(q.Ref(q.Collection("products"), id)), false)), {
-            id: q.Select(
-              ["ref", "id"],
-              q.Get(
-                q.Ref(
-                  q.Collection("manufacturers"),
-                  q.Select(
-                    ["data", "manufacturer", "data", "id"],
-                    q.Get(q.Ref(q.Collection("products"), id))
+          manufacturer: q.If(
+            q.IsObject(q.Select(["data", "manufacturer"], q.Get(q.Ref(q.Collection("products"), id)), false)),
+            {
+              id: q.Select(
+                ["ref", "id"],
+                q.Get(
+                  q.Ref(
+                    q.Collection("manufacturers"),
+                    q.Select(["data", "manufacturer", "data", "id"], q.Get(q.Ref(q.Collection("products"), id)))
                   )
                 )
-              )
-            ),
-            data: q.Select(
-              ["data"],
-              q.Get(
-                q.Ref(
-                  q.Collection("manufacturers"),
-                  q.Select(
-                    ["data", "manufacturer", "data", "id"],
-                    q.Get(q.Ref(q.Collection("products"), id))
+              ),
+              data: q.Select(
+                ["data"],
+                q.Get(
+                  q.Ref(
+                    q.Collection("manufacturers"),
+                    q.Select(["data", "manufacturer", "data", "id"], q.Get(q.Ref(q.Collection("products"), id)))
                   )
                 )
-              )
-            )
-          }, null)
+              ),
+            },
+            null
+          ),
         }
       )
     )
@@ -79,7 +91,7 @@ export function productByID(id: string): Promise<ProductDB | null> {
       const product = {
         id,
         ...{
-          ...response.product
+          ...response.product,
         },
       };
 
@@ -87,8 +99,8 @@ export function productByID(id: string): Promise<ProductDB | null> {
         product.categories = response.categories.map((categoryRef) => {
           return {
             id: categoryRef.ref.id,
-            ...categoryRef.data
-          }
+            ...categoryRef.data,
+          };
         });
       }
 
@@ -99,9 +111,9 @@ export function productByID(id: string): Promise<ProductDB | null> {
             data: {
               id: response.product.manufacturer.id,
               ...response.manufacturer.data,
-            }
+            },
           },
-        }
+        };
       }
 
       return product;
@@ -188,29 +200,31 @@ export function productAddImage(id: string, imageInput: ImageInput): Promise<Pro
     });
 }
 
-
-export function productLinkManufacturer(
-  id: string,
-  manufacturerId: string
-): Promise<LinkResult> {
+export function productLinkManufacturer(id: string, manufacturerId: string): Promise<LinkResult> {
   return FaunaClient()
-    .query(q.Do([
-      q.Update(q.Ref(q.Collection("products"), id), {
-        data: {
-          manufacturer: {
-            id: manufacturerId,
-            data: q.Ref(q.Collection("manufacturers"), manufacturerId),
-          }
-        },
-      }),
-      q.Update(q.Ref(q.Collection("manufacturers"), manufacturerId), {
-        data: {
-          products: q.Append(q.Select(["data", "products"], q.Get(q.Ref(q.Collection("manufacturers"), manufacturerId)), []), [q.Ref(q.Collection("products"), id)])
-        }
-      })
-    ])).then(() => {
-      return new Promise(res => res({ result: true }));
-    })
+    .query(
+      q.Do([
+        q.Update(q.Ref(q.Collection("products"), id), {
+          data: {
+            manufacturer: {
+              id: manufacturerId,
+              data: q.Ref(q.Collection("manufacturers"), manufacturerId),
+            },
+          },
+        }),
+        q.Update(q.Ref(q.Collection("manufacturers"), manufacturerId), {
+          data: {
+            products: q.Append(
+              q.Select(["data", "products"], q.Get(q.Ref(q.Collection("manufacturers"), manufacturerId)), []),
+              [q.Ref(q.Collection("products"), id)]
+            ),
+          },
+        }),
+      ])
+    )
+    .then(() => {
+      return new Promise((res) => res({ result: true }));
+    });
 }
 
 /*
@@ -221,25 +235,30 @@ export function productUnlinkManufacturer(
 }
 */
 
-export function productLinkCategory(
-  id: string,
-  categoryId: string
-): Promise<LinkResult> {
+export function productLinkCategory(id: string, categoryId: string): Promise<LinkResult> {
   return FaunaClient()
-    .query(q.Do([
-      q.Update(q.Ref(q.Collection("products"), id), {
-        data: {
-          categories: q.Append(q.Select(["data", "categories"], q.Get(q.Ref(q.Collection("products"), id)), []), [q.Ref(q.Collection("categories"), categoryId)])
-        },
-      }),
-      q.Update(q.Ref(q.Collection("categories"), categoryId), {
-        data: {
-          products: q.Append(q.Select(["data", "products"], q.Get(q.Ref(q.Collection("categories"), categoryId)), []), [q.Ref(q.Collection("products"), id)])
-        }
-      })
-    ])).then(() => {
-      return new Promise(res => res({ result: true }));
-    })
+    .query(
+      q.Do([
+        q.Update(q.Ref(q.Collection("products"), id), {
+          data: {
+            categories: q.Append(q.Select(["data", "categories"], q.Get(q.Ref(q.Collection("products"), id)), []), [
+              q.Ref(q.Collection("categories"), categoryId),
+            ]),
+          },
+        }),
+        q.Update(q.Ref(q.Collection("categories"), categoryId), {
+          data: {
+            products: q.Append(
+              q.Select(["data", "products"], q.Get(q.Ref(q.Collection("categories"), categoryId)), []),
+              [q.Ref(q.Collection("products"), id)]
+            ),
+          },
+        }),
+      ])
+    )
+    .then(() => {
+      return new Promise((res) => res({ result: true }));
+    });
 }
 /*
 export function productUnlinkCategory(

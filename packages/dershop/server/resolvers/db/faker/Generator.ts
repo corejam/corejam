@@ -181,13 +181,13 @@ export function generateUser(): User {
     firstName: name.firstName(),
     lastName: name.lastName(),
     addressBilling: generateAddress(),
-    addressShipping: generateAddress()
-  }
+    addressShipping: generateAddress(),
+  };
 }
 
 /**
  * Generate order items based on products passed in
- * @param products 
+ * @param products
  */
 export function generateOrderItems(products: ProductDB[]): OrderItem[] {
   const items = [] as OrderItem[];
@@ -207,7 +207,7 @@ export function generateOrderItems(products: ProductDB[]): OrderItem[] {
     items.push({
       product: {
         id: product.id,
-        name: product.name
+        name: product.name,
       },
       quantity: qty,
       price: price,
@@ -218,36 +218,35 @@ export function generateOrderItems(products: ProductDB[]): OrderItem[] {
 
 /**
  * Generate orders based on products / users combination
- * @param products 
- * @param users 
+ * @param products
+ * @param users
  */
 export function generateOrder(products: ProductDB[], users: UserDB[]): Order {
-  const orderItems = generateOrderItems(products)
+  const orderItems = generateOrderItems(products);
 
   let price = {
     gross: 0.0,
     net: 0.0,
     tax_rate: 4,
-  } as Price
+  } as Price;
 
   orderItems.map((item) => {
     price = {
       gross: price.gross + item.price.gross,
       net: price.net + item.price.net,
       tax_rate: 4,
-    } as Price
-  })
+    } as Price;
+  });
 
-
-  const user = users[Math.floor(Math.random() * users.length)] as UserDB
+  const user = users[Math.floor(Math.random() * users.length)] as UserDB;
 
   return {
     user: user,
-    status: 'RECEIVED',
+    status: "RECEIVED",
     items: orderItems,
     price: price,
     ...updateDates(),
     addressBilling: generateAddress(),
     addressShipping: generateAddress(),
-  }
+  };
 }

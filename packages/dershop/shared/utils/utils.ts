@@ -1,15 +1,6 @@
 import { ComponentInterface } from "@stencil/core";
 
-const BLACKLIST = [
-  "href",
-  "src",
-  "name",
-  "placeholder",
-  "label",
-  "formId",
-  "type",
-  "droppableElements",
-];
+const BLACKLIST = ["href", "src", "name", "placeholder", "label", "formId", "type", "droppableElements"];
 
 export function getClasses(component: ComponentInterface): string {
   const proto = Reflect.getPrototypeOf(component);
@@ -25,14 +16,10 @@ export function getClasses(component: ComponentInterface): string {
 }
 
 export function serialize(canvasId) {
-  const targetNode = Array.from<HTMLElement>(
-    document.querySelectorAll("dershop-canvas")
-  )
+  const targetNode = Array.from<HTMLElement>(document.querySelectorAll("dershop-canvas"))
     .filter((n) => n.getAttribute("canvas-id") === canvasId)[0]
     .shadowRoot.querySelector(".drop");
-  const children = targetNode.classList.contains("drop")
-    ? Array.from(targetNode.children)
-    : [targetNode];
+  const children = targetNode.classList.contains("drop") ? Array.from(targetNode.children) : [targetNode];
   const BLACKLIST = ["class", "style"];
   const serial = {
     name: window.location.pathname,
@@ -54,10 +41,7 @@ export function serialize(canvasId) {
           if (!BLACKLIST.includes(node.attributes[i].localName))
             properties.push({
               name: node.attributes[i].localName,
-              value:
-                node.attributes[i].nodeValue == ""
-                  ? true
-                  : node.attributes[i].nodeValue,
+              value: node.attributes[i].nodeValue == "" ? true : node.attributes[i].nodeValue,
             });
         }
         if (properties.length > 0) entry["properties"] = properties;
