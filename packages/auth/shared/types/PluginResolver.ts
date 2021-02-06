@@ -1,5 +1,6 @@
 import { CoreResolver } from "@corejam/base/dist/typings/CoreResolver";
 import { ServerContext } from "@corejam/base/dist/typings/Server";
+import { ID } from "@corejam/base/dist/typings/Utils"
 import { PluginServerContext as NotifyContext } from "@corejam/notify/dist/server/types/PluginResolver";
 import { JWT, RegisterInput, UpdatePasswordInput, UserCreateInput, UserDB, UserInput } from "./User";
 
@@ -10,8 +11,8 @@ export declare type PluginResolver = {
   allUsers(): Promise<UserDB[]>;
   userCreate(userCreateInput: UserCreateInput): Promise<UserDB>;
   userRegister(userInput: RegisterInput): Promise<UserDB>;
-  userEdit(id: string, userInput: UserInput): Promise<UserDB>;
-  userById(id: string): Promise<UserDB | null>;
+  userEdit(id: ID, userInput: UserInput): Promise<UserDB>;
+  userById(id: ID): Promise<UserDB | null>;
   userByToken(token: string): Promise<UserDB | null>;
   userByEmail(email: string): Promise<UserDB | null>;
   userAuthenticate(email: string, password: string): Promise<JWT>;
