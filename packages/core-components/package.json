@@ -60,6 +60,9 @@
     "app/**/*.ts": [
       "prettier --write"
     ],
+    "app/**/!(*.d).ts": [
+      "prettier --write"
+    ],
     "app/**/*.tsx": [
       "prettier --write"
     ]
