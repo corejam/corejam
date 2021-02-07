@@ -1,5 +1,5 @@
+import { DBDocument } from "./DB";
 import { SEO } from "./Seo";
-import { DBDocument } from "./Utils";
 
 export type Config = {
   seo: SEO;
