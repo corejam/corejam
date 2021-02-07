@@ -1,9 +1,8 @@
+import { CorejamApplication } from "@corejam/base/dist/typings/Application";
 import { resolvers } from "./resolvers";
 
-const pluginProperties = {
+const pluginProperties: CorejamApplication = {
   resolvers,
-  routes: [],
-  listens: [],
   emits: ["orderCompleted"],
   schemas: ["canvas"],
 };
