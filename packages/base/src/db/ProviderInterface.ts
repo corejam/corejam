@@ -10,7 +10,7 @@ import { DBDocument } from "../typings/DB";
  * All corejam applications should work out of the box.
  *
  */
-export interface DBProvider {
+export interface ProviderInterface {
   create(document: object): Promise<DBDocument>;
 
   read(id: string | number): Promise<DBDocument | null>;

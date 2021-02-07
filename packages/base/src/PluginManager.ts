@@ -1,13 +1,13 @@
-import { DBProvider } from "./db/ProviderInterface";
+import { ProviderInterface } from "./db/ProviderInterface";
 
 const dataClients: Map<string, object> = new Map();
 
-const dbProviders: Map<string, DBProvider> = new Map();
+const dbProviders: Map<string, ProviderInterface> = new Map();
 
 /**
  * Get a DB connection provided by one of the corejam DB packages.
  */
-export function getDb(db?: string): DBProvider {
+export function getDb(db?: string): ProviderInterface {
   if (!db) {
     if (!process.env.DB_DRIVER) {
       throw new Error("No database driver defined");
@@ -28,7 +28,7 @@ export function getDb(db?: string): DBProvider {
  * This is the global registration point for DB packages.
  * Should be called during the package init.
  */
-export function registerDBProvider(db: string, provider: DBProvider): DBProvider {
+export function registerDBProvider(db: string, provider: ProviderInterface): ProviderInterface {
   dbProviders.set(db, provider);
 
   return provider;
