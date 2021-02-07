@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop } from "@stencil/core";
-import { coreState } from "../../store/core";
+import { coreState } from "@stores/core";
 
 @Component({
   tag: "corejam-data-provider",

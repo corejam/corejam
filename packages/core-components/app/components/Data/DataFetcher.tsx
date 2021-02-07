@@ -1,6 +1,6 @@
 import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
+import { coreState } from "@stores/core";
 import gql from "graphql-tag";
-import { coreState } from "../../store/core";
 
 @Component({
   tag: "corejam-data-fetcher",

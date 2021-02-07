@@ -11887,6 +11887,11 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+rollup-plugin-typescript-paths@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-typescript-paths/-/rollup-plugin-typescript-paths-1.2.2.tgz#325b9af1522b3f11b2cc6c3890ff15ace214a3fd"
+  integrity sha512-MMdnzx4Qbj3kZnPivNTlfnCYTvFKvl2Ac+tlVyq3EUK90mmaY5wCz6oEofxwUAF0YTwp8jI5AsasqJmDUwhDXQ==
+
 rollup-plugin-typescript2@0.29.0:
   version "0.29.0"
   resolved "https://registry.yarnpkg.com/rollup-plugin-typescript2/-/rollup-plugin-typescript2-0.29.0.tgz#b7ad83f5241dbc5bdf1e98d9c3fca005ffe39e1a"
@@ -13452,6 +13457,11 @@ ts-sinon@2.0.1:
     "@types/sinon" "^9.0.5"
     "@types/sinon-chai" "^3.2.4"
     sinon "^9.0.3"
+
+tsconfig-paths-jest@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/tsconfig-paths-jest/-/tsconfig-paths-jest-0.0.1.tgz#a977a5648c434037b69884e644ce1b82bf025b68"
+  integrity sha1-qXelZIxDQDe2mITmRM4bgr8CW2g=
 
 tsconfig-paths@^3.9.0:
   version "3.9.0"

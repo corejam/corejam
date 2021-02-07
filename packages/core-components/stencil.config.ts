@@ -4,6 +4,9 @@ import replace from "@rollup/plugin-replace";
 import { Config } from "@stencil/core";
 import { reactOutputTarget } from "@stencil/react-output-target";
 import fs from "fs";
+import tsPaths from "rollup-plugin-typescript-paths";
+import tsconfigPathsJest from "tsconfig-paths-jest";
+import tsconfig from "./tsconfig.json";
 
 const targets = process.env.targets?.split(",") || [];
 
@@ -20,6 +23,12 @@ const config: Config = {
       "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
     }),
   ],
+  rollupPlugins: {
+    after: [tsPaths()],
+  },
+  testing: {
+    moduleNameMapper: tsconfigPathsJest(tsconfig),
+  },
 };
 
 if (process.env.NODE_ENV !== "production") {

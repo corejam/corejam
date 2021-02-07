@@ -403,7 +403,7 @@ export class CorejamBox {
   @Watch("bottom")
   @Watch("left")
   async computeStyles() {
-    const hash = await (await import("../../utils/style")).calculateStyles(this);
+    const hash = await (await import("@utils/style")).calculateStyles(this);
     this.hash = hash;
   }
 

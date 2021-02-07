@@ -14,7 +14,14 @@
     "jsx": "react",
     "jsxFactory": "h",
     "keyofStringsOnly": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["./app/components/*"],
+      "@stores/*": ["./app/store/*"],
+      "@utils/*": ["./app/utils/*"],
+      "@shared/*": ["./shared/*"]
+    }
   },
   "include": ["app", "shared"],
   "exclude": ["node_modules", "react/**/*"]
