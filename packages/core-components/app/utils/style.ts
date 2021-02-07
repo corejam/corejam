@@ -1,12 +1,13 @@
-import postcss from "postcss";
 import autoprefixer from "autoprefixer";
-import { propertyToTransformer } from "./transformerMap";
-import { generateHash, lowercaseFirstLetter, uppercaseFirstLetter, addStyleTagToHead } from "./utils";
+import postcss from "postcss";
 import { computeStyle } from "./computeStyle";
+import { propertyToTransformer } from "./transformerMap";
+import { addStyleTagToHead, generateHash, lowercaseFirstLetter, uppercaseFirstLetter } from "./utils";
 
 const stylesCache = new Map();
 
-export const DEFAULT_BROWSERS = ["last 4 version"];
+export const DEFAULT_BROWSERS = [process.env.POSTCSS_BROWSERS];
+
 const params = { overrideBrowserslist: DEFAULT_BROWSERS, grid: "autoplace" };
 
 function normalizePropertyBasedOnPossibleIdentifiers(property) {
