@@ -1,6 +1,6 @@
-import { Component, h, Host, Listen, Prop } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
 import { runState } from "@corejam/run";
+import { Component, h, Host, Listen, Prop } from "@stencil/core";
 import gql from "graphql-tag";
 import { userRegisterMutationGQL } from "../../../shared/graphql/Mutations";
 import { authStore } from "../../store/authStore";

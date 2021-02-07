@@ -22,8 +22,8 @@ const server = async () => {
     corejam = CorejamServer();
   }
 
-  return new ApolloServer(corejam)
-}
+  return new ApolloServer(corejam);
+};
 
 const handler = async (req, res) => {
   if (req.method === "OPTIONS") {

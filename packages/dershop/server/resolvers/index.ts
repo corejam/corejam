@@ -1,14 +1,13 @@
 import { MergedServerContext } from "../../shared/types/PluginResolver";
 import categoryResolvers from "./Category";
 import configResolvers from "./Config";
+import { models as fakerModels } from "./db/faker";
+import { models as faunaModels } from "./db/fauna";
 import manufacturerResolvers from "./Manufacturer";
 import orderResolvers from "./Order";
 import productResolvers from "./Product";
-import userResolvers from "./User";
 import seoResolvers from "./SEO";
-
-import { models as faunaModels } from "./db/fauna";
-import { models as fakerModels } from "./db/faker";
+import userResolvers from "./User";
 
 let pluginModels;
 
@@ -38,5 +37,5 @@ export const resolvers = {
   orderResolvers,
   productResolvers,
   userResolvers,
-  seoResolvers
+  seoResolvers,
 };

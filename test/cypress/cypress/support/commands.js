@@ -30,14 +30,14 @@ Cypress.Commands.add("getTag", (tag) => {
 
 Cypress.Commands.add("login", (email, password, expectIdentity = true) => {
   cy.visit("/login");
-  cy.getTag("login-email").type(email)
-  cy.getTag("login-password").type(password)
-  cy.getTag("submit-login").click()
+  cy.getTag("login-email").type(email);
+  cy.getTag("login-password").type(password);
+  cy.getTag("submit-login").click();
 
   cy.wait(1000);
   cy.url().should("eq", Cypress.config().baseUrl + "/");
 
-  if (expectIdentity) cy.getTag("identity-email").invoke("text").should("be.equal", email)
+  if (expectIdentity) cy.getTag("identity-email").invoke("text").should("be.equal", email);
 });
 
 Cypress.Commands.add("register", (email, password) => {
@@ -50,13 +50,12 @@ Cypress.Commands.add("register", (email, password) => {
 
   cy.getTag("submit-register").click();
   cy.url().should("include", "/login");
-})
+});
 
-Cypress.Commands.overwrite('visit', (originalFn, element, text, options) => {
-  originalFn(element, text, options)
-  return cy.wait(1000)
-})
-
+Cypress.Commands.overwrite("visit", (originalFn, element, text, options) => {
+  originalFn(element, text, options);
+  return cy.wait(1000);
+});
 
 Cypress.Commands.add("selectNth", { prevSubject: "element" }, (subject, pos) => {
   return cy
@@ -67,23 +66,22 @@ Cypress.Commands.add("selectNth", { prevSubject: "element" }, (subject, pos) => 
     });
 });
 
-
 /**
- * 
+ *
  * We need to delay events for the app keep it up. cypress is too fast.
- * For now we only include `trigger`, since we use that to test our 
+ * For now we only include `trigger`, since we use that to test our
  * canvas drag and drop.
  */
 
 const COMMAND_DELAY = 500;
-for (const command of ['trigger']) {
-    Cypress.Commands.overwrite(command, (originalFn, ...args) => {
-        const origVal = originalFn(...args);
+for (const command of ["trigger"]) {
+  Cypress.Commands.overwrite(command, (originalFn, ...args) => {
+    const origVal = originalFn(...args);
 
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(origVal);
-            }, COMMAND_DELAY);
-        });
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(origVal);
+      }, COMMAND_DELAY);
     });
-} 
+  });
+}

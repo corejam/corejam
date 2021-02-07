@@ -1,7 +1,7 @@
-import { CanvasPage, CanvasPageDB, CanvasPeer } from "../../shared/types/Canvas";
 import { generateSeo } from "@corejam/base/src/resolvers/db/faker/Generator";
 import { testClient } from "@corejam/base/src/TestClient";
-import { PluginResolver } from "../../shared/types/PluginResolver"
+import { CanvasPage, CanvasPageDB, CanvasPeer } from "../../shared/types/Canvas";
+import { PluginResolver } from "../../shared/types/PluginResolver";
 
 describe("CanvasPages", () => {
   //Init some singletons in beforeAll()
@@ -9,7 +9,7 @@ describe("CanvasPages", () => {
 
   const testValues = {
     seo: generateSeo(),
-    canvas: "<html></html>"
+    canvas: "<html></html>",
   } as CanvasPage;
 
   //Bootstrap

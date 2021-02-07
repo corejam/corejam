@@ -1,6 +1,6 @@
 import { newSpecPage } from "@stencil/core/testing";
-import { CorejamFormContainer } from "./Container";
 import { CorejamFormInput } from "../FormInput/FormInput";
+import { CorejamFormContainer } from "./Container";
 describe("corejam-form-container", () => {
   it("renders", async () => {
     const page = await newSpecPage({

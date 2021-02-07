@@ -1,4 +1,4 @@
-import { setContext } from '@apollo/client/link/context';
+import { setContext } from "@apollo/client/link/context";
 import { ApolloLink } from "@apollo/client/link/core";
 import { coreState } from "@corejam/core-components";
 import { createStore } from "@stencil/store";
@@ -19,11 +19,12 @@ onChangeAuth("identity", (value) => {
             headers: {
               ...headers,
               authorization: value.token,
-            }
-          }
+            },
+          };
         }),
-        coreState.client.link
-      ]))
+        coreState.client.link,
+      ])
+    );
     window.localStorage.setItem("canAuthenticate", "1");
   } else {
     document.cookie = "refreshToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
@@ -37,9 +38,7 @@ initIdentityFromCookie();
 async function initIdentityFromCookie() {
   if (!window.localStorage.getItem("canAuthenticate")) return;
 
-  const request = await coreState.client.mutate(
-    { mutation: gql(userTokenRefreshMutationGQL) }
-  );
+  const request = await coreState.client.mutate({ mutation: gql(userTokenRefreshMutationGQL) });
 
   //Set identity at the end to make sure we have the right order
   authStore.identity = request.data.userTokenRefresh;

@@ -1,5 +1,3 @@
-
-
 export const settingsGQL = `
   query {
     config {

@@ -38,8 +38,7 @@ async function replaceVersions(targetPath) {
       packageJson.devDependencies[key] ? (packageJson.devDependencies[key] = `file:${dot}/` + v) : "";
     }
   });
-  if (packageJson)
-    fs.write(targetPath + "/package.json", packageJson);
+  if (packageJson) fs.write(targetPath + "/package.json", packageJson);
 }
 
 async function removeNodeModules(targetPath) {

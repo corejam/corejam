@@ -1,11 +1,11 @@
-import { newE2EPage } from '@stencil/core/testing';
+import { newE2EPage } from "@stencil/core/testing";
 
-describe('corejam-pagination', () => {
-  it('renders', async () => {
+describe("corejam-pagination", () => {
+  it("renders", async () => {
     const page = await newE2EPage();
-    await page.setContent('<corejam-pagination></corejam-pagination>');
+    await page.setContent("<corejam-pagination></corejam-pagination>");
 
-    const element = await page.find('corejam-pagination');
-    expect(element).toHaveClass('hydrated');
+    const element = await page.find("corejam-pagination");
+    expect(element).toHaveClass("hydrated");
   });
 });

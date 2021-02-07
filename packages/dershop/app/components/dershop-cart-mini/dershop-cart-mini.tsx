@@ -1,4 +1,4 @@
-import { Component, ComponentInterface, Host, h } from "@stencil/core";
+import { Component, ComponentInterface, h, Host } from "@stencil/core";
 import basket from "../../../shared/store/basket";
 
 @Component({

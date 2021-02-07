@@ -1,5 +1,5 @@
 import { coreState } from "@corejam/core-components";
-import { Component, Host, h, State } from "@stencil/core";
+import { Component, h, Host, State } from "@stencil/core";
 import gql from "graphql-tag";
 import { searchProductsGQL } from "../../shared/graphql/Queries/Product";
 

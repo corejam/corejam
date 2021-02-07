@@ -1,4 +1,4 @@
-import { Component, Host, h, Element, State } from "@stencil/core";
+import { Component, Element, h, Host, State } from "@stencil/core";
 
 @Component({
   tag: "corejam-dev-liveview",

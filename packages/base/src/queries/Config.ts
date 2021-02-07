@@ -1,5 +1,3 @@
-
-
 export const getSeoConfigGQL = `
   query {
     config {

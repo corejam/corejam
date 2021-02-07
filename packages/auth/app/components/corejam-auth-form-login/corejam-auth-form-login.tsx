@@ -1,9 +1,9 @@
-import { Component, Host, h, Prop, Listen } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
 import { runState } from "@corejam/run";
-import { authStore } from "../../store/authStore";
-import { userAuthenticateMutationGQL } from "../../../shared/graphql/Mutations";
+import { Component, h, Host, Listen, Prop } from "@stencil/core";
 import gql from "graphql-tag";
+import { userAuthenticateMutationGQL } from "../../../shared/graphql/Mutations";
+import { authStore } from "../../store/authStore";
 
 @Component({
   tag: "corejam-auth-form-login",

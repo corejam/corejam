@@ -1,5 +1,5 @@
-import { UiBase } from "./ui-base";
 import { newSpecPage } from "@stencil/core/testing";
+import { UiBase } from "./ui-base";
 
 describe("renders base styling in head", () => {
   it("builds", async () => {

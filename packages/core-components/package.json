@@ -64,7 +64,7 @@
     "graphql-tag": "2.11.0"
   },
   "lint-staged": {
-    "app/**/*.ts": [
+    "app/**/!(*.d).ts": [
       "prettier --write"
     ],
     "app/**/*.tsx": [

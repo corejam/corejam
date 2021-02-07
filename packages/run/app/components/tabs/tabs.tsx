@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Element, Event, EventEmitter } from "@stencil/core";
+import { Component, Element, Event, EventEmitter, h, Host, State } from "@stencil/core";
 
 @Component({
   tag: "corejam-tabs",

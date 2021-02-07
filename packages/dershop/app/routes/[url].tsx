@@ -1,8 +1,8 @@
 import { coreState } from "@corejam/core-components";
 import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
-import { SEODocument } from "../../shared/types/Seo";
 import gql from "graphql-tag";
 import { getObjectFromURL } from "../../shared/graphql/Queries/URL";
+import { SEODocument } from "../../shared/types/Seo";
 
 @Component({
   tag: "dershop-url",

@@ -31,7 +31,7 @@ export default {
   },
   Mutation: {
     canvasPageCreate: (_obj: any, { canvasPageInput }, { models }: MergedServerContext) => {
-      return models.canvasPageCreate(canvasPageInput)
+      return models.canvasPageCreate(canvasPageInput);
     },
     canvasPageEditSEO: () => {
       //return ctx.models.canvasPageEditSEO(args.id, args.seoInput);

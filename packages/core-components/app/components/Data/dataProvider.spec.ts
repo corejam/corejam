@@ -1,6 +1,6 @@
-import { DataProvider } from "./DataProvider";
 import { newSpecPage } from "@stencil/core/testing";
-import { coreState, coreReset } from "../../store/core";
+import { coreReset, coreState } from "../../store/core";
+import { DataProvider } from "./DataProvider";
 
 beforeEach(coreReset);
 

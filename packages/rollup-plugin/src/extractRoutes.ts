@@ -1,4 +1,4 @@
-import { list, read, exists } from "fs-jetpack";
+import { exists, list, read } from "fs-jetpack";
 
 const regexTag = /tag: \"(.*)\"/;
 

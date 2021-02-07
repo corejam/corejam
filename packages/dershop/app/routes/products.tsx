@@ -1,8 +1,8 @@
 import { coreState } from "@corejam/core-components";
-import { Component, Host, h, State } from "@stencil/core";
+import { Component, h, Host, State } from "@stencil/core";
 import gql from "graphql-tag";
 import { searchProductsGQL } from "../../shared/graphql/Queries/Product";
-import { dershopState, dershopChange } from "../store/dershop";
+import { dershopChange, dershopState } from "../store/dershop";
 
 @Component({
   tag: "dershop-route-products",
