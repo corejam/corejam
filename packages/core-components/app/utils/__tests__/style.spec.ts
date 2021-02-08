@@ -1,4 +1,4 @@
-import { normalizePropertyBasedOnPossibleIdentifiers } from "./style";
+import { normalizePropertyBasedOnPossibleIdentifiers } from "../style";
 
 describe("normalize property", () => {
   it("should normalize base property", () => {
