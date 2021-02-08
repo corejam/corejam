@@ -10,7 +10,7 @@ export const DEFAULT_BROWSERS = [process.env.POSTCSS_BROWSERS || "last 4 version
 
 const params = { overrideBrowserslist: DEFAULT_BROWSERS, grid: "autoplace" };
 
-function normalizePropertyBasedOnPossibleIdentifiers(property) {
+export function normalizePropertyBasedOnPossibleIdentifiers(property: string) {
   const possibleCamelCaseSplit = property
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .split(" ")
@@ -87,12 +87,17 @@ export const calculateStyles = async (instance) => {
       }
       const computedStyleString = computeStyle(collectedStyles, hash);
 
-      //@ts-ignore
-      const postcssResult = await postcss([autoprefixer(params)]).process(computedStyleString, { from: undefined });
+      if (process.env.NODE_ENV === "development") {
+        const finalResult = computedStyleString;
+        stylesCache.set(hash, finalResult);
+        addStyleTagToHead(finalResult, hash);
+      } else {
+        //@ts-ignore
+        const finalResult = await postcss([autoprefixer(params)]).process(computedStyleString, { from: undefined });
+        stylesCache.set(hash, finalResult.css);
+        addStyleTagToHead(finalResult.css, hash);
+      }
 
-      stylesCache.set(hash, postcssResult.css);
-
-      addStyleTagToHead(postcssResult.css, hash);
       return hash;
     }
   }
