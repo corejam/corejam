@@ -55,5 +55,8 @@
   "corejam": {
     "wrapper": [],
     "recommendations": []
+  },
+  "dependencies": {
+    "rollup-plugin-node-polyfills": "0.2.1"
   }
 }

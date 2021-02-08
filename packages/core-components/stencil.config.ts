@@ -4,6 +4,7 @@ import replace from "@rollup/plugin-replace";
 import { Config } from "@stencil/core";
 import { reactOutputTarget } from "@stencil/react-output-target";
 import fs from "fs";
+import nodePolyfills from "rollup-plugin-node-polyfills";
 
 const targets = process.env.targets?.split(",") || [];
 
@@ -17,9 +18,12 @@ const config: Config = {
   outputTargets: [],
   plugins: [
     replace({
-      "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
+      "process.env.POSTCSS_BROWSERS": JSON.stringify(process.env.POSTCSS_BROWSERS),
     }),
   ],
+  rollupPlugins: {
+    after: [nodePolyfills()],
+  },
 };
 
 if (process.env.NODE_ENV !== "production") {

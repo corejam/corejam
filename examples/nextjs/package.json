@@ -19,7 +19,7 @@
   "dependencies": {
     "@corejam/plugin-dershop": "0.0.24",
     "apollo-server-micro": "2.19.2",
-    "cheerio": "^1.0.0-rc.5",
+    "cheerio": "1.0.0-rc.5",
     "dotenv-webpack": "6.0.0",
     "micro": "9.3.4",
     "micro-cors": "0.1.1",
