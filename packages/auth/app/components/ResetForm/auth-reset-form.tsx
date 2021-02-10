@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import { passwordResetGQL, requestPasswordResetGQL } from "../../../shared/graphql/Mutations";
 
 @Component({
-  tag: "corejam-auth-reset",
+  tag: "auth-reset",
 })
 export class Reset {
   private resetEmailFormId = "resetEmail";

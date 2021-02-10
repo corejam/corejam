@@ -4,9 +4,9 @@ import { userUpdateGQL } from "../../../shared/graphql/Mutations";
 import { authStore } from "../../store/authStore";
 
 @Component({
-  tag: "corejam-auth-account",
+  tag: "auth-account",
 })
-export class AccountComponent {
+export class Account {
   private profileFormId = "profile";
 
   @Listen("sendForm", { target: "window" })

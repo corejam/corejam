@@ -1,4 +1,4 @@
-# corejam-auth-header
+# auth-header
 
 
 
@@ -13,8 +13,8 @@
  - [cj-route-admin-index](../../routes/admin/users)
  - [cj-route-admin-user-form](../../routes/admin/users/edit)
  - [cj-route-index](../../routes)
- - [cj-route-login](../../routes)
- - [cj-route-register](../../routes)
+ - [auth-route-login](../../routes)
+ - [auth-route-register](../../routes)
 
 ### Depends on
 
@@ -25,9 +25,9 @@
 ### Graph
 ```mermaid
 graph TD;
-  corejam-auth-header --> corejam-box
-  corejam-auth-header --> corejam-base-link
-  corejam-auth-header --> corejam-identity
+  auth-header --> corejam-box
+  auth-header --> corejam-base-link
+  auth-header --> corejam-identity
   corejam-identity --> corejam-box
   corejam-identity --> corejam-type
   corejam-identity --> corejam-icons-account
@@ -37,13 +37,13 @@ graph TD;
   corejam-identity --> corejam-button
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
-  cj-route-admin --> corejam-auth-header
-  cj-route-admin-index --> corejam-auth-header
-  cj-route-admin-user-form --> corejam-auth-header
-  cj-route-index --> corejam-auth-header
-  cj-route-login --> corejam-auth-header
-  cj-route-register --> corejam-auth-header
-  style corejam-auth-header fill:#f9f,stroke:#333,stroke-width:4px
+  cj-route-admin --> auth-header
+  cj-route-admin-index --> auth-header
+  cj-route-admin-user-form --> auth-header
+  cj-route-index --> auth-header
+  auth-route-login --> auth-header
+  auth-route-register --> auth-header
+  style auth-header fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

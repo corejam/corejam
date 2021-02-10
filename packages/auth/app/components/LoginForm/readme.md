@@ -1,4 +1,4 @@
-# corejam-auth-form-login
+# auth-form-login
 
 
 
@@ -17,7 +17,7 @@
 
 ### Used by
 
- - [cj-route-login](../../routes)
+ - [auth-route-login](../../routes)
 
 ### Depends on
 
@@ -29,14 +29,14 @@
 ### Graph
 ```mermaid
 graph TD;
-  corejam-auth-form-login --> corejam-box
-  corejam-auth-form-login --> corejam-form-container
-  corejam-auth-form-login --> corejam-form-input
-  corejam-auth-form-login --> corejam-form-submit
+  auth-form-login --> corejam-box
+  auth-form-login --> corejam-form-container
+  auth-form-login --> corejam-form-input
+  auth-form-login --> corejam-form-submit
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
-  cj-route-login --> corejam-auth-form-login
-  style corejam-auth-form-login fill:#f9f,stroke:#333,stroke-width:4px
+  auth-route-login --> auth-form-login
+  style auth-form-login fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

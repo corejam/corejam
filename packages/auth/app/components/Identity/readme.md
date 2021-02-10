@@ -17,7 +17,7 @@
 
 ### Used by
 
- - [corejam-auth-header](../Header)
+ - [auth-header](../Header)
 
 ### Depends on
 
@@ -41,7 +41,7 @@ graph TD;
   corejam-identity --> corejam-button
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
-  corejam-auth-header --> corejam-identity
+  auth-header --> corejam-identity
   style corejam-identity fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

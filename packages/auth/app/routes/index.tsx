@@ -1,14 +1,10 @@
 import { Component, h, Host } from "@stencil/core";
 
 @Component({
-  tag: "cj-route-index",
+  tag: "auth-route-index",
 })
-export class AuthLoginForm {
+export class AuthIndex {
   render() {
-    return (
-      <Host>
-        <corejam-auth-header />
-      </Host>
-    );
+    return <Host></Host>;
   }
 }

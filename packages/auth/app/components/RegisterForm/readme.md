@@ -1,4 +1,4 @@
-# corejam-auth-form-register
+# auth-form-register
 
 
 
@@ -17,7 +17,7 @@
 
 ### Used by
 
- - [cj-route-register](../../routes)
+ - [auth-route-register](../../routes)
 
 ### Depends on
 
@@ -29,14 +29,14 @@
 ### Graph
 ```mermaid
 graph TD;
-  corejam-auth-form-register --> corejam-box
-  corejam-auth-form-register --> corejam-form-container
-  corejam-auth-form-register --> corejam-form-input
-  corejam-auth-form-register --> corejam-form-submit
+  auth-form-register --> corejam-box
+  auth-form-register --> corejam-form-container
+  auth-form-register --> corejam-form-input
+  auth-form-register --> corejam-form-submit
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
-  cj-route-register --> corejam-auth-form-register
-  style corejam-auth-form-register fill:#f9f,stroke:#333,stroke-width:4px
+  auth-route-register --> auth-form-register
+  style auth-form-register fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
