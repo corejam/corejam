@@ -7,7 +7,7 @@ export class AccountRoute {
   render() {
     return (
       <Host>
-        <corejam-auth-account></corejam-auth-account>
+        <auth-account></auth-account>
       </Host>
     );
   }
