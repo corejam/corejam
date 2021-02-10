@@ -29,6 +29,7 @@ import { paginateUsersGQL } from "../../shared/graphql/Queries";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
 import {
   RegisterInput,
+  roles,
   STATUS,
   UpdatePasswordInput,
   UserCreateInput,
@@ -94,10 +95,62 @@ describe("Test Auth Plugin", () => {
   });
 
   it("Paginated users", async () => {
-    const { query } = client;
+    const { query, mutate } = client;
 
     //Test that we can retrieve the same values back
-    const pagination = await query({
+    const unauthenticatedRequest = await query({
+      query: paginateUsersGQL,
+      variables: { page: 1, size: 24 },
+    });
+
+    expect(unauthenticatedRequest.errors[0]).toEqual(new AuthenticationError());
+
+    //We want a test account as admin
+    await models.userRegister({
+      email: "test@test.com",
+      password: "valid123Password@",
+      passwordConfirm: "valid123Password@",
+    }).then((user) => {
+      models.userEdit(user.id, { role: [roles.ADMIN] });
+    });
+
+    const loginResponse = await mutate({
+      mutation: userAuthenticateMutationGQL,
+      variables: {
+        email: "test@test.com",
+        password: "valid123Password@",
+      },
+    });
+
+    const server = CorejamServer();
+    const mockContext = () => ({
+      ...server.context({
+        req: {
+          headers: {
+            authorization: loginResponse.data.userAuthenticate.token,
+          },
+        },
+        res: {},
+      }),
+    });
+
+    //Make a request with token in header
+    const authClient = await testClient(
+      {
+        //TODO fix typings, we actually set the headers in context above
+        //so we dont need to insert them here again
+        req: {
+          headers: {
+            authorization: loginResponse.data.userAuthenticate.token,
+          },
+        },
+        res: new Response(new IncomingMessage(new Socket())),
+      },
+      mockContext
+    );
+
+    //Test that we can retrieve the same values back
+    const pagination = await authClient.query({
       query: paginateUsersGQL,
       variables: { page: 1, size: 24 },
     });
@@ -107,7 +160,7 @@ describe("Test Auth Plugin", () => {
     expect(paginated.items.length).toEqual((await models.allUsers()).length);
   });
 
-  it("updateUser", async () => {
+  it("Update User", async () => {
     const newValues: UserInput = {
       active: false,
       email: faker.internet.email(),
