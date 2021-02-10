@@ -13,6 +13,7 @@
 | `fit`      | `fit`       |             | `"cover"` | `undefined` |
 | `h`        | `h`         |             | `string`  | `undefined` |
 | `lazy`     | `lazy`      |             | `boolean` | `false`     |
+| `maxH`     | `max-h`     |             | `string`  | `undefined` |
 | `maxWidth` | `max-width` |             | `number`  | `100`       |
 | `rounded`  | `rounded`   |             | `"full"`  | `undefined` |
 | `src`      | `src`       |             | `string`  | `undefined` |

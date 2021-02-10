@@ -1,4 +1,4 @@
-# corejam-error
+# route-index
 
 
 
@@ -9,13 +9,14 @@
 
 ### Depends on
 
-- [corejam-box](../Box)
+- [corejam-canvas](../components/corejam-canvas)
 
 ### Graph
 ```mermaid
 graph TD;
-  corejam-flash --> corejam-box
-  style corejam-flash fill:#f9f,stroke:#333,stroke-width:4px
+  route-index --> corejam-canvas
+  corejam-canvas --> corejam-box
+  style route-index fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

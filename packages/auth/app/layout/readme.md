@@ -1,4 +1,4 @@
-# auth-header
+# auth-layout
 
 
 
@@ -7,19 +7,16 @@
 
 ## Dependencies
 
-### Used by
-
- - [auth-layout](../../layout)
-
 ### Depends on
 
-- corejam-box
-- corejam-base-link
-- [corejam-identity](../Identity)
+- corejam-ui-base
+- [auth-header](../components/Header)
 
 ### Graph
 ```mermaid
 graph TD;
+  auth-layout --> corejam-ui-base
+  auth-layout --> auth-header
   auth-header --> corejam-box
   auth-header --> corejam-base-link
   auth-header --> corejam-identity
@@ -35,8 +32,7 @@ graph TD;
   corejam-flash --> corejam-box
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
-  auth-layout --> auth-header
-  style auth-header fill:#f9f,stroke:#333,stroke-width:4px
+  style auth-layout fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

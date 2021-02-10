@@ -1,4 +1,4 @@
-# corejam-error
+# app-layout
 
 
 
@@ -9,13 +9,13 @@
 
 ### Depends on
 
-- [corejam-box](../Box)
+- corejam-box
 
 ### Graph
 ```mermaid
 graph TD;
-  corejam-flash --> corejam-box
-  style corejam-flash fill:#f9f,stroke:#333,stroke-width:4px
+  app-layout --> corejam-box
+  style app-layout fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
