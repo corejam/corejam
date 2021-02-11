@@ -17,8 +17,8 @@
 
 ### Used by
 
- - [cj-route-admin](../../routes/admin/users)
- - [cj-route-admin-index](../../routes/admin/users)
+ - [auth-route-admin](../../routes/admin/users)
+ - [auth-route-admin-index](../../routes/admin/users)
 
 ### Depends on
 
@@ -37,8 +37,8 @@ graph TD;
   corejam-pagination --> corejam-box
   corejam-pagination --> corejam-base-link
   corejam-pagination --> corejam-type
-  cj-route-admin --> auth-admin-user-list
-  cj-route-admin-index --> auth-admin-user-list
+  auth-route-admin --> auth-admin-user-list
+  auth-route-admin-index --> auth-admin-user-list
   style auth-admin-user-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -9,13 +9,18 @@
 
 ### Depends on
 
-- [corejam-run-router](../Router)
+- [corejam-router](../Router)
+- [corejam-menu](../Menu)
 
 ### Graph
 ```mermaid
 graph TD;
-  corejam-run-app --> corejam-run-router
-  style corejam-run-app fill:#f9f,stroke:#333,stroke-width:4px
+  corejam-app --> corejam-router
+  corejam-app --> corejam-menu
+  corejam-router --> corejam-dev-playground
+  corejam-menu --> corejam-tabs
+  corejam-menu --> corejam-tab
+  style corejam-app fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

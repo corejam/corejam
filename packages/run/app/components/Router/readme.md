@@ -9,13 +9,18 @@
 
 ### Used by
 
- - [corejam-run-app](../App)
+ - [corejam-app](../App)
+
+### Depends on
+
+- [corejam-dev-playground](../Playground)
 
 ### Graph
 ```mermaid
 graph TD;
-  corejam-run-app --> corejam-run-router
-  style corejam-run-router fill:#f9f,stroke:#333,stroke-width:4px
+  corejam-router --> corejam-dev-playground
+  corejam-app --> corejam-router
+  style corejam-router fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

@@ -1,14 +1,13 @@
 import { Component, h, Host } from "@stencil/core";
 
 @Component({
-  tag: "cj-route-register",
+  tag: "auth-route-register",
 })
 export class AuthRegister {
   render() {
     return (
       <Host>
-        <corejam-auth-header />
-        <corejam-auth-form-register />
+        <auth-form-register />
       </Host>
     );
   }

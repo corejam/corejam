@@ -9,7 +9,7 @@ import { authStore } from "../../store/authStore";
 @Component({
   tag: "auth-admin-user-form",
 })
-export class AuthAdminUserForm {
+export class AdminUserForm {
   @Prop() error = false;
   @Prop() formId: string;
   @State() user: UserDB = null;

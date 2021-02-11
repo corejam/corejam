@@ -34,7 +34,7 @@ export default async function run(options: any) {
 
       await kill(3001);
 
-      await execa("node_modules/.bin/stencil", ["build"], {
+      await execa("node_modules/.bin/stencil", ["build", "--docs"], {
         stdio: logToConsole,
         cwd: envRoot,
         env: {

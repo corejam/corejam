@@ -7,7 +7,7 @@ export class LoginRoute {
   render() {
     return (
       <Host>
-        <corejam-auth-form-login></corejam-auth-form-login>
+        <auth-form-login></auth-form-login>
       </Host>
     );
   }

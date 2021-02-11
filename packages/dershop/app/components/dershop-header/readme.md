@@ -53,10 +53,13 @@ graph TD;
   corejam-identity --> corejam-box
   corejam-identity --> corejam-type
   corejam-identity --> corejam-icons-account
+  corejam-identity --> corejam-base-link
   corejam-identity --> corejam-form-container
+  corejam-identity --> corejam-flash
   corejam-identity --> corejam-form-input
   corejam-identity --> corejam-form-submit
   corejam-identity --> corejam-button
+  corejam-flash --> corejam-box
   dershop-layout --> dershop-header
   style dershop-header fill:#f9f,stroke:#333,stroke-width:4px
 ```

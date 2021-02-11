@@ -61,11 +61,11 @@ export class CheckoutRoute {
           <corejam-box max="xl" mx="auto" flex w={12} px={4} pt={8}>
             <corejam-box w={6}>
               <corejam-type as="h3">Log in</corejam-type>
-              <corejam-auth-form-login onSuccess={this.authenticateSuccess}></corejam-auth-form-login>
+              <auth-form-login onSuccess={this.authenticateSuccess}></auth-form-login>
             </corejam-box>
             <corejam-box w={6}>
               <corejam-type as="h3">Register</corejam-type>
-              <corejam-auth-form-register></corejam-auth-form-register>
+              <auth-form-register></auth-form-register>
             </corejam-box>
           </corejam-box>
         );

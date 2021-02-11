@@ -17,6 +17,7 @@
 | `gapCol`            | `gap-col`             |             | `number`                                             | `undefined` |
 | `gapRow`            | `gap-row`             |             | `number`                                             | `undefined` |
 | `grid`              | --                    |             | `Boolean`                                            | `true`      |
+| `h`                 | --                    |             | `String`                                             | `undefined` |
 | `lgAutoFlow`        | `lg-auto-flow`        |             | `"column" \| "column-dense" \| "row" \| "row-dense"` | `undefined` |
 | `lgCols`            | `lg-cols`             |             | `"auto" \| number`                                   | `undefined` |
 | `lgColsEnd`         | `lg-cols-end`         |             | `"auto" \| number`                                   | `undefined` |
@@ -71,6 +72,19 @@
 | `xlTemplateColumns` | `xl-template-columns` |             | `"none" \| number`                                   | `undefined` |
 | `xlTemplateRows`    | `xl-template-rows`    |             | `"none" \| number`                                   | `undefined` |
 
+
+## Dependencies
+
+### Used by
+
+ - [corejam-modal](../Modal)
+
+### Graph
+```mermaid
+graph TD;
+  corejam-modal --> corejam-grid
+  style corejam-grid fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

@@ -5,7 +5,7 @@ import { verifyEmailGQL } from "../../../shared/graphql/Mutations";
 import { STATUS } from "../../../shared/types/User";
 
 @Component({
-  tag: "corejam-auth-verify",
+  tag: "auth-verify",
 })
 export class VerifyComponent {
   @State() verifyState = false;

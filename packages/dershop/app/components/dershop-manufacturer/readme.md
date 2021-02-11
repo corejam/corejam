@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property       | Attribute | Description | Type                                                                                                                                                   | Default     |
-| -------------- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| `manufacturer` | --        |             | `Timestamp & { name: string; website?: string; description?: string; seo?: SEO; logo?: Image; products?: ProductDB[]; canvas?: object; } & DBDocument` | `undefined` |
+| Property       | Attribute      | Description | Type                                                                                                                                                             | Default     |
+| -------------- | -------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `manufacturer` | `manufacturer` |             | `Timestamp & { name: string; website?: string; description?: string; seo?: SEO; logo?: Image; products?: ProductDB[]; canvas?: string; } & DBDocument \| string` | `undefined` |
 
 
 ## Dependencies

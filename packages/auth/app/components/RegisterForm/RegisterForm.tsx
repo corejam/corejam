@@ -6,9 +6,9 @@ import { userRegisterMutationGQL } from "../../../shared/graphql/Mutations";
 import { authStore } from "../../store/authStore";
 
 @Component({
-  tag: "corejam-auth-form-register",
+  tag: "auth-form-register",
 })
-export class AuthRegister {
+export class RegisterForm {
   private formId = "register";
 
   @Prop() onSuccess: Function;

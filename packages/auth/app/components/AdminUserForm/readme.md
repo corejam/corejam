@@ -17,7 +17,7 @@
 
 ### Used by
 
- - [cj-route-admin-user-form](../../routes/admin/users/edit)
+ - [auth-route-admin-user-form](../../routes/admin/users/edit)
 
 ### Depends on
 
@@ -41,7 +41,7 @@ graph TD;
   corejam-form-input --> corejam-type
   corejam-form-select --> corejam-box
   corejam-form-select --> corejam-type
-  cj-route-admin-user-form --> auth-admin-user-form
+  auth-route-admin-user-form --> auth-admin-user-form
   style auth-admin-user-form fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

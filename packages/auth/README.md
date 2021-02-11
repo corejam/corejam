@@ -37,20 +37,20 @@ This provides a quick login dropdown and logged in state for your application:
 The following ready to go routes are available to quickly tie into your application:
 
 ```html
-<cj-route-register></cj-route-register>
+<auth-route-register></auth-route-register>
 ```
 ```html
-<cj-route-login></cj-route-login>
+<auth-route-login></auth-route-login>
 ```
 ```html
-<cj-route-admin-user-form></cj-route-admin-user-form>
+<auth-route-admin-user-form></auth-route-admin-user-form>
 ```
 ```html
-<cj-route-admin page={1}></cj-route-admin>
+<auth-route-admin page={1}></auth-route-admin>
 ```
 
 ```html
-<corejam-auth-route-account></corejam-auth-route-account>
+<auth-route-account></auth-route-account>
 ```
 
 <img style="max-width:450px" src="https://i.imgur.com/aytjp5V.png"/>
