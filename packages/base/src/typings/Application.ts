@@ -10,6 +10,9 @@ export type CorejamApplication = {
       Mutation: {
         [key: string]: (obj: any, args: any, ctx: any) => void;
       };
+      [key: string]: {
+        [key: string]: (obj: any, args: any, ctx: any) => void;
+      };
     };
   };
 

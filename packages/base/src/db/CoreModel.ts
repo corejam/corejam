@@ -1,7 +1,8 @@
+import "reflect-metadata";
 import { getDb } from "../PluginManager";
 import { ID } from "../typings/DB";
 
-type Constructor<CoreModel> = {
+export type Constructor<CoreModel> = {
   new (): CoreModel;
 };
 
@@ -27,6 +28,7 @@ export abstract class CoreModel {
   static async getById<T extends CoreModel>(this: Constructor<T>, id: string): Promise<T | null> {
     try {
       const instance = new this() as T;
+      instance.id = id;
 
       return await getDb().read(instance, id);
     } catch (e) {
@@ -60,9 +62,6 @@ export abstract class CoreModel {
    * on Model instance
    */
   public assignData(data: any): CoreModel {
-    //@ts-ignore TODO fix getting the ref id error
-    this.key = this.ref.id;
-
     this.getDataFields().map((field) => {
       this[field] = data[field];
     });

@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { PluginLoadError } from "./Errors";
+import { CorejamApplication } from "./typings/Application";
 import { PluginManifest } from "./typings/Plugin";
 
 /**
@@ -73,13 +74,13 @@ export function importPlugin(plugin: string) {
         pluginPath = path.resolve(plugin, "dist/server/index.js");
       }
 
-      return require(pluginPath);
+      return require(pluginPath).default;
     } else {
       if (process.env.NODE_ENV === "test") {
         plugin = `${plugin}/server/index.ts`;
       }
 
-      return require(plugin);
+      return require(plugin).default;
     }
   } catch (e) {
     throw new PluginLoadError(plugin, e);
@@ -129,9 +130,9 @@ export function bootstrapSchema(hoisted = false): string {
   //Merge all schemas provided by packages into one
   for (const plugin of loadManifest().plugins) {
     const isLocalPlugin = isAPlugin();
-    const currentPlugin = importPlugin(plugin) as any;
+    const currentPlugin = importPlugin(plugin) as CorejamApplication;
 
-    currentPlugin.default.schemas.forEach((schema: any) => {
+    currentPlugin.schemas?.forEach((schema: any) => {
       const schemaRootPath = isLocalPlugin
         ? plugin
         : require.resolve(plugin).replace("/dist/server/index.js", "").replace("/server/index.ts", "");

@@ -1,6 +1,11 @@
 import TestObject from "./TestObject";
+import { CorejamServer } from "@corejam/base/dist/Server"
 
 describe("Model Tests", () => {
+
+    beforeAll(async () => {
+        await CorejamServer();
+    })
 
     it("Validate getDataFields only has our decorated attributes", async () => {
         const testObject = new TestObject();
@@ -31,7 +36,8 @@ describe("Model Tests", () => {
     it("getById retrieves model", async () => {
         const testObject = new TestObject();
         testObject.dataAttribute1 = "testing",
-        testObject.dataAttribute2 = "testing2"
+            testObject.dataAttribute2 = "testing2"
+        await testObject.create()
 
         expect(testObject.exists()).toBe(true)
 
@@ -43,7 +49,7 @@ describe("Model Tests", () => {
     it("can update an instance", async () => {
         const testObject = new TestObject();
         testObject.dataAttribute1 = "testing",
-        testObject.dataAttribute2 = "testing2"
+            testObject.dataAttribute2 = "testing2"
         await testObject.create();
 
         expect(testObject.exists()).toBe(true)
@@ -73,6 +79,6 @@ describe("Model Tests", () => {
         expect(testObject.exists()).toBe(false)
 
         //Try getting by key again
-        expect(await TestObject.getById(tempKey)).toEqual(null)  
+        expect(await TestObject.getById(tempKey)).toEqual(null)
     });
 })
