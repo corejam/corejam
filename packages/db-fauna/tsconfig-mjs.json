@@ -1,29 +1,3 @@
 {
-  "compilerOptions": {
-    "target": "ES2015",
-    "module": "ES2020",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": false,
-    "skipLibCheck": true,
-    "outDir": "./dist/esm",
-    "noImplicitAny": false,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "allowSyntheticDefaultImports": true,
-    "types": [
-      "node"
-    ],
-    "moduleResolution": "node",
-    "declaration": true,
-    "rootDir": "./"
-  },
-  "include": [
-    "server/**/*"
-  ],
-  "exclude": [
-    "routes/**/*",
-    "components/**/*",
-    "dist/**/*"
-  ]
+ "extends": "./tsconfig.json"
 }
