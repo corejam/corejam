@@ -8,12 +8,18 @@ const client = new faunadb.Client({
     secret: process.env.FAUNA_SECRET as string,
 })
 
+type FaunaDocument = {
+    ref: any,
+    ts: BigInt,
+    data: object
+}
+
 /**
  * FaunaDB integration for Corejam
  */
 export class FaunaProvider implements ProviderInterface {
 
-    async create(model: CoreModel): Promise<CoreModel> {
+    async create<Model extends CoreModel>(model: Model): Promise<Model> {
 
         const created: any = await client.query(
             q.Create(
@@ -27,15 +33,15 @@ export class FaunaProvider implements ProviderInterface {
         return model
     }
 
-    async read(model: CoreModel, id: string | number): Promise<CoreModel | null> {
+    async read<Model extends CoreModel>(model: Model, id: string | number): Promise<Model | null> {
         try {
-            const item = await client.query(
+            const item: FaunaDocument = await client.query(
                 q.Get(
                     q.Ref(q.Collection(model.getModelName()), id)
                 )
             )
 
-            model.assignData(item);
+            model.assignData(item.data);
 
             return model
         }
@@ -44,7 +50,7 @@ export class FaunaProvider implements ProviderInterface {
         }
     }
 
-    async update(model: CoreModel): Promise<CoreModel> {
+    async update<Model extends CoreModel>(model: Model): Promise<Model> {
         await client.query(
             q.Update(q.Ref(q.Collection(model.getModelName()), model.id), {
                 data: { ...model.getData() }
@@ -55,9 +61,13 @@ export class FaunaProvider implements ProviderInterface {
     }
 
 
-    async delete(model: CoreModel): Promise<Boolean> {
+    async delete<Model extends CoreModel>(model: Model): Promise<Boolean> {
         const deleteRequest = await client.query(
-            q.Delete(model.id as faunadb.ExprArg)
+            q.Delete(
+                q.Ref(
+                    q.Collection(model.getModelName()
+                    ), model.id as string)
+            )
         )
 
         delete model.id;

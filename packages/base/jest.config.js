@@ -8,17 +8,6 @@ if (fs.existsSync(process.cwd() + "/resolvers.js")) {
   fs.unlinkSync(process.cwd() + "/resolvers.js");
 }
 
-DB_DRIVER = process.env.DB_DRIVER ? process.env.DB_DRIVER : "DB_FAKER";
-
-const DBDriverPaths = {
-  DB_FAUNA: {
-    coverageDirectory: "fauna",
-  },
-  DB_FAKER: {
-    coverageDirectory: "faker",
-  },
-};
-
 require("dotenv").config();
 
 module.exports = {
@@ -31,7 +20,7 @@ module.exports = {
   collectCoverage: true,
   rootDir: process.cwd(),
   resetMocks: true,
-  coverageDirectory: `<rootDir>/tests/.coverage/db/${DBDriverPaths[DB_DRIVER].coverageDirectory}`,
+  coverageDirectory: `<rootDir>/tests/.coverage`,
   collectCoverageFrom: [`<rootDir>/src/**/*.ts`, `<rootDir>/server/**/*.ts`],
   moduleNameMapper: {
     "@corejam/base/dist/(.*)": __dirname + "/src/$1",

@@ -5,12 +5,12 @@ export default {
     },
   },
   Paginated: {
-    __resolveType() {
+    __resolveType(_obj: any, _args: any, _ctx: any) {
       return null;
     },
   },
   Timestamp: {
-    __resolveType() {
+    __resolveType(_obj: any, _args: any, _ctx: any) {
       return null;
     },
   },

@@ -6,6 +6,7 @@ import nRequire from "./nativeRequire";
 import { Resolvers } from "./resolvers";
 import { models as fakerModels } from "./resolvers/db/faker";
 import { models as faunaModels } from "./resolvers/db/fauna";
+import { CorejamApplication } from "./typings/Application";
 import { ServerContext } from "./typings/Server";
 
 export const eventEmitter: EventEmitter = new EventEmitter();
@@ -55,9 +56,9 @@ export function getServerContext({ req, res }): ServerContext {
       const res = currentPlugin.getPluginContext({ req, models: context.models, eventEmitter });
       context = { ...context, ...res };
 
-      if (currentPlugin.default.listens) {
+      if (currentPlugin.listens) {
         //Trigger listeners
-        currentPlugin.default.listens.forEach((event) => {
+        currentPlugin.listens.forEach((event) => {
           if (!registerdPluginEvents.includes(event.event)) {
             registerdPluginEvents.push(event.event);
             eventEmitter.on(event.event, event.callback);
@@ -92,13 +93,34 @@ export function CorejamServer(context = ({ req, res }) => getServerContext({ req
   } else {
     //We need to merge all plugin resolvers into our core
     for (const plugin of loadManifest().plugins) {
+      const currentPlugin = importPlugin(plugin) as CorejamApplication;
+
+      if (currentPlugin.resolvers) {
+        resolvers = {
+          ...resolvers,
+          ...currentPlugin.resolvers,
+        };
+      }
+    }
+  }
+
+  /**
+   * If any of the incoming applications have an init, lets call it
+   */
+  if (fs.existsSync(process.cwd() + "/inits.js")) {
+    const pluginsFile = require(process.cwd() + "/inits.js") as any;
+    Object.keys(pluginsFile.server).map((p) => {
+      if (pluginsFile.server[p].default.init) {
+        pluginsFile.server[p].default.init();
+      }
+    });
+  } else {
+    //We need to merge all plugin resolvers into our core
+    for (const plugin of loadManifest().plugins) {
       const currentPlugin = importPlugin(plugin) as any;
 
-      if (currentPlugin.default.resolvers) {
-        resolvers = Object.values({
-          ...resolvers,
-          ...currentPlugin.default.resolvers,
-        });
+      if (currentPlugin.init) {
+        currentPlugin.init();
       }
     }
   }

@@ -21,6 +21,10 @@
     "url": "Corejam/Corejam",
     "directory": "packages/db-fauna"
   },
+  "corejam": {
+    "wrapper": [],
+    "recommendations": []
+  },
   "scripts": {
     "build": "corejam build -s",
     "test": "jest --verbose --config=./jest.config.js",

@@ -11,13 +11,13 @@ import { CoreModel } from "./CoreModel";
  *
  */
 export interface ProviderInterface {
-  create<T extends CoreModel>(model: CoreModel): Promise<T>;
+  create<Model extends CoreModel>(model: Model): Promise<Model>;
 
-  read<T extends CoreModel>(model: CoreModel, id: string | number): Promise<T | null>;
+  read<Model extends CoreModel>(model: Model, id: string | number): Promise<Model | null>;
 
-  update<T extends CoreModel>(model: CoreModel): Promise<T>;
+  update<Model extends CoreModel>(model: Model): Promise<Model>;
 
-  delete(model: CoreModel): Promise<Boolean>;
+  delete<Model extends CoreModel>(model: Model): Promise<Boolean>;
 
   count(): Promise<number>;
 
