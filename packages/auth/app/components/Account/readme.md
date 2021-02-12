@@ -7,6 +7,10 @@
 
 ## Dependencies
 
+### Used by
+
+ - [auth-route-account](../../routes)
+
 ### Depends on
 
 - corejam-box
@@ -34,6 +38,7 @@ graph TD;
   auth-reset-password-form --> corejam-form-container
   auth-reset-password-form --> corejam-form-input
   auth-reset-password-form --> corejam-form-submit
+  auth-route-account --> auth-account
   style auth-account fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
