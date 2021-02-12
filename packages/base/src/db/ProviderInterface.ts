@@ -1,4 +1,4 @@
-import { DBDocument } from "../typings/DB";
+import { CoreModel } from "./CoreModel";
 
 /**
  * This is the interface for database implementations.
@@ -11,13 +11,13 @@ import { DBDocument } from "../typings/DB";
  *
  */
 export interface ProviderInterface {
-  create(document: object): Promise<DBDocument>;
+  create(model: CoreModel): Promise<CoreModel>;
 
-  read(id: string | number): Promise<DBDocument | null>;
+  read(model: CoreModel, id: string | number): Promise<CoreModel | null>;
 
-  update(document: DBDocument): Promise<DBDocument>;
+  update(model: CoreModel): Promise<CoreModel>;
 
-  delete(document: DBDocument): Promise<Boolean>;
+  delete(model: CoreModel): Promise<Boolean>;
 
   count(): Promise<number>;
 
