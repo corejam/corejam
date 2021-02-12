@@ -32,11 +32,10 @@ describe("Model Tests", () => {
         const testObject = new TestObject();
         testObject.dataAttribute1 = "testing",
         testObject.dataAttribute2 = "testing2"
-        await testObject.create();
 
         expect(testObject.exists()).toBe(true)
 
-        const test = await TestObject.getById(testObject.key as string)
+        const test = await TestObject.getById(testObject.id as string)
 
         expect(test).toEqual(testObject)
     });
@@ -49,13 +48,13 @@ describe("Model Tests", () => {
 
         expect(testObject.exists()).toBe(true)
 
-        const test = await TestObject.getById(testObject.key as string)
+        const test = await TestObject.getById(testObject.id as string)
         expect(test).toEqual(testObject)
 
         testObject.dataAttribute1 = "updated value";
         await testObject.update();
 
-        const updated = await TestObject.getById(testObject.key as string)
+        const updated = await TestObject.getById(testObject.id as string)
         expect(updated).toEqual(testObject)
     });
 
@@ -67,7 +66,7 @@ describe("Model Tests", () => {
         await testObject.create();
         expect(testObject.exists()).toBe(true)
 
-        const tempKey = testObject.key as string
+        const tempKey = testObject.id as string
 
         const deleteRes = await testObject.delete()
         expect(deleteRes).toEqual(true)

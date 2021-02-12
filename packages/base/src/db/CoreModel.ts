@@ -24,7 +24,7 @@ export abstract class CoreModel {
     return this.collection;
   }
 
-  static async getById<T extends CoreModel>(this: Constructor<T>, id: string): Promise<CoreModel | null> {
+  static async getById<T extends CoreModel>(this: Constructor<T>, id: string): Promise<T | null> {
     try {
       const instance = new this() as T;
 
@@ -38,13 +38,21 @@ export abstract class CoreModel {
     return await getDb().create(this);
   }
 
+  async delete(): Promise<Boolean> {
+    return await getDb().delete(this);
+  }
+
   /**
    * Check if this document exists. As keys are only ever
    * set during the remote creation process we can be sure that a document is
    * exists.
    */
-  public exists(): Boolean {
+  exists(): Boolean {
     return this.id !== undefined;
+  }
+
+  async update(): Promise<this> {
+    return await getDb().update(this);
   }
 
   /**
