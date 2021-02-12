@@ -1,10 +1,10 @@
 require("dotenv").config();
 
+import corejam from "@corejam/rollup-plugin";
+import replace from "@rollup/plugin-replace";
 import { Config } from "@stencil/core";
 import { reactOutputTarget } from "@stencil/react-output-target";
-import corejam from "@corejam/rollup-plugin";
 import fs from "fs";
-import replace from "@rollup/plugin-replace";
 
 const targets = process.env.targets?.split(",") || [];
 
@@ -12,6 +12,7 @@ const config: Config = {
   namespace: "corejam-run",
   tsconfig: "./tsconfig.json",
   srcDir: "app",
+  globalScript: "app/global.ts",
   devServer: {
     port: 3001,
   },

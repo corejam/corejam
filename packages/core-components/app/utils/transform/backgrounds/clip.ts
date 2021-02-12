@@ -6,7 +6,7 @@
 
 export default {
   property: "background-clip",
-  transform: (value) => {
+  transform: (value: string) => {
     const valids = ["border", "padding", "content", "text"];
     const modify = {
       border: "border-box",
@@ -14,5 +14,6 @@ export default {
       content: "content-box",
     };
     if (valids.includes(value)) return modify[value] || value;
+    throw new Error("not supported value");
   },
 };

@@ -19,7 +19,6 @@
 - [dershop-product](../components/product)
 - [dershop-product-list](../components/dershop-product-list)
 - [dershop-manufacturer](../components/dershop-manufacturer)
-- [dershop-seo](../components/seo)
 
 ### Graph
 ```mermaid
@@ -27,7 +26,6 @@ graph TD;
   dershop-url --> dershop-product
   dershop-url --> dershop-product-list
   dershop-url --> dershop-manufacturer
-  dershop-url --> dershop-seo
   dershop-product --> corejam-box
   dershop-product --> dershop-image
   dershop-product --> corejam-type

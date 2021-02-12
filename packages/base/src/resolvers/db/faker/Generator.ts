@@ -1,8 +1,7 @@
-import type { SEO } from "../../../typings/Seo";
+import { commerce, date, internet, lorem, random } from "faker";
 import type { Config } from "../../../typings/Config";
 import type { Image } from "../../../typings/Image";
-
-import { commerce, lorem, random, date, internet } from "faker";
+import type { SEO } from "../../../typings/Seo";
 
 const placeholderImages = [
   "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&q=80",

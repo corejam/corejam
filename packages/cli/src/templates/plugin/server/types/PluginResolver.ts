@@ -1,6 +1,7 @@
-import { ServerContext } from "@corejam/base/dist/typings/Server";
 import { CoreResolver } from "@corejam/base/dist/typings/CoreResolver";
-import type { PluginName, PluginNameCreateInput } from "./pluginName";
+import { ServerContext } from "@corejam/base/dist/typings/Server";
+import type { PluginName, PluginNameCreateInput } from "../../shared/types/pluginName";
+
 /**
  * We are adding these resolvers to the existing CoreResolver
  */

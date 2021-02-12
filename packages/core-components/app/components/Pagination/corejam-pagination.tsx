@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, State, Watch } from "@stencil/core";
+import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
 
 @Component({
   tag: "corejam-pagination",

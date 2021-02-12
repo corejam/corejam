@@ -1,10 +1,11 @@
 require("dotenv").config();
 
+import corejam from "@corejam/rollup-plugin";
+import replace from "@rollup/plugin-replace";
 import { Config } from "@stencil/core";
 import { reactOutputTarget } from "@stencil/react-output-target";
-import corejam from "@corejam/rollup-plugin";
 import fs from "fs";
-import replace from "@rollup/plugin-replace";
+import nodePolyfills from "rollup-plugin-node-polyfills";
 
 const targets = process.env.targets?.split(",") || [];
 
@@ -22,6 +23,9 @@ const config: Config = {
       "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
     }),
   ],
+  rollupPlugins: {
+    after: [nodePolyfills()],
+  },
 };
 
 if (process.env.NODE_ENV !== "production") {

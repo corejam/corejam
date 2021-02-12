@@ -14,8 +14,8 @@
 ### Graph
 ```mermaid
 graph TD;
-  corejam-error --> corejam-box
-  style corejam-error fill:#f9f,stroke:#333,stroke-width:4px
+  corejam-flash --> corejam-box
+  style corejam-flash fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

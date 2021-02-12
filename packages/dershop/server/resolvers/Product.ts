@@ -66,7 +66,6 @@ export function generateSidebar(products: ProductDB[] = []): Sidebar {
  * @param ctx
  */
 export async function resolveProductListFromReferences(parent, { size, page = 1 }, ctx): Promise<ProductList> {
-
   //We already have everything
   if (parent.sidebar) {
     ctx.currentProductList = parent;

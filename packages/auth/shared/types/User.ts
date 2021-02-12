@@ -7,13 +7,13 @@ export enum roles {
 
 export enum STATUS {
   PENDING = "PENDING",
-  VERIFIED = "VERIFIED"
+  VERIFIED = "VERIFIED",
 }
 
 export type User = Timestamp & {
   email: string;
   password?: string;
-  status: STATUS,
+  status: STATUS;
   verifyHash?: string;
   active: boolean;
   role: [roles];
@@ -30,7 +30,7 @@ export type UserInput = Partial<User>;
 export type AuthReset = {
   expires: string;
   hash: string;
-}
+};
 
 export type UserCreateInput = {
   email: string;
@@ -65,10 +65,10 @@ export type RegisterInput = {
 
 export type UpdateUserInput = {
   email: string;
-}
+};
 
 export type UpdatePasswordInput = {
-  oldPassword: string,
-  password: string,
-  passwordConfirm: string
-}
+  oldPassword: string;
+  password: string;
+  passwordConfirm: string;
+};

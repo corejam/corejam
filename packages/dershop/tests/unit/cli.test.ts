@@ -1,11 +1,10 @@
-
 //import generateSchema from "@corejam/cli/src/generateSchema"
 //import * as fs from 'fs';
 
 describe("Check CLI commands", () => {
-    it("Generates valid schema & exports defaults", async () => {
-        return expect(true).toEqual(true);
-        /*
+  it("Generates valid schema & exports defaults", async () => {
+    return expect(true).toEqual(true);
+    /*
         await generateSchema();
 
         //Expect schema.json file to match server schema
@@ -15,5 +14,5 @@ describe("Check CLI commands", () => {
         //Expect resolvers.js to have exports
         const resolvers = require("../../resolvers.js")
         expect(resolvers).toBeDefined() */
-    });
-})
+  });
+});

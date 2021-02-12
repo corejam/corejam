@@ -1,5 +1,4 @@
 import { PluginResolver } from "../../../../shared/types/PluginResolver";
-
 import {
   allCanvasPages,
   canvasClosePeers,
@@ -8,8 +7,8 @@ import {
   canvasPageByUrl,
   canvasPageCreate,
   canvasPageEdit,
-  canvasPollPeers
-} from "./CanvasPage"
+  canvasPollPeers,
+} from "./CanvasPage";
 
 export const models: PluginResolver = {
   allCanvasPages,
@@ -19,5 +18,5 @@ export const models: PluginResolver = {
   canvasPageByUrl,
   canvasPageCreate,
   canvasPageEdit,
-  canvasPollPeers
+  canvasPollPeers,
 };

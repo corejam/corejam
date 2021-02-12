@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Element, Listen } from "@stencil/core";
+import { Component, Element, h, Host, Listen, State } from "@stencil/core";
 
 const CloseIcon = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff" {...props}>

@@ -17,13 +17,13 @@
 
 ### Used by
 
- - corejam-run-router
+ - [corejam-router](../Router)
 
 ### Graph
 ```mermaid
 graph TD;
-  corejam-run-router --> app-playground
-  style app-playground fill:#f9f,stroke:#333,stroke-width:4px
+  corejam-router --> corejam-dev-playground
+  style corejam-dev-playground fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

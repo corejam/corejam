@@ -1,4 +1,4 @@
-import type { PluginName, PluginNameCreateInput } from "../../../types/pluginName";
+import type { PluginName, PluginNameCreateInput } from "../../../../shared/types/pluginName";
 
 const pluginName = [] as PluginName[];
 

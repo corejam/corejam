@@ -1,10 +1,16 @@
-import { propertyToTransformer } from "./transformerMap";
-import { generateHash, lowercaseFirstLetter, uppercaseFirstLetter, addStyleTagToHead } from "./utils";
+import autoprefixer from "autoprefixer";
+import postcss from "postcss";
 import { computeStyle } from "./computeStyle";
+import { propertyToTransformer } from "./transformerMap";
+import { addStyleTagToHead, generateHash, lowercaseFirstLetter, uppercaseFirstLetter } from "./utils";
 
 const stylesCache = new Map();
 
-function normalizePropertyBasedOnPossibleIdentifiers(property) {
+export const DEFAULT_BROWSERS = [process.env.POSTCSS_BROWSERS || "last 4 version"];
+
+const params = { overrideBrowserslist: DEFAULT_BROWSERS, grid: "autoplace" };
+
+export function normalizePropertyBasedOnPossibleIdentifiers(property: string) {
   const possibleCamelCaseSplit = property
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .split(" ")
@@ -81,9 +87,17 @@ export const calculateStyles = async (instance) => {
       }
       const computedStyleString = computeStyle(collectedStyles, hash);
 
-      stylesCache.set(hash, computedStyleString);
+      if (process.env.NODE_ENV === "development") {
+        const finalResult = computedStyleString;
+        stylesCache.set(hash, finalResult);
+        addStyleTagToHead(finalResult, hash);
+      } else {
+        //@ts-ignore
+        const finalResult = await postcss([autoprefixer(params)]).process(computedStyleString, { from: undefined });
+        stylesCache.set(hash, finalResult.css);
+        addStyleTagToHead(finalResult.css, hash);
+      }
 
-      addStyleTagToHead(computedStyleString, hash);
       return hash;
     }
   }

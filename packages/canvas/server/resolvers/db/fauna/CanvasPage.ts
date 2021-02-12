@@ -1,7 +1,7 @@
 import { updateDates } from "@corejam/base";
+import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 import { query as q } from "faunadb";
 import type { CanvasPage, CanvasPageDB, CanvasPeer, CanvasPeers } from "../../../../shared/types/Canvas";
-import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 
 export function canvasPageByUrl(slug: string): Promise<CanvasPageDB | null> {
   return FaunaClient()

@@ -1,4 +1,4 @@
-import { Component, h, Prop, Method, Host } from "@stencil/core";
+import { Component, h, Host, Method, Prop } from "@stencil/core";
 
 @Component({
   tag: "dershop-product-box",

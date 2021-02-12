@@ -16,7 +16,7 @@ module.exports = (on, config) => {
   // `config` is the resolved Cypress config
 
   on("before:browser:launch", (browser = {}, launchOptions) => {
-    if (browser.name === 'chrome') {
+    if (browser.name === "chrome") {
       console.log("disabled shm");
       launchOptions.args.push("--disable-dev-shm-usage");
       launchOptions.args.push('--disable-gpu');

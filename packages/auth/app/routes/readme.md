@@ -1,4 +1,4 @@
-# cj-route-register
+# auth-route-register
 
 <!-- Auto Generated Below -->
 
@@ -7,31 +7,19 @@
 
 ### Depends on
 
-- [corejam-auth-header](../components/Header)
-- [corejam-auth-form-register](../components/corejam-auth-form-register)
+- [auth-form-register](../components/RegisterForm)
 
 ### Graph
 ```mermaid
 graph TD;
-  cj-route-register --> corejam-auth-header
-  cj-route-register --> corejam-auth-form-register
-  corejam-auth-header --> corejam-box
-  corejam-auth-header --> corejam-base-link
-  corejam-auth-header --> corejam-identity
-  corejam-identity --> corejam-box
-  corejam-identity --> corejam-type
-  corejam-identity --> corejam-icons-account
-  corejam-identity --> corejam-form-container
-  corejam-identity --> corejam-form-input
-  corejam-identity --> corejam-form-submit
-  corejam-identity --> corejam-button
+  auth-route-register --> auth-form-register
+  auth-form-register --> corejam-box
+  auth-form-register --> corejam-form-container
+  auth-form-register --> corejam-form-input
+  auth-form-register --> corejam-form-submit
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
-  corejam-auth-form-register --> corejam-box
-  corejam-auth-form-register --> corejam-form-container
-  corejam-auth-form-register --> corejam-form-input
-  corejam-auth-form-register --> corejam-form-submit
-  style cj-route-register fill:#f9f,stroke:#333,stroke-width:4px
+  style auth-route-register fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

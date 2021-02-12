@@ -6,9 +6,7 @@ const Layout = ({ children }) => {
     <>
       <CorejamUiBase />
       <DershopHeader />
-      <div>
-        {children}
-      </div> 
+      <div>{children}</div>
       <DershopFooter />
     </>
   );

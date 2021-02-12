@@ -1,6 +1,6 @@
-var path = require('path');
+var path = require("path");
 
 module.exports = {
-    extends: [path.join(__dirname, '../../.eslintrc.js')],
-    ignorePatterns: ["web-components", "react", "www"],
-}
+  extends: [path.join(__dirname, "../../.eslintrc.js")],
+  ignorePatterns: ["web-components", "react", "www"],
+};

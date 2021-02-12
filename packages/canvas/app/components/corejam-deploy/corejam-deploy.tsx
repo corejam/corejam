@@ -1,8 +1,8 @@
-import { Component, Host, h } from "@stencil/core";
 import { coreState } from "@corejam/core-components";
+import { runState } from "@corejam/run";
+import { Component, h, Host } from "@stencil/core";
 import gql from "graphql-tag";
 import { PostCanvasGQL } from "../../../shared/graphql/Mutations";
-import { runState } from "@corejam/run";
 import templateFnc from "./template";
 
 @Component({

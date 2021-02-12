@@ -17,14 +17,16 @@
 
 ### Used by
 
- - [corejam-auth-header](../Header)
+ - [auth-header](../Header)
 
 ### Depends on
 
 - corejam-box
 - corejam-type
 - [corejam-icons-account](../icons/account)
+- corejam-base-link
 - corejam-form-container
+- corejam-flash
 - corejam-form-input
 - corejam-form-submit
 - corejam-button
@@ -35,13 +37,16 @@ graph TD;
   corejam-identity --> corejam-box
   corejam-identity --> corejam-type
   corejam-identity --> corejam-icons-account
+  corejam-identity --> corejam-base-link
   corejam-identity --> corejam-form-container
+  corejam-identity --> corejam-flash
   corejam-identity --> corejam-form-input
   corejam-identity --> corejam-form-submit
   corejam-identity --> corejam-button
+  corejam-flash --> corejam-box
   corejam-form-input --> corejam-box
   corejam-form-input --> corejam-type
-  corejam-auth-header --> corejam-identity
+  auth-header --> corejam-identity
   style corejam-identity fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

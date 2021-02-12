@@ -27,7 +27,6 @@ export namespace Components {
     interface CorejamRouter {
     }
     interface CorejamTab {
-        "activeFn": Function;
         "header": string;
     }
     interface CorejamTabs {
@@ -106,14 +105,16 @@ declare namespace LocalJSX {
     }
     interface CorejamMenu {
         "demo"?: boolean;
+        "onHideCorejamMenu"?: (event: CustomEvent<any>) => void;
+        "onShowCorejamMenu"?: (event: CustomEvent<any>) => void;
     }
     interface CorejamRouter {
     }
     interface CorejamTab {
-        "activeFn"?: Function;
         "header"?: string;
     }
     interface CorejamTabs {
+        "onTabSelected"?: (event: CustomEvent<any>) => void;
     }
     interface IntrinsicElements {
         "corejam-app": CorejamApp;

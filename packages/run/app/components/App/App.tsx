@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Fragment } from "@stencil/core";
+import { Component, Fragment, h, Host, State } from "@stencil/core";
 import { runState } from "../../store/runStore";
 
 @Component({
@@ -53,6 +53,7 @@ export class CorejamRun {
       <Fragment>
         {this.renderRecos()}
         <corejam-router></corejam-router>
+        {this.config.mode === "development" && <corejam-menu />}
       </Fragment>
     );
   }

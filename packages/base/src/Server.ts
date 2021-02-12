@@ -1,12 +1,12 @@
 import { gql } from "apollo-server-micro";
-import { bootstrapSchema, importPlugin, loadManifest } from "./Bootstrap";
-import { Resolvers } from "./resolvers";
-import { ServerContext } from "./typings/Server";
-import { models as faunaModels } from "./resolvers/db/fauna";
-import { models as fakerModels } from "./resolvers/db/faker";
 import { EventEmitter } from "events";
 import * as fs from "fs";
+import { bootstrapSchema, importPlugin, loadManifest } from "./Bootstrap";
 import nRequire from "./nativeRequire";
+import { Resolvers } from "./resolvers";
+import { models as fakerModels } from "./resolvers/db/faker";
+import { models as faunaModels } from "./resolvers/db/fauna";
+import { ServerContext } from "./typings/Server";
 
 export const eventEmitter: EventEmitter = new EventEmitter();
 const eventFiles: Array<string> = [];

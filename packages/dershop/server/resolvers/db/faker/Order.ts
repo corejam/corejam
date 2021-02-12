@@ -5,13 +5,12 @@ import { UserDB } from "../../../../shared/types/User";
 import { generateOrder, generateUser } from "./Generator";
 import { allProducts } from "./Product";
 
-
 export let orders: OrderDB[] = [];
 
 try {
-  const staticFile = require(process.cwd() + "/.corejam/faker.json")
-  orders.push(...staticFile.orders)
-  console.log("Load from static data")
+  const staticFile = require(process.cwd() + "/.corejam/faker.json");
+  orders.push(...staticFile.orders);
+  console.log("Load from static data");
 } catch (e) {
   //Nothing for now
 }
@@ -20,14 +19,14 @@ if (orders.length === 0) {
   const users: UserDB[] = [{ id: random.uuid(), ...generateUser() }];
 
   for (let index = 0; index < 10; index++) {
-    users.push({ id: random.uuid(), ...generateUser() })
+    users.push({ id: random.uuid(), ...generateUser() });
   }
 
-  allProducts().then(products => {
+  allProducts().then((products) => {
     for (let index = 0; index < 10; index++) {
-      orders.push({ id: random.uuid(), ...generateOrder(products, users) })
+      orders.push({ id: random.uuid(), ...generateOrder(products, users) });
     }
-  })
+  });
 }
 
 export function orderUpdate(id: string, orderInput: OrderEditInput): Promise<OrderDB> {
@@ -47,23 +46,20 @@ export function orderUpdate(id: string, orderInput: OrderEditInput): Promise<Ord
   return new Promise((res) => res(order));
 }
 
-export function orderCreate(
-  orderInput: OrderCreateInput,
-  user: UserDB
-): Promise<OrderDB> {
+export function orderCreate(orderInput: OrderCreateInput, user: UserDB): Promise<OrderDB> {
   const order: OrderDB = {
     id: random.uuid(),
-    status: 'RECEIVED',
+    status: "RECEIVED",
     user: user,
     items: orderInput.items as [OrderItem],
     addressBilling: orderInput.addressBilling,
     addressShipping: orderInput.addressShipping,
     price: orderInput.price,
     ...updateDates(),
-  }
-  orders.push(order)
+  };
+  orders.push(order);
 
-  return new Promise((res) => res(order))
+  return new Promise((res) => res(order));
 }
 
 export function allOrders(): Promise<OrderDB[]> {
@@ -76,12 +72,12 @@ export function orderById(id: string): Promise<OrderDB | null> {
 }
 
 export function ordersByCustomer(user: UserDB): Promise<OrderList> {
-  const userOrders = [] as unknown as [OrderDB]
+  const userOrders = ([] as unknown) as [OrderDB];
   orders.filter((order: OrderDB) => {
     if (order.user.id == user.id) {
-      userOrders.push(order)
+      userOrders.push(order);
     }
-  })
+  });
 
   const list: OrderList = {
     items: userOrders,
@@ -89,7 +85,7 @@ export function ordersByCustomer(user: UserDB): Promise<OrderList> {
     lastPage: 1,
     currentPage: 1,
     perPage: 24,
-  }
+  };
 
-  return new Promise((res) => res(list))
+  return new Promise((res) => res(list));
 }

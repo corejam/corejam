@@ -1,12 +1,11 @@
-import { ServerContext } from "@corejam/base/dist/typings/Server";
 import { CoreResolver } from "@corejam/base/dist/typings/CoreResolver";
-import Notify from "../Notify"
+import { ServerContext } from "@corejam/base/dist/typings/Server";
+import Notify from "../Notify";
 
 /**
  * We are adding these resolvers to the existing CoreResolver
  */
-export declare type PluginResolver = {
-};
+export declare type PluginResolver = {};
 
 export declare type MergedServerResolver = CoreResolver & PluginResolver;
 
@@ -15,11 +14,10 @@ export declare type MergedServerResolver = CoreResolver & PluginResolver;
  * Merge with exisiting ServerContext
  */
 export declare type PluginServerContext = {
-  notify: Notify
+  notify: Notify;
 };
 
 /**
  * Override models to include our Plugin resolver
  */
-export declare type MergedServerContext = Partial<ServerContext> &
-  PluginServerContext;
+export declare type MergedServerContext = Partial<ServerContext> & PluginServerContext;

@@ -1,22 +1,29 @@
-import kleur from "kleur";
-import ora from "ora";
-import logSymbol from "log-symbols";
-import replace from "replace-in-file";
-import { isYarn } from "is-npm";
-import jetpack from "fs-jetpack";
 import execa from "execa";
+import jetpack from "fs-jetpack";
+import { isYarn } from "is-npm";
+import kleur from "kleur";
+import logSymbol from "log-symbols";
+import ora from "ora";
+import replace from "replace-in-file";
 import { mono } from "../config";
-import {packageJson} from "../helpers/package"
+import { packageJson } from "../helpers/package";
 export default async function createApp(name: string) {
   return new Promise(async (res: any) => {
+    name = name.toLowerCase();
+
     const spinner = ora(`Creating new Corejam application: ${name}`).start();
     const pluginRootPath = (mono ? process.env.INIT_CWD : process.cwd()) + "/" + name;
+
+    if ((await jetpack.existsAsync(pluginRootPath)) != false) {
+      spinner.warn(kleur.red("Directory already exists!"));
+      return res();
+    }
 
     spinner.text = "Bootstrapping app";
 
     await jetpack.copyAsync(__dirname + "/../templates/plugin", pluginRootPath);
 
-    const json = packageJson(mono)
+    const json = packageJson(mono);
 
     await jetpack.writeAsync(pluginRootPath + "/package.json", json);
 
@@ -38,7 +45,7 @@ export default async function createApp(name: string) {
     await jetpack.renameAsync(pluginRootPath + "/server/resolvers/db/faker/pluginName.ts", name + ".ts");
     await jetpack.renameAsync(pluginRootPath + "/server/resolvers/pluginName.ts", name + ".ts");
     await jetpack.renameAsync(pluginRootPath + "/server/schema/pluginName.graphql", name + ".graphql");
-    await jetpack.renameAsync(pluginRootPath + "/server/types/pluginName.ts", name + ".ts");
+    await jetpack.renameAsync(pluginRootPath + "/shared/types/pluginName.ts", name + ".ts");
     await jetpack.renameAsync(pluginRootPath + "/app/components/pluginName", name);
     await jetpack.renameAsync(pluginRootPath + "/app/components/" + name + "/pluginName.tsx", name + ".tsx");
     await jetpack.removeAsync(pluginRootPath + "/app/pluginName");

@@ -6,7 +6,7 @@ import { Component, h } from "@stencil/core";
 export class CorejamCanvas {
   render() {
     return (
-      <corejam-box w={12} h="100vh" class="drop" style={{ touchAction: "none", userSelect: "none" }}>
+      <corejam-box class="drop" data-cy="drop">
         <slot></slot>
       </corejam-box>
     );

@@ -1,6 +1,6 @@
-import { CoreResolver } from "./CoreResolver";
 import { EventEmitter } from "events";
-import { ServerResponse, IncomingMessage } from "http";
+import { IncomingMessage, ServerResponse } from "http";
+import { CoreResolver } from "./CoreResolver";
 
 export declare type ServerContext = {
   models: CoreResolver;
