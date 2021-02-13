@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
       image: "corejam/ci:node14.0.0.2"
     if: (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository) && !contains(github.event.head_commit.message, 'Merge master into next')
@@ -46,7 +46,7 @@ jobs:
           path: artifact.tar
 
   core-components-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
       image: "corejam/ci:node14.0.0.2"
     needs: build
@@ -65,7 +65,7 @@ jobs:
           directory: packages # optional
 
   integration-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
       image: "corejam/ci:node14.0.0.2"
     needs: build
@@ -99,9 +99,10 @@ jobs:
           directory: packages # optional
 
   cypress-static-plugin-auth:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
-      image: "corejam/cypress:0.0.2"
+      image: "corejam/cypress:6.4.0"
+      options: --ipc=host
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -135,9 +136,10 @@ jobs:
           path: test/cypress/cypress/screenshots
 
   cypress-generateApp-monorepo:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
-      image: "corejam/cypress:0.0.2"
+      image: "corejam/cypress:6.4.0"
+      options: --ipc=host
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -174,9 +176,10 @@ jobs:
           path: test/cypress/cypress/screenshots
 
   cypress-generateApp-standalone:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
-      image: "corejam/cypress:0.0.2"
+      image: "corejam/cypress:6.4.0"
+      options: --ipc=host
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -217,9 +220,10 @@ jobs:
           path: test/cypress/cypress/screenshots
 
   cypress-generateApp-standaloneCLI:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
-      image: "corejam/cypress:0.0.2"
+      image: "corejam/cypress:6.4.0"
+      options: --ipc=host
     needs: build
     steps:
       - uses: actions/checkout@v2
@@ -261,9 +265,10 @@ jobs:
           path: test/cypress/cypress/screenshots
 
   cypress:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
-      image: "corejam/cypress:0.0.2"
+      image: "corejam/cypress:6.4.0"
+      options: --ipc=host
     needs:
       - integration-tests
       - cypress-static-plugin-auth
@@ -312,7 +317,7 @@ jobs:
 
   publish:
     name: Publish packages
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs:
       - integration-tests
       - cypress-static-plugin-auth
@@ -373,7 +378,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     needs:
       - publish
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     name: Merge master -> next
     steps:
       - name: "Merge"
