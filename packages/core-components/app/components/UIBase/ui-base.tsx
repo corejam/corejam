@@ -1,5 +1,6 @@
-import { Component, h, Host } from "@stencil/core";
-import makeTheme from "./makeTheme";
+import { Component } from "@stencil/core";
+import { addStyleTagToHead } from "../../utils/utils";
+import { makeDefaults, makeTheme } from "./makeTheme";
 import reset from "./reset";
 
 @Component({
@@ -7,31 +8,34 @@ import reset from "./reset";
 })
 export class UiBase {
   async componentWillLoad() {
-    const styleRules = `
+    const computedStyleString = `
     ${reset}
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      font-family: var(--cj-font-sans);
-    }
+    ${makeDefaults()}
     :root {
       ${makeTheme()}
-      --cj-color-primary: var(--cj-color-black);
-      --cj-color-secondary: var(--cj-color-gray-800);
     }
   `;
-    const existingTag = document.querySelectorAll("head style#corejam-ui-base");
-    if (existingTag.length > 0) {
-      existingTag[0].innerHTML = styleRules;
+
+    const existingTag = document.querySelectorAll("head style#corejam-ui-base").length > 0;
+
+    if (process.env.NODE_ENV === "development") {
+      if (existingTag) {
+        existingTag[0].innerHTML = computedStyleString;
+      } else {
+        addStyleTagToHead(computedStyleString, "corejam-ui-base");
+      }
     } else {
-      const style = document.createElement("style");
-      style.id = "corejam-ui-base";
-      style.innerHTML = styleRules;
-      document.head.appendChild(style);
+      const postcss = await import("postcss").then((postcss) => postcss.default);
+      const nano = await import("cssnano").then((cssnano) => cssnano.default);
+
+      //@ts-ignore
+      const finalResult = await postcss([nano]).process(computedStyleString, { from: undefined });
+
+      if (existingTag) {
+        existingTag[0].innerHTML = finalResult.css;
+      } else {
+        addStyleTagToHead(finalResult.css, "corejam-ui-base");
+      }
     }
-  }
-  render() {
-    return <Host></Host>;
   }
 }

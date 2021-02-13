@@ -6,10 +6,10 @@ export const isBoolean = (val) => "boolean" === typeof val || val === "true";
 export const lowercaseFirstLetter = (string) => string.charAt(0).toLowerCase() + string.slice(1);
 export const uppercaseFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
-export const addStyleTagToHead = (styles: string, hash: string) => {
+export const addStyleTagToHead = (styles: string, hash?: string) => {
   if (!document.getElementById(hash)) {
     const style = document.createElement("style");
-    style.id = hash;
+    if (hash) style.id = hash;
     style.setAttribute("corejamStyle", hash);
     style.textContent = styles;
     document.head.appendChild(style);

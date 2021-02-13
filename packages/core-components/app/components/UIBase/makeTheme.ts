@@ -1,4 +1,4 @@
-import defaultTheme from "./default";
+import defaultTheme, { globalRules } from "./default";
 
 function camelToDash(str: string) {
   return str.replace(/([A-Z])/g, function ($1) {
@@ -6,7 +6,7 @@ function camelToDash(str: string) {
   });
 }
 
-export default function makeTheme(userTheme = null) {
+export function makeTheme(userTheme = null) {
   const themeObject = userTheme || defaultTheme;
   const rules = [];
   for (const first in themeObject) {
@@ -27,4 +27,18 @@ export default function makeTheme(userTheme = null) {
     }
   }
   return rules.join(";\n");
+}
+
+export function makeDefaults() {
+  const rules = [];
+  for (const selector in globalRules) {
+    const generatedRule = [selector + "{"];
+    for (const rule in globalRules[selector]) {
+      generatedRule.push(rule + ": " + globalRules[selector][rule] + ";");
+    }
+    generatedRule.push("}");
+
+    return generatedRule.join("\n");
+  }
+  return rules;
 }
