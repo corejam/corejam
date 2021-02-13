@@ -74,6 +74,26 @@
             "internalConsoleOptions": "neverOpen",
             "disableOptimisticBPs": true,
             "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+        },
+        {
+            "type": "node",
+            "name": "@corejame/db-lowdb",
+            "request": "launch",
+            "args": [
+                "--runInBand",
+                "--verbose"
+            ],
+            "skipFiles": [
+                "<node_internals>/**/*.js",
+                "${workspaceFolder}/**/node_modules/**/*.js",
+                "${workspaceFolder}/node_modules/**/.js",
+            ],
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}/packages/db-lowdb",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+            "program": "${workspaceFolder}/node_modules/jest/bin/jest"
         }
     ]
 }

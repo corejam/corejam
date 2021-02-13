@@ -61,7 +61,7 @@ export abstract class CoreModel {
    * Should instead use new() constructor to set readonly attributes
    * on Model instance
    */
-  public assignData(data: any): CoreModel {
+  public assignData(data: any): this {
     this.getDataFields().map((field) => {
       this[field] = data[field];
     });
