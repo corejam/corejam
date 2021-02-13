@@ -1,5 +1,5 @@
-import { CoreData } from "@corejam/base/dist/db/ModelDecorator";
-import { CoreModel } from "@corejam/base/dist/db/CoreModel";
+import { CoreData } from "../../src/db/ModelDecorator";
+import { CoreModel } from "../../src/db/CoreModel";
 
 export default class TestObject extends CoreModel {
 
