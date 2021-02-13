@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop } from "@stencil/core";
-import makeTheme from "../UIBase/makeTheme";
+import { makeTheme } from "../UIBase/makeTheme";
 
 @Component({
   tag: "corejam-ui-theme",
