@@ -25,16 +25,12 @@ export class UiBase {
         addStyleTagToHead(computedStyleString, "corejam-ui-base");
       }
     } else {
-      const postcss = await import("postcss").then((postcss) => postcss.default);
-      const nano = await import("cssnano").then((cssnano) => cssnano.default);
-
-      //@ts-ignore
-      const finalResult = await postcss([nano]).process(computedStyleString, { from: undefined });
-
+      const clean = await import("clean-css").then((clean) => clean.default);
+      const finalResult = new clean().minify(computedStyleString).styles;
       if (existingTag) {
-        existingTag[0].innerHTML = finalResult.css;
+        existingTag[0].innerHTML = finalResult;
       } else {
-        addStyleTagToHead(finalResult.css, "corejam-ui-base");
+        addStyleTagToHead(finalResult, "corejam-ui-base");
       }
     }
   }
