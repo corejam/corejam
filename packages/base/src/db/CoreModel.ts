@@ -3,7 +3,7 @@ import { getDb } from "../PluginManager";
 import { ID } from "../typings/DB";
 
 export type Constructor<CoreModel> = {
-  new (): CoreModel;
+  new(): CoreModel;
 };
 
 /**
@@ -40,6 +40,10 @@ export abstract class CoreModel {
     return await getDb().create(this);
   }
 
+  async update(): Promise<this> {
+    return await getDb().update(this);
+  }
+
   async delete(): Promise<Boolean> {
     return await getDb().delete(this);
   }
@@ -53,8 +57,15 @@ export abstract class CoreModel {
     return this.id !== undefined;
   }
 
-  async update(): Promise<this> {
-    return await getDb().update(this);
+  /**
+   * Create or update a record.
+   */
+  async save(): Promise<this> {
+    if (this.exists()) {
+      return this.update()
+    }
+
+    return this.create()
   }
 
   /**
