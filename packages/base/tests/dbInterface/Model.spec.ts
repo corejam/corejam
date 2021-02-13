@@ -39,7 +39,7 @@ export const sharedDBInterfaceTests = (name) => {
             const testObject = new TestObject();
             testObject.dataAttribute1 = "testing",
                 testObject.dataAttribute2 = "testing2"
-            await testObject.create()
+            await testObject.save()
 
             expect(testObject.exists()).toBe(true)
 
@@ -52,7 +52,7 @@ export const sharedDBInterfaceTests = (name) => {
             const testObject = new TestObject();
             testObject.dataAttribute1 = "testing",
                 testObject.dataAttribute2 = "testing2"
-            await testObject.create();
+            await testObject.save();
 
             expect(testObject.exists()).toBe(true)
 
@@ -60,7 +60,7 @@ export const sharedDBInterfaceTests = (name) => {
             expect(test).toEqual(testObject)
 
             testObject.dataAttribute1 = "updated value";
-            await testObject.update();
+            await testObject.save();
 
             const updated = await TestObject.getById(testObject.id as string)
             expect(updated).toEqual(testObject)
@@ -71,8 +71,8 @@ export const sharedDBInterfaceTests = (name) => {
             const testObject = new TestObject();
             testObject.dataAttribute1 = "testing",
             testObject.dataAttribute2 = "testing2"
-            
-            await testObject.create();
+
+            await testObject.save();
             expect(testObject.exists()).toBe(true)
 
             const tempKey = testObject.id as string

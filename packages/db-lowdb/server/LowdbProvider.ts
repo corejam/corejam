@@ -31,9 +31,9 @@ export class LowdbProvider implements ProviderInterface {
     }
 
     async read<Model extends CoreModel>(model: Model, id: string | number): Promise<Model | null> {
-        const item = db.get(model.getModelName()).find({
-            id
-        }).value()
+        const item = db.get(model.getModelName())
+            .find({ id })
+            .value()
 
         if (!item) return null;
 
@@ -41,18 +41,19 @@ export class LowdbProvider implements ProviderInterface {
     }
 
     async update<Model extends CoreModel>(model: Model): Promise<Model> {
-        const item = db.get(model.getModelName()).find({ id: model.id })
-
-        await item.assign({
-            ...item.value(),
-            ...model.getData()
-        }).write()
+        db.get(model.getModelName())
+            .find({ id: model.id })
+            .assign(model.getData())
+            .write()
 
         return model;
     }
 
     async delete<Model extends CoreModel>(model: Model): Promise<Boolean> {
-        await db.get(model.getModelName()).remove({ id: model.id }).write()
+        await db.get(model.getModelName())
+            .remove({ id: model.id })
+            .write()
+
         delete model.id
 
         return true //This should be a better check
