@@ -83,6 +83,9 @@
                 "--runInBand",
                 "--verbose"
             ],
+            "env": {
+                "DB_DRIVER": "DB_LOWDB"
+            },
             "skipFiles": [
                 "<node_internals>/**/*.js",
                 "${workspaceFolder}/**/node_modules/**/*.js",

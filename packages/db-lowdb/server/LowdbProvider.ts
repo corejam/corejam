@@ -35,9 +35,9 @@ export class LowdbProvider implements ProviderInterface {
             id
         }).value()
 
-        if (!item) return new Promise((res) => res);
+        if (!item) return null;
 
-        return new Promise((res) => res(model.assignData(item)))
+        return model.assignData(item)
     }
 
     async update<Model extends CoreModel>(model: Model): Promise<Model> {
@@ -53,6 +53,7 @@ export class LowdbProvider implements ProviderInterface {
 
     async delete<Model extends CoreModel>(model: Model): Promise<Boolean> {
         await db.get(model.getModelName()).remove({ id: model.id }).write()
+        delete model.id
 
         return true //This should be a better check
     }
