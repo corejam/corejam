@@ -25,15 +25,11 @@ export abstract class CoreModel {
     return this.collection;
   }
 
-  static async getById<T extends CoreModel>(this: Constructor<T>, id: string): Promise<T | null> {
-    try {
-      const instance = new this() as T;
-      instance.id = id;
+  static async getById<T extends CoreModel>(this: Constructor<T>, id: ID): Promise<T | null> {
+    const instance = new this() as T;
+    instance.id = id;
 
-      return await getDb().read(instance, id);
-    } catch (e) {
-      return null;
-    }
+    return await getDb().read(instance, id);
   }
 
   async create(): Promise<this> {

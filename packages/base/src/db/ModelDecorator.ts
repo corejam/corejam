@@ -17,8 +17,10 @@ export function CoreData(): PropertyDecorator {
 /**
  * This decorator can be used to like the CoreData decorator but
  * any fields declared as `@Corejam` will automatically be merged
- * into the GraphQL schema.
- */
+ * into the GraphQL schema to query.
+ * 
+ * COMING SOON
+ * 
 export function Corejam(): PropertyDecorator {
   return (target, key) => {
     const fields = Reflect.getOwnMetadata("Corejam", target) || [];
@@ -28,3 +30,4 @@ export function Corejam(): PropertyDecorator {
     Reflect.defineMetadata("Corejam", fields, target);
   };
 }
+*/
