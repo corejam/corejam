@@ -1,6 +1,13 @@
 import TestObject from "./TestObject";
 import { CorejamServer } from "../../src/Server"
 
+/**
+ * These are tests that need to pass for each DB implementation.
+ * If you want to integrate a new DB integration this is a good place to start.
+ * 
+ * These tests being green against your implementation means corejam applications
+ * should work right out of the box.
+ */
 export const sharedDBInterfaceTests = (name) => {
 
     describe(`DB Interface tests for ${name}`, () => {
@@ -8,33 +15,6 @@ export const sharedDBInterfaceTests = (name) => {
         beforeAll(async () => {
             await CorejamServer();
         })
-
-        it("Validate getDataFields only has our decorated attributes", async () => {
-            const testObject = new TestObject();
-
-            expect(testObject.getDataFields()).toEqual([
-                "dataAttribute1",
-                "dataAttribute2"
-            ])
-        });
-
-        it("Validate getData only returns our decorated data", async () => {
-            const testObject = new TestObject();
-
-            expect(testObject.getData()).toEqual({
-                dataAttribute1: "attribute1",
-                dataAttribute2: "attribute2"
-            })
-
-            //Change a value
-            testObject.dataAttribute1 = "new value"
-
-            expect(testObject.getData()).toEqual({
-                dataAttribute1: "new value",
-                dataAttribute2: "attribute2"
-            })
-        });
-
         it("getById retrieves model", async () => {
             const testObject = new TestObject();
             testObject.dataAttribute1 = "testing",
@@ -70,7 +50,7 @@ export const sharedDBInterfaceTests = (name) => {
         it("can delete an instance", async () => {
             const testObject = new TestObject();
             testObject.dataAttribute1 = "testing",
-            testObject.dataAttribute2 = "testing2"
+                testObject.dataAttribute2 = "testing2"
 
             await testObject.save();
             expect(testObject.exists()).toBe(true)
