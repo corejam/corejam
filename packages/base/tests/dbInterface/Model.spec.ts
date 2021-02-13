@@ -70,7 +70,8 @@ export const sharedDBInterfaceTests = (name) => {
         it("can delete an instance", async () => {
             const testObject = new TestObject();
             testObject.dataAttribute1 = "testing",
-                testObject.dataAttribute2 = "testing2"
+            testObject.dataAttribute2 = "testing2"
+            
             await testObject.create();
             expect(testObject.exists()).toBe(true)
 
