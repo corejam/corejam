@@ -54,7 +54,6 @@
     "@xstate/fsm": "1.5.2",
     "autoprefixer": "10.2.4",
     "crypto-hash": "1.3.0",
-    "clean-css": "5.0.1",
     "dotenv": "8.2.0",
     "graphql-tag": "2.11.0",
     "postcss": "8.2.4",

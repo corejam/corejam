@@ -591,7 +591,7 @@ export default {
 
 export const globalRules = {
   "*": {
-    "box-sizing": "boder-box",
+    "box-sizing": "border-box",
   },
   body: {
     "font-family": "var(--cj-font-sans)",

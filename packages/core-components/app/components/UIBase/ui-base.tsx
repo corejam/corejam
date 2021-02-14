@@ -25,11 +25,8 @@ export class UiBase {
         addStyleTagToHead(computedStyleString, "corejam-ui-base");
       }
     } else {
-      const clean = await import("clean-css").then((clean) => clean.default);
-      const finalResult = new clean().minify(computedStyleString).styles;
-      if (existingTag) {
-        existingTag[0].innerHTML = finalResult;
-      } else {
+      const finalResult = computedStyleString.replace(/\/\*(.|[\r\n])*?\*\//g, "");
+      if (!existingTag) {
         addStyleTagToHead(finalResult, "corejam-ui-base");
       }
     }
