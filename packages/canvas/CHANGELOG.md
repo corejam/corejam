@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.7](https://github.com/corejam/corejam/compare/@corejam/plugin-canvas@0.0.6...@corejam/plugin-canvas@0.0.7) (2021-02-16)
+
+**Note:** Version bump only for package @corejam/plugin-canvas
+
+
+
+
+
 ## [0.0.6](https://github.com/corejam/corejam/compare/@corejam/plugin-canvas@0.0.5...@corejam/plugin-canvas@0.0.6) (2021-01-29)
 
 **Note:** Version bump only for package @corejam/plugin-canvas
