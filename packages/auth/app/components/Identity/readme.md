@@ -23,7 +23,7 @@
 
 - corejam-box
 - corejam-type
-- [corejam-icons-account](../icons/account)
+- [corejam-icons-account](../Icons/account)
 - corejam-base-link
 - corejam-form-container
 - corejam-flash
