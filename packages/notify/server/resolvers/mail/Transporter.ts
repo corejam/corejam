@@ -13,14 +13,14 @@ enum Transport {
 export default abstract class MailTransport {
   static readonly TRANSPORT = Transport;
 
-  abstract send(mail: Mail): void;
+  abstract send(mail: Mail): Promise<any>;
 }
 
 /**
  * See https://github.com/corejam/corejam/tree/next/packages/notify/README.md
  */
 export class EmptyMailTransport extends MailTransport {
-  send(_mail: Mail): void {
+  async send(_mail: Mail): Promise<any> {
     console.error("Mail Transport not configured!");
   }
 }

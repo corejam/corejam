@@ -23,7 +23,7 @@ export default class SMTP extends Transporter {
     this.client = client;
   }
 
-  send(mail: Mail): void {
+  async send(mail: Mail): Promise<any> {
     return this.client.sendMail({
       from: process.env.MAIL_SENDER_EMAIL,
       to: Array.isArray(mail.to) ? mail.to.join() : mail.to,

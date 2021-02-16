@@ -15,7 +15,7 @@ export default class Notify {
   /**
    * Send mail based on mail transport defined above
    */
-  sendMail(mail: Mail) {
+  sendMail(mail: Mail): Promise<any> {
     return this.mailTransport.send(mail);
   }
 

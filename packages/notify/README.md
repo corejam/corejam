@@ -7,7 +7,7 @@ For example in your resolver:
 ```typescript
 Mutation: {
     myMutation: async (_obj: any, args: any, { notify }: MergedServerContext) => {
-        notify.sendMail({to: "mail@mail.com"})
+        await notify.sendMail({to: "mail@mail.com"})
 
         notify.sendSMS() //Coming soon
         notify.pushNotification() //Coming soon

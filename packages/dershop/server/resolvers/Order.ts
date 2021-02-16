@@ -13,7 +13,7 @@ export default {
       const orderUser = ((await user()) as unknown) as UserDB;
       const order = await models.orderCreate(args.orderInput, orderUser);
 
-      notify.sendMail(new OrderConfirmation(order));
+      await notify.sendMail(new OrderConfirmation(order));
 
       return order;
     },
