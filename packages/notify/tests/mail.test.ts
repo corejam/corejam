@@ -84,34 +84,35 @@ describe("Mail Transporter Integration tests", () => {
   /**
    * This needs to run before nodemailer Send below due to mock not being reset
    */
-  // it("Integration test SMTP over ethereal.email", async () => {
-  //   const testMail = new TestMail("test@test.com", "Test Subject")
-  //   const nodemailer = require("nodemailer")
-  //   const account = await nodemailer.createTestAccount()
+  /*
+  it("Integration test SMTP over ethereal.email", async () => {
+    const testMail = new TestMail("test@test.com", "Test Subject")
+    const nodemailer = require("nodemailer")
+    const account = await nodemailer.createTestAccount()
 
-  //   // create reusable transporter object using the default SMTP transport
-  //   const initTransport = nodemailer.createTransport({
-  //     host: 'smtp.ethereal.email',
-  //     port: 587,
-  //     secure: false, // true for 465, false for other ports
-  //     auth: {
-  //       user: account.user, // generated ethereal user
-  //       pass: account.pass  // generated ethereal password
-  //     }
-  //   });
+    // create reusable transporter object using the default SMTP transport
+    const initTransport = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: account.user, // generated ethereal user
+        pass: account.pass  // generated ethereal password
+      }
+    });
 
-  //   const info = await new Notify(new SMTP(initTransport)).sendMail(testMail) as unknown as Promise<any>;
-  //   const message = nodemailer.getTestMessageUrl(info)
-  //   console.info("Email url", message)
+    const info = await new Notify(new SMTP(initTransport)).sendMail(testMail) as unknown as Promise<any>;
+    const message = nodemailer.getTestMessageUrl(info)
+    console.info("Email url", message)
 
-  //   const test = await fetch(message + "/message.eml", {
-  //     method: "GET",
-  //   })
+    const test = await fetch(message + "/message.eml", {
+      method: "GET",
+    })
 
-  //   const response = await test.text()
-  //   expect(response).toContain("test@test.com")
-  //   expect(response).toContain("Subject: Test Subject")
-  // });
+    const response = await test.text()
+    expect(response).toContain("test@test.com")
+    expect(response).toContain("Subject: Test Subject")
+  });*/
 
   it("Test nodemailer Send is called when using SMTP transporter", async () => {
     const testMail = new TestMail("test@test.com", "Test Subject");

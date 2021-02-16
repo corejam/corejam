@@ -82,7 +82,7 @@ export default {
 
       const user = await models.userRegister(args.data);
       user.verifyHash = await generateVerifyHash(user, models.userEdit);
-      notify.sendMail(new RegisterVerifyMail(user));
+      await notify.sendMail(new RegisterVerifyMail(user));
 
       return user;
     },
@@ -136,7 +136,7 @@ export default {
       const updatePassword = await models.userUpdatePassword(currentUser, args.passwordInput);
 
       if (updatePassword === true) {
-        notify.sendMail(new PasswordResetConfirmed(currentUser));
+        await notify.sendMail(new PasswordResetConfirmed(currentUser));
       }
 
       return updatePassword;
@@ -159,7 +159,7 @@ export default {
           })
         ).toString("base64");
 
-        notify.sendMail(new PasswordResetRequest(user, token));
+        await notify.sendMail(new PasswordResetRequest(user, token));
 
         await models.userEdit(user.id, {
           authReset: {
@@ -188,7 +188,7 @@ export default {
 
         await models.userUpdatePassword(user, resetInput);
 
-        notify.sendMail(new PasswordResetConfirmed(user));
+        await notify.sendMail(new PasswordResetConfirmed(user));
       }
 
       return true;

@@ -24,8 +24,8 @@ export default class SES extends Transporter {
     this.client = client;
   }
 
-  send(mail: Mail): void {
-    this.client.send(
+  async send(mail: Mail): Promise<any> {
+    return this.client.send(
       new SendEmailCommand({
         Message: {
           Body: {
