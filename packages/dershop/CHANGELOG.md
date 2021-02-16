@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.25](https://github.com/Corejam/Corejam/compare/@corejam/plugin-dershop@0.0.24...@corejam/plugin-dershop@0.0.25) (2021-02-16)
+
+
+### Bug Fixes
+
+* await sending emails ([a9ca74a](https://github.com/Corejam/Corejam/commit/a9ca74ac5723caf7864d4b0b15ffd423ad3eabe2))
+
+
+
+
+
 ## [0.0.24](https://github.com/Corejam/Corejam/compare/@corejam/plugin-dershop@0.0.23...@corejam/plugin-dershop@0.0.24) (2021-01-29)
 
 **Note:** Version bump only for package @corejam/plugin-dershop
