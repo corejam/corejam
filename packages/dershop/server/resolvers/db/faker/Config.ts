@@ -1,7 +1,7 @@
 import { bootstrapSchema } from "@corejam/base/dist/Bootstrap";
-import { generateConfig } from "./Generator";
-import type { ConfigGeneral, ConfigDB, Config, ConfigEditInput } from "@corejam/base/dist/typings/Config";
+import type { Config, ConfigDB, ConfigEditInput, ConfigGeneral } from "@corejam/base/dist/typings/Config";
 import type { SEO } from "@corejam/base/dist/typings/Seo";
+import { generateConfig } from "./Generator";
 
 const seo: SEO = {
   metaTitle: "DerShop - Serverless Ecommerce System",

@@ -1,10 +1,9 @@
 require("dotenv").config();
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.addPassthroughCopy("static");
   config.addPassthroughCopy({
-    "../../node_modules/@corejam/web-components-dev/dist/dershop":
-      "static/@corejam",
+    "../../node_modules/@corejam/web-components-dev/dist/dershop": "static/@corejam",
   });
 
   config.addCollection("testy", () => [12, 14, 12]);

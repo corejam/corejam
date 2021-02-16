@@ -4,7 +4,6 @@ import { Component, h, Host } from "@stencil/core";
   tag: "route-index",
 })
 export class Hallo {
-
   render() {
     return (
       <Host>
@@ -17,5 +16,4 @@ export class Hallo {
       </Host>
     );
   }
-
 }

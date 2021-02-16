@@ -1,13 +1,9 @@
+import { testClient } from "@corejam/base/src/TestClient";
 import { advanceTo } from "jest-date-mock";
-import {
-  generateManufacturer,
-  generateSeo,
-} from "../../server/resolvers/db/faker/Generator";
+import { generateManufacturer, generateSeo } from "../../server/resolvers/db/faker/Generator";
+import { allManufacturersGQL, paginateManufacturersGQL } from "../../shared/graphql/Queries/Manufacturer";
 import { ManufacturerCreateInput, ManufacturerDB, ManufacturerList } from "../../shared/types/Manufacturer";
 import { PluginResolver } from "../../shared/types/PluginResolver";
-import { testClient } from "@corejam/base/src/TestClient";
-import { allManufacturersGQL, paginateManufacturersGQL } from "../../shared/graphql/Queries/Manufacturer";
-
 
 describe("Manufacturers", () => {
   advanceTo(new Date(2020, 5, 27, 0, 0, 0)); // reset to date time.
@@ -37,13 +33,15 @@ describe("Manufacturers", () => {
   });
 
   it("allManufacturers", async () => {
-    const { query } = client
+    const { query } = client;
 
-     //Test that we can retrieve the same values back
-     const allManufacturers = (await query({
-      query: allManufacturersGQL,
-      variables: { page: 1, size: 24 }
-    })).data.allManufacturers
+    //Test that we can retrieve the same values back
+    const allManufacturers = (
+      await query({
+        query: allManufacturersGQL,
+        variables: { page: 1, size: 24 },
+      })
+    ).data.allManufacturers;
 
     expect(allManufacturers.length).toBeGreaterThan(0);
 
@@ -57,17 +55,17 @@ describe("Manufacturers", () => {
   });
 
   it("Paginated Manufacturers", async () => {
-    const { query } = client
+    const { query } = client;
 
     //Test that we can retrieve the same values back
     const pagination = await query({
       query: paginateManufacturersGQL,
-      variables: { page: 1, size: 24 }
-    })
+      variables: { page: 1, size: 24 },
+    });
 
     const paginated: ManufacturerList = pagination.data.paginateManufacturers;
-    expect(paginated.currentPage).toEqual(1)
-    expect(paginated.items.length).toEqual((await (models.allManufacturers())).length)
+    expect(paginated.currentPage).toEqual(1);
+    expect(paginated.items.length).toEqual((await models.allManufacturers()).length);
   });
 
   it("getManufacturerByUrl", async () => {

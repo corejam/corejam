@@ -1,9 +1,9 @@
-import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
-import { adminPaginateOrdersGQL } from "../../../shared/graphql/Queries/Admin/Order";
-import { authStore } from "@corejam/plugin-auth";
-import { OrderList, OrderDB } from "../../../shared/types/Order";
 import { coreState } from "@corejam/core-components";
+import { authStore } from "@corejam/plugin-auth";
+import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
 import gql from "graphql-tag";
+import { adminPaginateOrdersGQL } from "../../../shared/graphql/Queries/Admin/Order";
+import { OrderDB, OrderList } from "../../../shared/types/Order";
 
 @Component({
   tag: "dershop-admin-order-list",

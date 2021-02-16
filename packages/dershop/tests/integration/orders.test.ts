@@ -1,90 +1,86 @@
-import { Paginated } from '@corejam/base/dist/typings/Utils';
+import { Paginated } from "@corejam/base/dist/typings/Utils";
+import { testClient } from "@corejam/base/src/TestClient";
 import * as faker from "faker";
-import { advanceTo } from 'jest-date-mock';
+import { advanceTo } from "jest-date-mock";
 import { generateAddress, generateOrder, generateUser } from "../../server/resolvers/db/faker/Generator";
 import { orderById } from "../../shared/graphql/Queries/Order";
-import { OrderDB, OrderEditInput } from '../../shared/types/Order';
+import { OrderDB, OrderEditInput } from "../../shared/types/Order";
 import { PluginResolver } from "../../shared/types/PluginResolver";
-import { ProductCoreInput, ProductDB } from '../../shared/types/Product';
-import { UserDB } from '../../shared/types/User';
-import { testClient } from "@corejam/base/src/TestClient";
+import { ProductCoreInput, ProductDB } from "../../shared/types/Product";
+import { UserDB } from "../../shared/types/User";
 
+describe("Orders", () => {
+  advanceTo(new Date(2020, 5, 27, 0, 0, 0)); // reset to date time.
 
-describe('Orders', () => {
+  //This is the document ID we use to run various tests against instead of reading in every test
+  let testID, client, models: PluginResolver, inserted;
 
-    advanceTo(new Date(2020, 5, 27, 0, 0, 0)); // reset to date time.
+  let user: UserDB;
 
-    //This is the document ID we use to run various tests against instead of reading in every test
-    let testID, client, models: PluginResolver, inserted;
+  //Bootstrap
+  beforeAll(async () => {
+    client = await testClient();
+    models = client.models;
 
-    let user: UserDB;
+    const testProduct: ProductCoreInput = {
+      active: true,
+      promoted: false,
+      name: faker.commerce.product(),
+      description: faker.random.words(),
+      ean: faker.random.uuid(),
+      manufacturer_number: faker.random.uuid(),
+      sku: faker.random.uuid(),
+    };
 
-    //Bootstrap
-    beforeAll(async () => {
-        client = await testClient();
-        models = client.models;
+    const insertedProduct = (await models.productCreate(testProduct)) as ProductDB;
 
-        const testProduct: ProductCoreInput = {
-            active: true,
-            promoted: false,
-            name: faker.commerce.product(),
-            description: faker.random.words(),
-            ean: faker.random.uuid(),
-            manufacturer_number: faker.random.uuid(),
-            sku: faker.random.uuid(),
-        };
+    //@ts-ignore
+    user = await models.userCreate(generateUser());
 
-        const insertedProduct = (await models.productCreate(testProduct)) as ProductDB;
+    const testValues = await generateOrder([insertedProduct], [user]);
 
-        //@ts-ignore
-        user = await models.userCreate(generateUser());
+    inserted = (await models.orderCreate(testValues, user)) as OrderDB;
+    expect(inserted).toMatchObject(testValues);
 
-        const testValues = await generateOrder([insertedProduct], [user]);
+    testID = inserted.id;
+  });
 
-        inserted = await models.orderCreate(testValues, user) as OrderDB;
-        expect(inserted).toMatchObject(testValues)
+  it("getOrderById", async () => {
+    const { query } = client;
 
-        testID = inserted.id;
+    //Test that we can retrieve the same values back
+    const returnedOrderById = await query({
+      query: orderById,
+      variables: { id: testID },
     });
 
-    it('getOrderById', async () => {
-        const { query } = client
+    expect(returnedOrderById.data.orderById.user).toBeDefined();
 
-        //Test that we can retrieve the same values back
-        const returnedOrderById = await query({
-            query: orderById,
-            variables: { id: testID }
-        })
+    expect(inserted).toMatchObject(returnedOrderById.data.orderById);
+  });
 
-        expect(returnedOrderById.data.orderById.user).toBeDefined()
+  it("allOrders", async () => {
+    const returnedPagination: OrderDB[] = await models.allOrders();
 
-        expect(inserted).toMatchObject(returnedOrderById.data.orderById)
-    })
+    expect(returnedPagination[0].user).toBeDefined();
+    expect(returnedPagination.length).toBeGreaterThanOrEqual(0);
+  });
 
-    it('allOrders', async () => {
-        const returnedPagination: OrderDB[] = await models.allOrders();
+  it("updateOrder", async () => {
+    const newValues: OrderEditInput = {
+      addressBilling: generateAddress(),
+      addressShipping: generateAddress(),
+    };
 
-        expect(returnedPagination[0].user).toBeDefined()
-        expect(returnedPagination.length).toBeGreaterThanOrEqual(0);
-    });
+    const editResult = await models.orderUpdate(testID, newValues);
 
-    it("updateOrder", async () => {
-        const newValues: OrderEditInput = {
-            addressBilling: generateAddress(),
-            addressShipping: generateAddress()
-        }
+    expect(editResult).toEqual(expect.objectContaining(newValues));
+  });
 
-        const editResult = await models.orderUpdate(testID, newValues)
+  it("ordersByCustomer", async () => {
+    const returnedPagination: Paginated = await models.ordersByCustomer(user);
 
-        expect(editResult).toEqual(
-            expect.objectContaining(newValues)
-        )
-    })
-
-    it('ordersByCustomer', async () => {
-        const returnedPagination: Paginated = await models.ordersByCustomer(user);
-
-        expect(returnedPagination).toHaveProperty("items")
-        expect(returnedPagination.items.length).toBeGreaterThanOrEqual(1);
-    });
-})
+    expect(returnedPagination).toHaveProperty("items");
+    expect(returnedPagination.items.length).toBeGreaterThanOrEqual(1);
+  });
+});

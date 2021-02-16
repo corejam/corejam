@@ -4,7 +4,6 @@ import { Component, h } from "@stencil/core";
   tag: "app-layout",
 })
 export class AppLayout {
-
   render() {
     return (
       <corejam-box>
@@ -12,5 +11,4 @@ export class AppLayout {
       </corejam-box>
     );
   }
-
 }

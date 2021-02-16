@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from "@stencil/core";
+import { Component, h, Host, Prop } from "@stencil/core";
 import { Sidebar } from "../../../shared/types/Sidebar";
 
 @Component({
@@ -26,7 +26,7 @@ export class SidebarComponent {
                 <corejam-base-link href={"/" + category.url}>
                   <corejam-type as="span" color="gray-600">
                     {category.name} ({category.itemCount})
-                </corejam-type>
+                  </corejam-type>
                 </corejam-base-link>
               </corejam-box>
             ))}
@@ -42,7 +42,7 @@ export class SidebarComponent {
                 <corejam-base-link href={"/" + brand.url}>
                   <corejam-type as="span" color="gray-600">
                     {brand.name} ({brand.itemCount})
-                </corejam-type>
+                  </corejam-type>
                 </corejam-base-link>
               </corejam-box>
             ))}

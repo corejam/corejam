@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 function MyApp({ Component, pageProps }) {
   return (
     <CorejamInit router={useRouter()}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </CorejamInit>
   );
 }

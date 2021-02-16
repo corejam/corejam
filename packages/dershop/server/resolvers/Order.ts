@@ -7,13 +7,13 @@ export default {
   Mutation: {
     orderCreate: async (_obj: any, args: any, { models, user, notify }: MergedServerContext) => {
       if (!user) {
-        throw new Error("missing user")
+        throw new Error("missing user");
       }
 
-      const orderUser = await user() as unknown as UserDB;
+      const orderUser = ((await user()) as unknown) as UserDB;
       const order = await models.orderCreate(args.orderInput, orderUser);
 
-      notify.sendMail(new OrderConfirmation(order))
+      await notify.sendMail(new OrderConfirmation(order));
 
       return order;
     },

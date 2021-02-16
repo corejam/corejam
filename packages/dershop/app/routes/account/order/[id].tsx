@@ -1,10 +1,9 @@
-import { Component, Host, h, Prop } from "@stencil/core";
+import { Component, h, Host, Prop } from "@stencil/core";
 
 @Component({
   tag: "dershop-route-account-order",
 })
 export class AccountOrderRoute {
-
   @Prop() param: any;
 
   render() {

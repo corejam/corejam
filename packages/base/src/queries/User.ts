@@ -1,5 +1,3 @@
-
-
 export const userByToken = `
   query {
     userByToken {

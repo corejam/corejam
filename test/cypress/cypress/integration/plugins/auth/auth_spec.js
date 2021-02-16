@@ -49,11 +49,11 @@ describe("Basic Authentication checks", function () {
     cy.register(email, oldPassword);
     cy.login(email, oldPassword, true);
 
-    cy.visit("/account")
+    cy.visit("/account");
 
-    cy.getTag("updatePassword-oldPassword").type(oldPassword)
-    cy.getTag("updatePassword-password").type(newPassword)
-    cy.getTag("updatePassword-passwordConfirm").type(newPassword)
+    cy.getTag("updatePassword-oldPassword").type(oldPassword);
+    cy.getTag("updatePassword-password").type(newPassword);
+    cy.getTag("updatePassword-passwordConfirm").type(newPassword);
 
     cy.getTag("submit-updatePassword").click();
 

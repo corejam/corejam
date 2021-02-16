@@ -1,9 +1,9 @@
-import { Component, Host, h } from "@stencil/core";
+import { Component, h, Host } from "@stencil/core";
 
 @Component({
-  tag: "corejam-auth-header",
+  tag: "auth-header",
 })
-export class CorejamAuthHeader {
+export class AuthHeader {
   render() {
     return (
       <Host>

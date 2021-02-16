@@ -1,7 +1,7 @@
+import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 import type { Config, ConfigDB, ConfigEditInput } from "@corejam/base/dist/typings/Config";
 import type { SEOInput } from "@corejam/base/dist/typings/Seo";
 import { query as q } from "faunadb";
-import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 
 //Global config object for internal lambda caching
 let schemaCache;

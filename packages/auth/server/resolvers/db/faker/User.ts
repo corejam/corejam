@@ -1,17 +1,26 @@
 import { updateDates } from "@corejam/base";
 import * as bcrypt from "bcryptjs";
 import { random } from "faker";
-import { decodeJWT, generateTokensForUser, hashPassword } from "../../../Functions";
+import {
+  JWT,
+  RegisterInput,
+  roles,
+  STATUS,
+  UpdatePasswordInput,
+  UserCreateInput,
+  UserDB,
+  UserInput,
+} from "../../../../shared/types/User";
 import { AuthenticationError } from "../../../Errors";
-import { JWT, RegisterInput, UserCreateInput, UserDB, UserInput, roles, STATUS, UpdatePasswordInput } from "../../../../shared/types/User";
+import { decodeJWT, generateTokensForUser, hashPassword } from "../../../Functions";
 import { generateUser } from "./Generator";
 
 export let users = [] as UserDB[];
 
 try {
-  const staticFile = require(process.cwd() + "/.corejam/faker.json")
-  users.push(...staticFile.users)
-  console.log("Load from static data")
+  const staticFile = require(process.cwd() + "/.corejam/faker.json");
+  users.push(...staticFile.users);
+  console.log("Load from static data");
 } catch (e) {
   //Nothing for now
 }
@@ -73,7 +82,6 @@ export function userByEmail(email: string): Promise<UserDB | null> {
 }
 
 export async function userRegister(userInput: RegisterInput): Promise<UserDB> {
-
   const userObj: UserDB = {
     id: random.uuid(),
     email: userInput.email ? userInput.email : "",

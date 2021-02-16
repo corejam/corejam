@@ -1,9 +1,18 @@
 import { updateDates } from "@corejam/base";
 import { FaunaClient } from "@corejam/base/dist/resolvers/db/fauna/Client";
 import { query as q } from "faunadb";
+import {
+  JWT,
+  RegisterInput,
+  roles,
+  STATUS,
+  UpdatePasswordInput,
+  UserCreateInput,
+  UserDB,
+  UserInput,
+} from "../../../../shared/types/User";
 import { AuthenticationError } from "../../../Errors";
 import { decodeJWT, generateTokensForUser } from "../../../Functions";
-import { JWT, RegisterInput, UpdatePasswordInput, UserCreateInput, roles, STATUS, UserDB, UserInput } from "../../../../shared/types/User";
 
 export function allUsers(): Promise<UserDB[]> {
   return FaunaClient()
@@ -132,9 +141,10 @@ export async function userUpdatePassword(user: UserDB, passwordInput: UpdatePass
   return FaunaClient()
     .query(
       q.Update(q.Ref(q.Collection("users"), user.id), {
-        credentials: { password: passwordInput.password }
+        credentials: { password: passwordInput.password },
       })
-    ).then((_res: any) => {
-      return true
-    })
+    )
+    .then((_res: any) => {
+      return true;
+    });
 }

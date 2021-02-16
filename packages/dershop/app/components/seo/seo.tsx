@@ -1,5 +1,5 @@
 import { SEO } from "@corejam/base/dist/typings/Seo";
-import { Component, ComponentInterface, h, Prop, Host } from "@stencil/core";
+import { Component, ComponentInterface, h, Host, Prop } from "@stencil/core";
 
 @Component({
   tag: "dershop-seo",

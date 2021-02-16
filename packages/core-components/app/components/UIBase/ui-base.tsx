@@ -1,6 +1,6 @@
 import { Component, h, Host } from "@stencil/core";
-import reset from "./reset";
 import makeTheme from "./makeTheme";
+import reset from "./reset";
 
 @Component({
   tag: "corejam-ui-base",

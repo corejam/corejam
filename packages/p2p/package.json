@@ -30,7 +30,7 @@
     "@corejam/rollup-plugin": "0.0.5",
     "@corejam/run": "0.0.8",
     "@rollup/plugin-replace": "2.3.4",
-    "@stencil/core": "2.3.0",
+    "@stencil/core": "2.4.0",
     "@stencil/react-output-target": "0.0.9",
     "@types/faker": "5.1.4",
     "dotenv": "8.2.0",
@@ -55,5 +55,8 @@
   "corejam": {
     "wrapper": [],
     "recommendations": []
+  },
+  "dependencies": {
+    "rollup-plugin-node-polyfills": "0.2.1"
   }
 }

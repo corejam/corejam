@@ -1,5 +1,5 @@
-import { resolvers } from "./resolvers";
 import loggedIn from "./Listener/loggedIn";
+import { resolvers } from "./resolvers";
 
 const pluginProperties = {
   resolvers,

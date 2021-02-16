@@ -1,7 +1,7 @@
-import { Component, ComponentInterface, h, Host } from "@stencil/core";
-import basket, { basketService } from "../../../shared/store/basket";
-import { CheckoutStates } from "../../../shared/machines/basket";
 import { runState } from "@corejam/run";
+import { Component, ComponentInterface, h, Host } from "@stencil/core";
+import { CheckoutStates } from "../../../shared/machines/basket";
+import basket, { basketService } from "../../../shared/store/basket";
 
 @Component({
   tag: "dershop-cart",

@@ -1,4 +1,4 @@
-import { Component, State, ComponentInterface, Element, Event, EventEmitter, h, Host, Prop } from "@stencil/core";
+import { Component, ComponentInterface, Element, Event, EventEmitter, h, Host, Prop, State } from "@stencil/core";
 
 export declare type options = {
   key: string;

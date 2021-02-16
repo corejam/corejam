@@ -6,20 +6,20 @@ import MailTransport, { EmptyMailTransport } from "./resolvers/mail/Transporter"
  * applications
  */
 export default class Notify {
-    public readonly mailTransport: MailTransport;
+  public readonly mailTransport: MailTransport;
 
-    constructor(mailTrainsport: MailTransport = new EmptyMailTransport()) {
-        this.mailTransport = mailTrainsport;
-    }
+  constructor(mailTrainsport: MailTransport = new EmptyMailTransport()) {
+    this.mailTransport = mailTrainsport;
+  }
 
-    /**
-     * Send mail based on mail transport defined above
-     */
-    sendMail(mail: Mail) {
-        return this.mailTransport.send(mail)
-    }
+  /**
+   * Send mail based on mail transport defined above
+   */
+  sendMail(mail: Mail): Promise<any> {
+    return this.mailTransport.send(mail);
+  }
 
-    /*
+  /*
     sendSMS() {
         //TODO implement
     }

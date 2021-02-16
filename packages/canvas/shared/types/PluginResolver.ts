@@ -1,11 +1,11 @@
-import { ServerContext } from "@corejam/base/dist/typings/Server";
 import { CoreResolver } from "@corejam/base/dist/typings/CoreResolver";
-import { MergedServerContext as ExtendedServerContext } from "@corejam/plugin-auth/shared/types/PluginResolver"
+import { ServerContext } from "@corejam/base/dist/typings/Server";
+import { MergedServerContext as ExtendedServerContext } from "@corejam/plugin-auth/shared/types/PluginResolver";
 import { CanvasPage, CanvasPageDB, CanvasPeer, CanvasPeers } from "./Canvas";
 
 export type LinkResult = {
-  result: Boolean
-}
+  result: Boolean;
+};
 
 /**
  * We are adding these resolvers to the existing CoreResolver

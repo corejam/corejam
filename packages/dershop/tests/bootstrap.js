@@ -3,9 +3,7 @@ const { Client, query } = require("faunadb");
 const q = query;
 const { getDataClient } = require("@corejam/base/dist/PluginManager");
 
-args
-  .option("dbSecret", "Your DB Secret key (FaunaDB)")
-  .command("fauna", "Bootstrap a new faunaDB");
+args.option("dbSecret", "Your DB Secret key (FaunaDB)").command("fauna", "Bootstrap a new faunaDB");
 
 const flags = args.parse(process.argv);
 flags.dbSecret = flags.dbSecret ? flags.dbSecret : process.env.SECRET_KEY;
@@ -170,20 +168,19 @@ async function go() {
     )
     .catch((e) => console.log(e));
 
-  await newClient
-    .query(
-      q.CreateIndex({
-        name: "seoIndex",
-        active: true,
-        source: [
-          q.Collection("products"),
-          q.Collection("manufacturers"),
-          q.Collection("categories"),
-          q.Collection("canvasPages")
-        ],
-        values: [{ field: ["data", "seo", "url"] }, { field: ["ref"] }]
-      })
-    )
+  await newClient.query(
+    q.CreateIndex({
+      name: "seoIndex",
+      active: true,
+      source: [
+        q.Collection("products"),
+        q.Collection("manufacturers"),
+        q.Collection("categories"),
+        q.Collection("canvasPages"),
+      ],
+      values: [{ field: ["data", "seo", "url"] }, { field: ["ref"] }],
+    })
+  );
 }
 
 try {

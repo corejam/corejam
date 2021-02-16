@@ -5,9 +5,9 @@ import { generateCategory } from "./Generator";
 export let categories = [] as CategoryDB[];
 
 try {
-  const staticFile = require(process.cwd() + "/.corejam/faker.json")
-  categories.push(...staticFile.categories)
-  console.log("Load from static data")
+  const staticFile = require(process.cwd() + "/.corejam/faker.json");
+  categories.push(...staticFile.categories);
+  console.log("Load from static data");
 } catch (e) {
   //Nothing for now
 }

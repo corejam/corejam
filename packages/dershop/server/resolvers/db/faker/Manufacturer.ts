@@ -1,15 +1,19 @@
 import { updateDates } from "@corejam/base";
 import type { SEOInput } from "@corejam/base/dist/typings/Seo";
 import { random } from "faker";
-import type { ManufacturerCreateInput, ManufacturerDB, ManufacturerEditInput } from "../../../../shared/types/Manufacturer";
+import type {
+  ManufacturerCreateInput,
+  ManufacturerDB,
+  ManufacturerEditInput,
+} from "../../../../shared/types/Manufacturer";
 import { generateManufacturer } from "./Generator";
 
 export let manufacturers = [] as ManufacturerDB[];
 
 try {
-  const staticFile = require(process.cwd() + "/.corejam/faker.json")
-  manufacturers.push(...staticFile.manufacturers)
-  console.log("Load from static data")
+  const staticFile = require(process.cwd() + "/.corejam/faker.json");
+  manufacturers.push(...staticFile.manufacturers);
+  console.log("Load from static data");
 } catch (e) {
   //Nothing for now
 }
