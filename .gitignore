@@ -9,3 +9,4 @@ __LINKEDPKGS__
 /tsconfig.json
 react-bindings
 stencil-runner
+.husky

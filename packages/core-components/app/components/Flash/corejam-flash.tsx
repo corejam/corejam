@@ -10,6 +10,7 @@ export class CorejamFlash {
     info: "blue",
     warning: "orange",
     error: "red",
+    hihi: "green",
   };
 
   @State() flash: FlashEventType;
