@@ -1,4 +1,5 @@
 import { updateDates } from "@corejam/base";
+import { ID } from "@corejam/base/dist/typings/DB";
 import * as bcrypt from "bcryptjs";
 import { random } from "faker";
 import {
@@ -10,26 +11,18 @@ import {
   UserCreateInput,
   UserDB,
   UserInput,
-} from "../../../../shared/types/User";
-import { AuthenticationError } from "../../../Errors";
-import { decodeJWT, generateTokensForUser, hashPassword } from "../../../Functions";
-import { generateUser } from "./Generator";
+} from "../../shared/types/User";
+import { AuthenticationError } from "../Errors";
+import { decodeJWT, generateTokensForUser, hashPassword } from "../Functions";
+import { User } from "../Models/User";
+import { generateUser } from "./db/faker/Generator";
 
-export let users = [] as UserDB[];
-
-try {
-  const staticFile = require(process.cwd() + "/.corejam/faker.json");
-  users.push(...staticFile.users);
-  console.log("Load from static data");
-} catch (e) {
-  //Nothing for now
-}
 
 export function allUsers(): Promise<UserDB[]> {
   return new Promise((res) => res(users));
 }
 
-export function userCreate(userCreateInput: UserCreateInput): Promise<UserDB> {
+export function userCreate(userCreateInput: UserCreateInput): Promise<User> {
   const user: UserDB = {
     id: random.uuid(),
     role: [roles.USER],
@@ -43,34 +36,24 @@ export function userCreate(userCreateInput: UserCreateInput): Promise<UserDB> {
   return new Promise((res) => res(user));
 }
 
-export function userEdit(id: string, userInput: UserInput): Promise<UserDB> {
-  let user = users.filter((user: UserDB) => {
-    return user.id === id;
-  })[0];
+export async function userEdit(id: ID, userInput: UserInput): Promise<User> {
+  const user = await User.getById(id);
+  user.assignData(userInput).save()
 
-  user = { ...user, ...userInput };
-
-  users = users.map((user: UserDB) => {
-    if (user.id === id) {
-      user = { ...user, ...userInput };
-    }
-    return user;
-  });
-
-  return new Promise((res) => res(user));
+  return user;
 }
 
-export function userById(id: string): Promise<UserDB | null> {
-  const user = users.filter((user) => user.id === id)[0];
-  return new Promise((res) => res(user));
+export function userById(id: ID): Promise<User | null> {
+  return User.getById(id);
 }
 
-export async function userByToken(token: string): Promise<UserDB | null> {
+export async function userByToken(token: string): Promise<User | null> {
   const payload = decodeJWT(token);
+
   return await userById(payload.id);
 }
 
-export function userByEmail(email: string): Promise<UserDB | null> {
+export function userByEmail(email: string): Promise<User | null> {
   const user = users.filter((user: UserDB) => {
     if (user.email == email) {
       return user;
@@ -81,7 +64,7 @@ export function userByEmail(email: string): Promise<UserDB | null> {
   return new Promise((res) => res(user[0]));
 }
 
-export async function userRegister(userInput: RegisterInput): Promise<UserDB> {
+export async function userRegister(userInput: RegisterInput): Promise<User> {
   const userObj: UserDB = {
     id: random.uuid(),
     email: userInput.email ? userInput.email : "",
@@ -113,7 +96,7 @@ export function userAuthenticate(email: string, password: string): Promise<JWT> 
 
   return bcrypt.compare(password, user.password).then(async (result) => {
     if (result) {
-      return await generateTokensForUser(user, userEdit);
+      return await generateTokensForUser(user);
     }
 
     throw new AuthenticationError();
@@ -128,18 +111,14 @@ export async function userTokenRefresh(refreshToken: string): Promise<JWT> {
     throw new AuthenticationError();
   }
 
-  return await generateTokensForUser(user, userEdit);
+  return await generateTokensForUser(user);
 }
 
-export async function userUpdatePassword(user: UserDB, passwordInput: UpdatePasswordInput): Promise<Boolean> {
+export async function userUpdatePassword(user: User, passwordInput: UpdatePasswordInput): Promise<Boolean> {
   const hashedPass = await hashPassword(passwordInput.password);
 
-  users = users.map((userDb: UserDB) => {
-    if (user.id === userDb.id) {
-      userDb = { ...userDb, password: hashedPass };
-    }
-    return userDb;
-  });
+  user.password = hashedPass;
+  await user.save();
 
   return new Promise((res) => res(typeof hashedPass === "string"));
 }
