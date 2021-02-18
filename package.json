@@ -49,10 +49,5 @@
     "packages/*",
     "examples/*"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lerna run --concurrency 1 --stream precommit --scope '@corejam/*'"
-    }
-  },
   "version": "exact"
 }
