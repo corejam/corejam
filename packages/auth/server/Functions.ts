@@ -10,6 +10,7 @@ import {
   PasswordValidateException,
   UnauthorizedException,
 } from "./Errors";
+import { User } from "./Models/User";
 
 //Set some defaults
 const JWT_EXPIRES = process.env.JWT_EXPIRES ?? "15";
@@ -30,7 +31,7 @@ export function encodeJWTPayload(payload: any, expires = JWT_EXPIRES): string {
   return jwt.sign(payload, process.env.JWT_HASH, { expiresIn: `${expires}m` });
 }
 
-export async function generateTokensForUser(user: UserDB, editFn: (userId, data) => {}): Promise<JWT> {
+export async function generateTokensForUser(user: User): Promise<JWT> {
   const payload = {
     id: user.id,
     role: user.role,
@@ -39,10 +40,19 @@ export async function generateTokensForUser(user: UserDB, editFn: (userId, data)
   const token = encodeJWTPayload(payload, process.env.JWT_EXPIRES);
   const refreshToken = encodeJWTPayload(payload, process.env.JWT_REFRESH_EXPIRES);
 
-  await editFn(user.id, { refreshToken });
+  user.refreshToken = refreshToken;
+  await user.save();
 
   return {
-    user: user,
+    user: {
+      id: user.id,
+      email: user.email,
+      status: user.status,
+      active: user.active,
+      role: user.role,
+      dateCreated: "",
+      dateUpdated: ""
+    },
     token: token,
     refreshToken: refreshToken,
   };
@@ -51,13 +61,11 @@ export async function generateTokensForUser(user: UserDB, editFn: (userId, data)
 /**
  * Sets the initial verify hash for email
  */
-export async function generateVerifyHash(user: UserDB, editFn: (userId, data) => {}): Promise<string> {
+export async function generateVerifyHash(user: User): Promise<string> {
   const verifyHash = crypto.randomBytes(20).toString("hex");
-  await editFn(user.id, {
-    verifyHash,
-  });
+  await user.assignData({verifyHash}).save();
 
-  return new Promise((res) => res(verifyHash));
+  return verifyHash;
 }
 
 export function validateAuthInput(email: string) {

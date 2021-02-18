@@ -1,6 +1,7 @@
-import { DBDocument, Paginated, Timestamp } from "@corejam/base/dist/typings/Utils";
+import { Paginated, Timestamp } from "@corejam/base/dist/typings/Utils";
+import { DBDocument } from "@corejam/base/dist/typings/DB";
 
-export enum roles {
+export enum ROLES {
   ADMIN = "admin",
   USER = "user",
 }
@@ -16,7 +17,7 @@ export type User = Timestamp & {
   status: STATUS;
   verifyHash?: string;
   active: boolean;
-  role: [roles];
+  role: [ROLES];
   refreshToken?: string;
   authReset?: AuthReset;
   dateCreated: string;

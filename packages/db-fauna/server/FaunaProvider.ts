@@ -1,6 +1,7 @@
 import { CoreModel } from "@corejam/base/dist/db/CoreModel";
-import { ProviderInterface } from "@corejam/base/dist/db/ProviderInterface"
+import { ProviderInterface } from "@corejam/base/dist/db/ProviderInterface";
 import * as faunadb from 'faunadb';
+import * as _ from "lodash";
 
 const q = faunadb.query
 
@@ -50,12 +51,38 @@ export class FaunaProvider implements ProviderInterface {
         }
     }
 
+    /**
+     * 
+     */
+    async filter<Model extends CoreModel>(model: Model, filter: { [key: string]: any; }): Promise<Model[] | null> {
+        const items = await client.query(
+            q.Map(
+                q.Paginate(q.Documents(q.Collection(model.getModelName()))),
+                q.Lambda(x => q.Get(x))
+            )
+        ) as any
+
+        const allItems = items.data.map((item) => {
+            return {
+                id: item.ref.id,
+                ...item.data
+            }
+        })
+
+        //Hydrate and filter
+        return _.filter(allItems, filter as any).map((values) => {
+            const clone = model;
+            return clone.assignData(values)
+        })
+    }
+
     async update<Model extends CoreModel>(model: Model): Promise<Model> {
         await client.query(
             q.Update(q.Ref(q.Collection(model.getModelName()), model.id), {
                 data: { ...model.getData() }
             })
         )
+
 
         return model;
     }

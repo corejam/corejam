@@ -15,10 +15,11 @@ export const sharedDBInterfaceTests = (name) => {
         beforeAll(async () => {
             await CorejamServer();
         })
+
         it("getById retrieves model", async () => {
             const testObject = new TestObject();
-            testObject.dataAttribute1 = "testing",
-                testObject.dataAttribute2 = "testing2"
+            testObject.dataAttribute1 = "testing"
+            testObject.dataAttribute2 = "testing2"
             await testObject.save()
 
             expect(testObject.exists()).toBe(true)
@@ -30,8 +31,8 @@ export const sharedDBInterfaceTests = (name) => {
 
         it("can update an instance", async () => {
             const testObject = new TestObject();
-            testObject.dataAttribute1 = "testing",
-                testObject.dataAttribute2 = "testing2"
+            testObject.dataAttribute1 = "testing"
+            testObject.dataAttribute2 = "testing2"
             await testObject.save();
 
             expect(testObject.exists()).toBe(true)
@@ -49,8 +50,8 @@ export const sharedDBInterfaceTests = (name) => {
 
         it("can delete an instance", async () => {
             const testObject = new TestObject();
-            testObject.dataAttribute1 = "testing",
-                testObject.dataAttribute2 = "testing2"
+            testObject.dataAttribute1 = "testing"
+            testObject.dataAttribute2 = "testing2"
 
             await testObject.save();
             expect(testObject.exists()).toBe(true)
@@ -63,6 +64,37 @@ export const sharedDBInterfaceTests = (name) => {
 
             //Try getting by key again
             expect(await TestObject.getById(tempKey)).toEqual(null)
+        });
+
+        it("can filter", async () => {
+            const testObject = new TestObject();
+            testObject.dataAttribute1 = "testing"
+            testObject.dataAttribute2 = "testing2"
+
+            const testObject2 = new TestObject();
+            testObject2.dataAttribute1 = "testing"
+            testObject2.dataAttribute2 = "new value"
+
+            const testObject3 = new TestObject();
+            testObject3.dataAttribute1 = "testing"
+            testObject3.dataAttribute2 = "new value"
+
+            await testObject.save();
+            await testObject2.save();
+            await testObject3.save();
+
+            const testFilter = await TestObject.filter({
+                dataAttribute2: "new value"
+            })
+
+            expect(testFilter).toHaveLength(2);
+
+            //Ids should be unique
+            const testFilterById = await TestObject.filter({
+                id: testObject.id
+            })
+
+            expect(testFilterById?.pop()).toEqual(testObject)
         });
     })
 };

@@ -40,6 +40,20 @@ export class LowdbProvider implements ProviderInterface {
         return model.assignData(item)
     }
 
+    async filter<Model extends CoreModel>(model: Model, filter: { [key: string]: any; }): Promise<Model[] | null> {
+        const items = db.get(model.getModelName())
+            .filter(filter)
+            .value();
+
+        if (!items) return null;
+
+        //Hydrate models back out from filter result
+        return items.map((values: any) => {
+            const clone = model;
+            return clone.assignData(values)
+        })
+    }
+
     async update<Model extends CoreModel>(model: Model): Promise<Model> {
         db.get(model.getModelName())
             .find({ id: model.id })

@@ -32,6 +32,15 @@ export abstract class CoreModel {
     return await getDb().read(instance, id);
   }
 
+  /**
+   * Filter on this instance by parameters
+   */
+  static async filter<T extends CoreModel>(this: Constructor<T>, filter: { [key: string]: any }): Promise<T[] | null> {
+    const instance = new this() as T;
+
+    return await getDb().filter(instance, filter);
+  }
+
   async create(): Promise<this> {
     return await getDb().create(this);
   }
@@ -72,6 +81,9 @@ export abstract class CoreModel {
     this.getDataFields().map((field) => {
       this[field] = data[field];
     });
+
+    //If we have an id lets set it
+    if (data.id) this.id = data.id
 
     return this;
   }

@@ -15,6 +15,8 @@ export interface ProviderInterface {
 
   read<Model extends CoreModel>(model: Model, id: string | number): Promise<Model | null>;
 
+  filter<Model extends CoreModel>(model: Model, filter: { [key: string]: any }): Promise<Model[] | null>;
+
   update<Model extends CoreModel>(model: Model): Promise<Model>;
 
   delete<Model extends CoreModel>(model: Model): Promise<Boolean>;
