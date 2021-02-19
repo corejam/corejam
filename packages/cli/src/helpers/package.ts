@@ -36,7 +36,8 @@ export const packageJson = (mono = false) => `{
     "dotenv": "8.2.0",
     "@rollup/plugin-replace": "2.3.4",
     "@stencil/react-output-target": "0.0.9",
-    "@stencil/core": "2.3.0"
+    "@stencil/core": "2.4.0",
+    "rollup-plugin-node-polyfills": "0.2.1"
   },
   "corejam": {
     "wrapper": [],
