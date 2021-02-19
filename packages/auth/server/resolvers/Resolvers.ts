@@ -5,11 +5,9 @@ import { random } from "faker";
 import {
   JWT,
   RegisterInput,
-  roles,
   STATUS,
   UpdatePasswordInput,
   UserCreateInput,
-  UserDB,
   UserInput,
 } from "../../shared/types/User";
 import { AuthenticationError } from "../Errors";
@@ -18,22 +16,20 @@ import { User } from "../Models/User";
 import { generateUser } from "./db/faker/Generator";
 
 
-export function allUsers(): Promise<UserDB[]> {
-  return new Promise((res) => res(users));
+export async function allUsers(): Promise<User[]> {
+  return User.list()
 }
 
-export function userCreate(userCreateInput: UserCreateInput): Promise<User> {
-  const user: UserDB = {
-    id: random.uuid(),
-    role: [roles.USER],
-    status: STATUS.PENDING,
-    ...userCreateInput,
-    ...updateDates(),
-  };
+export async function userCreate(userCreateInput: UserCreateInput): Promise<User> {
+  const user = new User()
+    .assignData({
+      role: [User.ROLES.USER],
+      status: STATUS.PENDING,
+      ...userCreateInput,
+      ...updateDates(),
+    })
 
-  users.push(user);
-
-  return new Promise((res) => res(user));
+  return user.save();
 }
 
 export async function userEdit(id: ID, userInput: UserInput): Promise<User> {
@@ -53,41 +49,29 @@ export async function userByToken(token: string): Promise<User | null> {
   return await userById(payload.id);
 }
 
-export function userByEmail(email: string): Promise<User | null> {
-  const user = users.filter((user: UserDB) => {
-    if (user.email == email) {
-      return user;
-    }
-    return;
-  });
+export async function userByEmail(email: string): Promise<User | null> {
+  const user = await User.filter({ email: email })
 
-  return new Promise((res) => res(user[0]));
+  return user.pop()
 }
 
 export async function userRegister(userInput: RegisterInput): Promise<User> {
-  const userObj: UserDB = {
-    id: random.uuid(),
-    email: userInput.email ? userInput.email : "",
+  const user = new User()
+
+  user.assignData({
+    email: userInput.email,
     password: await hashPassword(userInput.password),
     active: true,
     status: STATUS.PENDING,
-    role: [roles.USER],
+    role: [User.ROLES.USER],
     ...updateDates(),
-  };
-
-  users.push(userObj);
-  return userObj;
-}
-
-export function userAuthenticate(email: string, password: string): Promise<JWT> {
-  const userFilter = users.filter((user) => {
-    if (user.email == email) {
-      return user;
-    }
-    return;
   });
 
-  const user: UserDB = userFilter[0];
+  return user.save();
+}
+
+export async function userAuthenticate(email: string, password: string): Promise<JWT> {
+  const user = await userByEmail(email)
 
   //User isnt active or hasnt set a password yet
   if (!user.active || !user.password) {
@@ -124,23 +108,22 @@ export async function userUpdatePassword(user: User, passwordInput: UpdatePasswo
 }
 
 if (process.env.FAKER_MODULE === "auth") {
-  if (users.length === 0) {
-    for (let index = 0; index < 10; index++) {
-      const generated: UserDB = {
-        id: random.uuid(),
-        ...generateUser(),
-      };
+  for (let index = 0; index < 10; index++) {
+    const user = new User();
+    user.assignData({
+      id: random.uuid(),
+      ...generateUser(),
+    });
 
-      users.push(generated);
-    }
+    user.save();
   }
-
-  //We want a test account
-  userRegister({
-    email: "test@test.com",
-    password: "valid123Password@",
-    passwordConfirm: "valid123Password@",
-  }).then((user) => {
-    userEdit(user.id, { role: [roles.ADMIN] });
-  });
 }
+
+//We want a test account
+userRegister({
+  email: "test@test.com",
+  password: "valid123Password@",
+  passwordConfirm: "valid123Password@",
+}).then((user) => {
+  userEdit(user.id, { role: [User.ROLES.ADMIN] });
+});

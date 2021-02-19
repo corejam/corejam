@@ -41,6 +41,12 @@ export abstract class CoreModel {
     return await getDb().filter(instance, filter);
   }
 
+  static async list<T extends CoreModel>(this: Constructor<T>): Promise<T[] | null> {
+    const instance = new this() as T;
+
+    return await getDb().list(instance);
+  }
+
   async create(): Promise<this> {
     return await getDb().create(this);
   }

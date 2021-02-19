@@ -51,6 +51,28 @@ export class FaunaProvider implements ProviderInterface {
         }
     }
 
+    async list<Model extends CoreModel>(model: Model): Promise<Model[] | null> {
+        const items = await client.query(
+            q.Map(
+                q.Paginate(q.Documents(q.Collection(model.getModelName()))),
+                q.Lambda(x => q.Get(x))
+            )
+        ) as any
+
+        const allItems = items.data.map((item) => {
+            return {
+                id: item.ref.id,
+                ...item.data
+            }
+        })
+
+        //Hydrate
+        return allItems.map((values: any) => {
+            const clone = model;
+            return clone.assignData(values)
+        })
+    }
+
     /**
      * 
      */

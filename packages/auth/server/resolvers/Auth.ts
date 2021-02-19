@@ -2,7 +2,7 @@ import * as crypto from "crypto";
 import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { UserList } from "../../shared/types/User";
 import { AccountExistsError, InvalidEmailError, InvalidVerificationError } from "../Errors";
-import { checkUserHasRole, generateVerifyHash, validateAuthInput, validatePasswordCreate } from "../Functions";
+import { generateVerifyHash, validateAuthInput, validatePasswordCreate } from "../Functions";
 import PasswordResetConfirmed from "../mail/PasswordResetConfirmed";
 import PasswordResetRequest from "../mail/PasswordResetRequest";
 import RegisterVerifyMail from "../mail/RegisterVerify";
@@ -34,7 +34,7 @@ export default {
   Query: {
     userById: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
       const currentUser = await user();
-      if (currentUser.id === args.id || checkUserHasRole(currentUser, User.ROLES.ADMIN)) {
+      if (currentUser.id === args.id || currentUser.(, User.ROLES.ADMIN)) {
         return await models.userById(args.id);
       }
       return null;
