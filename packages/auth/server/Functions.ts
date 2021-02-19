@@ -1,14 +1,12 @@
 import * as bcrypt from "bcryptjs";
 import * as crypto from "crypto";
 import * as jwt from "jsonwebtoken";
-import { JWT, UpdatePasswordInput, UserDB } from "../shared/types/User";
+import { UpdatePasswordInput } from "../shared/types/User";
 import {
-  AuthenticationError,
   InvalidEmailError,
   MissingJWTHashException,
   PasswordsMustMatchException,
-  PasswordValidateException,
-  UnauthorizedException,
+  PasswordValidateException
 } from "./Errors";
 import { User } from "./Models/User";
 
@@ -29,33 +27,6 @@ export function encodeJWTPayload(payload: any, expires = JWT_EXPIRES): string {
   if (!process.env.JWT_HASH || !process.env.JWT_HASH.length) throw new MissingJWTHashException();
 
   return jwt.sign(payload, process.env.JWT_HASH, { expiresIn: `${expires}m` });
-}
-
-export async function generateTokensForUser(user: User): Promise<JWT> {
-  const payload = {
-    id: user.id,
-    role: user.role,
-  };
-
-  const token = encodeJWTPayload(payload, process.env.JWT_EXPIRES);
-  const refreshToken = encodeJWTPayload(payload, process.env.JWT_REFRESH_EXPIRES);
-
-  user.refreshToken = refreshToken;
-  await user.save();
-
-  return {
-    user: {
-      id: user.id,
-      email: user.email,
-      status: user.status,
-      active: user.active,
-      role: user.role,
-      dateCreated: "",
-      dateUpdated: ""
-    },
-    token: token,
-    refreshToken: refreshToken,
-  };
 }
 
 /**
@@ -84,24 +55,6 @@ export function validatePasswordCreate(input: UpdatePasswordInput) {
   if (!pattern.test(input.password)) {
     throw new PasswordValidateException();
   }
-}
-
-/**
- * Check if user has associated role.
- *
- * @param user
- */
-export function checkUserHasRole(user: UserDB, checkRole: string) {
-  if (!user) throw new AuthenticationError();
-  let res = false;
-
-  user.role.forEach((role) => {
-    if (role === checkRole) res = true;
-  });
-
-  if (!res) throw new UnauthorizedException();
-
-  return res;
 }
 
 /**
