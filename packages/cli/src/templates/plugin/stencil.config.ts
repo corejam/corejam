@@ -5,6 +5,7 @@ import replace from "@rollup/plugin-replace";
 import { Config } from "@stencil/core";
 import { reactOutputTarget } from "@stencil/react-output-target";
 import fs from "fs";
+import nodePolyfills from "rollup-plugin-node-polyfills";
 
 const targets = process.env.targets?.split(",") || [];
 
@@ -22,6 +23,9 @@ const config: Config = {
     }),
     corejam(),
   ],
+  rollupPlugins: {
+    after: [nodePolyfills()],
+  },
 };
 
 if (targets.includes("dist")) {
