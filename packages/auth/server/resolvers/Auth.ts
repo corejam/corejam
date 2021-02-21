@@ -1,12 +1,12 @@
 import * as crypto from "crypto";
-import { MergedServerContext } from "../../shared/types/PluginResolver";
-import { UserList } from "../../shared/types/User";
+import { MergedServerContext } from "../types/PluginResolver";
+import { UserList } from "../types/User";
 import { AccountExistsError, InvalidEmailError, InvalidVerificationError } from "../Errors";
 import { generateVerifyHash, validateAuthInput, validatePasswordCreate } from "../Functions";
 import PasswordResetConfirmed from "../mail/PasswordResetConfirmed";
 import PasswordResetRequest from "../mail/PasswordResetRequest";
 import RegisterVerifyMail from "../mail/RegisterVerify";
-import { User } from "../Models/User";
+import User from "../Models/User";
 
 function setRefreshHeaders(jwt, { req, res }) {
   const JWT_REFRESH_EXPIRES = process.env.JWT_REFRESH_EXPIRES as string;
@@ -34,14 +34,15 @@ export default {
   Query: {
     userById: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
       const currentUser = await user();
-      if (currentUser.id === args.id || currentUser.(, User.ROLES.ADMIN)) {
+      if (currentUser.id === args.id || currentUser.checkUserHasRole(User.ROLES.ADMIN)) {
         return await models.userById(args.id);
       }
       return null;
     },
 
     paginateUsers: async (_obj: any, { size, page }, { models, user }: MergedServerContext) => {
-      checkUserHasRole(await user(), User.ROLES.ADMIN);
+      const currentUser = await user();
+      currentUser.checkUserHasRole(User.ROLES.ADMIN);
 
       const offset = (page - 1) * size;
       const allUsers = await models.allUsers();
@@ -62,7 +63,9 @@ export default {
   Mutation: {
     userEdit: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
       const currentUser = await user();
-      if (args.id !== currentUser.id) checkUserHasRole(await user(), User.ROLES.ADMIN);
+
+      if (args.id !== currentUser.id)
+        currentUser.checkUserHasRole(User.ROLES.ADMIN);
 
       return models.userEdit(args.id, args.userInput);
     },
@@ -82,7 +85,7 @@ export default {
       }
 
       const user = await models.userRegister(args.data);
-      user.verifyHash = await generateVerifyHash(user, models.userEdit);
+      user.verifyHash = await generateVerifyHash(user);
       await notify.sendMail(new RegisterVerifyMail(user));
 
       return user;
@@ -127,7 +130,8 @@ export default {
     },
 
     userCreate: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
-      checkUserHasRole(await user(), User.ROLES.ADMIN);
+      const currentUser = await user();
+      currentUser.checkUserHasRole(User.ROLES.ADMIN);
 
       return models.userCreate(args.userCreateInput);
     },

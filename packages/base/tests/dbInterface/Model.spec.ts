@@ -1,5 +1,6 @@
 import TestObject from "./TestObject";
 import { CorejamServer } from "../../src/Server"
+import { DocumentNotFound } from "../../src/db/Exceptions/DocumentNotFound";
 
 /**
  * These are tests that need to pass for each DB implementation.
@@ -63,7 +64,7 @@ export const sharedDBInterfaceTests = (name) => {
             expect(testObject.exists()).toBe(false)
 
             //Try getting by key again
-            expect(await TestObject.getById(tempKey)).toEqual(null)
+            await expect(TestObject.getById(tempKey)).rejects.toThrow(DocumentNotFound)
         });
 
         it("can filter", async () => {

@@ -1,7 +1,6 @@
 import * as resolvers from "./resolvers/Auth";
-import { CorejamApplication } from "@corejam/base/dist/typings/Application"
 
-const pluginProperties: CorejamApplication = {
+const pluginProperties = {
   resolvers,
   schemas: ["auth"],
 };

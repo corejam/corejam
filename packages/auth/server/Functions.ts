@@ -8,7 +8,7 @@ import {
   PasswordsMustMatchException,
   PasswordValidateException
 } from "./Errors";
-import { User } from "./Models/User";
+import User from "./Models/User";
 
 //Set some defaults
 const JWT_EXPIRES = process.env.JWT_EXPIRES ?? "15";

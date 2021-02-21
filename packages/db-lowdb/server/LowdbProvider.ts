@@ -1,20 +1,18 @@
 import { CoreModel } from "@corejam/base/dist/db/CoreModel";
 import { ProviderInterface } from "@corejam/base/dist/db/ProviderInterface";
 import { ID } from "@corejam/base/dist/typings/DB";
-import * as lowdb from "lowdb";
-import * as FileSync from "lowdb/adapters/FileSync";
+import lowdb from "lowdb";
+import FileSync from "lowdb/adapters/FileSync";
 import { nanoid } from "nanoid";
 
 /**
  * Our schemas are made up of keys that hold arrays of objects
  */
 interface Schema {
-    [key: string]: { id: ID } & object[]
+    [key: string]: Array<{ id: ID } & object>
 }
 
-//@ts-ignore the lowdb types are messed up. Need to fix 
 const adapter = new FileSync<Schema>(process.cwd() + '/.corejam/db.json')
-//@ts-ignore
 const db = lowdb(adapter)
 
 export class LowdbProvider implements ProviderInterface {
@@ -46,6 +44,19 @@ export class LowdbProvider implements ProviderInterface {
             .value();
 
         if (!items) return null;
+
+        //Hydrate models back out from filter result
+        return items.map((values: any) => {
+            const clone = model;
+            return clone.assignData(values)
+        })
+    }
+
+    async list<Model extends CoreModel>(model: Model): Promise<Model[]> {
+        const items = db.get(model.getModelName())
+            .value();
+
+        if (!items) return [];
 
         //Hydrate models back out from filter result
         return items.map((values: any) => {

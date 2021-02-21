@@ -74,13 +74,13 @@ export function importPlugin(plugin: string) {
         pluginPath = path.resolve(plugin, "dist/server/index.js");
       }
 
-      return require(pluginPath).default;
+      return require(pluginPath);
     } else {
       if (process.env.NODE_ENV === "test") {
         plugin = `${plugin}/server/index.ts`;
       }
 
-      return require(plugin).default;
+      return require(plugin);
     }
   } catch (e) {
     throw new PluginLoadError(plugin, e);
@@ -131,6 +131,8 @@ export function bootstrapSchema(hoisted = false): string {
   for (const plugin of loadManifest().plugins) {
     const isLocalPlugin = isAPlugin();
     const currentPlugin = importPlugin(plugin) as CorejamApplication;
+
+    console.log(plugin, currentPlugin)
 
     currentPlugin.schemas?.forEach((schema: any) => {
       const schemaRootPath = isLocalPlugin

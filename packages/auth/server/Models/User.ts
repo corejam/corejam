@@ -23,7 +23,7 @@ type AuthReset = {
 /**
  * Our root user object
  */
-export class User extends CoreModel {
+export default class User extends CoreModel {
 
     collection = "users";
 
@@ -89,7 +89,7 @@ export class User extends CoreModel {
     /**
      * Check if a user can perform role based action
      */
-    public checkUserHasRole(checkRole: ROLES) {
+    checkUserHasRole(checkRole: ROLES): Boolean {
         let res = false;
 
         this.role.forEach((role) => {

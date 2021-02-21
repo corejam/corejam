@@ -1,13 +1,13 @@
 import Mail from "@corejam/notify/dist/server/Mail";
-import { UserDB } from "../../shared/types/User";
+import User from "../Models/User";
 
 /**
  * Verification email with link to activate a users account
  */
 export default class RegisterVerifyMail extends Mail {
-  private user: UserDB;
+  private user: User;
 
-  constructor(user: UserDB) {
+  constructor(user: User) {
     super(user.email, "Verify your email");
     this.user = user;
   }

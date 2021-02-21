@@ -1,5 +1,5 @@
 import Mail from "@corejam/notify/dist/server/Mail";
-import { UserDB } from "../../shared/types/User";
+import User from "../Models/User";
 
 /**
  * Email for a password reset request with the token
@@ -10,7 +10,7 @@ export default class PasswordResetRequest extends Mail {
    */
   private token: string;
 
-  constructor(user: UserDB, token: string) {
+  constructor(user: User, token: string) {
     super(user.email, "Password reset request");
 
     this.token = token;
