@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { getDb } from "../PluginManager";
 import { ID } from "../typings/DB";
+import { DocumentNotFound } from "./Exceptions/DocumentNotFound";
 
 export type Constructor<CoreModel> = {
   new(): CoreModel;
@@ -25,11 +26,17 @@ export abstract class CoreModel {
     return this.collection;
   }
 
-  static async getById<T extends CoreModel>(this: Constructor<T>, id: ID): Promise<T | null> {
+  static async getById<T extends CoreModel>(this: Constructor<T>, id: ID): Promise<T> {
     const instance = new this() as T;
     instance.id = id;
 
-    return await getDb().read(instance, id);
+    const res = await getDb().read(instance, id);
+
+    if (!res) {
+      throw new DocumentNotFound(instance)
+    }
+
+    return res;
   }
 
   /**
@@ -41,7 +48,7 @@ export abstract class CoreModel {
     return await getDb().filter(instance, filter);
   }
 
-  static async list<T extends CoreModel>(this: Constructor<T>): Promise<T[] | null> {
+  static async list<T extends CoreModel>(this: Constructor<T>): Promise<T[]> {
     const instance = new this() as T;
 
     return await getDb().list(instance);

@@ -15,7 +15,7 @@ export interface ProviderInterface {
 
   read<Model extends CoreModel>(model: Model, id: string | number): Promise<Model | null>;
 
-  list<Model extends CoreModel>(model: Model): Promise<Model[] | null>;
+  list<Model extends CoreModel>(model: Model): Promise<Model[]>;
 
   filter<Model extends CoreModel>(model: Model, filter: { [key: string]: any }): Promise<Model[] | null>;
 

@@ -1,5 +1,5 @@
-import { MergedServerContext } from "../../shared/types/PluginResolver";
-import * as Resolvers from "./Resolvers"
+import { MergedServerContext } from "../types/PluginResolver";
+import * as Resolvers from "./Resolvers";
 
 /**
  * Anything that this plugin offers to the server context is retrieved here

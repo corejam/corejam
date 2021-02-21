@@ -1,21 +1,18 @@
-import { date, internet, random } from "faker";
-import { roles, STATUS, User } from "../../../../shared/types/User";
+import { internet, random } from "faker";
+import { STATUS } from "../../../../shared/types/User";
+import User from "../../../Models/User";
 
 export function generateUser({
   active = random.boolean(),
-  role = roles.USER,
+  role = "user",
   email = internet.email(),
   password = internet.password(),
-  dateCreated = date.past(2).toISOString(),
-  dateUpdated = date.past(1).toISOString(),
 } = {}): User {
-  return {
+  return new User().assignData({
     active: active,
     role: [role],
     email: email,
     status: STATUS.PENDING,
     password: password,
-    dateCreated: dateCreated,
-    dateUpdated: dateUpdated,
-  };
+  })
 }

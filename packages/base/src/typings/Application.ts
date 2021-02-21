@@ -3,16 +3,14 @@
  */
 export type CorejamApplication = {
   resolvers?: {
+    Query: {
+      [key: string]: (obj: any, args: any, ctx: any) => void;
+    };
+    Mutation: {
+      [key: string]: (obj: any, args: any, ctx: any) => void;
+    };
     [key: string]: {
-      Query: {
-        [key: string]: (obj: any, args: any, ctx: any) => void;
-      };
-      Mutation: {
-        [key: string]: (obj: any, args: any, ctx: any) => void;
-      };
-      [key: string]: {
-        [key: string]: (obj: any, args: any, ctx: any) => void;
-      };
+      [key: string]: (obj: any, args: any, ctx: any) => void;
     };
   };
 

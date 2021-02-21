@@ -1,18 +1,17 @@
 import { updateDates } from "@corejam/base";
 import { ID } from "@corejam/base/dist/typings/DB";
 import * as bcrypt from "bcryptjs";
-import { random } from "faker";
 import {
   JWT,
   RegisterInput,
   STATUS,
   UpdatePasswordInput,
   UserCreateInput,
-  UserInput,
+  UserInput
 } from "../../shared/types/User";
 import { AuthenticationError } from "../Errors";
-import { decodeJWT, generateTokensForUser, hashPassword } from "../Functions";
-import { User } from "../Models/User";
+import { decodeJWT, hashPassword } from "../Functions";
+import User from "../Models/User";
 import { generateUser } from "./db/faker/Generator";
 
 
@@ -52,7 +51,7 @@ export async function userByToken(token: string): Promise<User | null> {
 export async function userByEmail(email: string): Promise<User | null> {
   const user = await User.filter({ email: email })
 
-  return user.pop()
+  return user ? user[0] : null;
 }
 
 export async function userRegister(userInput: RegisterInput): Promise<User> {
@@ -74,13 +73,13 @@ export async function userAuthenticate(email: string, password: string): Promise
   const user = await userByEmail(email)
 
   //User isnt active or hasnt set a password yet
-  if (!user.active || !user.password) {
+  if (!user || (!user.active || !user.password)) {
     throw new AuthenticationError();
   }
 
   return bcrypt.compare(password, user.password).then(async (result) => {
     if (result) {
-      return await generateTokensForUser(user);
+      return await user.generateJWT();
     }
 
     throw new AuthenticationError();
@@ -95,7 +94,7 @@ export async function userTokenRefresh(refreshToken: string): Promise<JWT> {
     throw new AuthenticationError();
   }
 
-  return await generateTokensForUser(user);
+  return await user.generateJWT();
 }
 
 export async function userUpdatePassword(user: User, passwordInput: UpdatePasswordInput): Promise<Boolean> {
@@ -109,13 +108,9 @@ export async function userUpdatePassword(user: User, passwordInput: UpdatePasswo
 
 if (process.env.FAKER_MODULE === "auth") {
   for (let index = 0; index < 10; index++) {
-    const user = new User();
-    user.assignData({
-      id: random.uuid(),
+    new User().assignData({
       ...generateUser(),
-    });
-
-    user.save();
+    }).save();
   }
 }
 

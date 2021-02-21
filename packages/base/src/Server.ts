@@ -3,10 +3,9 @@ import { EventEmitter } from "events";
 import * as fs from "fs";
 import { bootstrapSchema, importPlugin, loadManifest } from "./Bootstrap";
 import nRequire from "./nativeRequire";
-import { Resolvers } from "./resolvers";
+import { Resolvers } from "./resolvers/index";
 import { models as fakerModels } from "./resolvers/db/faker";
 import { models as faunaModels } from "./resolvers/db/fauna";
-import { CorejamApplication } from "./typings/Application";
 import { ServerContext } from "./typings/Server";
 
 export const eventEmitter: EventEmitter = new EventEmitter();
@@ -56,9 +55,9 @@ export function getServerContext({ req, res }): ServerContext {
       const res = currentPlugin.getPluginContext({ req, models: context.models, eventEmitter });
       context = { ...context, ...res };
 
-      if (currentPlugin.listens) {
+      if (currentPlugin.default.listens) {
         //Trigger listeners
-        currentPlugin.listens.forEach((event) => {
+        currentPlugin.default.listens.forEach((event) => {
           if (!registerdPluginEvents.includes(event.event)) {
             registerdPluginEvents.push(event.event);
             eventEmitter.on(event.event, event.callback);
@@ -93,13 +92,13 @@ export function CorejamServer(context = ({ req, res }) => getServerContext({ req
   } else {
     //We need to merge all plugin resolvers into our core
     for (const plugin of loadManifest().plugins) {
-      const currentPlugin = importPlugin(plugin) as CorejamApplication;
+      const currentPlugin = importPlugin(plugin);
 
       if (currentPlugin.resolvers) {
-        resolvers = {
+        resolvers = Object.values({
           ...resolvers,
           ...currentPlugin.resolvers,
-        };
+        });
       }
     }
   }
@@ -118,6 +117,8 @@ export function CorejamServer(context = ({ req, res }) => getServerContext({ req
     //We need to merge all plugin resolvers into our core
     for (const plugin of loadManifest().plugins) {
       const currentPlugin = importPlugin(plugin) as any;
+
+      console.log(plugin, currentPlugin)
 
       if (currentPlugin.init) {
         currentPlugin.init();

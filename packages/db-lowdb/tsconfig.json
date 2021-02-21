@@ -21,6 +21,7 @@
         "rootDir": "./"
     },
     "include": [
+        "index.ts",
         "server/**/*"
     ],
     "exclude": [
