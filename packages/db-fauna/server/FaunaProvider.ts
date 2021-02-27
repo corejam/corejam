@@ -51,7 +51,7 @@ export class FaunaProvider implements ProviderInterface {
         }
     }
 
-    async list<Model extends CoreModel>(model: Model): Promise<Model[] | null> {
+    async list<Model extends CoreModel>(model: Model): Promise<Model[]> {
         const items = await client.query(
             q.Map(
                 q.Paginate(q.Documents(q.Collection(model.getModelName()))),
@@ -118,11 +118,6 @@ export class FaunaProvider implements ProviderInterface {
                     ), model.id as string)
             )
         )
-
-        delete model.id;
-        model.getDataFields().map(field => {
-            delete model[field]
-        })
 
         return deleteRequest instanceof Object;
     }

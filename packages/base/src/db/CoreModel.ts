@@ -14,7 +14,7 @@ export abstract class CoreModel {
   /**
    * The unique id for this document
    */
-  id?: ID;
+  id!: ID;
 
   /**
    * We generate the associated collections
