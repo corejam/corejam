@@ -79,8 +79,6 @@ export class LowdbProvider implements ProviderInterface {
             .remove({ id: model.id })
             .write()
 
-        delete model.id
-
         return true //This should be a better check
     }
 
