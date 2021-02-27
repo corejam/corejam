@@ -74,13 +74,13 @@ export function importPlugin(plugin: string) {
         pluginPath = path.resolve(plugin, "dist/server/index.js");
       }
 
-      return require(pluginPath);
+      return require(pluginPath).default;
     } else {
       if (process.env.NODE_ENV === "test") {
         plugin = `${plugin}/server/index.ts`;
       }
 
-      return require(plugin);
+      return require(plugin).default;
     }
   } catch (e) {
     throw new PluginLoadError(plugin, e);

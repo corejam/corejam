@@ -9,7 +9,7 @@
   "keywords": [
     "lowdb"
   ],
-  "main": "dist/index.js",
+  "main": "dist/server/index.js",
   "module": "dist/esm/index.js",
   "typings": "dist/index.d.ts",
   "sideEffects": false,

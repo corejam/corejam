@@ -28,9 +28,9 @@ export default async function run(options: any) {
       isYarn
         ? await execa("yarn", ["tsc", "-p", "tsconfig-cjs.json"], { stdio: logToConsole, cwd: envRoot })
         : await execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], {
-            stdio: logToConsole,
-            cwd: envRoot,
-          });
+          stdio: logToConsole,
+          cwd: envRoot,
+        });
 
       //Do it right after build so /dist/server is there for init
       await corejamInit();
@@ -38,9 +38,9 @@ export default async function run(options: any) {
       isYarn
         ? set("server", execa("yarn", ["tsc", "-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot }))
         : set(
-            "server",
-            execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
-          );
+          "server",
+          execa("node_modules/.bin/tsc", ["-p", "tsconfig-cjs.json", "-w"], { stdio: logToConsole, cwd: envRoot })
+        );
 
       set("api", execa("corejam", ["api:serve"], { stdio: logToConsole, cwd: envRoot }));
 
