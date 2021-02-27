@@ -1,3 +1,4 @@
+import { AuthenticationError } from "../Errors";
 import { MergedServerContext } from "../types/PluginResolver";
 import * as Resolvers from "./Resolvers";
 
@@ -11,7 +12,12 @@ export function getPluginContext({ req, models }): MergedServerContext {
     ...Resolvers,
   };
 
-  const user = async () => (req.headers.authorization ? await models.userByToken(req.headers.authorization) : null);
+  const user = async () => {
+    if (req.headers.authorization)
+      return await models.userByToken(req.headers.authorization)
+
+    throw new AuthenticationError()
+  }
 
   return { user, models } as MergedServerContext;
 }

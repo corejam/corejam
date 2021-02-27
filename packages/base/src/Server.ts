@@ -43,7 +43,7 @@ export function getServerContext({ req, res }): ServerContext {
     const pluginsFile = require(process.cwd() + "/resolvers.js") as any;
     const serverKeys = Object.keys(pluginsFile.server);
     for (const p of serverKeys) {
-      const res = pluginsFile.server[p].getPluginContext({ req, models: context.models, eventEmitter });
+      const res = pluginsFile.server[p].context({ req, models: context.models, eventEmitter });
       context = { ...context, ...res };
     }
     return context;
@@ -52,12 +52,15 @@ export function getServerContext({ req, res }): ServerContext {
     //TODO needs to get generated from cli for all the requires on plugins
     for (const plugin of loadManifest().plugins) {
       const currentPlugin = importPlugin(plugin) as any;
-      const res = currentPlugin.getPluginContext({ req, models: context.models, eventEmitter });
-      context = { ...context, ...res };
 
-      if (currentPlugin.default.listens) {
+      if (currentPlugin.context) {
+        const res = currentPlugin.context({ req, models: context.models, eventEmitter });
+        context = { ...context, ...res };
+      }
+
+      if (currentPlugin.listens) {
         //Trigger listeners
-        currentPlugin.default.listens.forEach((event) => {
+        currentPlugin.listens.forEach((event) => {
           if (!registerdPluginEvents.includes(event.event)) {
             registerdPluginEvents.push(event.event);
             eventEmitter.on(event.event, event.callback);

@@ -12,8 +12,6 @@ import {
 import { AuthenticationError } from "../Errors";
 import { decodeJWT, hashPassword } from "../Functions";
 import User from "../Models/User";
-import { generateUser } from "./db/faker/Generator";
-
 
 export async function allUsers(): Promise<User[]> {
   return User.list()
@@ -105,20 +103,3 @@ export async function userUpdatePassword(user: User, passwordInput: UpdatePasswo
 
   return new Promise((res) => res(typeof hashedPass === "string"));
 }
-
-if (process.env.FAKER_MODULE === "auth") {
-  for (let index = 0; index < 10; index++) {
-    new User().assignData({
-      ...generateUser(),
-    }).save();
-  }
-}
-
-//We want a test account
-userRegister({
-  email: "test@test.com",
-  password: "valid123Password@",
-  passwordConfirm: "valid123Password@",
-}).then((user) => {
-  userEdit(user.id, { role: [User.ROLES.ADMIN] });
-});
