@@ -37,7 +37,7 @@ export class Testimonial {
               suscipit, ex sequi repellendus tenetur ab placeat saepe. Sit quia reprehenderit minus voluptate ab magnam.
             </corejam-type>
             <corejam-box flex mt={2} justify="center">
-              <corejam-box w={1}>
+              <corejam-box w="1">
                 <corejam-image
                   h="60px"
                   fit="cover"

@@ -7,7 +7,7 @@ export class DershopSpotlight {
   render() {
     return (
       <corejam-box flex max="xl" mx="auto" mt={16} mb={16} direction="col" lgDirection="row">
-        <corejam-box w={12} lgW={6} lgPr={4} position="relative">
+        <corejam-box w="12" lgW="6" lgPr={4} position="relative">
           <corejam-image
             fit="cover"
             w={12}
@@ -24,8 +24,8 @@ export class DershopSpotlight {
             </corejam-type>
           </corejam-box>
         </corejam-box>
-        <corejam-box flex w={12} lgW={6} pt={4} lgPt={0}>
-          <corejam-grid templateColumns={2} templateRows={2} gap={4}>
+        <corejam-box flex w="12" lgW="6" pt={4} lgPt={0}>
+          <corejam-grid templateColumns="2" templateRows="2" gap={4}>
             <corejam-box position="relative" display="block">
               <corejam-image
                 h="142px"

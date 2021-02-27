@@ -90,7 +90,7 @@ export class CorejamFormInput {
       }, {});
     return (
       <Host style={{ display: "block", width: "100%" }}>
-        <corejam-box flex direction="col" w={12} mb={3}>
+        <corejam-box flex direction="col" w="12" mb={3}>
           {this.label && (
             <corejam-box mb={4}>
               <label htmlFor={this.name}>

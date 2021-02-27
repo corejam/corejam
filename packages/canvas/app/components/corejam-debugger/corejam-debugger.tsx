@@ -22,7 +22,7 @@ export class CjDebugger {
             bottom={20}
             right={20}
             flex
-            w={4}
+            w="4"
             bg="orange-200"
             rounded="sm"
             p={3}
@@ -43,7 +43,7 @@ export class CjDebugger {
             z={200}
             bottom={20}
             right={20}
-            w={2}
+            w="2"
             h="20px"
             bg="orange-200"
             rounded="full"

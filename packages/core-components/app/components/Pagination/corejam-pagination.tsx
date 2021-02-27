@@ -46,7 +46,7 @@ export class CorejamPagination {
   render() {
     return (
       <Host>
-        <corejam-box flex w={12} mt={8} justify="between" bWidthTop={1} bColor="gray-300" pt={4}>
+        <corejam-box flex w="12" mt={8} justify="between" bWidthTop={1} bColor="gray-300" pt={4}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
             <path
               class="heroicon-ui"

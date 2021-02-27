@@ -30,7 +30,7 @@ export class CorejamFlash {
             bColor={`${this.colors[this.flash.type]}-700`}
             bg={`${this.colors[this.flash.type]}-300`}
             m={3}
-            w={12}
+            w="12"
             h="100%"
             onClick={() => (this.flash = null)}
           >

@@ -58,12 +58,12 @@ export class ProductList {
     return (
       <corejam-box display="block" data-cy="product-list" max="xl" mx="auto" px={2} xlPx={0}>
         <corejam-box flex direction="col" mdDirection="row">
-          <corejam-box w={12} mdW={3} mdMr={6}>
+          <corejam-box w="12" mdW="3" mdMr={6}>
             <dershop-sidebar sidebar={this._list.sidebar}></dershop-sidebar>
           </corejam-box>
-          <corejam-box w={12} mdW={9} direction="col">
-            <corejam-box flex w={12} justify="between" mt={8} mdMt={0} pb={2} bWidthBottom={1} bColor="gray-300" mb={6}>
-              <corejam-box flex justify="between" w={12} pb={2}>
+          <corejam-box w="12" mdW="9" direction="col">
+            <corejam-box flex w="12" justify="between" mt={8} mdMt={0} pb={2} bWidthBottom={1} bColor="gray-300" mb={6}>
+              <corejam-box flex justify="between" w="12" pb={2}>
                 <corejam-type size="xs" color="gray-800">
                   Showing {this._list.perPage < this._list.totalItems ? this._list.perPage : this._list.totalItems} of{" "}
                   {this._list.totalItems} Results
@@ -77,7 +77,7 @@ export class ProductList {
                 </corejam-type>
               </corejam-box>
             </corejam-box>
-            <corejam-grid smTemplateColumns={2} mdTemplateColumns={3} lgTemplateColumns={4} gapCol={6} gapRow={12}>
+            <corejam-grid smTemplateColumns="2" mdTemplateColumns="3" lgTemplateColumns="4" gapCol={6} gapRow={12}>
               {this._list.items?.map((product) => (
                 <dershop-product-box
                   key={product.name}

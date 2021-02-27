@@ -77,7 +77,7 @@ export class AdminUserForm {
             justify="between"
             mb={24}
           >
-            <corejam-box w={5} mx="auto">
+            <corejam-box w="5" mx="auto">
               <corejam-box pb={4} mb={8} bWidthBottom={1} bColor="gray-400">
                 <corejam-type as="h2" size="xl">
                   User Edit
