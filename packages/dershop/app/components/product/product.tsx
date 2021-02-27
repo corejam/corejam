@@ -73,8 +73,8 @@ export class ProductDetail {
   renderProduct(product: Product) {
     return (
       <corejam-box flex max="lg" mx="auto" mt={12} px={4} lgPx={0}>
-        <corejam-box flex direction="col" mdDirection="row" justify="between" mb={12} w={12}>
-          <corejam-box flex direction="col" w={12} mdW={6} mr={16}>
+        <corejam-box flex direction="col" mdDirection="row" justify="between" mb={12} w="12">
+          <corejam-box flex direction="col" w="12" mdW="6" mr={16}>
             <dershop-image
               h="detail"
               fit="cover"
@@ -102,7 +102,7 @@ export class ProductDetail {
               </corejam-box>
             </corejam-box>
           </corejam-box>
-          <corejam-box w={12} mdW={6} mt={6} mdMt={0} flex direction="col">
+          <corejam-box w="12" mdW="6" mt={6} mdMt={0} flex direction="col">
             <corejam-type data-cy="product-title" weight="bold" size="3xl">
               {product.name}
             </corejam-type>
@@ -113,7 +113,7 @@ export class ProductDetail {
               <p>{product.description}</p>
             </corejam-type>
             <corejam-box flex justify="between" mt={8}>
-              <corejam-box flex justify="between" w={3} p={2} bg="gray-200">
+              <corejam-box flex justify="between" w="3" p={2} bg="gray-200">
                 <span>-</span>
                 <span class="px-12 font-bold">1</span>
                 <span>+</span>

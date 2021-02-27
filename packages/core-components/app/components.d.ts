@@ -76,7 +76,7 @@ export namespace Components {
         "lgSelf": Flex.Self;
         "lgShow": string;
         "lgShrink": number;
-        "lgW": string | number;
+        "lgW": string;
         "lgWrap": Flex.Wrap;
         "m": number;
         "max": string;
@@ -112,7 +112,7 @@ export namespace Components {
         "mdSelf": Flex.Self;
         "mdShow": string;
         "mdShrink": number;
-        "mdW": string | number;
+        "mdW": string;
         "mdWrap": Flex.Wrap;
         "minH": string;
         "ml": number;
@@ -171,11 +171,11 @@ export namespace Components {
         "smSelf": Flex.Self;
         "smShow": string;
         "smShrink": number;
-        "smW": string | number;
+        "smW": string;
         "smWrap": Flex.Wrap;
         "top": number;
         "transition": string;
-        "w": string | number;
+        "w": string;
         "wrap": Flex.Wrap;
         "xlAlignContent": Flex.AlignContent;
         "xlBasis": number;
@@ -207,7 +207,7 @@ export namespace Components {
         "xlSelf": Flex.Self;
         "xlShow": string;
         "xlShrink": number;
-        "xlW": string | number;
+        "xlW": string;
         "xlWrap": Flex.Wrap;
         "xljustify": Flex.Justify;
         "z": number;
@@ -598,7 +598,7 @@ declare namespace LocalJSX {
         "lgSelf"?: Flex.Self;
         "lgShow"?: string;
         "lgShrink"?: number;
-        "lgW"?: string | number;
+        "lgW"?: string;
         "lgWrap"?: Flex.Wrap;
         "m"?: number;
         "max"?: string;
@@ -634,7 +634,7 @@ declare namespace LocalJSX {
         "mdSelf"?: Flex.Self;
         "mdShow"?: string;
         "mdShrink"?: number;
-        "mdW"?: string | number;
+        "mdW"?: string;
         "mdWrap"?: Flex.Wrap;
         "minH"?: string;
         "ml"?: number;
@@ -693,11 +693,11 @@ declare namespace LocalJSX {
         "smSelf"?: Flex.Self;
         "smShow"?: string;
         "smShrink"?: number;
-        "smW"?: string | number;
+        "smW"?: string;
         "smWrap"?: Flex.Wrap;
         "top"?: number;
         "transition"?: string;
-        "w"?: string | number;
+        "w"?: string;
         "wrap"?: Flex.Wrap;
         "xlAlignContent"?: Flex.AlignContent;
         "xlBasis"?: number;
@@ -729,7 +729,7 @@ declare namespace LocalJSX {
         "xlSelf"?: Flex.Self;
         "xlShow"?: string;
         "xlShrink"?: number;
-        "xlW"?: string | number;
+        "xlW"?: string;
         "xlWrap"?: Flex.Wrap;
         "xljustify"?: Flex.Justify;
         "z"?: number;

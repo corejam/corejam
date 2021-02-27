@@ -75,11 +75,11 @@ export class CorejamBox {
   @Prop({ reflect: true }) mdBasis: number;
   @Prop({ reflect: true }) lgBasis: number;
   @Prop({ reflect: true }) xlBasis: number;
-  @Prop({ reflect: true }) w: string | number;
-  @Prop({ reflect: true }) smW: string | number;
-  @Prop({ reflect: true }) mdW: string | number;
-  @Prop({ reflect: true }) lgW: string | number;
-  @Prop({ reflect: true }) xlW: string | number;
+  @Prop({ reflect: true }) w: string;
+  @Prop({ reflect: true }) smW: string;
+  @Prop({ reflect: true }) mdW: string;
+  @Prop({ reflect: true }) lgW: string;
+  @Prop({ reflect: true }) xlW: string;
   @Prop({ reflect: true }) minH: string;
   @Prop({ reflect: true }) h: string;
   @Prop({ reflect: true }) smH: string;

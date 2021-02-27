@@ -58,7 +58,7 @@ export class AccountComponent {
         </corejam-box>
         <corejam-form-container name={this.profileFormId}>
           <corejam-box flex>
-            <corejam-box w={3} pt={8} bWidthTop={1} bColor="gray-500" mr={24}>
+            <corejam-box w="3" pt={8} bWidthTop={1} bColor="gray-500" mr={24}>
               <corejam-box flex direction="col">
                 <corejam-box mb={4}>
                   <corejam-base-link href="#" class="py-4 mb-1">
@@ -77,10 +77,10 @@ export class AccountComponent {
                 </corejam-box>
               </corejam-box>
             </corejam-box>
-            <corejam-box w={9} pt={8} bWidthTop={1} bColor="gray-500">
+            <corejam-box w="9" pt={8} bWidthTop={1} bColor="gray-500">
               <corejam-form-container name={this.profileFormId}>
                 <corejam-box flex mb={8}>
-                  <corejam-box w={6} pr={4}>
+                  <corejam-box w="6" pr={4}>
                     <corejam-form-input
                       label="First name"
                       required
@@ -91,7 +91,7 @@ export class AccountComponent {
                       placeholder="Firstname"
                     ></corejam-form-input>
                   </corejam-box>
-                  <corejam-box w={6} pl={4}>
+                  <corejam-box w="6" pl={4}>
                     <corejam-form-input
                       name="lastName"
                       required
@@ -104,7 +104,7 @@ export class AccountComponent {
                   </corejam-box>
                 </corejam-box>
                 <corejam-box flex mb={8}>
-                  <corejam-box w={6} pr={4}>
+                  <corejam-box w="6" pr={4}>
                     <corejam-form-input
                       name="birthday"
                       label="Birthday"
@@ -115,7 +115,7 @@ export class AccountComponent {
                   </corejam-box>
                 </corejam-box>
                 <corejam-box flex mb={8}>
-                  <corejam-box w={6} pr={4}>
+                  <corejam-box w="6" pr={4}>
                     <corejam-form-input
                       name="phoneNumber"
                       type="number"
@@ -124,7 +124,7 @@ export class AccountComponent {
                       placeholder="Phone"
                     ></corejam-form-input>
                   </corejam-box>
-                  <corejam-box w={6} pl={4}>
+                  <corejam-box w="6" pl={4}>
                     <corejam-form-input
                       name="email"
                       type="email"

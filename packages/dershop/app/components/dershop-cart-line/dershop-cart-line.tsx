@@ -18,8 +18,8 @@ export class DershopCartLine implements ComponentInterface {
         items="center"
         animation="fade"
       >
-        <corejam-box flex w={5} items="center">
-          <corejam-box flex w={2} mr={4}>
+        <corejam-box flex w="5" items="center">
+          <corejam-box flex w="2" mr={4}>
             <corejam-image fit="cover" src={this.item.images[0].src} alt=""></corejam-image>
           </corejam-box>
           <corejam-base-link href={`/${this.item.seo.url}`}>

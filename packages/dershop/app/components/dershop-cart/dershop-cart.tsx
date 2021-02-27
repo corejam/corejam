@@ -29,8 +29,8 @@ export class DershopCart implements ComponentInterface {
           {!basketService.state.matches(CheckoutStates.IDLE) && (
             <corejam-form-container name={this.formId}>
               <corejam-box max="xl" mx="auto" px={2} xlPx={0} direction="col">
-                <corejam-box flex justify="between" w={12} py={4} bWidthBottom={1} bWidthTop={1} bColor="gray-300">
-                  <corejam-box w={5}>
+                <corejam-box flex justify="between" w="12" py={4} bWidthBottom={1} bWidthTop={1} bColor="gray-300">
+                  <corejam-box w="5">
                     <corejam-type size="sm">Product</corejam-type>
                   </corejam-box>
                   <corejam-box>
@@ -48,8 +48,8 @@ export class DershopCart implements ComponentInterface {
                 ))}
               </corejam-box>
               <corejam-box flex direction="col" md-direction="row" max="xl" mx="auto" px={2} xlPx={0}>
-                <corejam-box w={12} md-w={9}></corejam-box>
-                <corejam-box w={12} md-w={3} mt={8} direction="col">
+                <corejam-box w="12" md-w="9"></corejam-box>
+                <corejam-box w="12" md-w="3" mt={8} direction="col">
                   <dershop-order-totals></dershop-order-totals>
 
                   <corejam-box flex justify="between">

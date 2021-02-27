@@ -22,7 +22,7 @@ export class CorejamEditable {
   render() {
     return (
       <Host>
-        <corejam-box position="fixed" bottom={0} z={100} shadow="2xl" h="300px" p={4} flex w={12} direction="col">
+        <corejam-box position="fixed" bottom={0} z={100} shadow="2xl" h="300px" p={4} flex w="12" direction="col">
           {this.node.localName.includes("box") && (
             <corejam-box>
               <corejam-box>

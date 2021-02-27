@@ -38,7 +38,7 @@ export class DershopHamburgerMenu {
     return (
       <Host>
         <dershop-icons-menu onClick={() => (this.active ? this.hideDrawer() : this.showDrawer())}></dershop-icons-menu>
-        <corejam-box flex p={4} position="absolute" left={-400} top={0} bottom={0} bg="black" z={10} w={6}>
+        <corejam-box flex p={4} position="absolute" left={-400} top={0} bottom={0} bg="black" z={10} w="6">
           <corejam-box position="absolute" top={20} right={20} z={11} h="20px">
             <CloseIcon onClick={() => this.hideDrawer()} />
           </corejam-box>

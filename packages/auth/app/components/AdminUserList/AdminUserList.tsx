@@ -50,7 +50,7 @@ export class AuthAdminUserList {
           <corejam-box flex direction="col">
             <corejam-box px={5} bColor="gray-300" bWidth={1} flex pt={3} pb={3}>
               {this.tableHeader.map((header, i) => (
-                <corejam-box w={3} key={i}>
+                <corejam-box w="3" key={i}>
                   {header}
                 </corejam-box>
               ))}
@@ -62,14 +62,14 @@ export class AuthAdminUserList {
               }
               return (
                 <corejam-box px={5} bg={bg} bStyle="solid" bColor="gray-300" bWidth={1} flex pt={3} pb={3}>
-                  <corejam-box w={3}>
+                  <corejam-box w="3">
                     <corejam-base-link data-cy="user-link" href={`/admin/users/edit/${user.id}`}>
                       <corejam-type>{user.email}</corejam-type>
                     </corejam-base-link>
                   </corejam-box>
-                  <corejam-box w={3}>{user.role}</corejam-box>
-                  <corejam-box w={3}>{user.active}</corejam-box>
-                  <corejam-box w={3}>{user.dateCreated}</corejam-box>
+                  <corejam-box w="3">{user.role}</corejam-box>
+                  <corejam-box w="3">{user.active}</corejam-box>
+                  <corejam-box w="3">{user.dateCreated}</corejam-box>
                 </corejam-box>
               );
             })}

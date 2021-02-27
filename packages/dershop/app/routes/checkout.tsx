@@ -15,8 +15,8 @@ const Layout = (_props, children) => {
           Checkout
         </corejam-type>
         <corejam-box mt={10} flex direction="row">
-          <corejam-box w={6} bg="gray-800" h="8px"></corejam-box>
-          <corejam-box w={6} h="8px" bg="gray-400"></corejam-box>
+          <corejam-box w="6" bg="gray-800" h="8px"></corejam-box>
+          <corejam-box w="6" h="8px" bg="gray-400"></corejam-box>
         </corejam-box>
       </corejam-box>
       {children}
@@ -58,12 +58,12 @@ export class CheckoutRoute {
     switch (basketStore.state.value) {
       case CheckoutStates.LOGIN_OR_REGISTER: {
         return (
-          <corejam-box max="xl" mx="auto" flex w={12} px={4} pt={8}>
-            <corejam-box w={6}>
+          <corejam-box max="xl" mx="auto" flex w="12" px={4} pt={8}>
+            <corejam-box w="6">
               <corejam-type as="h3">Log in</corejam-type>
               <auth-form-login onSuccess={this.authenticateSuccess}></auth-form-login>
             </corejam-box>
-            <corejam-box w={6}>
+            <corejam-box w="6">
               <corejam-type as="h3">Register</corejam-type>
               <auth-form-register></auth-form-register>
             </corejam-box>
@@ -73,11 +73,11 @@ export class CheckoutRoute {
       case CheckoutStates.ADDRESS:
         return (
           <Layout>
-            <corejam-box w={12} pl={10} flex direction="row">
-              <corejam-box w={8}>
+            <corejam-box w="12" pl={10} flex direction="row">
+              <corejam-box w="8">
                 <corejam-form-container submitHandler={this.addressSubmitHandler} name={this.checkoutAddressFormId}>
                   <corejam-box flex>
-                    <corejam-box w={6} pr={4}>
+                    <corejam-box w="6" pr={4}>
                       <corejam-form-input
                         label="First name *"
                         required
@@ -88,7 +88,7 @@ export class CheckoutRoute {
                         placeholder="Firstname"
                       ></corejam-form-input>
                     </corejam-box>
-                    <corejam-box w={6} pl={4}>
+                    <corejam-box w="6" pl={4}>
                       <corejam-form-input
                         name="lastName"
                         required
@@ -100,7 +100,7 @@ export class CheckoutRoute {
                       ></corejam-form-input>
                     </corejam-box>
                   </corejam-box>
-                  <corejam-box w={12}>
+                  <corejam-box w="12">
                     <corejam-form-input
                       name="address"
                       type="text"
@@ -110,7 +110,7 @@ export class CheckoutRoute {
                     ></corejam-form-input>
                   </corejam-box>
                   <corejam-box flex>
-                    <corejam-box w={6} pr={4}>
+                    <corejam-box w="6" pr={4}>
                       <corejam-form-input
                         name="zipCode"
                         type="text"
@@ -119,7 +119,7 @@ export class CheckoutRoute {
                         placeholder="Zip Code"
                       ></corejam-form-input>
                     </corejam-box>
-                    <corejam-box w={6} pl={4}>
+                    <corejam-box w="6" pl={4}>
                       <corejam-form-input
                         name="country"
                         type="text"
@@ -132,7 +132,7 @@ export class CheckoutRoute {
                     </corejam-box>
                   </corejam-box>
                   <corejam-box flex mb={8}>
-                    <corejam-box w={6} pr={4}>
+                    <corejam-box w="6" pr={4}>
                       <corejam-form-input
                         name="phoneNumber"
                         type="number"
@@ -141,7 +141,7 @@ export class CheckoutRoute {
                         placeholder="Phone"
                       ></corejam-form-input>
                     </corejam-box>
-                    <corejam-box w={6} pl={4}>
+                    <corejam-box w="6" pl={4}>
                       <corejam-form-input
                         name="email"
                         type="email"
@@ -160,7 +160,7 @@ export class CheckoutRoute {
                   </corejam-form-submit>
                 </corejam-form-container>
               </corejam-box>
-              <corejam-box w={4} px={10}>
+              <corejam-box w="4" px={10}>
                 <dershop-cart-overview></dershop-cart-overview>
               </corejam-box>
             </corejam-box>
@@ -169,9 +169,9 @@ export class CheckoutRoute {
       case CheckoutStates.PAYMENT:
         return (
           <Layout>
-            <corejam-box flex w={12} direction="row">
-              <corejam-box w={8} pl={10} flex direction="col">
-                <corejam-box w={12} py={5}>
+            <corejam-box flex w="12" direction="row">
+              <corejam-box w="8" pl={10} flex direction="col">
+                <corejam-box w="12" py={5}>
                   <corejam-type size="2xl" weight="bold">
                     Payment Method
                   </corejam-type>
@@ -205,7 +205,7 @@ export class CheckoutRoute {
                   </corejam-base-link>
                 </corejam-box>
               </corejam-box>
-              <corejam-box w={4} px={10}>
+              <corejam-box w="4" px={10}>
                 <dershop-cart-overview></dershop-cart-overview>
               </corejam-box>
             </corejam-box>
@@ -223,7 +223,7 @@ export class CheckoutRoute {
             )}
             <corejam-box px={5}>
               <corejam-box>
-                <corejam-box justify="evenly" flex direction="row" w={12}>
+                <corejam-box justify="evenly" flex direction="row" w="12">
                   <corejam-box bg="gray-200" p={5}>
                     <corejam-box>
                       <corejam-type weight="bold">Shipping Address</corejam-type>
@@ -238,14 +238,14 @@ export class CheckoutRoute {
                   </corejam-box>
                 </corejam-box>
               </corejam-box>
-              <corejam-box w={12}>
+              <corejam-box w="12">
                 <corejam-form-container submitHandler={this.submitOrder} name={this.orderConfirmFormId}>
                   {basket.state.items.map((cartItem) => (
                     <dershop-cart-line item={cartItem}></dershop-cart-line>
                   ))}
                   <corejam-form-submit formId={this.orderConfirmFormId}>
                     <corejam-box flex direction="row" justify="center">
-                      <corejam-box w={5}>
+                      <corejam-box w="5">
                         <dershop-order-totals></dershop-order-totals>
                         <corejam-box>
                           <corejam-form-submit formId={this.orderConfirmFormId} data-cy="buy-now">

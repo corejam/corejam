@@ -77,7 +77,7 @@ export class Reset {
     return (
       <Host>
         <corejam-box p={8} max="md" mx="auto" px={4} lgPx={0} flex justify="between" mb={24}>
-          <corejam-box w={5} mx="auto">
+          <corejam-box w="5" mx="auto">
             {this.resetWithToken == false ? (
               <Fragment>
                 {this.resetRequested == false ? (
