@@ -1,11 +1,11 @@
-import { Component, h, Host, Prop } from "@stencil/core";
+import { Component, Prop } from "@stencil/core";
 import makeTheme from "../UIBase/makeTheme";
 
 @Component({
   tag: "corejam-ui-theme",
 })
-export class ThemeProvider {
-  @Prop({ reflect: true }) theme: object | string = null;
+export class Theme {
+  @Prop() theme: object | string = null;
 
   async componentWillRender() {
     if (this.theme) {
@@ -31,9 +31,5 @@ export class ThemeProvider {
         }
       }
     }
-  }
-
-  render() {
-    return <Host></Host>;
   }
 }
