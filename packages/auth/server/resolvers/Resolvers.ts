@@ -31,7 +31,7 @@ export async function userCreate(userCreateInput: UserCreateInput): Promise<User
 
 export async function userEdit(id: ID, userInput: UserInput): Promise<User> {
   const user = await User.getById(id);
-  user.assignData(userInput).save()
+  user.assignData({ ...user.getData(), ...userInput }).save()
 
   return user;
 }

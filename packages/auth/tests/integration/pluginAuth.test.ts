@@ -10,10 +10,12 @@ import {
   AccountExistsError,
   AuthenticationError,
   InvalidEmailError,
-  InvalidVerificationError,
+  InvalidVerificationError
 } from "../../server/Errors";
 import PasswordResetConfirmed from "../../server/mail/PasswordResetConfirmed";
 import RegisterVerifyMail from "../../server/mail/RegisterVerify";
+import User from "../../server/Models/User";
+import { MergedServerContext } from "../../server/types/PluginResolver";
 import {
   meGQL,
   passwordResetGQL,
@@ -23,19 +25,17 @@ import {
   userRegisterMutationGQL,
   userTokenRefreshMutationGQL,
   userUpdatePasswordMutationGQL,
-  verifyEmailGQL,
+  verifyEmailGQL
 } from "../../shared/graphql/Mutations";
 import { paginateUsersGQL } from "../../shared/graphql/Queries";
-import { MergedServerContext } from "../../shared/types/PluginResolver";
 import {
   RegisterInput,
-  roles,
-  STATUS,
+
   UpdatePasswordInput,
   UserCreateInput,
   UserDB,
   UserInput,
-  UserList,
+  UserList
 } from "../../shared/types/User";
 
 jest.mock("@corejam/notify/server/Notify");
@@ -106,13 +106,14 @@ describe("Test Auth Plugin", () => {
     expect(unauthenticatedRequest.errors[0]).toEqual(new AuthenticationError());
 
     //We want a test account as admin
-    await models.userRegister({
+    const user = await models.userRegister({
       email: "test@test.com",
       password: "valid123Password@",
       passwordConfirm: "valid123Password@",
-    }).then((user) => {
-      models.userEdit(user.id, { role: [roles.ADMIN] });
-    });
+    })
+
+    user.role = [User.ROLES.ADMIN];
+    await user.save()
 
     const loginResponse = await mutate({
       mutation: userAuthenticateMutationGQL,
@@ -387,7 +388,7 @@ describe("Test Auth Plugin", () => {
     expect(Notify.sendMail).toBeCalledTimes(1);
 
     const context = mockContext() as MergedServerContext;
-    const user = (await context.models.userById(register.data.userRegister.id)) as UserDB;
+    const user = (await context.models.userById(register.data.userRegister.id)) as User;
     expect(Notify.sendMail).toBeCalledWith(new PasswordResetConfirmed(user));
 
     const loginResponse2 = await (await testClient()).mutate({
@@ -432,7 +433,7 @@ describe("Test Auth Plugin", () => {
     });
 
     const context = mockContext() as MergedServerContext;
-    const user = (await context.models.userById(register.data.userRegister.id)) as UserDB;
+    const user = (await context.models.userById(register.data.userRegister.id)) as User;
 
     expect(Notify.sendMail).toBeCalledTimes(1);
     expect(Notify.sendMail).toBeCalledWith(new RegisterVerifyMail(user));
@@ -456,7 +457,7 @@ describe("Test Auth Plugin", () => {
 
     const user = (await models.userByEmail(newUser.email)) as UserDB;
     expect(user).toHaveProperty("verifyHash");
-    expect(user.status).toBe(STATUS.PENDING);
+    expect(user.status).toBe(User.STATUS.PENDING);
 
     const failedVerifyToken = await mutate({
       mutation: verifyEmailGQL,
@@ -488,7 +489,7 @@ describe("Test Auth Plugin", () => {
       })
     ).data.userVerify;
 
-    expect(verify.status).toBe(STATUS.VERIFIED);
+    expect(verify.status).toBe(User.STATUS.VERIFIED);
   });
 
   it("Can reset password", async () => {

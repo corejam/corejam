@@ -1,12 +1,12 @@
 import * as crypto from "crypto";
-import { MergedServerContext } from "../types/PluginResolver";
-import { UserList } from "../types/User";
 import { AccountExistsError, InvalidEmailError, InvalidVerificationError } from "../Errors";
-import { generateVerifyHash, validateAuthInput, validatePasswordCreate } from "../Functions";
+import { validateAuthInput, validatePasswordCreate } from "../Functions";
 import PasswordResetConfirmed from "../mail/PasswordResetConfirmed";
 import PasswordResetRequest from "../mail/PasswordResetRequest";
 import RegisterVerifyMail from "../mail/RegisterVerify";
 import User from "../Models/User";
+import { MergedServerContext } from "../types/PluginResolver";
+import { UserList } from "../types/User";
 
 function setRefreshHeaders(jwt, { req, res }) {
   const JWT_REFRESH_EXPIRES = process.env.JWT_REFRESH_EXPIRES as string;
@@ -57,7 +57,7 @@ export default {
         items: items,
       };
 
-      return new Promise((res) => res(paginated));
+      return paginated;
     },
   },
   Mutation: {
@@ -85,10 +85,10 @@ export default {
       }
 
       const user = await models.userRegister(args.data);
-      user.verifyHash = await generateVerifyHash(user);
+      await user.generateVerifyHash()
       await notify.sendMail(new RegisterVerifyMail(user));
 
-      return user;
+      return user.getData();
     },
 
     userAuthenticate: async (_obj: any, args: any, { models, eventEmitter, res, req }: MergedServerContext) => {
@@ -126,7 +126,10 @@ export default {
         throw new InvalidVerificationError();
       }
 
-      return await models.userEdit(user.id, { status: User.STATUS.VERIFIED });
+      user.status = User.STATUS.VERIFIED;
+      await user.save();
+
+      return user.getData();
     },
 
     userCreate: async (_obj: any, args: any, { models, user }: MergedServerContext) => {

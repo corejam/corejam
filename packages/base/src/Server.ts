@@ -3,9 +3,9 @@ import { EventEmitter } from "events";
 import * as fs from "fs";
 import { bootstrapSchema, importPlugin, loadManifest } from "./Bootstrap";
 import nRequire from "./nativeRequire";
-import { Resolvers } from "./resolvers/index";
 import { models as fakerModels } from "./resolvers/db/faker";
 import { models as faunaModels } from "./resolvers/db/fauna";
+import { Resolvers } from "./resolvers/index";
 import { ServerContext } from "./typings/Server";
 
 export const eventEmitter: EventEmitter = new EventEmitter();
@@ -117,11 +117,8 @@ export function CorejamServer(context = ({ req, res }) => getServerContext({ req
       }
     });
   } else {
-    //We need to merge all plugin resolvers into our core
     for (const plugin of loadManifest().plugins) {
       const currentPlugin = importPlugin(plugin) as any;
-
-      console.log(plugin, currentPlugin)
 
       if (currentPlugin.init) {
         currentPlugin.init();

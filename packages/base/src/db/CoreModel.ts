@@ -1,7 +1,8 @@
 import "reflect-metadata";
 import { getDb } from "../PluginManager";
-import { ID } from "../typings/DB";
+import { ID, ModelMeta } from "../typings/DB";
 import { DocumentNotFound } from "./Exceptions/DocumentNotFound";
+import { getModelMeta, modelMeta } from "./ModelManager";
 
 export type Constructor<CoreModel> = {
   new(): CoreModel;
@@ -106,20 +107,35 @@ export abstract class CoreModel {
    * we have decorated to be included in data
    */
   getDataFields(): string[] {
-    const fields: string[] = [];
+    return Object.keys(this.getMeta())
+  }
+
+  /**
+   * Get all the meta data for our field definitions on 
+   * this model.
+   * 
+   * Use ModelManager as singleton store for meta info.
+   */
+  getMeta() {
+    if (getModelMeta(this)) return getModelMeta(this) as ModelMeta;
+
+    let fields: { [key: string]: ModelMeta } = {};
+
     let target = Object.getPrototypeOf(this);
     while (target != Object.prototype) {
-      const childFields = Reflect.getOwnMetadata("CoreData", target) || [];
-      fields.push(...childFields);
+      const childFields = Reflect.getOwnMetadata("Corejam", target) || [];
+      fields = { ...fields, ...childFields };
       target = Object.getPrototypeOf(target);
     }
+
+    modelMeta.set(this.getModelName(), fields)
 
     return fields;
   }
 
   /**
    * Get our current objects data values
-   * defined through
+   * defined through decorated attributes
    */
   getData(): object {
     const data = {};
@@ -127,6 +143,10 @@ export abstract class CoreModel {
     this.getDataFields().map((field) => {
       data[field] = this[field];
     });
+
+    if (this.id) {
+      data["id"] = this.id;
+    }
 
     return data;
   }
