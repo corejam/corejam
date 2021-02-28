@@ -132,8 +132,6 @@ export function bootstrapSchema(hoisted = false): string {
     const isLocalPlugin = isAPlugin();
     const currentPlugin = importPlugin(plugin) as CorejamApplication;
 
-    console.log(plugin, currentPlugin)
-
     currentPlugin.schemas?.forEach((schema: any) => {
       const schemaRootPath = isLocalPlugin
         ? plugin

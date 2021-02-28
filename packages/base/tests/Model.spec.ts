@@ -1,5 +1,7 @@
 const read = jest.fn();
 const save = jest.fn();
+const filter = jest.fn();
+const list = jest.fn();
 const create = jest.fn();
 const update = jest.fn();
 const deleteFn = jest.fn();
@@ -12,6 +14,8 @@ jest.mock("../src/PluginManager", () => ({
     getDb: () => ({
         read,
         save,
+        filter,
+        list,
         create,
         update,
         delete: deleteFn
@@ -19,6 +23,7 @@ jest.mock("../src/PluginManager", () => ({
 }))
 
 import TestObject from "./dbInterface/TestObject";
+import TestObject2 from "./dbInterface/TestObject2";
 
 describe(`Base Model tests`, () => {
 
@@ -27,7 +32,8 @@ describe(`Base Model tests`, () => {
 
         expect(testObject.getDataFields()).toEqual([
             "dataAttribute1",
-            "dataAttribute2"
+            "dataAttribute2",
+            "uniqueAttribute"
         ])
     });
 
@@ -36,7 +42,8 @@ describe(`Base Model tests`, () => {
 
         expect(testObject.getData()).toEqual({
             dataAttribute1: "attribute1",
-            dataAttribute2: "attribute2"
+            dataAttribute2: "attribute2",
+            uniqueAttribute: "unique-value"
         })
 
         //Change a value
@@ -44,7 +51,8 @@ describe(`Base Model tests`, () => {
 
         expect(testObject.getData()).toEqual({
             dataAttribute1: "new value",
-            dataAttribute2: "attribute2"
+            dataAttribute2: "attribute2",
+            uniqueAttribute: "unique-value"
         })
     });
 
@@ -57,6 +65,14 @@ describe(`Base Model tests`, () => {
 
         expect(testObject.dataAttribute1).toEqual("test value 123")
         expect(testObject.dataAttribute2).toEqual("test attribute again")
+
+        const testObjectWithid = new TestObject();
+        testObjectWithid.assignData({
+            id: 1,
+            dataAttribute1: "test value 123",
+            dataAttribute2: "test attribute again"
+        })
+        expect(testObjectWithid.id).toEqual(1)
     });
 
     it("DBProvider is called correctly", async () => {
@@ -84,5 +100,26 @@ describe(`Base Model tests`, () => {
         expect(deleteFn).toHaveBeenCalledWith(testObject)
 
         expect(testObject.getModelName()).toEqual(testObject.collection)
+
+        TestObject.filter({});
+        expect(filter).toHaveBeenCalled()
+
+        TestObject.list();
+        expect(list).toHaveBeenCalled()
+
+    })
+    it("Check meta data", async () => {
+        const testObject = new TestObject();
+
+        expect(testObject.getMeta()).toEqual({
+            dataAttribute1: { unique: false, index: false },
+            dataAttribute2: { unique: false, index: false },
+            uniqueAttribute: { unique: true, index: false }
+        })
+
+        const testObject2 = new TestObject2();
+        expect(testObject2.getMeta()).toEqual(
+            { otherAttribute: { index: false, unique: false } }
+        )
     })
 });

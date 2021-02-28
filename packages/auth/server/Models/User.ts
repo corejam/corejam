@@ -1,6 +1,7 @@
-import { CoreModel } from "@corejam/base/dist/db/CoreModel"
-import { CoreData } from "@corejam/base/dist/db/ModelDecorator"
+import { CoreModel } from "@corejam/base/dist/db/CoreModel";
+import { Coredata } from "@corejam/base/dist/db/ModelDecorator";
 import { ID } from "@corejam/base/dist/typings/DB";
+import * as crypto from "crypto";
 import { JWT } from "../../shared/types/User";
 import { UnauthorizedException } from "../Errors";
 import { encodeJWTPayload } from "../Functions";
@@ -30,28 +31,28 @@ export default class User extends CoreModel {
     static STATUS = STATUS;
     static ROLES = ROLES;
 
-    @CoreData()
+    @Coredata()
     email = '';
 
-    @CoreData()
+    @Coredata()
     password?: string;
 
-    @CoreData()
+    @Coredata()
     status: STATUS = STATUS.PENDING;
 
-    @CoreData()
+    @Coredata()
     verifyHash?: string;
 
-    @CoreData()
+    @Coredata()
     active = false;
 
-    @CoreData()
+    @Coredata()
     role: [ROLES] = [ROLES.USER];
 
-    @CoreData()
+    @Coredata()
     refreshToken?: string;
 
-    @CoreData()
+    @Coredata()
     authReset?: AuthReset;
 
     /**
@@ -84,6 +85,19 @@ export default class User extends CoreModel {
             token: token,
             refreshToken: refreshToken,
         };
+    }
+
+    /**
+     * Sets the initial verify hash for email verification
+     * and saves it to this user.
+     */
+    async generateVerifyHash(): Promise<string> {
+        const verifyHash = crypto.randomBytes(20).toString("hex");
+
+        this.verifyHash = verifyHash
+        await this.save();
+
+        return verifyHash;
     }
 
     /**

@@ -1,5 +1,4 @@
 import * as bcrypt from "bcryptjs";
-import * as crypto from "crypto";
 import * as jwt from "jsonwebtoken";
 import { UpdatePasswordInput } from "../shared/types/User";
 import {
@@ -8,7 +7,6 @@ import {
   PasswordsMustMatchException,
   PasswordValidateException
 } from "./Errors";
-import User from "./Models/User";
 
 //Set some defaults
 const JWT_EXPIRES = process.env.JWT_EXPIRES ?? "15";
@@ -27,16 +25,6 @@ export function encodeJWTPayload(payload: any, expires = JWT_EXPIRES): string {
   if (!process.env.JWT_HASH || !process.env.JWT_HASH.length) throw new MissingJWTHashException();
 
   return jwt.sign(payload, process.env.JWT_HASH, { expiresIn: `${expires}m` });
-}
-
-/**
- * Sets the initial verify hash for email
- */
-export async function generateVerifyHash(user: User): Promise<string> {
-  const verifyHash = crypto.randomBytes(20).toString("hex");
-  await user.assignData({verifyHash}).save();
-
-  return verifyHash;
 }
 
 export function validateAuthInput(email: string) {
