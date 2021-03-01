@@ -1,6 +1,6 @@
 import { internet, random } from "faker";
 import { STATUS } from "../../../../shared/types/User";
-import User from "../../../Models/User";
+import { User } from "../../../Models/User";
 
 export function generateUser({
   active = random.boolean(),

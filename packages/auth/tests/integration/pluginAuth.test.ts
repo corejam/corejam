@@ -14,7 +14,7 @@ import {
 } from "../../server/Errors";
 import PasswordResetConfirmed from "../../server/mail/PasswordResetConfirmed";
 import RegisterVerifyMail from "../../server/mail/RegisterVerify";
-import User from "../../server/Models/User";
+import { User } from "../../server/Models/User";
 import { MergedServerContext } from "../../server/types/PluginResolver";
 import {
   meGQL,

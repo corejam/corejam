@@ -11,7 +11,7 @@ import {
 } from "../../shared/types/User";
 import { AuthenticationError } from "../Errors";
 import { decodeJWT, hashPassword } from "../Functions";
-import User from "../Models/User";
+import { User } from "../Models/User";
 
 export async function allUsers(): Promise<User[]> {
   return User.list()

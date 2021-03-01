@@ -24,7 +24,7 @@ type AuthReset = {
 /**
  * Our root user object
  */
-export default class User extends CoreModel {
+export class User extends CoreModel {
 
     collection = "users";
 

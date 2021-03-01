@@ -3,7 +3,7 @@ import { ID } from "@corejam/base/dist/typings/DB";
 import { ServerContext } from "@corejam/base/dist/typings/Server";
 import { PluginServerContext as NotifyContext } from "@corejam/notify/dist/server/types/PluginResolver";
 import { JWT, RegisterInput, UpdatePasswordInput, UserCreateInput, UserInput } from "../../shared/types/User";
-import User from "../Models/User";
+import { User } from "../Models/User";
 
 /**
  * We are adding these resolvers to the existing CoreResolver

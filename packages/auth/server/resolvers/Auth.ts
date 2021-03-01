@@ -4,7 +4,7 @@ import { validateAuthInput, validatePasswordCreate } from "../Functions";
 import PasswordResetConfirmed from "../mail/PasswordResetConfirmed";
 import PasswordResetRequest from "../mail/PasswordResetRequest";
 import RegisterVerifyMail from "../mail/RegisterVerify";
-import User from "../Models/User";
+import { User } from "../Models/User";
 import { MergedServerContext } from "../types/PluginResolver";
 import { UserList } from "../types/User";
 
