@@ -59,7 +59,7 @@
     "apollo-server-micro": "2.19.2",
     "faker": "5.1.0",
     "faunadb": "4.0.0",
-    "graphql": "15.4.0"
+    "graphql": "15.5.0"
   },
   "lint-staged": {
     "src/**/*.ts": [
