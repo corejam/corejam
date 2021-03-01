@@ -1,5 +1,5 @@
 import Mail from "@corejam/notify/dist/server/Mail";
-import User from "../Models/User";
+import { User } from "../Models/User";
 
 /**
  * This email gets sent after a password has been reset

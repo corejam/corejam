@@ -1,5 +1,5 @@
 import Mail from "@corejam/notify/dist/server/Mail";
-import User from "../Models/User";
+import { User } from "../Models/User";
 
 /**
  * Verification email with link to activate a users account

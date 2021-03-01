@@ -5,6 +5,8 @@
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "outDir": "./dist/esm",
     "noImplicitAny": false,

@@ -1,5 +1,5 @@
 import { getServerContext } from "@corejam/base/dist/Server";
-import User from "../server/Models/User";
+import { User } from "../server/Models/User";
 import {
     generateUser
 } from "../server/resolvers/db/faker/Generator";

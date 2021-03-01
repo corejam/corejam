@@ -1,5 +1,5 @@
 import { getServerContext } from "@corejam/base/dist/Server";
-import { roles } from "@corejam/plugin-auth/dist/shared/types/User";
+import { User } from "@corejam/plugin-auth/server/Models/User";
 import {
   generateCategory,
   generateConfig,
@@ -96,7 +96,7 @@ export default async () => {
     password: "valid123Password@",
     passwordConfirm: "valid123Password@",
   });
-  user = (await models.userEdit(user.id, { role: [roles.ADMIN] })) as UserDB;
+  user = (await models.userEdit(user.id, { role: [User.ROLES.ADMIN] })) as UserDB;
 
   data.users.push(user);
 
