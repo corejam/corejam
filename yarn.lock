@@ -2940,10 +2940,10 @@
   dependencies:
     tslib "^1.14.1"
 
-"@xstate/fsm@1.5.2":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@xstate/fsm/-/fsm-1.5.2.tgz#54c9cda644f3e8edefbd00b777e1fef5eb67955f"
-  integrity sha512-l2l7ztpLw/0EomJcvl86F8M6cLeMXhSEOtmI89fg34DbDMaatUKfiiAQpZpdcRqWHMjZYPAfC8EqmnHbmIlyEg==
+"@xstate/fsm@1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@xstate/fsm/-/fsm-1.6.0.tgz#589cefcef426d5bf3d654edbca89e84e3b637c5f"
+  integrity sha512-YJpzKLPxMBUUQCTkjIbicsax6svTbPz5ykTkotIaa3kOoTnBJ4CWfC0cSQuMg7FAsfV2XWOuEsFq0dbmY7NtXg==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
