@@ -41,7 +41,7 @@
     "app"
   ],
   "devDependencies": {
-    "@apollo/client": "3.3.6",
+    "@apollo/client": "3.3.11",
     "@corejam/base": "0.0.14",
     "@corejam/cli": "0.0.24",
     "@corejam/rollup-plugin": "0.0.6",
