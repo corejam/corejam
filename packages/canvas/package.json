@@ -51,7 +51,7 @@
     "faunadb": "4.1.1",
     "graphql-tag": "2.11.0",
     "rollup-plugin-node-polyfills": "0.2.1",
-    "xstate": "4.15.4"
+    "xstate": "4.16.2"
   },
   "lint-staged": {
     "server/**/*.ts": [
