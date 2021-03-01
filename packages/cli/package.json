@@ -43,7 +43,7 @@
     "@types/react": "17.0.2",
     "apollo-server-micro": "2.21.0",
     "chalk": "4.1.0",
-    "chokidar": "3.5.0",
+    "chokidar": "3.5.1",
     "copyfiles": "2.4.1",
     "cors": "2.8.5",
     "dotenv": "8.2.0",
