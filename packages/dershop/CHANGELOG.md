@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.27](https://github.com/Corejam/Corejam/compare/@corejam/plugin-dershop@0.0.26...@corejam/plugin-dershop@0.0.27) (2021-03-02)
+
+**Note:** Version bump only for package @corejam/plugin-dershop
+
+
+
+
+
 ## [0.0.26](https://github.com/Corejam/Corejam/compare/@corejam/plugin-dershop@0.0.25...@corejam/plugin-dershop@0.0.26) (2021-02-26)
 
 **Note:** Version bump only for package @corejam/plugin-dershop
