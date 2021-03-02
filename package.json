@@ -28,10 +28,7 @@
     "clean": "lerna run clean --parallel --scope '@corejam/*'",
     "bs": "lerna clean -y && lerna bootstrap --no-ci",
     "build": "lerna run build --scope '@corejam/*' --concurrency 1",
-    "lint": "lerna exec eslint . --scope '@corejam/*'",
-    "startShop": "yarn --cwd examples/shop dev",
-    "buildShop": "yarn --cwd examples/shop build",
-    "analyzeShop": "ANALYZE=true yarn --cwd examples/shop build"
+    "lint": "lerna exec eslint . --scope '@corejam/*'"
   },
   "devDependencies": {
     "@typescript-eslint/parser": "4.15.2",
