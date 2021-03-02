@@ -2,6 +2,7 @@ import { updateDates } from "@corejam/base";
 import { random } from "faker";
 import type { OrderCreateInput, OrderDB, OrderEditInput, OrderItem, OrderList } from "../../../../shared/types/Order";
 import { UserDB } from "../../../../shared/types/User";
+import { User } from "../../../Models/User";
 import { generateOrder, generateUser } from "./Generator";
 import { allProducts } from "./Product";
 
@@ -16,10 +17,10 @@ try {
 }
 
 if (orders.length === 0) {
-  const users: UserDB[] = [{ id: random.uuid(), ...generateUser() }];
+  const users: User[] = [generateUser()];
 
   for (let index = 0; index < 10; index++) {
-    users.push({ id: random.uuid(), ...generateUser() });
+    users.push(generateUser());
   }
 
   allProducts().then((products) => {

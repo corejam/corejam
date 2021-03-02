@@ -25,7 +25,12 @@ export function config(): Promise<ConfigDB> {
 }
 
 export function configCreate(configInput: Config): Promise<ConfigDB> {
-  configObject = { id: "config2", ...configInput };
+  configObject = {
+    id: "config2",
+    ...configInput,
+    dateCreated: "",
+    dateUpdated: "",
+  };
   return new Promise((res) => res(configObject));
 }
 
