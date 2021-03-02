@@ -1,3 +1,5 @@
+import { createTypeFromModel } from "../src/db/ModelHelper"
+
 const read = jest.fn();
 const save = jest.fn();
 const filter = jest.fn();
@@ -108,6 +110,7 @@ describe(`Base Model tests`, () => {
         expect(list).toHaveBeenCalled()
 
     })
+
     it("Check meta data", async () => {
         const testObject = new TestObject();
 
@@ -121,5 +124,12 @@ describe(`Base Model tests`, () => {
         expect(testObject2.getMeta()).toEqual(
             { otherAttribute: { index: false, unique: false } }
         )
+    })
+
+    it.only("Test type generation is working correctly", async () => {
+        const testObject = new TestObject();
+        const bla = createTypeFromModel(testObject)
+
+        console.log(bla)
     })
 });
