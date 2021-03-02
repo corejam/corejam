@@ -11,7 +11,7 @@ import { Order, OrderItem } from "../../../../shared/types/Order";
 import type { Price } from "../../../../shared/types/Price";
 import type { Product, ProductDB } from "../../../../shared/types/Product";
 import type { SEO } from "../../../../shared/types/Seo";
-import { User, UserDB } from "../../../../shared/types/User";
+import { User } from "../../../Models/User";
 
 const placeholderImages = [
   "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&q=80",
@@ -176,13 +176,14 @@ export function generateProduct({
 }
 
 export function generateUser(): User {
-  return {
+  const user = new User();
+  return user.assignData({
     ...rootGenerateUser(),
     firstName: name.firstName(),
     lastName: name.lastName(),
     addressBilling: generateAddress(),
     addressShipping: generateAddress(),
-  };
+  });
 }
 
 /**
@@ -221,7 +222,7 @@ export function generateOrderItems(products: ProductDB[]): OrderItem[] {
  * @param products
  * @param users
  */
-export function generateOrder(products: ProductDB[], users: UserDB[]): Order {
+export function generateOrder(products: ProductDB[], users: User[]): Order {
   const orderItems = generateOrderItems(products);
 
   let price = {
@@ -238,7 +239,7 @@ export function generateOrder(products: ProductDB[], users: UserDB[]): Order {
     } as Price;
   });
 
-  const user = users[Math.floor(Math.random() * users.length)] as UserDB;
+  const user = users[Math.floor(Math.random() * users.length)];
 
   return {
     user: user,
