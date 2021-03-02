@@ -1,19 +1,23 @@
 import "reflect-metadata";
+import { CoreModel } from "./CoreModel";
 
 /**
  * This is our decorator for defining fields that will be accessible
  * to the DBProvider through the model.
  */
-export function Coredata({ unique = false, index = false }: { unique?: Boolean, index?: Boolean }
-  = { index: false, unique: false }
-): PropertyDecorator {
-  return (target, key) => {
+export function Coredata<T extends CoreModel>(
+  { unique = false, index = false }: { unique?: Boolean; index?: Boolean } = { index: false, unique: false }
+) {
+  return (target: T, key) => {
     const fields = Reflect.getOwnMetadata("Corejam", target) || [];
+
+    console.log(target);
+    console.log(Reflect.getMetadata("design:type", target));
 
     if (!fields.includes(key)) {
       fields[key] = {
         unique,
-        index
+        index,
       };
     }
 
