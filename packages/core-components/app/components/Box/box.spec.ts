@@ -568,3 +568,116 @@ it("should render top left right bottom based on prop", async () => {
   expect(computedStyleRules).toContain("right: 30px;");
   expect(computedStyleRules).toContain("bottom: 40px;");
 });
+
+it("should render column count", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box column-count="2">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("column-count: 2;");
+});
+
+it("should render reponsive column count", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box lg-column-count="4">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("@media screen and (min-width: 1024px)");
+  expect(computedStyleRules).toContain("column-count: 4;");
+});
+it("should render column fill", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box column-fill="balance">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("column-fill: balance;");
+});
+
+it("should render reponsive column fill", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box lg-column-fill="balance">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("@media screen and (min-width: 1024px)");
+  expect(computedStyleRules).toContain("column-fill: balance;");
+});
+
+it("should render column color", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box column-rule-color="red">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("column-rule-color: red;");
+});
+
+it("should render reponsive column rule color", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box lg-column-rule-color="red">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("@media screen and (min-width: 1024px)");
+  expect(computedStyleRules).toContain("column-rule-color: red;");
+});
+
+it("should render column rule style", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box column-rule-style="dashed">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("column-rule-style: dashed;");
+});
+
+it("should render reponsive column rule style", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box lg-column-rule-style="dashed">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("@media screen and (min-width: 1024px)");
+  expect(computedStyleRules).toContain("column-rule-style: dashed;");
+});
+
+it("should render column rule wdith", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box column-rule-width="thick">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("column-rule-width: thick;");
+});
+
+it("should render reponsive column rule width", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box lg-column-rule-width="thick">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("@media screen and (min-width: 1024px)");
+  expect(computedStyleRules).toContain("column-rule-width: thick;");
+});
+
+it("should render column span", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box column-span="all">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("column-span: all;");
+});
+
+it("should render reponsive column span", async () => {
+  const page = await newSpecPage({
+    components: [CorejamBox],
+    html: `<corejam-box lg-column-span="all">hallo</corejam-box>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("@media screen and (min-width: 1024px)");
+  expect(computedStyleRules).toContain("column-span: all;");
+});
