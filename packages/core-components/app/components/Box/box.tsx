@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
+import { Component, h, Host, Prop, State } from "@stencil/core";
 import { Display, Flex, Position } from "./types";
 
 /**
@@ -205,204 +205,40 @@ export class CorejamBox {
   @Prop({ reflect: true }) z: number;
   @Prop({ reflect: true }) transition: string;
   @Prop({ reflect: true }) overflow: string;
+  @Prop({ reflect: true }) columnCount: string;
+  @Prop({ reflect: true }) smColumnCount: string;
+  @Prop({ reflect: true }) mdColumnCount: string;
+  @Prop({ reflect: true }) lgColumnCount: string;
+  @Prop({ reflect: true }) xlColumnCount: string;
+  @Prop({ reflect: true }) columnFill: string;
+  @Prop({ reflect: true }) smColumnFill: string;
+  @Prop({ reflect: true }) mdColumnFill: string;
+  @Prop({ reflect: true }) lgColumnFill: string;
+  @Prop({ reflect: true }) xlColumnFill: string;
+  @Prop({ reflect: true }) columnRuleColor: string;
+  @Prop({ reflect: true }) smColumnRuleColor: string;
+  @Prop({ reflect: true }) mdColumnRuleColor: string;
+  @Prop({ reflect: true }) lgColumnRuleColor: string;
+  @Prop({ reflect: true }) xlColumnRuleColor: string;
+  @Prop({ reflect: true }) columnRuleStyle: string;
+  @Prop({ reflect: true }) smColumnRuleStyle: string;
+  @Prop({ reflect: true }) mdColumnRuleStyle: string;
+  @Prop({ reflect: true }) lgColumnRuleStyle: string;
+  @Prop({ reflect: true }) xlColumnRuleStyle: string;
+  @Prop({ reflect: true }) columnRuleWidth: string;
+  @Prop({ reflect: true }) smColumnRuleWidth: string;
+  @Prop({ reflect: true }) mdColumnRuleWidth: string;
+  @Prop({ reflect: true }) lgColumnRuleWidth: string;
+  @Prop({ reflect: true }) xlColumnRuleWidth: string;
+  @Prop({ reflect: true }) columnSpan: string;
+  @Prop({ reflect: true }) smColumnSpan: string;
+  @Prop({ reflect: true }) mdColumnSpan: string;
+  @Prop({ reflect: true }) lgColumnSpan: string;
+  @Prop({ reflect: true }) xlColumnSpan: string;
+
   @Prop({ reflect: true }) droppableElements = ["corejam-box"];
 
-  componentShouldUpdate(newValue, oldValue) {
-    return newValue != oldValue;
-  }
-
-  async componentWillLoad() {
-    await this.computeStyles();
-  }
-
-  @Watch("flex")
-  @Watch("display")
-  @Watch("smDisplay")
-  @Watch("mdDisplay")
-  @Watch("lgDisplay")
-  @Watch("xlDisplay")
-  @Watch("direction")
-  @Watch("smDirection")
-  @Watch("mdDirection")
-  @Watch("lgDirection")
-  @Watch("xlDirection")
-  @Watch("items")
-  @Watch("smItems")
-  @Watch("mdItems")
-  @Watch("lgIitems")
-  @Watch("xlItems")
-  @Watch("alignContent")
-  @Watch("smAlignContent")
-  @Watch("mdAlignContent")
-  @Watch("lgAlignContent")
-  @Watch("xlAlignContent")
-  @Watch("self")
-  @Watch("smSelf")
-  @Watch("mdSelf")
-  @Watch("lgSelf")
-  @Watch("xlSelf")
-  @Watch("justify")
-  @Watch("smJustify")
-  @Watch("mdJustify")
-  @Watch("lgJustify")
-  @Watch("xljustify")
-  @Watch("wrap")
-  @Watch("smWrap")
-  @Watch("mdWrap")
-  @Watch("lgWrap")
-  @Watch("xlWrap")
-  @Watch("flow")
-  @Watch("smFlow")
-  @Watch("mdFlow")
-  @Watch("lgFlow")
-  @Watch("xlFlow")
-  @Watch("order")
-  @Watch("smOrder")
-  @Watch("mdOrder")
-  @Watch("lgOrder")
-  @Watch("xlOrder")
-  @Watch("grow")
-  @Watch("smGrow")
-  @Watch("mdGrow")
-  @Watch("lgGrow")
-  @Watch("xlGrow")
-  @Watch("shrink")
-  @Watch("smShrink")
-  @Watch("mdShrink")
-  @Watch("lgShrink")
-  @Watch("xlShrink")
-  @Watch("basis")
-  @Watch("smBasis")
-  @Watch("mdBasis")
-  @Watch("lgBasis")
-  @Watch("xlBasis")
-  @Watch("w")
-  @Watch("smW")
-  @Watch("mdW")
-  @Watch("lgW")
-  @Watch("xlW")
-  @Watch("h")
-  @Watch("smH")
-  @Watch("mdH")
-  @Watch("lgH")
-  @Watch("xlH")
-  @Watch("p")
-  @Watch("smP")
-  @Watch("mdP")
-  @Watch("lgP")
-  @Watch("xlP")
-  @Watch("py")
-  @Watch("smPy")
-  @Watch("mdPy")
-  @Watch("lgPy")
-  @Watch("xlPy")
-  @Watch("px")
-  @Watch("smPx")
-  @Watch("mdPx")
-  @Watch("lgPx")
-  @Watch("xlPx")
-  @Watch("pt")
-  @Watch("smPt")
-  @Watch("mdPt")
-  @Watch("lgPt")
-  @Watch("xlPt")
-  @Watch("pr")
-  @Watch("smPr")
-  @Watch("mdPr")
-  @Watch("lgPr")
-  @Watch("xlPr")
-  @Watch("pb")
-  @Watch("smPb")
-  @Watch("mdPb")
-  @Watch("lgPb")
-  @Watch("xlPb")
-  @Watch("pl")
-  @Watch("smPl")
-  @Watch("mdPl")
-  @Watch("lgPl")
-  @Watch("xlPl")
-  @Watch("m")
-  @Watch("smM")
-  @Watch("mdM")
-  @Watch("lgM")
-  @Watch("xlM")
-  @Watch("my")
-  @Watch("smMy")
-  @Watch("mdMy")
-  @Watch("lgMy")
-  @Watch("xlMy")
-  @Watch("mx")
-  @Watch("smMx")
-  @Watch("mdMx")
-  @Watch("lgMx")
-  @Watch("xlMx")
-  @Watch("mt")
-  @Watch("smMt")
-  @Watch("mdMt")
-  @Watch("lgMt")
-  @Watch("xlMt")
-  @Watch("mr")
-  @Watch("smMr")
-  @Watch("mdMr")
-  @Watch("lgMr")
-  @Watch("xlMr")
-  @Watch("mb")
-  @Watch("smMb")
-  @Watch("mdMb")
-  @Watch("lgMb")
-  @Watch("xlMb")
-  @Watch("ml")
-  @Watch("smMl")
-  @Watch("mdMl")
-  @Watch("lgMl")
-  @Watch("xlMl")
-  @Watch("max")
-  @Watch("smMax")
-  @Watch("mdMax")
-  @Watch("lgMax")
-  @Watch("xlMax")
-  @Watch("bg")
-  @Watch("smBg")
-  @Watch("mdBg")
-  @Watch("lgBg")
-  @Watch("xlBg")
-  @Watch("hoverBg")
-  @Watch("smHoverBg")
-  @Watch("mdHoverBg")
-  @Watch("lgHoverBg")
-  @Watch("xlHoverBg")
-  @Watch("hide")
-  @Watch("smHide")
-  @Watch("mdHide")
-  @Watch("lgHide")
-  @Watch("xlHide")
-  @Watch("show")
-  @Watch("smShow")
-  @Watch("mdShow")
-  @Watch("lgShow")
-  @Watch("xlShow")
-  @Watch("collapse")
-  @Watch("bColor")
-  @Watch("rounded")
-  @Watch("roundedTop")
-  @Watch("roundedRight")
-  @Watch("roundedLeft")
-  @Watch("roundedBottom")
-  @Watch("bStyle")
-  @Watch("bWidth")
-  @Watch("bWidthTop")
-  @Watch("bWidthRight")
-  @Watch("bWidthBottom")
-  @Watch("bWidthLeft")
-  @Watch("animation")
-  @Watch("shadow")
-  @Watch("hoverShadow")
-  @Watch("position")
-  @Watch("top")
-  @Watch("right")
-  @Watch("bottom")
-  @Watch("left")
-  async computeStyles() {
+  async componentWillRender() {
     const hash = await (await import("../../utils/style")).calculateStyles(this);
     this.hash = hash;
   }
