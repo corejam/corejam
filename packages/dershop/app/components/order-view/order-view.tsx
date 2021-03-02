@@ -44,7 +44,7 @@ export class OrderView {
             </corejam-type>
           </corejam-box>
           <corejam-box flex justify="between" pb={2} bWidthBottom={1} bColor="gray-300">
-            <corejam-box w={5}>
+            <corejam-box w="5">
               <dershop-ui-type size="sm">Product</dershop-ui-type>
             </corejam-box>
             <corejam-box>
@@ -59,7 +59,7 @@ export class OrderView {
           </corejam-box>
           {this._data.items.map((item) => (
             <corejam-box py={2} justify="between" flex direction="row">
-              <corejam-box flex w={5} items="center">
+              <corejam-box flex w="5" items="center">
                 <dershop-ui-type weight="bold">{item.product.name}</dershop-ui-type>
               </corejam-box>
               <corejam-box>
@@ -95,7 +95,7 @@ export class OrderView {
             {this._data.addressBilling.city} - {this._data.addressBilling.country}
           </corejam-box>
           <corejam-box flex max="xl" mx="auto" px={2} xlPx={0}>
-            <corejam-box w={3} mt={8}>
+            <corejam-box w="3" mt={8}>
               <corejam-box flex justify="between" mb={4}>
                 <dershop-ui-type>Order Total</dershop-ui-type>
                 <dershop-ui-type weight="bold">{this._data.price.net} €</dershop-ui-type>

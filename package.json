@@ -21,25 +21,22 @@
     "static-site-generator"
   ],
   "engines": {
-    "node": "14"
+    "node": ">=14"
   },
   "scripts": {
     "lerna": "lerna",
     "clean": "lerna run clean --parallel --scope '@corejam/*'",
     "bs": "lerna clean -y && lerna bootstrap --no-ci",
     "build": "lerna run build --scope '@corejam/*' --concurrency 1",
-    "lint": "lerna exec eslint . --scope '@corejam/*'",
-    "startShop": "yarn --cwd examples/shop dev",
-    "buildShop": "yarn --cwd examples/shop build",
-    "analyzeShop": "ANALYZE=true yarn --cwd examples/shop build"
+    "lint": "lerna exec eslint . --scope '@corejam/*'"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "4.14.1",
-    "@typescript-eslint/eslint-plugin": "4.15.0",
+    "@typescript-eslint/parser": "4.15.2",
+    "@typescript-eslint/eslint-plugin": "4.15.2",
     "args": "5.0.1",
-    "eslint": "7.20.0",
+    "eslint": "7.21.0",
     "eslint-plugin-import": "2.22.1",
-    "husky": "5.0.9",
+    "husky": "5.1.2",
     "lerna": "3.22.1",
     "lint-staged": "10.5.4",
     "prettier": "2.2.1",

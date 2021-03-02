@@ -39,7 +39,7 @@ export class Account {
           </corejam-type>
         </corejam-box>
         <corejam-box flex>
-          <corejam-box w={3} pt={8} bWidthTop={1} bColor="gray-500" mr={24}>
+          <corejam-box w="3" pt={8} bWidthTop={1} bColor="gray-500" mr={24}>
             <corejam-box flex direction="col">
               <corejam-box mb={4}>
                 <corejam-base-link href="#" class="py-4 mb-1">
@@ -53,10 +53,10 @@ export class Account {
               </corejam-box>
             </corejam-box>
           </corejam-box>
-          <corejam-box w={9} pt={8} bWidthTop={1} bColor="gray-500">
+          <corejam-box w="9" pt={8} bWidthTop={1} bColor="gray-500">
             <corejam-form-container name={this.profileFormId}>
               <corejam-box flex mb={8}>
-                <corejam-box w={6} pl={4}>
+                <corejam-box w="6" pl={4}>
                   <corejam-form-input
                     name="email"
                     type="email"

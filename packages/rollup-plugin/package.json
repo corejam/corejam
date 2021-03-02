@@ -15,8 +15,9 @@
   },
   "devDependencies": {
     "fs-jetpack": "4.1.0",
-    "rollup": "2.36.1",
-    "rollup-plugin-typescript2": "0.29.0",
-    "shx": "0.3.3"
+    "rollup": "2.40.0",
+    "rollup-plugin-typescript2": "0.30.0",
+    "shx": "0.3.3",
+    "tslib": "2.1.0"
   }
 }

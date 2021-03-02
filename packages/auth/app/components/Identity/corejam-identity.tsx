@@ -104,7 +104,7 @@ export class CorejamIdentity {
             style={{ display: this.dropdown ? "initial" : "none" }}
           >
             {authStore.identity ? (
-              <corejam-box w={12} flex direction="col">
+              <corejam-box w="12" flex direction="col">
                 <corejam-box>
                   <corejam-base-link href="/account">My Account</corejam-base-link>
                 </corejam-box>
@@ -120,19 +120,19 @@ export class CorejamIdentity {
               <corejam-form-container name={this.formId}>
                 <corejam-flash data-flash="isolated"></corejam-flash>
                 <corejam-box pb={3} flex direction="col">
-                  <corejam-box w={12}>
+                  <corejam-box w="12">
                     <corejam-form-input name="email" type="text" formId={this.formId} label="Email" />
                     <corejam-form-input name="password" type="password" formId={this.formId} label="Password" />
                   </corejam-box>
-                  <corejam-box flex direction="row" w={12} mt={4}>
-                    <corejam-box w={6} bg="gray-200" rounded="md" flex justify="center">
+                  <corejam-box flex direction="row" w="12" mt={4}>
+                    <corejam-box w="6" bg="gray-200" rounded="md" flex justify="center">
                       <corejam-form-submit formId={this.formId}>
                         <corejam-button type="button" color="gray-900" pl="5" pr="5" pt="3" pb="3">
                           <corejam-type>Login</corejam-type>
                         </corejam-button>
                       </corejam-form-submit>
                     </corejam-box>
-                    <corejam-box w={6} flex justify="center" items="center">
+                    <corejam-box w="6" flex justify="center" items="center">
                       <corejam-base-link href="/register">Register</corejam-base-link>
                     </corejam-box>
                   </corejam-box>

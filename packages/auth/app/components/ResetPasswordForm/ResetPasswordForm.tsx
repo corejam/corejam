@@ -43,7 +43,7 @@ export class AuthResetPasswordForm {
         </corejam-box>
         <corejam-form-container name={this.updatePasswordFormId}>
           <corejam-box flex mb={8}>
-            <corejam-box w={6}>
+            <corejam-box w="6">
               <corejam-form-input
                 name="oldPassword"
                 type="password"
@@ -54,7 +54,7 @@ export class AuthResetPasswordForm {
             </corejam-box>
           </corejam-box>
           <corejam-box flex mb={8}>
-            <corejam-box w={6}>
+            <corejam-box w="6">
               <corejam-form-input
                 name="password"
                 type="password"
@@ -65,7 +65,7 @@ export class AuthResetPasswordForm {
             </corejam-box>
           </corejam-box>
           <corejam-box flex mb={8}>
-            <corejam-box w={6}>
+            <corejam-box w="6">
               <corejam-form-input
                 name="passwordConfirm"
                 type="password"

@@ -20,7 +20,7 @@ export class DershopCartOverview {
         {basket.state.items.map((cartItem: ProductDB) => {
           return (
             <corejam-box justify="between" p={3} flex direction="row">
-              <corejam-box w={4}>
+              <corejam-box w="4">
                 <corejam-image src={cartItem.images[0].src}></corejam-image>
               </corejam-box>
               <corejam-box>

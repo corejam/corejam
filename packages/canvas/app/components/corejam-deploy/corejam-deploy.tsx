@@ -52,7 +52,7 @@ export class CorejamDeploy {
             Deploy to CDN
           </corejam-type>
           <corejam-button
-            w={6}
+            w="6"
             bg="green-200"
             hoverBg="green-300"
             p="2"

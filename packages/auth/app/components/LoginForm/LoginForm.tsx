@@ -43,7 +43,7 @@ export class LoginForm {
       <Host>
         <corejam-box p={8} max="md" mx="auto" px={4} lgPx={0} flex direction="col" justify="between" mb={24}>
           <corejam-flash></corejam-flash>
-          <corejam-box w={5} mx="auto">
+          <corejam-box w="5" mx="auto">
             <corejam-form-container name={this.formId}>
               <corejam-box>
                 <corejam-form-input name="email" type="text" formId={this.formId} label="Email"></corejam-form-input>

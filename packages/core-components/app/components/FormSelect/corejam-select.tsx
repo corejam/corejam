@@ -41,7 +41,7 @@ export class CorejamFormSelect implements ComponentInterface {
   render() {
     return (
       <Host>
-        <corejam-box flex direction="col" w={12} mb={3}>
+        <corejam-box flex direction="col" w="12" mb={3}>
           <corejam-box mb={2}>
             <label htmlFor={this.name}>
               <corejam-type size="sm" color="gray-500">

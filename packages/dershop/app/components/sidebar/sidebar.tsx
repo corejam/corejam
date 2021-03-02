@@ -10,7 +10,7 @@ export class SidebarComponent {
   render() {
     return (
       <Host>
-        <corejam-box flex w={12} pb={2} mt={8} direction="col">
+        <corejam-box flex w="12" pb={2} mt={8} direction="col">
           <corejam-box bColor="gray-300" bWidthBottom={1} pb={4}>
             <corejam-type size="xs">Filter</corejam-type>
           </corejam-box>
