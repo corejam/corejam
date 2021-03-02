@@ -6,13 +6,16 @@ export default class TestObject extends CoreModel {
     collection = "objects";
 
     @Coredata()
-    public dataAttribute1 = "attribute1"
+    public dataAttribute1: string = "attribute1"
 
     @Coredata()
-    public dataAttribute2 = "attribute2"
+    public dataAttribute2: string = "attribute2"
 
     @Coredata({ unique: true })
-    public uniqueAttribute = "unique-value"
+    public uniqueAttribute: string = "unique-value"
+
+    @Coredata()
+    public intAttribute?: number;
 
     //Test that this does not show up in data fields 
     public localAttribute = "local"

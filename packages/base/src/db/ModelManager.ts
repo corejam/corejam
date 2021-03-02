@@ -1,7 +1,7 @@
 import { ModelMeta } from "../typings/DB";
 import { CoreModel } from "./CoreModel";
 
-export const modelMeta = new Map<String, { [key: string]: ModelMeta }>();
+export const modelMeta = new Map<String, { [key: string]: ModelMeta[] }>();
 
 /**
  * Model meta store used as singleton source 

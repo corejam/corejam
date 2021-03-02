@@ -16,16 +16,16 @@ export function createTypeFromModel<T extends CoreModel>(model: T) {
     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     ts.factory.createIdentifier(model.constructor.name),
     undefined,
-    ts.factory.createTypeLiteralNode([
-      ts.factory.createPropertySignature(
-        undefined,
-        ts.factory.createIdentifier("lalala"),
-        undefined,
-        ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Array"), [
-          ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
-        ])
-      ),
-    ])
+    ts.factory.createTypeLiteralNode(
+      Object.keys(meta).map((key) => {
+        return ts.factory.createPropertySignature(
+          undefined,
+          ts.factory.createIdentifier(key),
+          undefined,
+          ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
+        )
+      })
+    )
   );
 
   const printer = ts.createPrinter();

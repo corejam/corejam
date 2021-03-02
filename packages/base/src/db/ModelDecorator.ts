@@ -8,16 +8,16 @@ import { CoreModel } from "./CoreModel";
 export function Coredata<T extends CoreModel>(
   { unique = false, index = false }: { unique?: Boolean; index?: Boolean } = { index: false, unique: false }
 ) {
-  return (target: T, key) => {
-    const fields = Reflect.getOwnMetadata("Corejam", target) || [];
+  return (target: T, key: string) => {
 
-    console.log(target);
-    console.log(Reflect.getMetadata("design:type", target));
+    const type = Reflect.getMetadata("design:type", target, key)
+    const fields = Reflect.getMetadata("Corejam", target) || [];
 
     if (!fields.includes(key)) {
       fields[key] = {
         unique,
         index,
+        type: type.name
       };
     }
 
