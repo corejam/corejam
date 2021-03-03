@@ -9,6 +9,7 @@ import runBuild, { buildStatic } from "./commands/build";
 import runDev from "./commands/dev";
 import createApp from "./commands/generateApp";
 import generateSchema from "./commands/generateSchema";
+import generateTypes from "./commands/generateTypes";
 import { corejamInit } from "./commands/init";
 import { runWCTests } from "./commands/test";
 import { envRoot } from "./config";
@@ -88,6 +89,12 @@ prog.command("generateSchema").action(async () => {
   await corejamInit();
   await generateSchema();
 });
+
+prog.command("generateTypes")
+  .option("-l, --log", "Log output to console", false)
+  .action(async (opts) => {
+    await generateTypes(opts);
+  });
 
 prog.command("test:wc").action(async () => {
   await runWCTests();
