@@ -330,7 +330,7 @@ export namespace Components {
         "gap": GridType.Gap;
         "gapCol": GridType.Gap;
         "gapRow": GridType.Gap;
-        "grid": Boolean;
+        "grid": boolean;
         "h": String;
         "lgAutoFlow": GridType.Flow;
         "lgCols": GridType.Cols;
@@ -931,7 +931,7 @@ declare namespace LocalJSX {
         "gap"?: GridType.Gap;
         "gapCol"?: GridType.Gap;
         "gapRow"?: GridType.Gap;
-        "grid"?: Boolean;
+        "grid"?: boolean;
         "h"?: String;
         "lgAutoFlow"?: GridType.Flow;
         "lgCols"?: GridType.Cols;
