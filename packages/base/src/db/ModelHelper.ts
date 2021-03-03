@@ -9,7 +9,6 @@ import { CoreModel } from "./CoreModel";
  */
 export function createTypeFromModel<T extends CoreModel>(model: T) {
   const meta = model.getMeta();
-  console.log(meta);
 
   const bla = ts.factory.createTypeAliasDeclaration(
     undefined,
@@ -23,7 +22,7 @@ export function createTypeFromModel<T extends CoreModel>(model: T) {
           ts.factory.createIdentifier(key),
           undefined,
           ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
-        )
+        );
       })
     )
   );

@@ -6,5 +6,5 @@ export default class TestObject2 extends CoreModel {
     collection = "otherObjects";
 
     @Coredata()
-    otherAttribute = true;
+    otherAttribute: Boolean = true;
 }
