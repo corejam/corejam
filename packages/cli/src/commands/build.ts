@@ -1,8 +1,9 @@
 import chalk from "chalk";
 import execa from "execa";
-import jetpack from "fs-jetpack";
+import jetpack, { removeAsync } from "fs-jetpack";
 import kill from "kill-port";
 import ora from "ora";
+import { resolve } from "path";
 import { envRoot } from "../config";
 import { copySchemaToDist } from "../helpers/copy";
 import { prependNoCheckToComponents } from "../helpers/prependInFile";
@@ -96,6 +97,8 @@ export default async function run(options: any) {
 }
 
 export async function buildStatic(options: any) {
+  await removeAsync(resolve(envRoot, "www"));
+
   const envPackageName = require(envRoot + "/package.json").name;
 
   const bootSpinner = ora(`Starting static build for ${chalk.bold.green(envPackageName)}...`).start();
