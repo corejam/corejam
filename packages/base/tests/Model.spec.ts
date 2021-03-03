@@ -1,4 +1,6 @@
-import { createTypeFromModel } from "../src/db/ModelHelper"
+import { createTypeFromModel } from "../src/db/ModelHelper";
+import TestObject from "./dbInterface/TestObject";
+import TestObject2 from "./dbInterface/TestObject2";
 
 const read = jest.fn();
 const save = jest.fn();
@@ -24,8 +26,6 @@ jest.mock("../src/PluginManager", () => ({
     })
 }))
 
-import TestObject from "./dbInterface/TestObject";
-import TestObject2 from "./dbInterface/TestObject2";
 
 describe(`Base Model tests`, () => {
 
@@ -123,9 +123,10 @@ describe(`Base Model tests`, () => {
         })
 
         const testObject2 = new TestObject2();
-        expect(testObject2.getMeta()).toEqual(
-            { otherAttribute: { index: false, unique: false, type: "Boolean" } }
-        )
+        expect(testObject2.getMeta()).toEqual({
+            otherAttribute: { index: false, unique: false, type: "Boolean" },
+            otherObject: { index: false, unique: false, type: "TestObject" }
+        })
     })
 
     it("Test type generation is working correctly", async () => {
@@ -138,6 +139,5 @@ describe(`Base Model tests`, () => {
     uniqueAttribute: string;
     intAttribute: string;
 };`)
-
     })
 });
