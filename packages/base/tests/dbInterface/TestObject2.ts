@@ -1,5 +1,6 @@
-import { Coredata } from "../../src/db/ModelDecorator";
 import { CoreModel } from "../../src/db/CoreModel";
+import { Coredata } from "../../src/db/ModelDecorator";
+import TestObject from "./TestObject";
 
 export default class TestObject2 extends CoreModel {
 
@@ -7,4 +8,7 @@ export default class TestObject2 extends CoreModel {
 
     @Coredata()
     otherAttribute: Boolean = true;
+
+    @Coredata()
+    otherObject?: TestObject;
 }
