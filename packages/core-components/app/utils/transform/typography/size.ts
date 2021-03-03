@@ -1,6 +1,6 @@
 export default {
   property: "font-size",
-  transform(key) {
+  transform(key: string) {
     const defaultSizes = {
       xs: "0.75rem",
       sm: "0.875rem",
@@ -13,6 +13,11 @@ export default {
       "5xl": "3rem",
       "6xl": "4rem",
     };
-    return `var(--cj-font-size-${key}, ${defaultSizes[key]})`;
+    const isNumericValue = () => key.includes("px") || key.includes("em") || key.includes("rem");
+    return key in defaultSizes
+      ? `var(--cj-font-size-${key}, ${defaultSizes[key]})`
+      : isNumericValue()
+      ? key
+      : `var(--cj-font-size-${key})`;
   },
 };

@@ -65,19 +65,11 @@ export class Grid {
   @Prop({ reflect: true }) mdAutoFlow: GridType.Flow;
   @Prop({ reflect: true }) lgAutoFlow: GridType.Flow;
   @Prop({ reflect: true }) xlAutoFlow: GridType.Flow;
-  @Prop({ reflect: true }) grid: Boolean = true;
+  @Prop({ reflect: true }) grid = true;
   @Prop({ reflect: true }) h: String;
   @State() hash: string;
 
-  async componentWillLoad() {
-    await this.computeStyles();
-  }
-
-  componentShouldUpdate(newValue, oldValue) {
-    return newValue != oldValue;
-  }
-
-  async computeStyles() {
+  async componentWillRender() {
     const hash = await (await import("../../utils/style")).calculateStyles(this);
     this.hash = hash;
   }
