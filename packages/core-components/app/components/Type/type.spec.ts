@@ -251,3 +251,12 @@ it("should render text align right", async () => {
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("text-align: right");
 });
+
+it("should render custom font family", async () => {
+  const page = await newSpecPage({
+    components: [CorejamType],
+    html: `<corejam-type family="Calibre">Hallo</corejam-type>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("font-family: var(--cj-font-family-Calibre, Calibre)");
+});
