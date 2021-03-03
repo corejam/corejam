@@ -260,3 +260,12 @@ it("should render custom font family", async () => {
   const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
   expect(computedStyleRules).toContain("font-family: var(--cj-font-family-Calibre, Calibre)");
 });
+
+it("should render custom font size var", async () => {
+  const page = await newSpecPage({
+    components: [CorejamType],
+    html: `<corejam-type size="mega">Hallo</corejam-type>`,
+  });
+  const computedStyleRules = page.doc.head.querySelector("style[corejamstyle]").textContent;
+  expect(computedStyleRules).toContain("font-size: var(--cj-font-size-mega)");
+});

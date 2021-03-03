@@ -13,6 +13,6 @@ export default {
       "5xl": "3rem",
       "6xl": "4rem",
     };
-    return `var(--cj-font-size-${key}, ${defaultSizes[key]})`;
+    return key in defaultSizes ? `var(--cj-font-size-${key}, ${defaultSizes[key]})` : `var(--cj-font-size-${key})`;
   },
 };
