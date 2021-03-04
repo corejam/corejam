@@ -10,7 +10,7 @@
   "collection": "web-components/collection/collection-manifest.json",
   "collection:main": "web-components/collection/index.js",
   "homepage": "https://dershop.dev/",
-  "description": "Corejam Canvas plugin - Serverless Jamstack Webshop",
+  "description": "corejam dershop app - Serverless Jamstack Webshop",
   "bugs": {
     "url": "https://github.com/corejam/corejam/issues"
   },
