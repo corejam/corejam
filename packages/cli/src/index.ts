@@ -9,12 +9,13 @@ import runBuild, { buildStatic } from "./commands/build";
 import runDev from "./commands/dev";
 import createApp from "./commands/generateApp";
 import generateSchema from "./commands/generateSchema";
-import generateTypes from "./commands/generateTypes";
+//import generateTypes from "./commands/generateTypes";
 import { corejamInit } from "./commands/init";
 import { runWCTests } from "./commands/test";
 import { envRoot } from "./config";
 import { copySchemaToDist } from "./helpers/copy";
 import { killAll } from "./processes";
+import { run as compilerRun } from "./compiler/Models"
 
 const pkg = require("../package.json");
 const prog = sade("corejam");
@@ -92,8 +93,8 @@ prog.command("generateSchema").action(async () => {
 
 prog.command("generateTypes")
   .option("-l, --log", "Log output to console", false)
-  .action(async (opts) => {
-    await generateTypes(opts);
+  .action(async (_opts) => {
+    await compilerRun();
   });
 
 prog.command("test:wc").action(async () => {
