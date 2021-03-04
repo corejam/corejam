@@ -1,10 +1,10 @@
+import { createStaticRouter, Router } from "@stencil/router";
 import { createStore } from "@stencil/store";
-import { createRouter, Router } from "stencil-router-v2";
 
-export { href } from "stencil-router-v2";
+export { href } from "@stencil/router";
 
 export const { state, get, reset, set, onChange } = createStore({
-  router: createRouter(),
+  router: createStaticRouter(),
 });
 
 export type CorejamMode = "development" | "production" | "static";
@@ -39,7 +39,7 @@ export const {
   set: runSet,
   onChange: runChange,
 } = createStore<CorejamRunStore>({
-  router: createRouter(),
+  router: createStaticRouter(),
   routes: null,
   mode: null,
   wrapper: null,

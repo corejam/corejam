@@ -1,5 +1,5 @@
-import { Component, h, Host } from "@stencil/core";
-import { match, Route } from "stencil-router-v2";
+import { Component, h } from "@stencil/core";
+import { match, Route } from "@stencil/router";
 import { CorejamRoute, runState } from "../../store/runStore";
 
 const Router = runState.router;
@@ -42,56 +42,45 @@ export class CorejamRouter {
     const routes = this.collectRoutesInRightOrder();
     const Layout = runState.layout && runState.layout.length > 0 ? runState.layout[0].component : "div";
     return (
-      <Host>
+      <Layout>
         <Router.Switch>
           {routes.map((route: CorejamRoute) => {
             const Component = route.component;
+
             //We have a canvasPage object coming in
             if (route.exact && route.canvasPage === true) {
               return (
-                <Route path={match(route.url, { exact: true })}>
-                  <div innerHTML={JSON.parse(route.component)}></div>
-                </Route>
+                <Route
+                  path={match(route.url, { exact: true })}
+                  render={() => <div innerHTML={JSON.parse(route.component)}></div>}
+                ></Route>
               );
             }
 
             if (route.exact && route.url.includes("component")) {
               return (
-                <Route path={route.url}>
-                  <corejam-dev-playground cmp={route.component}></corejam-dev-playground>
-                </Route>
+                <Route
+                  path={route.url}
+                  render={() => <corejam-dev-playground cmp={route.component}></corejam-dev-playground>}
+                ></Route>
               );
             }
 
             if (route.exact && !route.dev && !route.third) {
-              return (
-                <Route path={route.url}>
-                  <Layout>
-                    <Component></Component>
-                  </Layout>
-                </Route>
-              );
+              return <Route path={route.url} render={() => <Component></Component>}></Route>;
             }
             if (route.exact && (route.dev || route.third)) {
-              return (
-                <Route path={route.url}>
-                  <Component></Component>
-                </Route>
-              );
+              return <Route path={route.url} render={() => <Component></Component>}></Route>;
             }
             return (
               <Route
                 path={match(route.url, { exact: true })}
-                render={(router) => (
-                  <Layout>
-                    <Component param={router}></Component>
-                  </Layout>
-                )}
-              />
+                render={(router) => <Component param={router}></Component>}
+              ></Route>
             );
           })}
         </Router.Switch>
-      </Host>
+      </Layout>
     );
   }
 }
