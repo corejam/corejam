@@ -1,5 +1,5 @@
 import { coreState } from "@corejam/core-components";
-import { Component, h, Host, Prop, State, Watch } from "@stencil/core";
+import { Component, h, Prop, State, Watch } from "@stencil/core";
 import gql from "graphql-tag";
 import { getObjectFromURL } from "../../shared/graphql/Queries/URL";
 import { SEODocument } from "../../shared/types/Seo";
@@ -47,6 +47,6 @@ export class UrlRoute {
   }
 
   render() {
-    return <Host>{this.getComponentForRoute()}</Host>;
+    return this.getComponentForRoute();
   }
 }
