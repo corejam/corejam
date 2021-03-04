@@ -125,11 +125,11 @@ describe(`Base Model tests`, () => {
         const testObject2 = new TestObject2();
         expect(testObject2.getMeta()).toEqual({
             otherAttribute: { index: false, unique: false, type: "Boolean" },
-            otherObject: { index: false, unique: false, type: "TestObject" }
+            optionalAttribute: { index: false, unique: false, type: "TestObject" }
         })
     })
 
-    it("Test type generation is working correctly", async () => {
+    it.only("Test type generation is working correctly", async () => {
         const testObject = new TestObject();
         const type = createTypeFromModel(testObject)
 
@@ -138,6 +138,14 @@ describe(`Base Model tests`, () => {
     dataAttribute2: string;
     uniqueAttribute: string;
     intAttribute: string;
+};`)
+
+        const testObject2 = new TestObject2();
+        const type2 = createTypeFromModel(testObject2);
+
+        expect(type2).toEqual(`export type TestObject2 = {
+    otherAttribute: string;
+    optionalAttribute?: TestObject;
 };`)
     })
 });

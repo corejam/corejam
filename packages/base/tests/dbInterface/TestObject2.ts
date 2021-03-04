@@ -10,5 +10,5 @@ export default class TestObject2 extends CoreModel {
     otherAttribute: Boolean = true;
 
     @Coredata()
-    otherObject?: TestObject;
+    optionalAttribute?: TestObject;
 }
