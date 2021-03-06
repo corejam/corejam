@@ -48,4 +48,4 @@ export const { state: menuState } = createStore({
   tabs: [],
 });
 
-export const href = (url) => hrefO(url, runState.router);
+export const href = (url, router?) => hrefO(url, router || runState.router);

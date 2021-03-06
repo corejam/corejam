@@ -1,4 +1,4 @@
-import { href } from "@corejam/run";
+import { href, runState } from "@corejam/run";
 import { Component, Event, EventEmitter, h, Prop, State } from "@stencil/core";
 import { Link } from "./Link.types";
 
@@ -22,7 +22,7 @@ export class BaseLink {
   }
 
   render() {
-    const defaultProps = href(this.href);
+    const defaultProps = href(this.href, runState.router);
 
     const overwrittenProps = {
       ...defaultProps,
