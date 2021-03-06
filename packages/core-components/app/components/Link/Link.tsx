@@ -22,19 +22,27 @@ export class BaseLink {
   }
 
   render() {
-    const defaultProps = href()(this.href, runState.router);
+    if (runState.router) {
+      const defaultProps = href()(this.href, runState.router);
 
-    const overwrittenProps = {
-      ...defaultProps,
-      onClick: (ev: MouseEvent) => {
-        this.routeChange.emit({ type: "routechange", newUrl: this.href });
-        if (typeof defaultProps.onClick === "function") defaultProps.onClick(ev);
-        window.scrollTo({ top: 0 });
-      },
-    };
+      const overwrittenProps = {
+        ...defaultProps,
+        onClick: (ev: MouseEvent) => {
+          this.routeChange.emit({ type: "routechange", newUrl: this.href });
+          if (typeof defaultProps.onClick === "function") defaultProps.onClick(ev);
+          window.scrollTo({ top: 0 });
+        },
+      };
+
+      return (
+        <a {...overwrittenProps} class={this.hash}>
+          <slot></slot>
+        </a>
+      );
+    }
     return (
-      <a class={this.hash} {...overwrittenProps}>
-        <slot />
+      <a href={this.href} class={this.hash}>
+        <slot></slot>
       </a>
     );
   }
