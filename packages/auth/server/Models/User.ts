@@ -32,7 +32,7 @@ export class User extends CoreModel {
     static ROLES = ROLES;
 
     @Coredata()
-    email = '';
+    email: string = '';
 
     @Coredata()
     password?: string;
@@ -44,7 +44,7 @@ export class User extends CoreModel {
     verifyHash?: string;
 
     @Coredata()
-    active = false;
+    active: boolean = false;
 
     @Coredata()
     role: [ROLES] = [ROLES.USER];
