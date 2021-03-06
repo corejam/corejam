@@ -40,47 +40,44 @@ export class CorejamRouter {
 
   render() {
     const routes = this.collectRoutesInRightOrder();
-    const Layout = runState.layout && runState.layout.length > 0 ? runState.layout[0].component : "div";
     return (
-      <Layout>
-        <Router.Switch>
-          {routes.map((route: CorejamRoute) => {
-            const Component = route.component;
+      <Router.Switch>
+        {routes.map((route: CorejamRoute) => {
+          const Component = route.component;
 
-            //We have a canvasPage object coming in
-            if (route.exact && route.canvasPage === true) {
-              return (
-                <Route
-                  path={match(route.url, { exact: true })}
-                  render={() => <div innerHTML={JSON.parse(route.component)}></div>}
-                ></Route>
-              );
-            }
-
-            if (route.exact && route.url.includes("component")) {
-              return (
-                <Route
-                  path={route.url}
-                  render={() => <corejam-dev-playground cmp={route.component}></corejam-dev-playground>}
-                ></Route>
-              );
-            }
-
-            if (route.exact && !route.dev && !route.third) {
-              return <Route path={route.url} render={() => <Component></Component>}></Route>;
-            }
-            if (route.exact && (route.dev || route.third)) {
-              return <Route path={route.url} render={() => <Component></Component>}></Route>;
-            }
+          //We have a canvasPage object coming in
+          if (route.exact && route.canvasPage === true) {
             return (
               <Route
                 path={match(route.url, { exact: true })}
-                render={(router) => <Component param={router}></Component>}
+                render={() => <div innerHTML={JSON.parse(route.component)}></div>}
               ></Route>
             );
-          })}
-        </Router.Switch>
-      </Layout>
+          }
+
+          if (route.exact && route.url.includes("component")) {
+            return (
+              <Route
+                path={route.url}
+                render={() => <corejam-dev-playground cmp={route.component}></corejam-dev-playground>}
+              ></Route>
+            );
+          }
+
+          if (route.exact && !route.dev && !route.third) {
+            return <Route path={route.url} render={() => <Component></Component>}></Route>;
+          }
+          if (route.exact && (route.dev || route.third)) {
+            return <Route path={route.url} render={() => <Component></Component>}></Route>;
+          }
+          return (
+            <Route
+              path={match(route.url, { exact: true })}
+              render={(router) => <Component param={router}></Component>}
+            ></Route>
+          );
+        })}
+      </Router.Switch>
     );
   }
 }

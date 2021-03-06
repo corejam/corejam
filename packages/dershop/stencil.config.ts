@@ -21,6 +21,7 @@ const config: Config = {
   plugins: [
     replace({
       "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
+      "process.env.POSTCSS_BROWSERS": JSON.stringify(process.env.POSTCSS_BROWSERS),
     }),
   ],
   rollupPlugins: {
