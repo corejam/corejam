@@ -1,4 +1,5 @@
 import { CoreModel } from "@corejam/base/dist/db/CoreModel";
+import jetpack from "fs-jetpack";
 import ts from "typescript"
 
 type modelTypes = {
@@ -8,6 +9,9 @@ type modelTypes = {
     fields: { name: string, optional: Boolean, node: ts.PropertyDeclaration }[]
 }
 
+function getBaseModelPath() {
+    return process.cwd() + "/server/Models/";
+}
 
 /**
  * Compile types to use in the frontend based 
@@ -22,105 +26,115 @@ type modelTypes = {
  * generating types for the frontend app.
  */
 export async function run() {
-    const baseModelPath = process.cwd() + "/server/Models"
+    const baseModelPath = getBaseModelPath()
+    const files = await jetpack.listAsync(baseModelPath)
+    const models = await jetpack.listAsync(getBaseModelPath())
 
-    const program = ts.createProgram([`${baseModelPath}/User.ts`],
+    if (!files || !models) {
+        return;
+    }
+
+    const program = ts.createProgram(models?.map(file => {
+        return baseModelPath + file
+    }),
         require(process.cwd() + "/tsconfig-mjs.json")
     );
 
     //const checker = program.getTypeChecker();
-    const source = program.getSourceFile(baseModelPath + '/User.ts') as ts.SourceFile
 
-    const types: modelTypes[] = [];
+    models?.forEach(modelFile => {
+        const source = program.getSourceFile(baseModelPath + modelFile) as ts.SourceFile
+        const types: modelTypes[] = [];
 
-    ts.forEachChild(source, node => {
-        if (ts.isClassDeclaration(node)) {
-            const type = {
-                filename: source.fileName,
-                dist: source.fileName.replace(process.cwd(), process.cwd() + "/dist").replace(".ts", ".js"),
-                name: "",
-                fields: []
-            }
+        ts.forEachChild(source, node => {
+            if (ts.isClassDeclaration(node)) {
+                const type = {
+                    filename: source.fileName,
+                    dist: source.fileName.replace(process.cwd(), process.cwd() + "/dist").replace(".ts", ".js"),
+                    name: "",
+                    fields: []
+                }
 
-            const classMembers = node.members
-            const decoratedMembers = classMembers.filter(member => Array.isArray(member.decorators) && member.decorators.length > 0);
+                const classMembers = node.members
+                const decoratedMembers = classMembers.filter(member => Array.isArray(member.decorators) && member.decorators.length > 0);
 
-            const coredata = decoratedMembers
-                .filter(ts.isPropertyDeclaration)
-                .map((prop) => {
-                    let decoratorCheck;
+                const coredata = decoratedMembers
+                    .filter(ts.isPropertyDeclaration)
+                    .map((prop) => {
+                        let decoratorCheck;
 
-                    prop.decorators?.map(decorator => {
-                        //@ts-ignore
-                        if (decorator.expression.expression.escapedText) {
-                            decoratorCheck = decorator;
-                        }
+                        prop.decorators?.map(decorator => {
+                            //@ts-ignore
+                            if (decorator.expression.expression.escapedText) {
+                                decoratorCheck = decorator;
+                            }
+                            return null
+                        })
+
+                        if (decoratorCheck) return prop
+
                         return null
                     })
+                    .filter(prop => prop != null);
 
-                    if (decoratorCheck) return prop
+                type.name = node.name?.escapedText as string;
 
-                    return null
+                coredata.map(node => {
+                    //@ts-ignore
+                    type.fields.push({ name: node?.name?.escapedText, optional: node?.questionToken ? true : false, node: node })
                 })
-                .filter(prop => prop != null);
 
-            type.name = node.name?.escapedText as string;
+                types.push(type)
+            }
+        });
 
-            coredata.map(node => {
+        let res = ""
+
+        types.forEach(type => {
+            const modelsInFile = require(type.dist) as CoreModel[];
+
+            for (const model in modelsInFile) {
                 //@ts-ignore
-                type.fields.push({ name: node?.name?.escapedText, optional: node?.questionToken ? true : false, node: node })
-            })
+                const instance = new modelsInFile[model]
 
-            types.push(type)
-        }
-    });
+                const meta = instance.getMeta();
 
-    let res = ""
+                const bla = ts.factory.createTypeAliasDeclaration(
+                    undefined,
+                    [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+                    ts.factory.createIdentifier(instance.constructor.name),
+                    undefined,
+                    ts.factory.createTypeLiteralNode(
+                        Object.keys(meta).map((key) => {
 
-    types.forEach(type => {
-        const modelsInFile = require(type.dist) as CoreModel[];
+                            //get associated compiler types
+                            const field = type.fields.filter(type => {
+                                if (type.name == key) return type;
 
-        for (const model in modelsInFile) {
-            //@ts-ignore
-            const instance = new modelsInFile[model]
+                                return
+                            })[0]
 
-            const meta = instance.getMeta();
+                            return ts.factory.createPropertySignature(
+                                undefined,
+                                ts.factory.createIdentifier(key),
+                                field.optional ? ts.factory.createToken(ts.SyntaxKind.QuestionToken) : undefined,
+                                ts.factory.createTypeReferenceNode(
+                                    ts.factory.createIdentifier(meta[key].type)
+                                )
+                            );
+                        })
+                    )
+                );
 
-            const bla = ts.factory.createTypeAliasDeclaration(
-                undefined,
-                [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-                ts.factory.createIdentifier(instance.constructor.name),
-                undefined,
-                ts.factory.createTypeLiteralNode(
-                    Object.keys(meta).map((key) => {
+                const printer = ts.createPrinter();
+                const sourceFile = ts.createSourceFile("test.ts", "", ts.ScriptTarget.ES5);
 
-                        //get associated compiler types
-                        const field = type.fields.filter(type => {
-                            if (type.name == key) return type;
+                res += printer.printNode(ts.EmitHint.Unspecified, bla, sourceFile);
+            }
 
-                            return
-                        })[0]
+            console.log(res)
 
-                        return ts.factory.createPropertySignature(
-                            undefined,
-                            ts.factory.createIdentifier(key),
-                            field.optional ? ts.factory.createToken(ts.SyntaxKind.QuestionToken) : undefined,
-                            ts.factory.createTypeReferenceNode(
-                                ts.factory.createIdentifier(meta[key].type)
-                            )
-                        );
-                    })
-                )
-            );
-
-            const printer = ts.createPrinter();
-            const sourceFile = ts.createSourceFile("test.ts", "", ts.ScriptTarget.ES5);
-
-            res += printer.printNode(ts.EmitHint.Unspecified, bla, sourceFile);
-        }
-
-        console.log(res)
-
-        return;
+            return;
+        })
     })
 }
