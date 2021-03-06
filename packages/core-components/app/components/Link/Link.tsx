@@ -22,7 +22,7 @@ export class BaseLink {
   }
 
   render() {
-    const defaultProps = href(this.href, runState.router);
+    const defaultProps = href()(this.href, runState.router);
 
     const overwrittenProps = {
       ...defaultProps,

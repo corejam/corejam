@@ -5,9 +5,9 @@ import { Component, h, Host, Prop, Watch } from "@stencil/core";
   tag: "corejam-init",
 })
 export class Init {
-  @Prop({ reflect: false }) router = null;
+  @Prop() router = null;
 
-  async componentWillLoad() {
+  async componentDidLoad() {
     if (!this.router) return;
     runSet("router", this.router);
   }

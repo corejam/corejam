@@ -24,7 +24,7 @@ export class Welcome {
                   if (route.url.includes("component"))
                     return (
                       <li>
-                        <a {...href(route.url)}>{route.component}</a>
+                        <a {...href()(route.url)}>{route.component}</a>
                       </li>
                     );
                 })}
@@ -37,7 +37,7 @@ export class Welcome {
                   if (!route.url.includes("component"))
                     return (
                       <li>
-                        <a {...href(route.url)}>{route.component}</a>
+                        <a {...href()(route.url)}>{route.component}</a>
                       </li>
                     );
                 })}
@@ -55,7 +55,7 @@ export class Welcome {
                         {plugin.router.routes.map((route) => {
                           return (
                             <li>
-                              <a {...href(route.url)}>{route.component}</a>
+                              <a {...href()(route.url)}>{route.component}</a>
                             </li>
                           );
                         })}
