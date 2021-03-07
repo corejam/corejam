@@ -1,8 +1,9 @@
 import { Component, h } from "@stencil/core";
 import { match, Route } from "@stencil/router";
-import { CorejamRoute, runState } from "../../store/runStore";
+import { routerState, runState } from "../../store";
+import { CorejamRoute } from "../../store/types";
 
-const Router = runState.router;
+const Router = routerState.router;
 
 @Component({
   tag: "corejam-router",

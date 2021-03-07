@@ -1,21 +1,9 @@
-import { createRouter, Router as RouterType } from "@stencil/router";
 import { createStore } from "@stencil/store";
-
-export { href } from "@stencil/router";
+import { CorejamRoute } from "./types";
 
 export type CorejamMode = "development" | "production" | "static";
 
-export type CorejamRoute = {
-  url: string;
-  exact: boolean;
-  canvasPage?: boolean;
-  component: string;
-  dev?: boolean;
-  third?: boolean;
-};
-
 export type CorejamRunStore = {
-  router: RouterType;
   routes: CorejamRoute[];
   mode: CorejamMode;
   wrapper: string[] | [];
@@ -35,7 +23,6 @@ export const {
   set: runSet,
   onChange: runChange,
 } = createStore<CorejamRunStore>({
-  router: createRouter(),
   routes: null,
   mode: null,
   wrapper: null,
@@ -43,15 +30,6 @@ export const {
   layout: null,
   plugins: null,
 });
-
-export const setPatchedRouter = (router) => {
-  const patchedRouter = {
-    ...router,
-    onHrefRender: () => undefined,
-    serializeURL: () => undefined,
-  };
-  runSet("router", patchedRouter);
-};
 
 export const { state: menuState } = createStore({
   tabs: [],
