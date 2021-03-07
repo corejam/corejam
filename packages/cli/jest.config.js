@@ -1,5 +1,7 @@
-module.exports = {
-  testEnvironment: "node",
-  testMatch: ["<rootDir>/**/*(*.)@(test).[tj]s?(x)"],
-  testPathIgnorePatterns: ["/node_modules/"],
-};
+const config = require("@corejam/base/jest.config");
+
+config.modulePathIgnorePatterns = [
+  "<rootDir>/src/templates"
+]
+
+module.exports = config;

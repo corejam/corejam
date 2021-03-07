@@ -1,6 +1,6 @@
 import { CoreModel } from "@corejam/base/dist/db/CoreModel";
-import jetpack from "fs-jetpack";
-import ts from "typescript"
+import * as jetpack from "fs-jetpack";
+import * as ts from "typescript"
 
 type modelTypes = {
     dist: string;
@@ -9,7 +9,21 @@ type modelTypes = {
     fields: { name: string, optional: Boolean, node: ts.PropertyDeclaration }[]
 }
 
-function getBaseModelPath() {
+//The printed output
+let res = `/**
+* DO NOT EDIT
+* This file is auto generated from your model @Corejam() decorators
+* It should be commited as a way to keep track of your public facing
+* model changes that interact with your frontend
+*/
+
+
+`
+
+const printer = ts.createPrinter();
+const sourceFile = ts.createSourceFile("types.ts", "", ts.ScriptTarget.ES5);
+
+export function getBaseModelPath() {
     return process.cwd() + "/server/Models/";
 }
 
@@ -25,12 +39,11 @@ function getBaseModelPath() {
  * We currently only use this because we need to check if attributes are optional when
  * generating types for the frontend app.
  */
-export async function run() {
-    const baseModelPath = getBaseModelPath()
-    const files = await jetpack.listAsync(baseModelPath)
-    const models = await jetpack.listAsync(getBaseModelPath())
+export async function run(baseModelPath = getBaseModelPath()) {
+    const models = await jetpack.listAsync(baseModelPath)
 
-    if (!files || !models) {
+    if (!models) {
+        console.log("No models to parse");
         return;
     }
 
@@ -47,6 +60,14 @@ export async function run() {
         const types: modelTypes[] = [];
 
         ts.forEachChild(source, node => {
+            if (ts.isTypeAliasDeclaration(node)) {
+                createTypeAliasDeclaration(node)
+            }
+
+            if (ts.isEnumDeclaration(node)) {
+                createEnumDeclaration(node)
+            }
+
             if (ts.isClassDeclaration(node)) {
                 const type = {
                     filename: source.fileName,
@@ -88,48 +109,33 @@ export async function run() {
             }
         });
 
-        let res = ""
-
         types.forEach(type => {
+
             const modelsInFile = require(type.dist) as CoreModel[];
 
             for (const model in modelsInFile) {
                 //@ts-ignore
                 const instance = new modelsInFile[model]
 
-                const meta = instance.getMeta();
-
-                const bla = ts.factory.createTypeAliasDeclaration(
+                const typeAlias = ts.factory.createTypeAliasDeclaration(
                     undefined,
                     [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
                     ts.factory.createIdentifier(instance.constructor.name),
                     undefined,
                     ts.factory.createTypeLiteralNode(
-                        Object.keys(meta).map((key) => {
-
-                            //get associated compiler types
-                            const field = type.fields.filter(type => {
-                                if (type.name == key) return type;
-
-                                return
-                            })[0]
-
+                        type.fields.map(field => {
                             return ts.factory.createPropertySignature(
                                 undefined,
-                                ts.factory.createIdentifier(key),
+                                //@ts-ignore
+                                ts.factory.createIdentifier(field.name),
                                 field.optional ? ts.factory.createToken(ts.SyntaxKind.QuestionToken) : undefined,
-                                ts.factory.createTypeReferenceNode(
-                                    ts.factory.createIdentifier(meta[key].type)
-                                )
+                                createTypeNode(field.node)
                             );
                         })
                     )
                 );
 
-                const printer = ts.createPrinter();
-                const sourceFile = ts.createSourceFile("test.ts", "", ts.ScriptTarget.ES5);
-
-                res += printer.printNode(ts.EmitHint.Unspecified, bla, sourceFile);
+                res += printer.printNode(ts.EmitHint.Unspecified, typeAlias, sourceFile);
             }
 
             console.log(res)
@@ -137,4 +143,89 @@ export async function run() {
             return;
         })
     })
+
+    jetpack.writeAsync(process.cwd() + "/app/types/Corejam.ts", res)
+}
+
+function createTypeAliasDeclaration(node: ts.Node) {
+
+    const createdNode = ts.factory.createTypeAliasDeclaration(
+        undefined,
+        [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+        //@ts-ignore
+        ts.factory.createIdentifier(node.name.escapedText),
+        undefined,
+        ts.factory.createTypeLiteralNode(
+            //@ts-ignore
+            node.type.members.map(member => {
+                return ts.factory.createPropertySignature(
+                    undefined,
+                    //@ts-ignore
+                    ts.factory.createIdentifier(member.name.escapedText),
+                    undefined,
+                    ts.factory.createKeywordTypeNode(member.type.kind)
+                )
+            })
+        )
+    )
+
+    res += printer.printNode(ts.EmitHint.Unspecified, createdNode, sourceFile)
+    res += "\n\n";
+}
+
+function createEnumDeclaration(node: ts.Node) {
+
+    const createdNode = ts.factory.createEnumDeclaration(
+        undefined,
+        undefined,
+        //@ts-ignore
+        ts.factory.createIdentifier(node.name.escapedText),
+        //@ts-ignore
+        node.members.map(node => {
+            return ts.factory.createEnumMember(
+                ts.factory.createIdentifier(node.name.escapedText),
+                ts.factory.createStringLiteral(node.initializer.text)
+            )
+        })
+    )
+
+    res += printer.printNode(ts.EmitHint.Unspecified, createdNode, sourceFile)
+    res += "\n\n";
+}
+
+function createTypeNode(node: ts.Node) {
+
+    //@ts-ignore
+    if (ts.isTypeReferenceNode(node?.type)) {
+        return ts.factory.createTypeReferenceNode(
+            //@ts-ignore
+            ts.factory.createIdentifier(node.type.typeName.escapedText),
+        )
+    }
+
+    if (ts.isLiteralTypeNode(node)) {
+        return ts.factory.createTypeReferenceNode(
+            //@ts-ignore
+            ts.factory.createIdentifier(field.node.typeName ? field.node.typeName.escapedText : ts.factory.createKeywordTypeNode(field.node.type.kind))
+        )
+    }
+
+    //@ts-ignore
+    if (ts.isToken(node.type)) {
+        return ts.factory.createTypeReferenceNode(
+            //@ts-ignore
+            ts.factory.createKeywordTypeNode(node.type.kind)
+        )
+    }
+
+    //@ts-ignore
+    if (ts.isTupleTypeNode(node.type)) {
+        return ts.factory.createTupleTypeNode(
+            //@ts-ignore
+            [ts.factory.createTypeReferenceNode(ts.factory.createIdentifier(node.initializer.elements[0].expression.escapedText), undefined)])
+
+    }
+
+    throw Error("missing type")
+
 }
