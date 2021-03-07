@@ -1,5 +1,5 @@
 import { Component, h, Host } from "@stencil/core";
-import { runState } from "../../store/runStore";
+import { href, runState } from "../../store/runStore";
 
 @Component({
   tag: "corejam-dev-welcome",
@@ -11,7 +11,6 @@ export class Welcome {
       display: "flex",
       justifyContent: "center",
     };
-    const { href } = runState;
     return (
       <Host>
         <div class="app" style={styles}>
@@ -24,7 +23,7 @@ export class Welcome {
                   if (route.url.includes("component"))
                     return (
                       <li>
-                        <a {...href(route.url)}>{route.component}</a>
+                        <a {...href(route.url, runState.router)}>{route.component}</a>
                       </li>
                     );
                 })}
@@ -37,7 +36,7 @@ export class Welcome {
                   if (!route.url.includes("component"))
                     return (
                       <li>
-                        <a {...href(route.url)}>{route.component}</a>
+                        <a {...href(route.url, runState.router)}>{route.component}</a>
                       </li>
                     );
                 })}
@@ -55,7 +54,7 @@ export class Welcome {
                         {plugin.router.routes.map((route) => {
                           return (
                             <li>
-                              <a {...href(route.url)}>{route.component}</a>
+                              <a {...href(route.url, runState.router)}>{route.component}</a>
                             </li>
                           );
                         })}

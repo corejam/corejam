@@ -1,5 +1,7 @@
-import { createRouter, href as hrefO, Router as RouterType } from "@stencil/router";
+import { createRouter, Router as RouterType } from "@stencil/router";
 import { createStore } from "@stencil/store";
+
+export { href } from "@stencil/router";
 
 export const Router = createRouter();
 
@@ -22,7 +24,6 @@ export type CorejamRunStore = {
   recommendations: string[];
   layout: LayoutEntry[];
   plugins: any[];
-  href: Function;
 };
 
 type LayoutEntry = {
@@ -43,11 +44,6 @@ export const {
   recommendations: null,
   layout: null,
   plugins: null,
-  href: (url) => hrefO(url, Router),
-});
-
-runChange("router", (router) => {
-  runSet("href", (url) => hrefO(url, router));
 });
 
 export const { state: menuState } = createStore({
