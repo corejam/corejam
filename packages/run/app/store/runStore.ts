@@ -22,6 +22,7 @@ export type CorejamRunStore = {
   recommendations: string[];
   layout: LayoutEntry[];
   plugins: any[];
+  href: Function;
 };
 
 type LayoutEntry = {
@@ -42,10 +43,13 @@ export const {
   recommendations: null,
   layout: null,
   plugins: null,
+  href: (url) => hrefO(url, Router),
+});
+
+runChange("router", (router) => {
+  runSet("href", (url) => hrefO(url, router));
 });
 
 export const { state: menuState } = createStore({
   tabs: [],
 });
-
-export const href = () => (url, router?) => hrefO(url, router || runState.router);
