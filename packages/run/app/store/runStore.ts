@@ -46,6 +46,15 @@ export const {
   plugins: null,
 });
 
+export const setPatchedRouter = (router) => {
+  const patchedRouter = {
+    ...router,
+    onHrefRender: () => undefined,
+    serializeURL: () => undefined,
+  };
+  runSet("router", patchedRouter);
+};
+
 export const { state: menuState } = createStore({
   tabs: [],
 });
