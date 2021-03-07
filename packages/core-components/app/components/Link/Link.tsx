@@ -1,12 +1,15 @@
 import { href, runState } from "@corejam/run";
-import { Component, Event, EventEmitter, h, Prop, State } from "@stencil/core";
+import { Component, Event, EventEmitter, h, Host, Prop, State } from "@stencil/core";
 import { Link } from "./Link.types";
 
 @Component({
   tag: "corejam-base-link",
 })
 export class BaseLink {
+  @State() style: any[] = [];
+  @State() computedStyle: string;
   @State() hash: string;
+
   @Prop({ reflect: true }) href: Link.Href;
   @Prop({ reflect: true }) color: Link.Color | "--cj-color-primary" = "--cj-color-primary";
   @Prop({ reflect: true }) hoverColor: Link.Color | "--cj-color-secondary" = "--cj-color-secondary";
@@ -16,14 +19,20 @@ export class BaseLink {
 
   @Event() routeChange: EventEmitter;
 
-  async componentWillRender() {
+  async componentWillLoad() {
+    await this.computeStyles();
+  }
+
+  async computeStyles() {
     const hash = await (await import("../../utils/style")).calculateStyles(this);
     this.hash = hash;
   }
 
-  render() {
+  renderLink() {
     if (runState.router) {
+      console.log(runState.router, "from link");
       const defaultProps = href(this.href, runState.router);
+
       const overwrittenProps = {
         ...defaultProps,
         onClick: (ev: MouseEvent) => {
@@ -44,5 +53,9 @@ export class BaseLink {
         <slot></slot>
       </a>
     );
+  }
+
+  render() {
+    return <Host class={this.hash}>{this.renderLink()}</Host>;
   }
 }
