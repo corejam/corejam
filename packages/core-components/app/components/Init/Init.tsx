@@ -10,7 +10,7 @@ export class Init {
   async componentWillLoad() {
     return new Promise((res) => {
       console.log(this.router);
-      runSet("router", this.router);
+      runSet("router", { ...this.router, onHrefRender: (url) => console.log(url) });
       console.log(runState.router);
       return res(true);
     });
