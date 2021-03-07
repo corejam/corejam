@@ -74,19 +74,19 @@ export class ProductDetail {
       <corejam-box flex max="lg" mx="auto" mt={12} px={4} lgPx={0}>
         <corejam-box flex direction="col" mdDirection="row" justify="between" mb={12} w="12">
           <corejam-box flex direction="col" w="12" mdW="6" mr={16}>
-            <dershop-image
+            <corejam-image
               h="detail"
               fit="cover"
               class="productMainImage"
               data-cy="product-image"
               src={this._activeThumb?.src}
               alt={this._product.name}
-            ></dershop-image>
+            ></corejam-image>
             <corejam-box mt={6} pb={6}>
               <corejam-box flex direction="row">
                 {this._product.images?.map((image) => (
                   <corejam-box px={2}>
-                    <dershop-image
+                    <corejam-image
                       h="32"
                       fit="cover"
                       data-cy="product-thumb"
@@ -95,7 +95,7 @@ export class ProductDetail {
                       }}
                       src={image.src}
                       alt={this._product.name}
-                    ></dershop-image>
+                    ></corejam-image>
                   </corejam-box>
                 ))}
               </corejam-box>
