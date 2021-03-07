@@ -7,15 +7,18 @@ import { Component, h, Host, Prop, Watch } from "@stencil/core";
 export class Init {
   @Prop() router = null;
 
-  async componentDidLoad() {
-    if (!this.router) return;
-    console.log(this.router);
-    runSet("router", this.router);
-    console.log(runState.router);
+  async componentWillLoad() {
+    return new Promise((res) => {
+      console.log(this.router);
+      runSet("router", this.router);
+      console.log(runState.router);
+      return res(true);
+    });
   }
 
   @Watch("router")
   newRouter(newval) {
+    console.log("new router", newval);
     runSet("router", newval);
   }
 
