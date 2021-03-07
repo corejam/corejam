@@ -46,7 +46,6 @@ export class ProductDetail {
       this._product = data.data.productByUrl;
       this._activeThumb = data.data.productByUrl.images[0];
     } else {
-      console.log(this.product);
       const product = typeof this.product === "string" ? JSON.parse(this.product) : this.product;
       this._product = product;
       this._activeThumb = product.images[0];

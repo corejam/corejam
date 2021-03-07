@@ -3,8 +3,6 @@ import { createStore } from "@stencil/store";
 
 export { href } from "@stencil/router";
 
-// export const Router = createRouter();
-
 export type CorejamMode = "development" | "production" | "static";
 
 export type CorejamRoute = {
