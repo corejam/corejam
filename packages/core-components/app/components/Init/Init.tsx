@@ -1,4 +1,4 @@
-import { runSet } from "@corejam/run";
+import { runSet, runState } from "@corejam/run";
 import { Component, h, Host, Prop, Watch } from "@stencil/core";
 
 @Component({
@@ -9,7 +9,9 @@ export class Init {
 
   async componentDidLoad() {
     if (!this.router) return;
+    console.log(this.router);
     runSet("router", this.router);
+    console.log(runState.router);
   }
 
   @Watch("router")
