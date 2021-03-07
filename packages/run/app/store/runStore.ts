@@ -27,7 +27,7 @@ export type CorejamRunStore = {
 };
 
 type LayoutEntry = {
-  component: string;
+  component?: string;
 };
 
 export const {
