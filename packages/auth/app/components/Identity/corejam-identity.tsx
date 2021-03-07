@@ -1,5 +1,5 @@
 import { coreState } from "@corejam/core-components";
-import { runState } from "@corejam/run";
+import { routerState } from "@corejam/run";
 import { Component, Element, h, Host, Listen, Prop, State } from "@stencil/core";
 import gql from "graphql-tag";
 import { userAuthenticateMutationGQL } from "../../../shared/graphql/Mutations";
@@ -78,7 +78,7 @@ export class CorejamIdentity {
     if (request.data.userAuthenticate) {
       this.toggleMenu();
       authStore.identity = request.data.userAuthenticate;
-      runState.router.push("/");
+      routerState.router.push("/");
     }
   }
 

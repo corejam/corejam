@@ -1,7 +1,7 @@
 import { coreState } from "@corejam/core-components";
 import { authStore } from "@corejam/plugin-auth";
 import { userRegisterMutationGQL } from "@corejam/plugin-auth/shared/graphql/Mutations";
-import { runState } from "@corejam/run";
+import { routerState } from "@corejam/run";
 import { Component, h, Host, Listen } from "@stencil/core";
 import gql from "graphql-tag";
 
@@ -29,12 +29,12 @@ export class AuthRegister {
     });
 
     if (request.data.userRegister) {
-      runState.router.push("/login");
+      routerState.router.push("/login");
     }
   }
 
   componentWillLoad() {
-    if (authStore.identity) runState.router.push("/");
+    if (authStore.identity) routerState.router.push("/");
   }
 
   render() {
