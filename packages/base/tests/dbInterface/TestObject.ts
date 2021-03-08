@@ -1,17 +1,17 @@
-import { Coredata } from "../../src/db/ModelDecorator";
+import { Coredata, Corejam } from "../../src/db/ModelDecorator";
 import { CoreModel } from "../../src/db/CoreModel";
 
 export default class TestObject extends CoreModel {
 
     collection = "objects";
 
-    @Coredata()
+    @Corejam()
     public dataAttribute1: string = "attribute1"
 
     @Coredata()
     public dataAttribute2: string = "attribute2"
 
-    @Coredata({ unique: true })
+    @Corejam({ unique: true })
     public uniqueAttribute: string = "unique-value"
 
     @Coredata()

@@ -2,10 +2,11 @@ import "reflect-metadata";
 import { getDb } from "../PluginManager";
 import { ID, ModelMeta } from "../typings/DB";
 import { DocumentNotFound } from "./Exceptions/DocumentNotFound";
+import { Corejam } from "./ModelDecorator";
 import { getModelMeta, modelMeta } from "./ModelManager";
 
 export type Constructor<CoreModel> = {
-  new(): CoreModel;
+  new (): CoreModel;
 };
 
 /**
@@ -15,6 +16,7 @@ export abstract class CoreModel {
   /**
    * The unique id for this document
    */
+  @Corejam({ unique: true })
   id!: ID;
 
   /**
@@ -34,7 +36,7 @@ export abstract class CoreModel {
     const res = await getDb().read(instance, id);
 
     if (!res) {
-      throw new DocumentNotFound(instance)
+      throw new DocumentNotFound(instance);
     }
 
     return res;
@@ -81,10 +83,10 @@ export abstract class CoreModel {
    */
   async save(): Promise<this> {
     if (this.exists()) {
-      return this.update()
+      return this.update();
     }
 
-    return this.create()
+    return this.create();
   }
 
   /**
@@ -97,7 +99,7 @@ export abstract class CoreModel {
     });
 
     //If we have an id lets set it
-    if (data.id) this.id = data.id
+    if (data.id) this.id = data.id;
 
     return this;
   }
@@ -107,13 +109,13 @@ export abstract class CoreModel {
    * we have decorated to be included in data
    */
   getDataFields(): string[] {
-    return Object.keys(this.getMeta())
+    return Object.keys(this.getMeta());
   }
 
   /**
-   * Get all the meta data for our field definitions on 
+   * Get all the meta data for our field definitions on
    * this model.
-   * 
+   *
    * Use ModelManager as singleton store for meta info.
    */
   getMeta() {
@@ -128,7 +130,7 @@ export abstract class CoreModel {
       target = Object.getPrototypeOf(target);
     }
 
-    modelMeta.set(this.getModelName(), fields)
+    modelMeta.set(this.getModelName(), fields);
 
     return fields;
   }
@@ -143,10 +145,6 @@ export abstract class CoreModel {
     this.getDataFields().map((field) => {
       data[field] = this[field];
     });
-
-    if (this.id) {
-      data["id"] = this.id;
-    }
 
     return data;
   }

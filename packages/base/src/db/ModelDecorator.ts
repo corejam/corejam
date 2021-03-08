@@ -29,15 +29,9 @@ export function Coredata<T extends CoreModel>(
  * any fields declared as `@Corejam` will automatically be merged
  * into the GraphQL schema to query.
  *
- * COMING SOON
- *
-export function Corejam(): PropertyDecorator {
-  return (target, key) => {
-    const fields = Reflect.getOwnMetadata("Corejam", target) || [];
-    if (!fields.includes(key)) {
-      fields.push(key);
-    }
-    Reflect.defineMetadata("Corejam", fields, target);
-  };
+ */
+export function Corejam<T extends CoreModel>(
+  { unique = false, index = false }: { unique?: Boolean; index?: Boolean } = { index: false, unique: false }
+) {
+  return Coredata<T>({ unique, index });
 }
-*/

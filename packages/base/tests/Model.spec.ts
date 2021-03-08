@@ -1,4 +1,3 @@
-import { createTypeFromModel } from "../src/db/ModelHelper";
 import TestObject from "./dbInterface/TestObject";
 import TestObject2 from "./dbInterface/TestObject2";
 
@@ -33,6 +32,7 @@ describe(`Base Model tests`, () => {
         const testObject = new TestObject();
 
         expect(testObject.getDataFields()).toEqual([
+            "id",
             "dataAttribute1",
             "dataAttribute2",
             "uniqueAttribute",
@@ -129,7 +129,10 @@ describe(`Base Model tests`, () => {
         })
     })
 
-    it.only("Test type generation is working correctly", async () => {
+    /**
+     * These tests should go into cli
+     *
+    it("Test type generation is working correctly", async () => {
         const testObject = new TestObject();
         const type = createTypeFromModel(testObject)
 
@@ -147,5 +150,5 @@ describe(`Base Model tests`, () => {
     otherAttribute: string;
     optionalAttribute?: TestObject;
 };`)
-    })
+    }) */
 });
