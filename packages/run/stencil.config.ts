@@ -60,14 +60,11 @@ if (targets.includes("react")) {
   if (!fs.existsSync("./react")) fs.mkdirSync("./react");
   config.outputTargets.push(
     reactOutputTarget({
-      componentCorePackage: "@corejam/plugin-auth",
+      componentCorePackage: "@corejam/run",
       proxiesFile: "react/index.ts",
       loaderDir: "web-components/loader",
       includeDefineCustomElements: true,
       excludeComponents: [
-        "app-liveview",
-        "app-playground",
-        "app-test-comp",
         "corejam-dev-welcome",
         "corejam-run-app",
         "corejam-run-router",

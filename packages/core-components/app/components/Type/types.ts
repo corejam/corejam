@@ -5,7 +5,7 @@ type genericScale = 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12 | 16 | 32 | 64;
  */
 
 export namespace Font {
-  export type Family = "sans" | "serif" | "mono";
+  export type Family = "sans" | "serif" | "mono" | string;
   export type Weight = "hairline" | "thin" | "normal" | "medium" | "semibold" | "bold" | "extrabold" | "black";
   export type Size = "xs" | "sm" | "base" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl";
   export type Smoothnes = "antialiased" | "subpixel-antialiased";
