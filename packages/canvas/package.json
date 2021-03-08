@@ -36,7 +36,7 @@
     "dotenv": "8.2.0",
     "faker": "5.4.0",
     "tslib": "2.1.0",
-    "typescript": "4.2.2"
+    "typescript": "4.2.3"
   },
   "corejam": {
     "wrapper": [],
@@ -46,7 +46,7 @@
     "@corejam/base": "0.0.14",
     "@corejam/run": "0.0.11",
     "@stencil/store": "1.4.1",
-    "aws-sdk": "2.853.0",
+    "aws-sdk": "2.858.0",
     "deep-parse-json": "1.0.1",
     "faunadb": "4.1.1",
     "graphql-tag": "2.11.0",
