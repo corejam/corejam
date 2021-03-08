@@ -86,7 +86,7 @@ export async function run(baseModelPath = getBaseModelPath()) {
 
                         prop.decorators?.map(decorator => {
                             //@ts-ignore
-                            if (decorator.expression.expression.escapedText) {
+                            if (decorator.expression.expression.escapedText === "Corejam") {
                                 decoratorCheck = decorator;
                             }
                             return null
