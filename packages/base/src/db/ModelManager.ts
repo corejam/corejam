@@ -8,5 +8,5 @@ export const modelMeta = new Map<String, { [key: string]: ModelMeta }>();
  * of meta information for our models.
  */
 export function getModelMeta<T extends CoreModel>(model: T): { [key: string]: ModelMeta } | undefined {
-  return modelMeta.get(model.getModelName());
+  return modelMeta.get(model.constructor.name);
 }
