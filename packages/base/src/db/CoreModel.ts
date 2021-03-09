@@ -6,7 +6,7 @@ import { Corejam } from "./ModelDecorator";
 import { getModelMeta, modelMeta } from "./ModelManager";
 
 export type Constructor<CoreModel> = {
-  new (): CoreModel;
+  new(): CoreModel;
 };
 
 /**
@@ -121,7 +121,7 @@ export abstract class CoreModel {
   getMeta() {
     if (getModelMeta(this)) return getModelMeta(this) as ModelMeta;
 
-    let fields: { [key: string]: ModelMeta } = {};
+    let fields: { [key: string]: { [key: string]: ModelMeta } } = {};
 
     let target = Object.getPrototypeOf(this);
     while (target != Object.prototype) {
@@ -130,7 +130,7 @@ export abstract class CoreModel {
       target = Object.getPrototypeOf(target);
     }
 
-    modelMeta.set(this.getModelName(), fields);
+    modelMeta.set(this.constructor.name, fields[this.constructor.name]);
 
     return fields;
   }

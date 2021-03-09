@@ -9,18 +9,20 @@ export function Coredata<T extends CoreModel>(
   { unique = false, index = false }: { unique?: Boolean; index?: Boolean } = { index: false, unique: false }
 ) {
   return (target: T, key: string) => {
-    const type = Reflect.getMetadata("design:type", target, key);
-    const fields = Reflect.getMetadata("Corejam", target) || [];
+    const metaData = Reflect.getMetadata("Corejam", target) || [];
 
-    if (!fields.includes(key)) {
-      fields[key] = {
+    if (!(target.constructor.name in metaData)) {
+      metaData[target.constructor.name] = []
+    }
+
+    if (!(key in metaData[target.constructor.name])) {
+      metaData[target.constructor.name][key] = {
         unique,
         index,
-        type: type.name,
       };
     }
 
-    Reflect.defineMetadata("Corejam", fields, target);
+    Reflect.defineMetadata("Corejam", metaData, target);
   };
 }
 
