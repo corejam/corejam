@@ -6,7 +6,7 @@ import { Corejam } from "./ModelDecorator";
 import { getModelMeta, modelMeta } from "./ModelManager";
 
 export type Constructor<CoreModel> = {
-  new(): CoreModel;
+  new (): CoreModel;
 };
 
 /**
@@ -130,9 +130,15 @@ export abstract class CoreModel {
       target = Object.getPrototypeOf(target);
     }
 
-    modelMeta.set(this.constructor.name, fields[this.constructor.name]);
+    //Merge CoreModel attributes in
+    const modelMeda = {
+      ...fields["CoreModel"],
+      ...fields[this.constructor.name],
+    };
 
-    return fields;
+    modelMeta.set(this.constructor.name, modelMeda);
+
+    return modelMeda;
   }
 
   /**

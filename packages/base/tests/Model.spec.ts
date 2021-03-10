@@ -116,16 +116,18 @@ describe(`Base Model tests`, () => {
         const testObject = new TestObject();
 
         expect(testObject.getMeta()).toEqual({
-            dataAttribute1: { unique: false, index: false, type: "String" },
-            dataAttribute2: { unique: false, index: false, type: "String" },
-            uniqueAttribute: { unique: true, index: false, type: "String" },
-            intAttribute: { unique: false, index: false, type: "Number" }
+            id: { unique: true, index: false },
+            dataAttribute1: { unique: false, index: false },
+            dataAttribute2: { unique: false, index: false },
+            uniqueAttribute: { unique: true, index: false },
+            intAttribute: { unique: false, index: false }
         })
 
         const testObject2 = new TestObject2();
         expect(testObject2.getMeta()).toEqual({
-            otherAttribute: { index: false, unique: false, type: "Boolean" },
-            optionalAttribute: { index: false, unique: false, type: "TestObject" }
+            id: { unique: true, index: false },
+            otherAttribute: { index: false, unique: false },
+            optionalAttribute: { index: false, unique: false }
         })
     })
 
