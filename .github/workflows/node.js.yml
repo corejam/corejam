@@ -160,6 +160,7 @@ jobs:
         if: |
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
+          yarn bs
           cd packages/dershop
           yarn corejam generateSchema && yarn corejam bootstrap
           API_ORIGIN=http://localhost:3000 yarn static
