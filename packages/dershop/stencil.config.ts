@@ -58,6 +58,7 @@ if (targets.includes("prerender")) {
     empty: false,
     serviceWorker: null,
     baseUrl: "http://localhost:3000",
+    prerenderConfig: "./prerender.config.ts",
   });
 }
 if (targets.includes("react")) {
