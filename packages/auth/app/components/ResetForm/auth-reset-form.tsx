@@ -1,5 +1,5 @@
 import { coreState } from "@corejam/core-components";
-import { runState } from "@corejam/run";
+import { routerState } from "@corejam/run";
 import { Component, Fragment, h, Host, Listen, State } from "@stencil/core";
 import gql from "graphql-tag";
 import { passwordResetGQL, requestPasswordResetGQL } from "../../../shared/graphql/Mutations";
@@ -69,7 +69,7 @@ export class Reset {
 
     if (request.data.userResetPassword) {
       this.resetCompleted = true;
-      runState.router.push("/login");
+      routerState.router.push("/login");
     }
   }
 

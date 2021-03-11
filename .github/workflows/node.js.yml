@@ -36,10 +36,9 @@ jobs:
           yarn build
           yarn bs
           node ./utils/hoistPackagesForDeployment.js
-          API_ORIGIN=http://localhost:3000 yarn --cwd packages/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar node_modules examples/nextjs packages/cli/dist packages/run/web-components packages/rollup-plugin/dist packages/notify/dist packages/base/dist packages/auth/dist packages/auth/www packages/dershop/dist packages/canvas/dist packages/core-components/node_modules
+      - run: tar -czf artifact.tar node_modules packages examples/nextjs
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -124,8 +123,48 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           cd packages/auth
+          API_ORIGIN=http://localhost:3000 yarn static -l
           JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
           cypress run --spec "./cypress/integration/plugins/auth/**/*"
+        env:
+          CYPRESS_baseUrl: "http://localhost:3001"
+          CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/cypress/screenshots
+
+  cypress-static-plugin-dershop:
+    runs-on: ubuntu-20.04
+    container:
+      image: "corejam/cypress:6.5.0"
+      options: --ipc=host
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: ""
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+      - run: tar -xzf artifact.tar
+      - run: chmod +x node_modules/.bin/corejam
+      - name: Cache Cypress
+        id: cache-cypress
+        uses: actions/cache@v2
+        with:
+          path: test/cypress/node_modules
+          key: ${{ runner.os }}-${{ matrix.node-version }}-cache-cypress-${{ hashFiles('test/cypress/yarn.lock') }}
+      - run: yarn --cwd test/cypress --frozen-lockfile
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true'
+      - run: |
+          cd packages/dershop
+          yarn corejam generateSchema && yarn corejam bootstrap
+          API_ORIGIN=http://localhost:3000 yarn static -l
+          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
+          cypress run --spec "./cypress/integration/plugins/dershop/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
           CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"

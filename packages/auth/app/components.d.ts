@@ -16,6 +16,8 @@ export namespace Components {
         "data": any;
         "page": number;
     }
+    interface AuthApp {
+    }
     interface AuthFormLogin {
         "onFail": Function;
         "onSuccess": Function;
@@ -25,8 +27,6 @@ export namespace Components {
         "onSuccess": Function;
     }
     interface AuthHeader {
-    }
-    interface AuthLayout {
     }
     interface AuthReset {
     }
@@ -80,6 +80,12 @@ declare global {
         prototype: HTMLAuthAdminUserListElement;
         new (): HTMLAuthAdminUserListElement;
     };
+    interface HTMLAuthAppElement extends Components.AuthApp, HTMLStencilElement {
+    }
+    var HTMLAuthAppElement: {
+        prototype: HTMLAuthAppElement;
+        new (): HTMLAuthAppElement;
+    };
     interface HTMLAuthFormLoginElement extends Components.AuthFormLogin, HTMLStencilElement {
     }
     var HTMLAuthFormLoginElement: {
@@ -97,12 +103,6 @@ declare global {
     var HTMLAuthHeaderElement: {
         prototype: HTMLAuthHeaderElement;
         new (): HTMLAuthHeaderElement;
-    };
-    interface HTMLAuthLayoutElement extends Components.AuthLayout, HTMLStencilElement {
-    }
-    var HTMLAuthLayoutElement: {
-        prototype: HTMLAuthLayoutElement;
-        new (): HTMLAuthLayoutElement;
     };
     interface HTMLAuthResetElement extends Components.AuthReset, HTMLStencilElement {
     }
@@ -192,10 +192,10 @@ declare global {
         "auth-account": HTMLAuthAccountElement;
         "auth-admin-user-form": HTMLAuthAdminUserFormElement;
         "auth-admin-user-list": HTMLAuthAdminUserListElement;
+        "auth-app": HTMLAuthAppElement;
         "auth-form-login": HTMLAuthFormLoginElement;
         "auth-form-register": HTMLAuthFormRegisterElement;
         "auth-header": HTMLAuthHeaderElement;
-        "auth-layout": HTMLAuthLayoutElement;
         "auth-reset": HTMLAuthResetElement;
         "auth-reset-password-form": HTMLAuthResetPasswordFormElement;
         "auth-route-account": HTMLAuthRouteAccountElement;
@@ -223,6 +223,8 @@ declare namespace LocalJSX {
         "data"?: any;
         "page"?: number;
     }
+    interface AuthApp {
+    }
     interface AuthFormLogin {
         "onFail"?: Function;
         "onSuccess"?: Function;
@@ -232,8 +234,6 @@ declare namespace LocalJSX {
         "onSuccess"?: Function;
     }
     interface AuthHeader {
-    }
-    interface AuthLayout {
     }
     interface AuthReset {
     }
@@ -271,10 +271,10 @@ declare namespace LocalJSX {
         "auth-account": AuthAccount;
         "auth-admin-user-form": AuthAdminUserForm;
         "auth-admin-user-list": AuthAdminUserList;
+        "auth-app": AuthApp;
         "auth-form-login": AuthFormLogin;
         "auth-form-register": AuthFormRegister;
         "auth-header": AuthHeader;
-        "auth-layout": AuthLayout;
         "auth-reset": AuthReset;
         "auth-reset-password-form": AuthResetPasswordForm;
         "auth-route-account": AuthRouteAccount;
@@ -298,10 +298,10 @@ declare module "@stencil/core" {
             "auth-account": LocalJSX.AuthAccount & JSXBase.HTMLAttributes<HTMLAuthAccountElement>;
             "auth-admin-user-form": LocalJSX.AuthAdminUserForm & JSXBase.HTMLAttributes<HTMLAuthAdminUserFormElement>;
             "auth-admin-user-list": LocalJSX.AuthAdminUserList & JSXBase.HTMLAttributes<HTMLAuthAdminUserListElement>;
+            "auth-app": LocalJSX.AuthApp & JSXBase.HTMLAttributes<HTMLAuthAppElement>;
             "auth-form-login": LocalJSX.AuthFormLogin & JSXBase.HTMLAttributes<HTMLAuthFormLoginElement>;
             "auth-form-register": LocalJSX.AuthFormRegister & JSXBase.HTMLAttributes<HTMLAuthFormRegisterElement>;
             "auth-header": LocalJSX.AuthHeader & JSXBase.HTMLAttributes<HTMLAuthHeaderElement>;
-            "auth-layout": LocalJSX.AuthLayout & JSXBase.HTMLAttributes<HTMLAuthLayoutElement>;
             "auth-reset": LocalJSX.AuthReset & JSXBase.HTMLAttributes<HTMLAuthResetElement>;
             "auth-reset-password-form": LocalJSX.AuthResetPasswordForm & JSXBase.HTMLAttributes<HTMLAuthResetPasswordFormElement>;
             "auth-route-account": LocalJSX.AuthRouteAccount & JSXBase.HTMLAttributes<HTMLAuthRouteAccountElement>;

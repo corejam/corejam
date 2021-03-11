@@ -2,7 +2,6 @@ import { Component, h, Host, Prop } from "@stencil/core";
 
 @Component({
   tag: "dershop-testimonial",
-  styleUrl: "testimonial.css",
 })
 export class Testimonial {
   @Prop() heading: string;

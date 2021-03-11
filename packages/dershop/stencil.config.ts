@@ -21,6 +21,7 @@ const config: Config = {
   plugins: [
     replace({
       "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
+      "process.env.POSTCSS_BROWSERS": JSON.stringify(process.env.POSTCSS_BROWSERS),
     }),
   ],
   rollupPlugins: {
@@ -57,6 +58,7 @@ if (targets.includes("prerender")) {
     empty: false,
     serviceWorker: null,
     baseUrl: "http://localhost:3000",
+    prerenderConfig: "./prerender.config.ts",
   });
 }
 if (targets.includes("react")) {

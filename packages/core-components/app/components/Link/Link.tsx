@@ -1,5 +1,5 @@
-import { href, runState } from "@corejam/run";
-import { Component, Event, EventEmitter, h, Host, Prop, State } from "@stencil/core";
+import { href, routerState } from "@corejam/run";
+import { Component, Event, EventEmitter, h, Prop, State } from "@stencil/core";
 import { Link } from "./Link.types";
 
 @Component({
@@ -19,42 +19,26 @@ export class BaseLink {
 
   @Event() routeChange: EventEmitter;
 
-  async componentWillLoad() {
-    await this.computeStyles();
-  }
-
-  async computeStyles() {
+  async componentWillRender() {
     const hash = await (await import("../../utils/style")).calculateStyles(this);
     this.hash = hash;
   }
 
-  renderLink() {
-    if (runState.router) {
-      const defaultProps = href(this.href, runState.router);
+  render() {
+    const defaultProps = href(this.href, routerState.router);
+    const overwrittenProps = {
+      ...defaultProps,
+      onClick: (ev: MouseEvent) => {
+        this.routeChange.emit({ type: "routechange", newUrl: this.href });
+        if (typeof defaultProps.onClick === "function") defaultProps.onClick(ev);
+        window.scrollTo({ top: 0 });
+      },
+    };
 
-      const overwrittenProps = {
-        ...defaultProps,
-        onClick: (ev: MouseEvent) => {
-          this.routeChange.emit({ type: "routechange", newUrl: this.href });
-          if (typeof defaultProps.onClick === "function") defaultProps.onClick(ev);
-          window.scrollTo({ top: 0 });
-        },
-      };
-
-      return (
-        <a {...overwrittenProps} class={this.hash}>
-          <slot></slot>
-        </a>
-      );
-    }
     return (
-      <a href={this.href} class={this.hash}>
+      <a {...overwrittenProps} class={this.hash}>
         <slot></slot>
       </a>
     );
-  }
-
-  render() {
-    return <Host class={this.hash}>{this.renderLink()}</Host>;
   }
 }

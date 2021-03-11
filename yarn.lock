@@ -2222,6 +2222,13 @@
   resolved "https://registry.yarnpkg.com/@stencil/react-output-target/-/react-output-target-0.0.9.tgz#b225611c5743f0285c37d92bb47d9369ba462c54"
   integrity sha512-t2sSkm/VGftBqewK47eZonaHIXW7CYWlsDy6Ln4jqNVpr93CuPWkg7rsnPiZrJrU1NBuTgA0hC2xoRcAJVm7Sw==
 
+"@stencil/router@2.0.0-2":
+  version "2.0.0-2"
+  resolved "https://registry.yarnpkg.com/@stencil/router/-/router-2.0.0-2.tgz#2afa9de30325e1a54f4750cc3169d537a4400fc2"
+  integrity sha512-GTRZC/kttqUyFuu/mb3ua3MmLFXhS9q1msWfNquopuVYH7j29LclQ/13nV7sLR8h3BWNKWOYjLSIykhxKJ6UUw==
+  dependencies:
+    "@stencil/store" "^1.1.0"
+
 "@stencil/store@1.4.1", "@stencil/store@^1.1.0":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@stencil/store/-/store-1.4.1.tgz#6804de778921df7dd222a487363a147690254d83"

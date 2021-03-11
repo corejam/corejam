@@ -1,4 +1,5 @@
 import { writeConfig } from "./generateConfig";
+export { extractRoutes } from "./extractRoutes";
 
 export default function corejam() {
   return {

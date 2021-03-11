@@ -1,25 +1,9 @@
 import { createStore } from "@stencil/store";
-import { createRouter, Router } from "stencil-router-v2";
-
-export { href } from "stencil-router-v2";
-
-export const { state, get, reset, set, onChange } = createStore({
-  router: createRouter(),
-});
+import { CorejamRoute } from "./types";
 
 export type CorejamMode = "development" | "production" | "static";
 
-export type CorejamRoute = {
-  url: string;
-  exact: boolean;
-  canvasPage?: boolean;
-  component: string;
-  dev?: boolean;
-  third?: boolean;
-};
-
 export type CorejamRunStore = {
-  router: Router;
   routes: CorejamRoute[];
   mode: CorejamMode;
   wrapper: string[] | [];
@@ -29,7 +13,7 @@ export type CorejamRunStore = {
 };
 
 type LayoutEntry = {
-  component: string;
+  component?: string;
 };
 
 export const {
@@ -39,7 +23,6 @@ export const {
   set: runSet,
   onChange: runChange,
 } = createStore<CorejamRunStore>({
-  router: createRouter(),
   routes: null,
   mode: null,
   wrapper: null,
