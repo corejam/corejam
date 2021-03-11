@@ -34,12 +34,10 @@ jobs:
           yarn --frozen-lockfile
           yarn lint
           yarn build
-          yarn bs
           node ./utils/hoistPackagesForDeployment.js
-          API_ORIGIN=http://localhost:3000 yarn --cwd packages/auth corejam static
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
-      - run: tar -czf artifact.tar node_modules examples/nextjs packages
+      - run: tar -czf artifact.tar node_modules packages examples/nextjs
       - uses: actions/upload-artifact@v2
         with:
           name: dist
@@ -160,7 +158,6 @@ jobs:
         if: |
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
-          yarn bs
           cd packages/dershop
           yarn corejam generateSchema && yarn corejam bootstrap
           API_ORIGIN=http://localhost:3000 yarn static -l
