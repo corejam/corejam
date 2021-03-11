@@ -34,6 +34,7 @@ jobs:
           yarn --frozen-lockfile
           yarn lint
           yarn build
+          yarn bs
           node ./utils/hoistPackagesForDeployment.js
         env: # Or as an environment variable
           GITHUB_SHA: ${{ github.sha }}
