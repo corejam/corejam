@@ -14,7 +14,7 @@ const config: Config = {
     port: 3001,
   },
   outputTargets: [],
-  plugins: [corejam()],
+  plugins: corejam(),
   rollupPlugins: {
     after: [nodePolyfills()],
   },

@@ -8,22 +8,24 @@ export default function corejam() {
   const replacedVars = {};
 
   for (const k in envVars.parsed) {
-    replacedVars[k] = JSON.stringify(envVars[k]);
+    replacedVars[`process.env.${k}`] = JSON.stringify(envVars.parsed[k]);
   }
-  return {
-    ...replace({
+  return [
+    replace({
       preventAssignment: true,
-      ...replacedVars,
+      values: replacedVars,
     }),
-    async buildStart() {
-      const config = writeConfig();
-      this.emitFile({
-        type: "asset",
-        name: "string",
-        fileName: "config.json",
-        source: JSON.stringify(config),
-      });
+    {
+      async buildStart() {
+        const config = writeConfig();
+        this.emitFile({
+          type: "asset",
+          name: "string",
+          fileName: "config.json",
+          source: JSON.stringify(config),
+        });
+      },
+      name: "corejam",
     },
-    name: "corejam",
-  };
+  ];
 }

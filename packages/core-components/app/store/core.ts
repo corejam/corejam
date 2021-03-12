@@ -7,13 +7,14 @@ import { Build } from "@stencil/core";
 import { createStore } from "@stencil/store";
 import { sha256 } from "crypto-hash";
 import { Components } from "../components";
+import { env } from "../env";
 import { FlashEvent, FlashTypes } from "../utils/events";
 
 let client;
 
 if (Build.isBrowser) {
   const httpLink = createHttpLink({
-    uri: (API_ORIGIN ?? "") + "/api/graphql",
+    uri: env.API_ORIGIN + "/api/graphql",
     credentials: "include",
     useGETForQueries: true,
   });
