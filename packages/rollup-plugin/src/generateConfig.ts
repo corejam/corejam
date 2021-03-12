@@ -1,5 +1,4 @@
 import { extractExternal, extractRecos, extractWrapper } from "./extractFromPackage";
-import { extractLayouts } from "./extractLayouts";
 import { extractComponentsToRoutes, extractRoutes } from "./extractRoutes";
 
 export function writeConfig() {
@@ -21,7 +20,6 @@ export function writeConfig() {
     recommendations: [],
     dependencies: [],
     external: [],
-    layout: null,
     router: {
       routes: [],
     },
@@ -30,7 +28,6 @@ export function writeConfig() {
 
   const componentRoutes = extractComponentsToRoutes(root);
   const appRoutes = extractRoutes(root);
-  const layouts = extractLayouts(root);
   const wrapper = extractWrapper(pluginPkg);
   const recommendations = extractRecos(pluginPkg);
   const external = extractExternal(pluginPkg);
@@ -51,7 +48,6 @@ export function writeConfig() {
   }
 
   config.router.routes = [...componentRoutes, ...appRoutes];
-  config.layout = [...layouts];
   config.wrapper = [...wrapper];
   config.recommendations = [...recommendations];
   config.external = [...external];
@@ -79,7 +75,6 @@ export function writeConfig() {
           recommendations: [],
           dependencies: [],
           external: [],
-          layout: null,
           router: {
             routes: [],
           },
@@ -89,7 +84,6 @@ export function writeConfig() {
 
         const componentRoutes = extractComponentsToRoutes(pkgRoot, pluginPkg.name);
         const appRoutes = extractRoutes(pkgRoot, pluginPkg.name);
-        const layouts = extractLayouts(pkgRoot);
         const wrapper = extractWrapper(pluginPkg);
         const recommendations = extractRecos(pluginPkg);
         const external = extractExternal(pluginPkg);
@@ -102,7 +96,6 @@ export function writeConfig() {
         pkgConfig.github_issues = pluginPkg.bugs?.url;
         pkgConfig.router.routes = [...componentRoutes, ...appRoutes];
         pkgConfig.components = componentRoutes.map((c) => c.component);
-        pkgConfig.layout = [...layouts];
         pkgConfig.wrapper = [...wrapper];
         pkgConfig.recommendations = [...recommendations];
         pkgConfig.external = [...external];

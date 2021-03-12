@@ -21,12 +21,9 @@ const config: Config = {
     replace({
       "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
     }),
+    corejam(),
   ],
 };
-
-if (process.env.NODE_ENV !== "production") {
-  config.plugins.push(corejam());
-}
 
 if (targets.includes("dist")) {
   config.outputTargets.push({
@@ -64,11 +61,7 @@ if (targets.includes("react")) {
       proxiesFile: "react/index.ts",
       loaderDir: "web-components/loader",
       includeDefineCustomElements: true,
-      excludeComponents: [
-        "corejam-dev-welcome",
-        "corejam-run-app",
-        "corejam-run-router",
-      ],
+      excludeComponents: ["corejam-dev-welcome", "corejam-run-app", "corejam-run-router"],
     })
   );
 }
