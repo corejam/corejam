@@ -6,7 +6,7 @@ import { addStyleTagToHead, generateHash, lowercaseFirstLetter, uppercaseFirstLe
 
 const stylesCache = new Map();
 
-export const DEFAULT_BROWSERS = [process.env.POSTCSS_BROWSERS || "last 4 version"];
+export const DEFAULT_BROWSERS = [POSTCSS_BROWSERS || "last 4 version"];
 
 const params = { overrideBrowserslist: DEFAULT_BROWSERS, grid: "autoplace" };
 
