@@ -37,8 +37,7 @@
     "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "test": "jest --verbose --config=./jest.config.js",
     "clean": "rimraf dist",
-    "precommit": "lint-staged",
-    "prepublish": "yarn clean && yarn build"
+    "precommit": "lint-staged"
   },
   "devDependencies": {
     "@types/faker": "5.1.7",
