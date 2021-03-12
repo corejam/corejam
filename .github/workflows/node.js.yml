@@ -401,7 +401,6 @@ jobs:
 
       - name: 🚽 Publish package
         run: |
-          yarn build
           yarn logout
           npm whoami
           yarn lerna publish --yes $LERNA_TAG --no-verify-access $CANARY

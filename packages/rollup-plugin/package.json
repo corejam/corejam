@@ -10,8 +10,7 @@
   ],
   "scripts": {
     "build": "rollup --config rollup.config.js",
-    "clean": "rimraf dist",
-    "prepublish": "yarn clean && yarn build"
+    "clean": "rimraf dist"
   },
   "devDependencies": {
     "fs-jetpack": "4.1.0",

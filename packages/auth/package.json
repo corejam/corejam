@@ -35,9 +35,7 @@
     "precommit": "lint-staged",
     "clean": "rimraf dist & rimraf react & rimraf web-components",
     "static": "corejam static",
-    "static:serve": "corejam static:serve",
-    "prepublish": "shx rm -f .env && yarn clean && yarn build",
-    "postpublish": "shx cp .env.sample .env"
+    "static:serve": "corejam static:serve"
   },
   "files": [
     "dist",
