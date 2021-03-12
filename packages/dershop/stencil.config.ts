@@ -23,15 +23,12 @@ const config: Config = {
       "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
       "process.env.POSTCSS_BROWSERS": JSON.stringify(process.env.POSTCSS_BROWSERS),
     }),
+    corejam(),
   ],
   rollupPlugins: {
     after: [nodePolyfills()],
   },
 };
-
-if (process.env.NODE_ENV !== "production") {
-  config.plugins.push(corejam());
-}
 
 if (targets.includes("dist")) {
   config.outputTargets.push({
