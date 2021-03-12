@@ -123,12 +123,10 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           cd packages/auth
-          API_ORIGIN=http://localhost:3000 yarn static
+          API_ORIGIN=http://localhost:3000 POSTCSS_BROWSERS="last 4 version" yarn static -l
           JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
           cypress run --spec "./cypress/integration/plugins/auth/**/*"
         env:
-          API_ORIGIN: "http://localhost:3000"
-          POSTCSS_BROWSERS: "last 4 version"
           CYPRESS_baseUrl: "http://localhost:3001"
           CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
       - uses: actions/upload-artifact@v1
@@ -161,15 +159,13 @@ jobs:
       - run: yarn --cwd test/cypress --frozen-lockfile
         if: |
           steps.cache-cypress.outputs.cache-hit != 'true'
-      - run: |
+     - run: |
           cd packages/dershop
           yarn corejam generateSchema && yarn corejam bootstrap
-          API_ORIGIN=http://localhost:3000 yarn static -l
+          API_ORIGIN=http://localhost:3000 POSTCSS_BROWSERS="last 4 version" yarn static -l
           JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
           cypress run --spec "./cypress/integration/plugins/dershop/**/*"
         env:
-          API_ORIGIN: "http://localhost:3000"
-          POSTCSS_BROWSERS: "last 4 version"
           CYPRESS_baseUrl: "http://localhost:3001"
           CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
       - uses: actions/upload-artifact@v1
