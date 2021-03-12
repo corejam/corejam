@@ -123,7 +123,7 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           cd packages/auth
-          yarn static -l
+          API_ORIGIN=http://localhost:3000 yarn static
           JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
           cypress run --spec "./cypress/integration/plugins/auth/**/*"
         env:
@@ -164,7 +164,7 @@ jobs:
       - run: |
           cd packages/dershop
           yarn corejam generateSchema && yarn corejam bootstrap
-          yarn static -l
+          API_ORIGIN=http://localhost:3000 yarn static -l
           JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
           cypress run --spec "./cypress/integration/plugins/dershop/**/*"
         env:
