@@ -100,7 +100,7 @@ jobs:
   cypress-static-plugin-auth:
     runs-on: ubuntu-20.04
     container:
-      image: "corejam/cypress:6.5.0"
+      image: "corejam/cypress:6.6.0"
       options: --ipc=host
     needs: build
     steps:
@@ -139,7 +139,7 @@ jobs:
   cypress-static-plugin-dershop:
     runs-on: ubuntu-20.04
     container:
-      image: "corejam/cypress:6.5.0"
+      image: "corejam/cypress:6.6.0"
       options: --ipc=host
     needs: build
     steps:
@@ -179,7 +179,7 @@ jobs:
   cypress-generateApp-monorepo:
     runs-on: ubuntu-20.04
     container:
-      image: "corejam/cypress:6.5.0"
+      image: "corejam/cypress:6.6.0"
       options: --ipc=host
     needs: build
     steps:
@@ -221,7 +221,7 @@ jobs:
   cypress-generateApp-standalone:
     runs-on: ubuntu-20.04
     container:
-      image: "corejam/cypress:6.5.0"
+      image: "corejam/cypress:6.6.0"
       options: --ipc=host
     needs: build
     steps:
@@ -268,7 +268,7 @@ jobs:
   cypress-generateApp-standaloneCLI:
     runs-on: ubuntu-20.04
     container:
-      image: "corejam/cypress:6.5.0"
+      image: "corejam/cypress:6.6.0"
       options: --ipc=host
     needs: build
     steps:
@@ -315,7 +315,7 @@ jobs:
   cypress:
     runs-on: ubuntu-20.04
     container:
-      image: "corejam/cypress:6.5.0"
+      image: "corejam/cypress:6.6.0"
       options: --ipc=host
     needs:
       - integration-tests
