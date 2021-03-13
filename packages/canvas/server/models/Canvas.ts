@@ -21,7 +21,7 @@ export class Canvas extends CoreModel {
   canvas: string = "";
 
   @Corejam()
-  seo: SEO;
+  seo?: SEO;
 
   /**
     @Corejam()

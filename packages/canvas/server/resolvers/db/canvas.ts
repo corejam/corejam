@@ -1,9 +1,8 @@
 import { ID } from "@corejam/base/src/typings/DB";
 import { CanvasPage } from "../../../shared/types/Canvas";
 import { Canvas } from "../../models/Canvas";
-import { PluginResolver } from "../../types/PluginResolver";
 
-export const models: PluginResolver = {
+export default {
   allCanvasPages: () => {
     return Canvas.list();
   },

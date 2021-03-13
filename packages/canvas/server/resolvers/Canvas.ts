@@ -25,9 +25,10 @@ export default {
     canvasPageById: (_obj: any, args: any, { models }: MergedServerContext) => {
       return models.canvasPageById(args.id);
     },
+    /*
     canvasPollPeers: (_obj: any, { id }, { models }: MergedServerContext) => {
       return models.canvasPollPeers(id);
-    },
+    },*/
   },
   Mutation: {
     canvasPageCreate: (_obj: any, { canvasPageInput }, { models }: MergedServerContext) => {
@@ -39,11 +40,12 @@ export default {
     canvasPageEdit: (_obj: any, { id, canvasPage }, { models }: MergedServerContext) => {
       return models.canvasPageEdit(id, canvasPage);
     },
+    /*
     canvasOpenPeers: (_obj: any, { id, peerInput }, { models }: MergedServerContext) => {
       return models.canvasOpenPeers(id, peerInput);
     },
     canvasClosePeers: (_obj: any, { id }, { models }: MergedServerContext) => {
       return models.canvasClosePeers(id);
-    },
+    },*/
   },
 };

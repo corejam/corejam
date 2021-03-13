@@ -1,4 +1,4 @@
-import * as resolvers from "./resolvers";
+import * as resolvers from "./resolvers/Canvas";
 import { getPluginContext } from "./resolvers";
 
 const pluginProperties = {

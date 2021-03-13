@@ -1,6 +1,5 @@
 import { MergedServerContext } from "../types/PluginResolver";
-import canvasResolvers from "./Canvas";
-import { models as defaultModels } from "./db/canvas";
+import * as defaultModels from "./db/canvas";
 import { models as s3Models } from "./db/s3";
 
 let pluginModels;
@@ -8,7 +7,7 @@ let pluginModels;
 if (process.env.DB_DRIVER === "DB_S3") {
   pluginModels = s3Models;
 } else {
-  pluginModels = defaultModels;
+  pluginModels = defaultModels.default;
 }
 
 /**
@@ -24,6 +23,3 @@ export function getPluginContext({ models }): MergedServerContext {
   return { models };
 }
 
-export const resolvers = {
-  canvasResolvers,
-};

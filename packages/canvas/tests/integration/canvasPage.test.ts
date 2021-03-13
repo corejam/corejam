@@ -1,5 +1,5 @@
 import { generateSeo } from "@corejam/base/src/resolvers/db/faker/Generator";
-import { testClient } from "@corejam/base/src/TestClient";
+import { testClient } from "@corejam/base/dist/TestClient";
 import { CanvasPage, CanvasPageDB } from "../../shared/types/Canvas";
 import { PluginResolver } from "../../server/types/PluginResolver";
 
