@@ -1,5 +1,6 @@
 import * as AWS from "aws-sdk";
-import type { CanvasPage, CanvasPageDB, CanvasPeer, CanvasPeers } from "../../../../shared/types/Canvas";
+import { CanvasPage } from "../../../../shared/types/Canvas";
+import { Canvas } from "../../../models/Canvas";
 
 AWS.config.update({
   credentials: {
@@ -9,15 +10,15 @@ AWS.config.update({
   apiVersion: "2020-12-01",
 });
 
-export function canvasPageByUrl(_slug: string): Promise<CanvasPageDB | null> {
+export function canvasPageByUrl(_slug: string): Promise<Canvas | null> {
   throw new Error("To implement");
 }
 
-export function allCanvasPages(): Promise<CanvasPageDB[]> {
+export function allCanvasPages(): Promise<Canvas[]> {
   throw new Error("To implement");
 }
 
-export async function canvasPageCreate(canvasPageInput: CanvasPage): Promise<CanvasPageDB> {
+export async function canvasPageCreate(canvasPageInput: CanvasPage): Promise<Canvas> {
   const s3 = await new AWS.S3.ManagedUpload({
     params: {
       Key: (process.env.S3_KEY_PREFIX as string) + canvasPageInput.seo.url,
@@ -39,22 +40,10 @@ export async function canvasPageCreate(canvasPageInput: CanvasPage): Promise<Can
   };
 }
 
-export function canvasPageEdit(_id: string, _canvasPageInput: CanvasPage): Promise<CanvasPageDB> {
+export function canvasPageEdit(_id: string, _canvasPageInput: CanvasPage): Promise<Canvas> {
   throw new Error("To implement");
 }
 
-export function canvasPageById(_id: string): Promise<CanvasPageDB | null> {
-  throw new Error("To implement");
-}
-
-export function canvasOpenPeers(_id: string, _peerInput: CanvasPeer): Promise<CanvasPeers> {
-  throw new Error("To implement");
-}
-
-export function canvasClosePeers(_id: string): Promise<CanvasPage> {
-  throw new Error("To implement");
-}
-
-export function canvasPollPeers(_id: string): Promise<CanvasPeers | null> {
+export function canvasPageById(_id: string): Promise<Canvas | null> {
   throw new Error("To implement");
 }

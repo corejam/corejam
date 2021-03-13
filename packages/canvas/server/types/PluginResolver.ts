@@ -1,7 +1,8 @@
 import { CoreResolver } from "@corejam/base/dist/typings/CoreResolver";
 import { ServerContext } from "@corejam/base/dist/typings/Server";
 import { MergedServerContext as ExtendedServerContext } from "@corejam/plugin-auth/shared/types/PluginResolver";
-import { CanvasPage, CanvasPageDB, CanvasPeer, CanvasPeers } from "./Canvas";
+import { CanvasPage } from "../../shared/types/Canvas";
+import { Canvas } from "../models/Canvas";
 
 export type LinkResult = {
   result: Boolean;
@@ -11,14 +12,16 @@ export type LinkResult = {
  * We are adding these resolvers to the existing CoreResolver
  */
 export declare type PluginResolver = {
-  allCanvasPages(): Promise<CanvasPageDB[]>;
-  canvasPageCreate(canvasPageInput: CanvasPage): Promise<CanvasPageDB>;
-  canvasPageEdit(id: string, canvasPageInput: CanvasPage): Promise<CanvasPageDB>;
-  canvasPageById(id: string): Promise<CanvasPageDB | null>;
-  canvasPageByUrl(slug: string): Promise<CanvasPageDB | null>;
-  canvasOpenPeers(id: string, peerInput: CanvasPeer): Promise<CanvasPeers>;
-  canvasPollPeers(id: string): Promise<CanvasPeers | null>;
-  canvasClosePeers(id: string): Promise<CanvasPage>;
+  allCanvasPages(): Promise<Canvas[]>;
+  canvasPageCreate(canvasPageInput: CanvasPage): Promise<Canvas>;
+  canvasPageEdit(id: string, canvasPageInput: CanvasPage): Promise<Canvas>;
+  canvasPageById(id: string): Promise<Canvas | null>;
+  canvasPageByUrl(slug: string): Promise<Canvas | null>;
+  /*
+     canvasOpenPeers(id: string, peerInput: CanvasPeer): Promise<CanvasPeers>;
+     canvasPollPeers(id: string): Promise<CanvasPeers | null>;
+     canvasClosePeers(id: string): Promise<CanvasPage>;
+     */
 };
 
 export declare type MergedServerResolver = CoreResolver & PluginResolver;

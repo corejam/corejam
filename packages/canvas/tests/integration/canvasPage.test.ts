@@ -1,7 +1,7 @@
 import { generateSeo } from "@corejam/base/src/resolvers/db/faker/Generator";
 import { testClient } from "@corejam/base/src/TestClient";
-import { CanvasPage, CanvasPageDB, CanvasPeer } from "../../shared/types/Canvas";
-import { PluginResolver } from "../../shared/types/PluginResolver";
+import { CanvasPage, CanvasPageDB } from "../../shared/types/Canvas";
+import { PluginResolver } from "../../server/types/PluginResolver";
 
 describe("CanvasPages", () => {
   //Init some singletons in beforeAll()
@@ -17,7 +17,7 @@ describe("CanvasPages", () => {
     client = await testClient();
     models = client.models;
 
-    const insertedResponse = (await models.canvasPageCreate(testValues)) as CanvasPageDB;
+    const insertedResponse = (await models.canvasPageCreate(testValues));
     expect(insertedResponse).toMatchObject(testValues);
     testID = insertedResponse.id;
     //testUrl = insertedResponse.seo?.url;
@@ -36,7 +36,7 @@ describe("CanvasPages", () => {
   });
 
   it("allCanvasPages", async () => {
-    const returnedPagination: CanvasPageDB[] = await models.allCanvasPages();
+    const returnedPagination = await models.allCanvasPages();
 
     expect(returnedPagination.length).toBeGreaterThan(0);
     returnedPagination.map((item) => {
@@ -57,6 +57,7 @@ describe("CanvasPages", () => {
     expect(editResult).toEqual(expect.objectContaining(newValues));
   });
 
+  /*
   it("canvasPeers", async () => {
     const initiator = {
       hash: "1223",
@@ -77,4 +78,5 @@ describe("CanvasPages", () => {
     const canvasClosePeersResult = await models.canvasClosePeers(testID);
     expect(canvasClosePeersResult.peers).toEqual(undefined);
   });
+  */
 });

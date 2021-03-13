@@ -1,17 +1,14 @@
-import { MergedServerContext } from "../../shared/types/PluginResolver";
+import { MergedServerContext } from "../types/PluginResolver";
 import canvasResolvers from "./Canvas";
-import { models as fakerModels } from "./db/faker";
-import { models as faunaModels } from "./db/fauna";
+import { models as defaultModels } from "./db/canvas";
 import { models as s3Models } from "./db/s3";
 
 let pluginModels;
 
-if (process.env.DB_DRIVER === "DB_FAUNA") {
-  pluginModels = faunaModels;
-} else if (process.env.DB_DRIVER === "DB_S3") {
+if (process.env.DB_DRIVER === "DB_S3") {
   pluginModels = s3Models;
 } else {
-  pluginModels = fakerModels;
+  pluginModels = defaultModels;
 }
 
 /**
