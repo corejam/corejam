@@ -19,7 +19,6 @@ export class CorejamRun {
       runState.wrapper = config.wrapper;
       runState.recommendations = config.recommendations;
       runState.mode = config.mode;
-      runState.layout = config.layout;
       runState.plugins = config.plugins;
     } catch (e) {
       console.log("Error", e);

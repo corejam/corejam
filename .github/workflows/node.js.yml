@@ -123,8 +123,9 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           cd packages/auth
-          API_ORIGIN=http://localhost:3000 yarn static -l
-          JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
+          cp .env.sample .env
+          yarn static -l
+          nohup yarn static:serve & cd ../../test/cypress
           cypress run --spec "./cypress/integration/plugins/auth/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
@@ -161,8 +162,9 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true'
       - run: |
           cd packages/dershop
+          cp .env.sample .env
           yarn corejam generateSchema && yarn corejam bootstrap
-          API_ORIGIN=http://localhost:3000 yarn static -l
+          yarn static -l
           JWT_HASH=test FAKER_MODULE=auth DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
           cypress run --spec "./cypress/integration/plugins/dershop/**/*"
         env:
@@ -202,8 +204,10 @@ jobs:
           yarn bs
           cd examples
           yarn corejam createApp test
-          cd test && yarn static
-          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd ../../test/cypress
+          cd test
+          cp .env.sample .env
+          yarn static -l
+          nohup yarn static:serve & cd ../../test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
@@ -246,8 +250,11 @@ jobs:
           cd ../rollup-plugin && yarn link
           cd ../core-components && yarn link
           cd /github/home && corejam createApp test
-          cd test && yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
-          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
+          cd test
+          yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin
+          cp .env.sample .env
+          yarn static -l
+          nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
@@ -291,8 +298,10 @@ jobs:
           cd ../core-components && yarn link
           cd /github/home && cp -r $CLI_PATH . && cd cli && yarn link @corejam/base --ignore-scripts && yarn --ignore-scripts
           cd /github/home && /github/home/cli/dist/index.js createApp test
-          cd test && yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin && yarn static
-          DEPLOYMENT_URL=http://localhost:3000 nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
+          cd test && yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin
+          cp .env.sample .env
+          yarn static -l
+          nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"

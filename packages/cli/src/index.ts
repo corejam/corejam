@@ -116,7 +116,7 @@ prog
   .action(async () => {
     await corejamInit();
     runApi();
-    execa("serve", ["www", "-l", "3001"], { cwd: envRoot });
+    execa("serve", ["www", "-l", "3001"], { ...process.env, cwd: envRoot });
     console.log("Serving under: http://localhost:3001");
   });
 

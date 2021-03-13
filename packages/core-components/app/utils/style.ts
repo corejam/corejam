@@ -1,12 +1,13 @@
 import autoprefixer from "autoprefixer";
 import postcss from "postcss";
+import { env } from "../env";
 import { computeStyle } from "./computeStyle";
 import { propertyToTransformer } from "./transformerMap";
 import { addStyleTagToHead, generateHash, lowercaseFirstLetter, uppercaseFirstLetter } from "./utils";
 
 const stylesCache = new Map();
 
-export const DEFAULT_BROWSERS = [process.env.POSTCSS_BROWSERS || "last 4 version"];
+export const DEFAULT_BROWSERS = [env.POSTCSS_BROWSERS];
 
 const params = { overrideBrowserslist: DEFAULT_BROWSERS, grid: "autoplace" };
 
@@ -87,7 +88,7 @@ export const calculateStyles = async (instance) => {
       }
       const computedStyleString = computeStyle(collectedStyles, hash);
 
-      if (process.env.NODE_ENV === "development") {
+      if (env.NODE_ENV === "development") {
         const finalResult = computedStyleString;
         stylesCache.set(hash, finalResult);
         addStyleTagToHead(finalResult, hash);
