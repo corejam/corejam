@@ -35,9 +35,7 @@ export async function canvasPageCreate(canvasPageInput: CanvasPage): Promise<Can
     id: canvasPageInput.seo.url,
     canvas: canvasPageInput.canvas,
     seo: canvasPageInput.seo,
-    dateCreated: new Date().toDateString(),
-    dateUpdated: new Date().toDateString(),
-  };
+  } as Canvas;
 }
 
 export function canvasPageEdit(_id: string, _canvasPageInput: CanvasPage): Promise<Canvas> {
