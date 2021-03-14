@@ -57,6 +57,9 @@
                 "${workspaceFolder}/**/node_modules/**/*.js",
                 "${workspaceFolder}/node_modules/**/.js",
             ],
+            "env": {
+                "DB_DRIVER":"DB_LOWDB"
+            },
             "sourceMaps": true,
             "cwd": "${workspaceFolder}/packages/canvas",
             "console": "integratedTerminal",

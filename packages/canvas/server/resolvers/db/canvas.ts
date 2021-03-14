@@ -3,20 +3,26 @@ import { CanvasPage } from "../../../shared/types/Canvas";
 import { Canvas } from "../../models/Canvas";
 
 export default {
-  allCanvasPages: () => {
-    return Canvas.list();
+  allCanvasPages: async () => {
+    return await Canvas.list();
   },
 
-  canvasPageById: (id: string) => {
-    return Canvas.getById(id);
+  canvasPageById: async (id: string) => {
+    return await Canvas.getById(id);
   },
 
-  canvasPageByUrl: (slug: string) => {
-    return Canvas.filter({
+  canvasPageByUrl: async (slug: string) => {
+    const filter = await Canvas.filter({
       seo: {
         url: slug,
       },
-    })[0];
+    });
+
+    if (filter && filter.length) {
+      return filter[0]
+    }
+
+    return null;
   },
 
   canvasPageCreate: (canvasPageInput: CanvasPage) => {
