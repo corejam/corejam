@@ -1,4 +1,4 @@
-import { MergedServerContext } from "../../shared/types/PluginResolver";
+import { MergedServerContext } from "../types/PluginResolver";
 import categoryResolvers from "./Category";
 import configResolvers from "./Config";
 import { models as fakerModels } from "./db/faker";

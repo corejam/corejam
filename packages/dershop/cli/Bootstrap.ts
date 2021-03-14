@@ -11,7 +11,7 @@ import {
 import { CategoryDB } from "../shared/types/Category";
 import { ManufacturerDB } from "../shared/types/Manufacturer";
 import { OrderDB } from "../shared/types/Order";
-import { MergedServerContext } from "../shared/types/PluginResolver";
+import { MergedServerContext } from "../server/types/PluginResolver";
 import { ProductDB } from "../shared/types/Product";
 import { UserDB } from "../shared/types/User";
 

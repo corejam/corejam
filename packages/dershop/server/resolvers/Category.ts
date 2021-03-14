@@ -1,5 +1,5 @@
 import { CategoryList } from "../../shared/types/Category";
-import { MergedServerContext } from "../../shared/types/PluginResolver";
+import { MergedServerContext } from "../types/PluginResolver";
 
 export default {
   Query: {

@@ -1,7 +1,7 @@
 import Fuse from "fuse.js";
-import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { ProductDB, ProductList } from "../../shared/types/Product";
 import { Sidebar } from "../../shared/types/Sidebar";
+import { MergedServerContext } from "../types/PluginResolver";
 
 export function generateSidebar(products: ProductDB[] = []): Sidebar {
   const sidebar: Sidebar = { categories: [], brands: [] };

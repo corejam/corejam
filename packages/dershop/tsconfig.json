@@ -3,7 +3,10 @@
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "experimentalDecorators": true,
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es2017",
@@ -16,6 +19,13 @@
     "keyofStringsOnly": false,
     "skipLibCheck": true
   },
-  "include": ["app", "shared", "types/jsx.d.ts"],
-  "exclude": ["node_modules", "react"]
+  "include": [
+    "app",
+    "shared",
+    "types/jsx.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "react"
+  ]
 }

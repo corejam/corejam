@@ -1,5 +1,5 @@
 import { ManufacturerList } from "../../shared/types/Manufacturer";
-import { MergedServerContext } from "../../shared/types/PluginResolver";
+import { MergedServerContext } from "../types/PluginResolver";
 import { resolveProductListFromReferences } from "./Product";
 
 export default {

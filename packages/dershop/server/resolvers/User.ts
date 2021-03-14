@@ -1,4 +1,4 @@
-import { MergedServerContext } from "../../shared/types/PluginResolver";
+import { MergedServerContext } from "../types/PluginResolver";
 
 export default {
   Mutation: {

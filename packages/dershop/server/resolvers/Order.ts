@@ -1,7 +1,7 @@
 import { OrderList } from "../../shared/types/Order";
-import { MergedServerContext } from "../../shared/types/PluginResolver";
 import { UserDB } from "../../shared/types/User";
 import OrderConfirmation from "../mail/OrderConfirmation";
+import { MergedServerContext } from "../types/PluginResolver";
 
 export default {
   Mutation: {
