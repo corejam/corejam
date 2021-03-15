@@ -1,4 +1,5 @@
-import { DBDocument, Paginated, Timestamp } from "@corejam/base/dist/typings/Utils";
+import { DBDocument } from "@corejam/base/dist/typings/DB";
+import { Paginated, Timestamp } from "@corejam/base/dist/typings/Utils";
 import { Canvas } from "@corejam/plugin-canvas/dist/shared/types/Canvas";
 import { ProductDB } from "./Product";
 import { SEO } from "./Seo";

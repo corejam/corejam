@@ -14,13 +14,17 @@ import { OrderDB } from "../shared/types/Order";
 import { MergedServerContext } from "../server/types/PluginResolver";
 import { ProductDB } from "../shared/types/Product";
 import { UserDB } from "../shared/types/User";
+import { Category } from "../server/Models/Category";
+import { Product } from "../server/Models/Product";
+import { Manufacturer } from "../server/Models/Manufacturer";
+import { Order } from "../server/Models/Order";
 
 declare type fakerData = {
-  products: Array<ProductDB>;
-  users: Array<UserDB>;
-  manufacturers: Array<ManufacturerDB>;
-  categories: Array<CategoryDB>;
-  orders: Array<OrderDB>;
+  products: Array<Product>;
+  users: Array<User>;
+  manufacturers: Array<Manufacturer>;
+  categories: Array<Category>;
+  orders: Array<Order>;
 };
 
 /**
@@ -62,9 +66,9 @@ export default async () => {
   }
 
   for (let i = 0; i <= 20; i++) {
-    const product = (await models.productCreate(generateProduct()).catch((e) => console.log(e))) as ProductDB;
-    const manufacturer = data.manufacturers[Math.floor(Math.random() * data.manufacturers.length)];
-    const category = data.categories[Math.floor(Math.random() * data.categories.length)];
+    const product = (await models.productCreate(generateProduct()).catch((e) => console.log(e))) as Product;
+    const manufacturer = data.manufacturers[Math.floor(Math.random() * data.manufacturers.length)] as Manufacturer;
+    const category = data.categories[Math.floor(Math.random() * data.categories.length)] as Category;
 
     //Prevent cyclical error with faker
     if (process.env.DB_DRIVER === "DB_FAUNA") {
@@ -73,7 +77,7 @@ export default async () => {
     } else {
       //@ts-ignore
       product.manufacturer = { ...(await models.manufacturerByID(manufacturer.id)) };
-      product.categories = [{ ...((await models.categoryById(category.id)) as CategoryDB) }];
+      product.categories = [{ ...((await models.categoryById(category.id))) }];
     }
 
     data.products.push(product);

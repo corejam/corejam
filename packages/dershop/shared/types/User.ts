@@ -1,4 +1,4 @@
-import { DBDocument } from "@corejam/base/dist/typings/Utils";
+import { DBDocument } from "@corejam/base/dist/typings/DB";
 import {
   RegisterInput as RootRegisterInput,
   User as RootUser,

@@ -1,4 +1,5 @@
-import { DBDocument, Paginated, Timestamp } from "@corejam/base/dist/typings/Utils";
+import { DBDocument } from "@corejam/base/dist/typings/DB";
+import { Paginated, Timestamp } from "@corejam/base/dist/typings/Utils";
 import { Address, AddressInput } from "./Address";
 import { Price } from "./Price";
 import { UserDB } from "./User";
