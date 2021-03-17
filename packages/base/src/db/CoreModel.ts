@@ -4,10 +4,10 @@ import { ID, ModelMeta } from "../typings/DB";
 import { DocumentNotFound } from "./Exceptions/DocumentNotFound";
 import { Corejam } from "./ModelDecorator";
 import { getModelMeta, modelMeta } from "./ModelManager";
-import { RelationOne } from "./RelationOne";
+import { Relation } from "./Relation";
 
 export type Constructor<CoreModel> = {
-  new (): CoreModel;
+  new(): CoreModel;
 };
 
 /**
@@ -18,7 +18,7 @@ export abstract class CoreModel {
    * The unique id for this document
    */
   @Corejam({ unique: true })
-  id!: ID;
+  id?: ID = undefined;
 
   /**
    * We generate the associated collections
@@ -67,7 +67,13 @@ export abstract class CoreModel {
   }
 
   async delete(): Promise<Boolean> {
-    return await getDb().delete(this);
+    const res = await getDb().delete(this)
+
+    if (res) {
+      delete this.id;
+    }
+
+    return res;
   }
 
   /**
@@ -94,10 +100,28 @@ export abstract class CoreModel {
    * Should instead use new() constructor to set readonly attributes
    * on Model instance
    */
-  public assignData(data: any): this {
-    this.getDataFields().map((field) => {
+  public async assignData(data: any): Promise<this> {
+    const meta = this.getMeta();
+
+    for (const field of Object.keys(meta)) {
+
+      if (meta[field].relation) {
+        /**
+         * Hydrate the relation
+         * 
+         * TODO in future this could be done by a magic get() and
+         * only hydrate when the element is actually being accessed. This could
+         * potentially save alot of reads to the DB. PR's welcome
+         */
+        const relationStatic = (new meta[field].relation).constructor
+        this[field] = await (relationStatic).getById(data[field].id)
+
+        continue
+      }
+
+      //Just assign the value
       this[field] = data[field];
-    });
+    }
 
     //If we have an id lets set it
     if (data.id) this.id = data.id;
@@ -165,7 +189,7 @@ export abstract class CoreModel {
 
     Object.keys(meta).map((key) => {
       if (meta[key].relation) {
-        data[key] = new RelationOne(data[key]).parse();
+        data[key] = new Relation(data[key]).parse();
       }
     });
 

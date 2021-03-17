@@ -47,10 +47,10 @@ export class LowdbProvider implements ProviderInterface {
         if (!items) return null;
 
         //Hydrate models back out from filter result
-        return items.map((values: any) => {
+        return Promise.all(items.map((values: any) => {
             const clone = model;
             return clone.assignData(values)
-        })
+        }))
     }
 
     async list<Model extends CoreModel>(model: Model): Promise<Model[]> {

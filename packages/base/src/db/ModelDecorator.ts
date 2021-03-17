@@ -26,8 +26,6 @@ export function Coredata<T extends CoreModel>(
       };
     }
 
-    console.log(metaData);
-
     Reflect.defineMetadata("Corejam", metaData, target);
   };
 }

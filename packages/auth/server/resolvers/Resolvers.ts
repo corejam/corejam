@@ -18,22 +18,21 @@ export async function allUsers(): Promise<User[]> {
 }
 
 export async function userCreate(userCreateInput: UserCreateInput): Promise<User> {
-  const user = new User()
-    .assignData({
-      role: [User.ROLES.USER],
-      status: STATUS.PENDING,
-      ...userCreateInput,
-      ...updateDates(),
-    })
+  const user = await new User().assignData({
+    role: [User.ROLES.USER],
+    status: STATUS.PENDING,
+    ...userCreateInput,
+    ...updateDates(),
+  })
 
   return user.save();
 }
 
 export async function userEdit(id: ID, userInput: UserInput): Promise<User> {
   const user = await User.getById(id);
-  user.assignData({ ...user.getData(), ...userInput }).save()
+  await user.assignData({ ...user.getData(), ...userInput })
 
-  return user;
+  return user.save();
 }
 
 export function userById(id: ID): Promise<User | null> {

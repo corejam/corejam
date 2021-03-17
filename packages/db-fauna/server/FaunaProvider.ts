@@ -92,10 +92,10 @@ export class FaunaProvider implements ProviderInterface {
         })
 
         //Hydrate and filter
-        return _.filter(allItems, filter as any).map((values) => {
+        return Promise.all(_.filter(allItems, filter as any).map((values) => {
             const clone = model;
             return clone.assignData(values)
-        })
+        }))
     }
 
     async update<Model extends CoreModel>(model: Model): Promise<Model> {

@@ -99,7 +99,7 @@ export const sharedDBInterfaceTests = (name) => {
             expect(testFilterById?.pop()).toEqual(testObject)
         });
 
-        it.only("saves relations correctly", async () => {
+        it("saves and loads relation correctly", async () => {
             const testObject = new TestObject();
             testObject.uniqueAttribute = "lalala"
             testObject.intAttribute = 1234;
@@ -109,9 +109,10 @@ export const sharedDBInterfaceTests = (name) => {
             testWithForeign.optionalAttribute = testObject;
             await testWithForeign.save();
 
-            expect(await (await TestObject2.getById(testWithForeign.id)).optionalAttribute).toEqual(testObject.getData())
+            const testForeign = await TestObject2.getById(testWithForeign.id)
 
+            expect(testForeign.optionalAttribute).toEqual(testObject)
+            expect(testForeign.optionalAttribute?.exists()).toEqual(true)
         })
-
     })
 };
