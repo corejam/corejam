@@ -6,21 +6,27 @@ import { CoreModel } from "./CoreModel";
  * to the DBProvider through the model.
  */
 export function Coredata<T extends CoreModel>(
-  { unique = false, index = false }: { unique?: Boolean; index?: Boolean } = { index: false, unique: false }
+  { unique = false, index = false, relation = null }: { unique?: Boolean; index?: Boolean; relation?: any } = {
+    index: false,
+    unique: false,
+  }
 ) {
   return (target: T, key: string) => {
     const metaData = Reflect.getMetadata("Corejam", target) || [];
 
     if (!(target.constructor.name in metaData)) {
-      metaData[target.constructor.name] = []
+      metaData[target.constructor.name] = [];
     }
 
     if (!(key in metaData[target.constructor.name])) {
       metaData[target.constructor.name][key] = {
         unique,
         index,
+        relation,
       };
     }
+
+    console.log(metaData);
 
     Reflect.defineMetadata("Corejam", metaData, target);
   };

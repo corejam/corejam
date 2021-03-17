@@ -1,6 +1,7 @@
 import TestObject from "./TestObject";
 import { CorejamServer } from "../../src/Server"
 import { DocumentNotFound } from "../../src/db/Exceptions/DocumentNotFound";
+import TestObject2 from "./TestObject2";
 
 /**
  * These are tests that need to pass for each DB implementation.
@@ -97,5 +98,20 @@ export const sharedDBInterfaceTests = (name) => {
 
             expect(testFilterById?.pop()).toEqual(testObject)
         });
+
+        it.only("saves relations correctly", async () => {
+            const testObject = new TestObject();
+            testObject.uniqueAttribute = "lalala"
+            testObject.intAttribute = 1234;
+            await testObject.save();
+
+            const testWithForeign = new TestObject2();
+            testWithForeign.optionalAttribute = testObject;
+            await testWithForeign.save();
+
+            expect(await (await TestObject2.getById(testWithForeign.id)).optionalAttribute).toEqual(testObject.getData())
+
+        })
+
     })
 };

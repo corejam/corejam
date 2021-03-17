@@ -9,6 +9,6 @@ export default class TestObject2 extends CoreModel {
     @Coredata()
     otherAttribute: Boolean = true;
 
-    @Coredata()
+    @Coredata({ relation: TestObject })
     optionalAttribute?: TestObject;
 }

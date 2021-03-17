@@ -2,7 +2,6 @@ import TestObject from "./dbInterface/TestObject";
 import TestObject2 from "./dbInterface/TestObject2";
 
 const read = jest.fn();
-const save = jest.fn();
 const filter = jest.fn();
 const list = jest.fn();
 const create = jest.fn();
@@ -16,7 +15,6 @@ const deleteFn = jest.fn();
 jest.mock("../src/PluginManager", () => ({
     getDb: () => ({
         read,
-        save,
         filter,
         list,
         create,
@@ -130,6 +128,32 @@ describe(`Base Model tests`, () => {
             optionalAttribute: { index: false, unique: false }
         })
     })
+
+    it.only("Can retrieve a related document", async () => {
+        const testObject = new TestObject();
+        testObject.id = 1234;
+        testObject.dataAttribute1 = "lalala"
+        testObject.dataAttribute2 = "dwdwd"
+
+        const testObject2 = new TestObject2();
+        testObject2.optionalAttribute = testObject
+        await testObject2.save();
+
+        expect(create).toHaveBeenCalledWith({
+            "collection": "otherObjects",
+            "optionalAttribute": {
+                "collection": "objects",
+                "dataAttribute1": "lalala",
+                "dataAttribute2": "dwdwd",
+                "id": 1234,
+                "localAttribute": "local",
+                "uniqueAttribute": "unique-value",
+            },
+            "otherAttribute": true,
+        })
+
+    });
+
 
     /**
      * These tests should go into cli

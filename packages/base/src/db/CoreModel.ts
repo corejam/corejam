@@ -4,6 +4,7 @@ import { ID, ModelMeta } from "../typings/DB";
 import { DocumentNotFound } from "./Exceptions/DocumentNotFound";
 import { Corejam } from "./ModelDecorator";
 import { getModelMeta, modelMeta } from "./ModelManager";
+import { RelationOne } from "./RelationOne";
 
 export type Constructor<CoreModel> = {
   new (): CoreModel;
@@ -144,12 +145,28 @@ export abstract class CoreModel {
   /**
    * Get our current objects data values
    * defined through decorated attributes
+   *
+   * To write data to a db use model.getDataForWrite()
    */
   getData(): object {
     const data = {};
 
     this.getDataFields().map((field) => {
       data[field] = this[field];
+    });
+
+    return data;
+  }
+
+  //Transform data for writing
+  getDataForWrite(): object {
+    const data = this.getData();
+    const meta = this.getMeta();
+
+    Object.keys(meta).map((key) => {
+      if (meta[key].relation) {
+        data[key] = new RelationOne(data[key]).parse();
+      }
     });
 
     return data;

@@ -23,7 +23,7 @@ export class LowdbProvider implements ProviderInterface {
 
         await db.get(model.getModelName()).push({
             id: model.id,
-            ...model.getData()
+            ...model.getDataForWrite()
         }).write()
 
         return model;
@@ -94,4 +94,4 @@ export class LowdbProvider implements ProviderInterface {
     deleteIndex(_name: string): Promise<Boolean> {
         throw new Error("Method not implemented.");
     }
-} 
+}
