@@ -73,7 +73,7 @@ export default {
     userUpdate: async (_obj: any, args: any, { models, user }: MergedServerContext) => {
       const currentUser = await user();
 
-      return models.userEdit(currentUser.id, args.userUpdateInput);
+      return models.userEdit(currentUser.getId(), args.userUpdateInput);
     },
 
     userRegister: async (_obj: any, args: any, { models, notify }: MergedServerContext) => {

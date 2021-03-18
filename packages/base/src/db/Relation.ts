@@ -18,8 +18,8 @@ export class Relation {
   /**
    * The output that gets stored in the db
    */
-  public parse(): ParsedRelation | ParsedRelation[] {
-    if (Array.isArray(this.relations) && this.relations.length) {
+  public parse(): ParsedRelation | ParsedRelation[] | void {
+    if (Array.isArray(this.relations)) {
       return this.relations.map(relation => {
         this.checkValid(relation)
 
@@ -28,9 +28,7 @@ export class Relation {
     } else if (this.relations instanceof CoreModel) {
       this.checkValid(this.relations)
       return { id: this.relations.id as ID }
-    }
-
-    throw Error("Relation not defined")
+    } 
   }
 
   checkValid(model: CoreModel) {

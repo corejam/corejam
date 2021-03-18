@@ -11,4 +11,7 @@ export default class TestObject2 extends CoreModel {
 
     @Coredata({ relation: TestObject })
     optionalAttribute?: TestObject;
+
+    @Coredata({ relation: TestObject })
+    relationsAttribute?: TestObject[];
 }

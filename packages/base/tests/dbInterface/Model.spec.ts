@@ -114,5 +114,21 @@ export const sharedDBInterfaceTests = (name) => {
             expect(testForeign.optionalAttribute).toEqual(testObject)
             expect(testForeign.optionalAttribute?.exists()).toEqual(true)
         })
+
+        it("saves and loads multiple relations correctly", async () => {
+            const testObject = new TestObject();
+            testObject.uniqueAttribute = "lalala"
+            testObject.intAttribute = 1234;
+            await testObject.save();
+
+            const testWithForeign = new TestObject2();
+            testWithForeign.optionalAttribute = testObject;
+            await testWithForeign.save();
+
+            const testForeign = await TestObject2.getById(testWithForeign.id)
+
+            expect(testForeign.optionalAttribute).toEqual(testObject)
+            expect(testForeign.optionalAttribute?.exists()).toEqual(true)
+        })
     })
 };

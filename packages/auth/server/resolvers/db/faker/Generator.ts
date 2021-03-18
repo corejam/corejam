@@ -2,13 +2,14 @@ import { internet, random } from "faker";
 import { STATUS } from "../../../../shared/types/User";
 import { User } from "../../../Models/User";
 
-export function generateUser({
+export async function generateUser({
   active = random.boolean(),
   role = "user",
   email = internet.email(),
   password = internet.password(),
-} = {}): User {
-  return new User().assignData({
+} = {}): Promise<User> {
+  const user = new User()
+  return await user.assignData({
     active: active,
     role: [role],
     email: email,

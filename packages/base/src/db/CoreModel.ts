@@ -18,7 +18,7 @@ export abstract class CoreModel {
    * The unique id for this document
    */
   @Corejam({ unique: true })
-  id?: ID = undefined;
+  id!: ID;
 
   /**
    * We generate the associated collections
@@ -28,6 +28,12 @@ export abstract class CoreModel {
 
   getModelName() {
     return this.collection;
+  }
+
+  getId(): ID {
+    if (!this.exists()) throw new DocumentNotFound(this)
+
+    return this.id;
   }
 
   static async getById<T extends CoreModel>(this: Constructor<T>, id: ID): Promise<T> {
@@ -70,7 +76,8 @@ export abstract class CoreModel {
     const res = await getDb().delete(this)
 
     if (res) {
-      delete this.id;
+      //@ts-ignore TODO this has to be handled better
+      this.id = undefined;
     }
 
     return res;
@@ -105,7 +112,7 @@ export abstract class CoreModel {
 
     for (const field of Object.keys(meta)) {
 
-      if (meta[field].relation) {
+      if (meta[field].relation && data[field]) {
         /**
          * Hydrate the relation
          * 
