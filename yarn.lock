@@ -162,10 +162,10 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/client-ses@3.8.0":
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-ses/-/client-ses-3.8.0.tgz#1ff7a329bd738b19114f0550d103653148013477"
-  integrity sha512-X47I/1L5C/rOOTRUWDIBNqwW92ZBSB9Ysm2tG5gj40pbFJyLH1hXPEsTcf7LdsrDO4+RsRJC8PtU5gnxqNii0A==
+"@aws-sdk/client-ses@3.8.1":
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-ses/-/client-ses-3.8.1.tgz#dcf98601146ad320b20573b392c25960538ee5a8"
+  integrity sha512-RK7UzqM1gaE2V/5hEsykFIh+00Tl9W6IJ7B3Hq34b0ILF+YNLCu5f8WReCfjmz92S/Dyu1i85zWVbaUzJNPfrQ==
   dependencies:
     "@aws-crypto/sha256-browser" "^1.0.0"
     "@aws-crypto/sha256-js" "^1.0.0"
@@ -179,7 +179,7 @@
     "@aws-sdk/middleware-logger" "3.6.1"
     "@aws-sdk/middleware-retry" "3.8.0"
     "@aws-sdk/middleware-serde" "3.6.1"
-    "@aws-sdk/middleware-signing" "3.6.1"
+    "@aws-sdk/middleware-signing" "3.8.1"
     "@aws-sdk/middleware-stack" "3.6.1"
     "@aws-sdk/middleware-user-agent" "3.6.1"
     "@aws-sdk/node-config-provider" "3.8.0"
@@ -392,11 +392,12 @@
     "@aws-sdk/types" "3.6.1"
     tslib "^1.8.0"
 
-"@aws-sdk/middleware-signing@3.6.1":
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-signing/-/middleware-signing-3.6.1.tgz#e70a2f35d85d70e33c9fddfb54b9520f6382db16"
-  integrity sha512-1woKq+1sU3eausdl8BNdAMRZMkSYuy4mxhLsF0/qAUuLwo1eJLLUCOQp477tICawgu4O4q2OAyUHk7wMqYnQCg==
+"@aws-sdk/middleware-signing@3.8.1":
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/middleware-signing/-/middleware-signing-3.8.1.tgz#ca5029c0efbbb5b3012508f37534fe57a6cfa01f"
+  integrity sha512-g6tJS/ph1whk7AsNOlFetAiZdvB2k0RHfoO5g6TPDAV8pvBLgjdhmTJg349iPyMDD2f1eabN3GGbeC0mDDEFMA==
   dependencies:
+    "@aws-sdk/property-provider" "3.8.0"
     "@aws-sdk/protocol-http" "3.6.1"
     "@aws-sdk/signature-v4" "3.6.1"
     "@aws-sdk/types" "3.6.1"
