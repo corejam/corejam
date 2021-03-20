@@ -19,20 +19,20 @@ export default {
     });
 
     if (filter && filter.length) {
-      return filter[0]
+      return filter[0];
     }
 
     return null;
   },
 
-  canvasPageCreate: (canvasPageInput: CanvasPage) => {
-    const canvas = new Canvas();
-    return canvas.assignData(canvasPageInput).save();
+  canvasPageCreate: async (canvasPageInput: CanvasPage) => {
+    const canvas = await new Canvas().assignData(canvasPageInput);
+    return canvas.save();
   },
 
   canvasPageEdit: async (id: ID, canvasPageInput: CanvasPage) => {
     const canvas = await Canvas.getById(id);
-    canvas.assignData(canvasPageInput);
+    await canvas.assignData(canvasPageInput);
 
     return canvas.update();
   },

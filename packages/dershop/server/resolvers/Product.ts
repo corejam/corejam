@@ -1,15 +1,16 @@
 import Fuse from "fuse.js";
 import { ProductDB, ProductList } from "../../shared/types/Product";
 import { Sidebar } from "../../shared/types/Sidebar";
+import { Product } from "../Models/Product";
 import { MergedServerContext } from "../types/PluginResolver";
 
-export function generateSidebar(products: ProductDB[] = []): Sidebar {
+export function generateSidebar(products: Product[] = []): Sidebar {
   const sidebar: Sidebar = { categories: [], brands: [] };
 
   //iterate over each product
-  products.forEach((product: ProductDB) => {
+  products.forEach((product: Product) => {
     //Check for brands
-    const manufacturer = product.manufacturer?.data;
+    const manufacturer = product.manufacturer;
 
     if (manufacturer) {
       //If it exists update it

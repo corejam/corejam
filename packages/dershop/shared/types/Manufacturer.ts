@@ -2,7 +2,8 @@ import { DBDocument } from "@corejam/base/dist/typings/DB";
 import { Image } from "@corejam/base/dist/typings/Image";
 import { Paginated, Timestamp } from "@corejam/base/dist/typings/Utils";
 import { Canvas } from "@corejam/plugin-canvas/dist/shared/types/Canvas";
-import { ProductDB } from "./Product";
+import { Manufacturer as ManufacturerModel } from "../../server/Models/Manufacturer";
+import { Product } from "../../server/models/Product";
 import { SEO } from "./Seo";
 
 export type Manufacturer = Timestamp & {
@@ -11,7 +12,7 @@ export type Manufacturer = Timestamp & {
   description?: string;
   seo?: SEO;
   logo?: Image;
-  products?: ProductDB[];
+  products?: Product[];
   canvas?: Canvas;
 };
 
@@ -22,7 +23,7 @@ export type ManufacturerList = Paginated & {
   perPage: number;
   currentPage: number;
   lastPage: number;
-  items?: ManufacturerDB[] | [];
+  items?: ManufacturerModel[] | [];
 };
 
 export type ManufacturerCreateInput = Manufacturer;

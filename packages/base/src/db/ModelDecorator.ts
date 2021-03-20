@@ -37,7 +37,10 @@ export function Coredata<T extends CoreModel>(
  *
  */
 export function Corejam<T extends CoreModel>(
-  { unique = false, index = false }: { unique?: Boolean; index?: Boolean } = { index: false, unique: false }
+  { unique = false, index = false, relation = null }: { unique?: Boolean; index?: Boolean; relation?: any } = {
+    index: false,
+    unique: false,
+  }
 ) {
-  return Coredata<T>({ unique, index });
+  return Coredata<T>({ unique, index, relation });
 }

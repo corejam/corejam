@@ -1,4 +1,4 @@
-import { DBDocument } from "@corejam/base/dist/typings/DB";
+import { DBDocument, ID } from "@corejam/base/dist/typings/DB";
 import { Paginated, Timestamp } from "@corejam/base/dist/typings/Utils";
 import { Address, AddressInput } from "./Address";
 import { Price } from "./Price";
@@ -34,7 +34,7 @@ export type OrderItem = {
 };
 
 export type OrderProduct = {
-  id: string;
+  id: ID;
   name: string;
 };
 

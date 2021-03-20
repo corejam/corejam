@@ -2,7 +2,7 @@ import { DBDocument } from "@corejam/base/dist/typings/DB";
 import { Image } from "@corejam/base/dist/typings/Image";
 import { Deliverability, Paginated, Timestamp } from "@corejam/base/dist/typings/Utils";
 import { Canvas } from "@corejam/plugin-canvas/dist/shared/types/Canvas";
-import { CategoryDB } from "./Category";
+import { Category } from "../../server/Models/Category";
 import { Manufacturer } from "./Manufacturer";
 import { Price } from "./Price";
 import { SEO } from "./Seo";
@@ -15,7 +15,7 @@ export type Product = Timestamp & {
   active: boolean;
   promoted: boolean;
   manufacturer?: ManufacturerRefence;
-  categories?: CategoryDB[];
+  categories?: Category[];
   name: string;
   description?: string;
   deliverability?: Deliverability;
@@ -52,5 +52,5 @@ export type ProductList = Paginated & {
   currentPage: number;
   lastPage: number;
   sidebar: Sidebar;
-  items?: ProductDB[];
+  items?: Product[];
 };

@@ -1,7 +1,8 @@
 import { DBDocument } from "@corejam/base/dist/typings/DB";
 import { Paginated, Timestamp } from "@corejam/base/dist/typings/Utils";
 import { Canvas } from "@corejam/plugin-canvas/dist/shared/types/Canvas";
-import { ProductDB } from "./Product";
+import { Category as CategoryModel } from "../../server/Models/Category";
+import { Product } from "./Product";
 import { SEO } from "./Seo";
 
 export type Category = Timestamp & {
@@ -10,7 +11,7 @@ export type Category = Timestamp & {
   parent?: CategoryReference;
   active: boolean;
   description?: string;
-  products?: ProductDB[];
+  products?: Product[];
   canvas?: Canvas;
 };
 
@@ -26,7 +27,7 @@ export type CategoryList = Paginated & {
   perPage: number;
   currentPage: number;
   lastPage: number;
-  items?: CategoryDB[] | [];
+  items?: CategoryModel[] | [];
 };
 
 export type CategoryCreateInput = Category & {

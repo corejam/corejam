@@ -7,7 +7,7 @@ import { getModelMeta, modelMeta } from "./ModelManager";
 import { ParsedRelation, Relation } from "./Relation";
 
 export type Constructor<CoreModel> = {
-  new(): CoreModel;
+  new (): CoreModel;
 };
 
 /**
@@ -31,7 +31,7 @@ export abstract class CoreModel {
   }
 
   getId(): ID {
-    if (!this.exists()) throw new DocumentNotFound(this)
+    if (!this.exists()) throw new DocumentNotFound(this);
 
     return this.id;
   }
@@ -73,7 +73,7 @@ export abstract class CoreModel {
   }
 
   async delete(): Promise<Boolean> {
-    const res = await getDb().delete(this)
+    const res = await getDb().delete(this);
 
     if (res) {
       //@ts-ignore TODO this has to be handled better
@@ -111,26 +111,27 @@ export abstract class CoreModel {
     const meta = this.getMeta();
 
     for (const field of Object.keys(meta)) {
-
       if (meta[field].relation && data[field]) {
         /**
          * Hydrate the relation
-         * 
+         *
          * TODO in future this could be done by a magic get() and
          * only hydrate when the element is actually being accessed (lazy load). This could
          * potentially save alot of reads to the DB. PR's welcome
          */
-        const relationStatic = (new meta[field].relation).constructor
-        
+        const relationStatic = new meta[field].relation().constructor;
+
         if (Array.isArray(data[field])) {
-          this[field] = await Promise.all(data[field].map(async (relation: ParsedRelation) => {
-            return await (relationStatic).getById(relation.id)
-          }))
+          this[field] = await Promise.all(
+            data[field].map(async (relation: ParsedRelation) => {
+              return await relationStatic.getById(relation.id);
+            })
+          );
         } else {
-          this[field] = await (relationStatic).getById(data[field].id)
+          this[field] = await relationStatic.getById(data[field].id);
         }
 
-        continue
+        continue;
       }
 
       //Just assign the value

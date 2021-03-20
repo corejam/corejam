@@ -9,11 +9,11 @@ import { productLinkCategory, productLinkManufacturer } from "../../shared/graph
 import { categoryById } from "../../shared/graphql/Queries/Category";
 import { manufacturerById } from "../../shared/graphql/Queries/Manufacturer";
 import { paginateProductsGQL } from "../../shared/graphql/Queries/Product";
-import { CategoryDB } from "../../shared/types/Category";
 import { PluginResolver as ShopResolver } from "../../server/types/PluginResolver";
 import { PriceInput } from "../../shared/types/Price";
-import { ProductCoreInput, ProductDB, ProductList } from "../../shared/types/Product";
+import { ProductCoreInput, ProductList } from "../../shared/types/Product";
 import { SEO } from "../../shared/types/Seo";
+import { Product } from "../../server/Models/Product";
 
 describe("Products", () => {
   advanceTo(new Date(2020, 5, 27, 0, 0, 0)); // reset to date time.
@@ -175,8 +175,8 @@ describe("Products", () => {
     expect(linkResult.data.productLinkManufacturer).toEqual({ result: true });
 
     //Check links working both ways
-    const product = await models.productByID(testID);
-    expect(product.manufacturer?.data).toMatchObject(manufacturer);
+    const product = await models.productByID(testID) as Product;
+    expect(product?.manufacturer).toMatchObject(manufacturer);
 
     //Test that we can retrieve the same values back
     const manufacturerResult = await query({
@@ -218,8 +218,8 @@ describe("Products", () => {
     expect(linkResult.data.productLinkCategory).toEqual({ result: true });
 
     //Check links working both ways
-    const product = (await models.productByID(testID));
-    const productCat = product.categories?.pop() as CategoryDB;
+    const product = (await models.productByID(testID)) as Product;
+    const productCat = product.categories?.pop();
     expect(productCat).toMatchObject(category);
 
     //Test that we can retrieve the same values back

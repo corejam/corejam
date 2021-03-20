@@ -7,10 +7,11 @@ import { address, commerce, company, date, finance, internet, lorem, name, rando
 import type { Address } from "../../../../shared/types/Address";
 import type { Category } from "../../../../shared/types/Category";
 import type { Manufacturer } from "../../../../shared/types/Manufacturer";
-import { Order, OrderItem } from "../../../../shared/types/Order";
+import { OrderItem } from "../../../../shared/types/Order";
 import type { Price } from "../../../../shared/types/Price";
 import type { Product, ProductDB } from "../../../../shared/types/Product";
 import type { SEO } from "../../../../shared/types/Seo";
+import { Order } from "../../../Models/Order";
 import { User } from "../../../Models/User";
 
 const placeholderImages = [
@@ -175,7 +176,7 @@ export function generateProduct({
   };
 }
 
-export function generateUser(): User {
+export function generateUser(): Promise<User> {
   const user = new User();
   return user.assignData({
     ...rootGenerateUser(),
@@ -190,7 +191,7 @@ export function generateUser(): User {
  * Generate order items based on products passed in
  * @param products
  */
-export function generateOrderItems(products: ProductDB[]): OrderItem[] {
+export function generateOrderItems(products: Product[]): OrderItem[] {
   const items = [] as OrderItem[];
 
   for (let index = 0; index < random.number(5); index++) {
@@ -222,7 +223,7 @@ export function generateOrderItems(products: ProductDB[]): OrderItem[] {
  * @param products
  * @param users
  */
-export function generateOrder(products: Product[], users: User[]): Order {
+export function generateOrder(products: Product[], users: User[]): Promise<Order> {
   const orderItems = generateOrderItems(products);
 
   let price = {
@@ -241,13 +242,15 @@ export function generateOrder(products: Product[], users: User[]): Order {
 
   const user = users[Math.floor(Math.random() * users.length)];
 
-  return {
+  const order = new Order();
+
+  return order.assignData({
     user: user,
-    status: "RECEIVED",
+    status: Order.STATUS.RECEIVED,
     items: orderItems,
     price: price,
     ...updateDates(),
     addressBilling: generateAddress(),
     addressShipping: generateAddress(),
-  };
+  });
 }
