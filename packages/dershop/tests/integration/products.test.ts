@@ -10,7 +10,7 @@ import { categoryById } from "../../shared/graphql/Queries/Category";
 import { manufacturerById } from "../../shared/graphql/Queries/Manufacturer";
 import { paginateProductsGQL } from "../../shared/graphql/Queries/Product";
 import { CategoryDB } from "../../shared/types/Category";
-import { PluginResolver as ShopResolver } from "../../shared/types/PluginResolver";
+import { PluginResolver as ShopResolver } from "../../server/types/PluginResolver";
 import { PriceInput } from "../../shared/types/Price";
 import { ProductCoreInput, ProductDB, ProductList } from "../../shared/types/Product";
 import { SEO } from "../../shared/types/Seo";
@@ -36,7 +36,7 @@ describe("Products", () => {
     client = await testClient();
     models = client.models;
 
-    const insertedResponse = (await models.productCreate(testValues)) as ProductDB;
+    const insertedResponse = (await models.productCreate(testValues));
     expect(insertedResponse).toMatchObject(testValues);
     testID = insertedResponse.id;
   });
@@ -48,7 +48,7 @@ describe("Products", () => {
   });
 
   it("allProducts", async () => {
-    const returnedPagination: ProductDB[] = await models.allProducts();
+    const returnedPagination = await models.allProducts();
 
     expect(returnedPagination.length).toBeGreaterThan(0);
 
@@ -175,7 +175,7 @@ describe("Products", () => {
     expect(linkResult.data.productLinkManufacturer).toEqual({ result: true });
 
     //Check links working both ways
-    const product = (await models.productByID(testID)) as ProductDB;
+    const product = await models.productByID(testID);
     expect(product.manufacturer?.data).toMatchObject(manufacturer);
 
     //Test that we can retrieve the same values back
@@ -218,7 +218,7 @@ describe("Products", () => {
     expect(linkResult.data.productLinkCategory).toEqual({ result: true });
 
     //Check links working both ways
-    const product = (await models.productByID(testID)) as ProductDB;
+    const product = (await models.productByID(testID));
     const productCat = product.categories?.pop() as CategoryDB;
     expect(productCat).toMatchObject(category);
 

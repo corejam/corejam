@@ -117,7 +117,7 @@ export abstract class CoreModel {
          * Hydrate the relation
          * 
          * TODO in future this could be done by a magic get() and
-         * only hydrate when the element is actually being accessed. This could
+         * only hydrate when the element is actually being accessed (lazy load). This could
          * potentially save alot of reads to the DB. PR's welcome
          */
         const relationStatic = (new meta[field].relation).constructor

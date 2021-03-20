@@ -3,7 +3,7 @@ import { advanceTo } from "jest-date-mock";
 import { generateManufacturer, generateSeo } from "../../server/resolvers/db/faker/Generator";
 import { allManufacturersGQL, paginateManufacturersGQL } from "../../shared/graphql/Queries/Manufacturer";
 import { ManufacturerCreateInput, ManufacturerDB, ManufacturerList } from "../../shared/types/Manufacturer";
-import { PluginResolver } from "../../shared/types/PluginResolver";
+import { PluginResolver } from "../../server/types/PluginResolver";
 
 describe("Manufacturers", () => {
   advanceTo(new Date(2020, 5, 27, 0, 0, 0)); // reset to date time.
@@ -27,7 +27,7 @@ describe("Manufacturers", () => {
 
   it("getManufacturerById", async () => {
     //Test that we can retrieve the same values back
-    const returnedManufacturerById = (await models.manufacturerByID(testID)) as ManufacturerDB;
+    const returnedManufacturerById = (await models.manufacturerByID(testID));
 
     expect(returnedManufacturerById).toEqual(expect.objectContaining(testValues));
   });

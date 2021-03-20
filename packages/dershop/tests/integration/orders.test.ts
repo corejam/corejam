@@ -5,7 +5,7 @@ import { advanceTo } from "jest-date-mock";
 import { generateAddress, generateOrder, generateUser } from "../../server/resolvers/db/faker/Generator";
 import { orderById } from "../../shared/graphql/Queries/Order";
 import { OrderDB, OrderEditInput } from "../../shared/types/Order";
-import { PluginResolver } from "../../shared/types/PluginResolver";
+import { PluginResolver } from "../../server/types/PluginResolver";
 import { ProductCoreInput, ProductDB } from "../../shared/types/Product";
 import { UserDB } from "../../shared/types/User";
 
@@ -32,14 +32,14 @@ describe("Orders", () => {
       sku: faker.random.uuid(),
     };
 
-    const insertedProduct = (await models.productCreate(testProduct)) as ProductDB;
+    const insertedProduct = (await models.productCreate(testProduct));
 
     //@ts-ignore
     user = await models.userCreate(generateUser());
 
     const testValues = await generateOrder([insertedProduct], [user]);
 
-    inserted = (await models.orderCreate(testValues, user)) as OrderDB;
+    inserted = (await models.orderCreate(testValues, user));
     expect(inserted).toMatchObject(testValues);
 
     testID = inserted.id;
@@ -60,7 +60,7 @@ describe("Orders", () => {
   });
 
   it("allOrders", async () => {
-    const returnedPagination: OrderDB[] = await models.allOrders();
+    const returnedPagination = await models.allOrders();
 
     expect(returnedPagination[0].user).toBeDefined();
     expect(returnedPagination.length).toBeGreaterThanOrEqual(0);

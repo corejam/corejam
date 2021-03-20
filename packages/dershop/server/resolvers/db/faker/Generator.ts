@@ -222,7 +222,7 @@ export function generateOrderItems(products: ProductDB[]): OrderItem[] {
  * @param products
  * @param users
  */
-export function generateOrder(products: ProductDB[], users: User[]): Order {
+export function generateOrder(products: Product[], users: User[]): Order {
   const orderItems = generateOrderItems(products);
 
   let price = {

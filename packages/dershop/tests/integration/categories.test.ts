@@ -2,7 +2,7 @@ import { testClient } from "@corejam/base/src/TestClient";
 import * as faker from "faker";
 import { adminCategoryByIdGQL } from "../../shared/graphql/Queries/Admin/Category";
 import { Category, CategoryDB } from "../../shared/types/Category";
-import { PluginResolver } from "../../shared/types/PluginResolver";
+import { PluginResolver } from "../../server/types/PluginResolver";
 
 describe("Categories", () => {
   //Init some singletons in beforeAll()
@@ -19,7 +19,7 @@ describe("Categories", () => {
     client = await testClient();
     models = client.models;
 
-    const insertedResponse = (await models.categoryCreate(testCategoryValues)) as CategoryDB;
+    const insertedResponse = (await models.categoryCreate(testCategoryValues));
     expect(insertedResponse).toMatchObject(testCategoryValues);
     testID = insertedResponse.id;
     //testUrl = insertedResponse.seo?.url;
@@ -40,7 +40,7 @@ describe("Categories", () => {
   });
 
   it("allCategories", async () => {
-    const returnedPagination: CategoryDB[] = await models.allCategories();
+    const returnedPagination = await models.allCategories();
 
     expect(returnedPagination.length).toBeGreaterThan(0);
     returnedPagination.map((item) => {

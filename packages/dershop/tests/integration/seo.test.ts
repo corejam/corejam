@@ -2,7 +2,7 @@ import { testClient } from "@corejam/base/src/TestClient";
 import * as faker from "faker";
 import { generateSeo } from "../../server/resolvers/db/faker/Generator";
 import { getObjectFromURL, getSeoIndex } from "../../shared/graphql/Queries/URL";
-import { PluginResolver as ShopResolver } from "../../shared/types/PluginResolver";
+import { PluginResolver as ShopResolver } from "../../server/types/PluginResolver";
 import { ProductCoreInput, ProductDB, ProductEditInput } from "../../shared/types/Product";
 import { SEO } from "../../shared/types/Seo";
 
@@ -25,7 +25,7 @@ describe("SEO", () => {
     client = await testClient();
     models = client.models;
 
-    const insertedResponse = (await models.productCreate(testValues)) as ProductDB;
+    const insertedResponse = await models.productCreate(testValues);
     await models.productEditSEO(insertedResponse.id, generateSeo());
 
     testID = insertedResponse.id;
@@ -40,7 +40,7 @@ describe("SEO", () => {
     });
 
     const allProducts = await models.allProducts();
-    const testProduct = (await models.productByID(testID)) as ProductDB;
+    const testProduct = await models.productByID(testID);
 
     expect(returnedSEOIndex.data.getSEOIndex.length == allProducts.length);
     expect(returnedSEOIndex.data.getSEOIndex).toContain(testProduct.seo?.url);
