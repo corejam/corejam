@@ -36,7 +36,7 @@ export class LowdbProvider implements ProviderInterface {
 
         if (!item) return null;
 
-        return model.assignData(item)
+        return await model.assignData(item)
     }
 
     async filter<Model extends CoreModel>(model: Model, filter: { [key: string]: any; }): Promise<Model[] | null> {

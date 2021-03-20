@@ -4,7 +4,7 @@ import { ID, ModelMeta } from "../typings/DB";
 import { DocumentNotFound } from "./Exceptions/DocumentNotFound";
 import { Corejam } from "./ModelDecorator";
 import { getModelMeta, modelMeta } from "./ModelManager";
-import { Relation } from "./Relation";
+import { ParsedRelation, Relation } from "./Relation";
 
 export type Constructor<CoreModel> = {
   new(): CoreModel;
@@ -121,7 +121,14 @@ export abstract class CoreModel {
          * potentially save alot of reads to the DB. PR's welcome
          */
         const relationStatic = (new meta[field].relation).constructor
-        this[field] = await (relationStatic).getById(data[field].id)
+        
+        if (Array.isArray(data[field])) {
+          this[field] = await Promise.all(data[field].map(async (relation: ParsedRelation) => {
+            return await (relationStatic).getById(relation.id)
+          }))
+        } else {
+          this[field] = await (relationStatic).getById(data[field].id)
+        }
 
         continue
       }

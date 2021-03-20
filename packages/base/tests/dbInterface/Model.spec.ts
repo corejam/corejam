@@ -121,14 +121,20 @@ export const sharedDBInterfaceTests = (name) => {
             testObject.intAttribute = 1234;
             await testObject.save();
 
+            const testObject2 = new TestObject();
+            testObject2.uniqueAttribute = "testtest"
+            testObject2.intAttribute = 1234;
+            await testObject2.save();
+
             const testWithForeign = new TestObject2();
-            testWithForeign.optionalAttribute = testObject;
+            testWithForeign.relationsAttribute = [testObject, testObject2];
             await testWithForeign.save();
 
-            const testForeign = await TestObject2.getById(testWithForeign.id)
+            const testForeign = await TestObject2.getById(testWithForeign.id) as TestObject2
 
-            expect(testForeign.optionalAttribute).toEqual(testObject)
-            expect(testForeign.optionalAttribute?.exists()).toEqual(true)
+            expect(testForeign?.relationsAttribute).toHaveLength(2)
+            //@ts-ignore
+            expect(testForeign?.relationsAttribute[0]).toStrictEqual(testObject)
         })
     })
 };
