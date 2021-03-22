@@ -1,6 +1,6 @@
 import { OrderList } from "../../shared/types/Order";
-import { UserDB } from "../../shared/types/User";
 import OrderConfirmation from "../mail/OrderConfirmation";
+import { User } from "../Models/User";
 import { MergedServerContext } from "../types/PluginResolver";
 
 export default {
@@ -10,7 +10,7 @@ export default {
         throw new Error("missing user");
       }
 
-      const orderUser = ((await user()) as unknown) as UserDB;
+      const orderUser = (await user()) as User;
       const order = await models.orderCreate(args.orderInput, orderUser);
 
       await notify.sendMail(new OrderConfirmation(order));

@@ -1,17 +1,17 @@
-import { Coredata } from "@corejam/base/dist/db/ModelDecorator";
+import { Corejam } from "@corejam/base/dist/db/ModelDecorator";
 import { User as BaseUser } from "@corejam/plugin-auth/dist/server/Models/User";
 import { Address } from "../../shared/types/Address";
 
 export class User extends BaseUser {
-  @Coredata()
+  @Corejam()
   firstName = "";
 
-  @Coredata()
+  @Corejam()
   lastName = "";
 
-  @Coredata()
+  @Corejam()
   addressBilling?: Address;
 
-  @Coredata()
+  @Corejam()
   addressShipping?: Address;
 }

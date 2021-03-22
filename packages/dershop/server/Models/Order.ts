@@ -26,6 +26,9 @@ export class Order extends CoreModel {
   @Corejam()
   addressShipping: Address;
 
+  @Corejam()
+  items: any;
+
   constructor(user: User, addressBilling: Address, addressShipping: Address) {
     super();
 

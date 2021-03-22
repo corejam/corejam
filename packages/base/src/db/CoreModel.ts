@@ -64,11 +64,23 @@ export abstract class CoreModel {
     return await getDb().list(instance);
   }
 
+  async preCreate(): Promise<this> {
+    return this;
+  }
+
   async create(): Promise<this> {
+    await this.preCreate();
+
     return await getDb().create(this);
   }
 
+  async preUpdate(): Promise<this> {
+    return this;
+  }
+
   async update(): Promise<this> {
+    await this.preUpdate();
+
     return await getDb().update(this);
   }
 

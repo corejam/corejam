@@ -1,13 +1,13 @@
 import Mail from "@corejam/notify/dist/server/Mail";
-import { OrderDB } from "../../shared/types/Order";
+import { Order } from "../Models/Order";
 
 /**
  * Gets sent on succesfull checkout
  */
 export default class OrderConfirmation extends Mail {
-  private order: OrderDB;
+  private order: Order;
 
-  constructor(order: OrderDB) {
+  constructor(order: Order) {
     super(order.user.email, "Order Confirmation");
     this.order = order;
   }

@@ -5,13 +5,13 @@ import type { Deliverability } from "@corejam/base/dist/typings/Utils";
 import { generateUser as rootGenerateUser } from "@corejam/plugin-auth/dist/server/resolvers/db/faker/Generator";
 import { address, commerce, company, date, finance, internet, lorem, name, random } from "faker";
 import type { Address } from "../../../../shared/types/Address";
-import type { Category } from "../../../../shared/types/Category";
 import type { Manufacturer } from "../../../../shared/types/Manufacturer";
 import { OrderItem } from "../../../../shared/types/Order";
 import type { Price } from "../../../../shared/types/Price";
-import type { Product, ProductDB } from "../../../../shared/types/Product";
 import type { SEO } from "../../../../shared/types/Seo";
+import { Category } from "../../../Models/Category";
 import { Order } from "../../../Models/Order";
+import { Product } from "../../../Models/Product";
 import { User } from "../../../Models/User";
 
 const placeholderImages = [
@@ -66,21 +66,22 @@ export function generateImage({
   };
 }
 
-export function generateCategory({
+export async function generateCategory({
   active = true,
   name = commerce.department(),
   description = lorem.paragraph(),
   dateCreated = date.past(2).toISOString(),
   dateUpdated = date.past(1).toISOString(),
-} = {}): Category {
-  return {
+} = {}): Promise<Category> {
+  const category = new Category();
+  return await category.assignData({
     active: active,
     name: name,
     description: description,
     seo: generateSeo(),
     dateCreated: dateCreated,
     dateUpdated: dateUpdated,
-  };
+  });
 }
 
 export function generateManufacturer({
@@ -144,7 +145,7 @@ export function generateConfig({
   };
 }
 
-export function generateProduct({
+export async function generateProduct({
   active = true,
   promoted = false,
   ean = finance.mask(13),
@@ -158,8 +159,10 @@ export function generateProduct({
   deliverability = generateDeliverability(),
   dateCreated = date.past(2).toISOString(),
   dateUpdated = date.past(1).toISOString(),
-} = {}): Product {
-  return {
+} = {}): Promise<Product> {
+  const product = new Product();
+
+  return await product.assignData({
     active: active,
     promoted: promoted,
     ean: ean,
@@ -173,7 +176,7 @@ export function generateProduct({
     deliverability: deliverability,
     dateCreated: dateCreated,
     dateUpdated: dateUpdated,
-  };
+  });
 }
 
 export function generateUser(): Promise<User> {
@@ -195,7 +198,7 @@ export function generateOrderItems(products: Product[]): OrderItem[] {
   const items = [] as OrderItem[];
 
   for (let index = 0; index < random.number(5); index++) {
-    const product = products[Math.floor(Math.random() * products.length)] as ProductDB;
+    const product = products[Math.floor(Math.random() * products.length)] as Product;
     const qty = random.number(5);
 
     const gross = Number.parseFloat(finance.amount(15, 100, 2));
@@ -242,15 +245,5 @@ export function generateOrder(products: Product[], users: User[]): Promise<Order
 
   const user = users[Math.floor(Math.random() * users.length)];
 
-  const order = new Order();
-
-  return order.assignData({
-    user: user,
-    status: Order.STATUS.RECEIVED,
-    items: orderItems,
-    price: price,
-    ...updateDates(),
-    addressBilling: generateAddress(),
-    addressShipping: generateAddress(),
-  });
+  return new Promise((res) => res(new Order(user, generateAddress(), generateAddress())));
 }

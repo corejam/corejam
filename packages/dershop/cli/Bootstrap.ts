@@ -1,5 +1,4 @@
 import { getServerContext } from "@corejam/base/dist/Server";
-import { User } from "@corejam/plugin-auth/server/Models/User";
 import {
   generateCategory,
   generateConfig,
@@ -8,16 +7,12 @@ import {
   generateProduct,
   generateUser,
 } from "../server/resolvers/db/faker/Generator";
-import { CategoryDB } from "../shared/types/Category";
-import { ManufacturerDB } from "../shared/types/Manufacturer";
-import { OrderDB } from "../shared/types/Order";
 import { MergedServerContext } from "../server/types/PluginResolver";
-import { ProductDB } from "../shared/types/Product";
-import { UserDB } from "../shared/types/User";
 import { Category } from "../server/Models/Category";
 import { Product } from "../server/Models/Product";
 import { Manufacturer } from "../server/Models/Manufacturer";
 import { Order } from "../server/Models/Order";
+import { User } from "../server/Models/User";
 
 declare type fakerData = {
   products: Array<Product>;
@@ -61,12 +56,12 @@ export default async () => {
   }
 
   for (let i = 0; i < 2; i++) {
-    const category = await models.categoryCreate(generateCategory());
+    const category = await (await (generateCategory())).save();
     data.categories.push(category);
   }
 
   for (let i = 0; i <= 20; i++) {
-    const product = (await models.productCreate(generateProduct()).catch((e) => console.log(e))) as Product;
+    const product = await (await generateProduct()).save();
     const manufacturer = data.manufacturers[Math.floor(Math.random() * data.manufacturers.length)] as Manufacturer;
     const category = data.categories[Math.floor(Math.random() * data.categories.length)] as Category;
 
@@ -75,22 +70,20 @@ export default async () => {
       await models.productLinkCategory(product.id, category.id);
       await models.productLinkManufacturer(product.id, manufacturer.id);
     } else {
-      //@ts-ignore
-      product.manufacturer = { ...(await models.manufacturerByID(manufacturer.id)) };
-      product.categories = [{ ...((await models.categoryById(category.id))) }];
+      product.manufacturer = manufacturer;
+      product.categories = [category];
     }
 
     data.products.push(product);
   }
 
   for (let i = 0; i <= 5; i++) {
-    const user = (await models.userCreate(generateUser())) as UserDB;
+    const user = (await models.userCreate(await generateUser())) as User;
     data.users.push(user);
   }
   for (let i = 0; i <= 5; i++) {
-    const order = generateOrder(data.products, data.users);
-    const createdOrder = (await models.orderCreate(order, order.user)) as OrderDB;
-    data.orders.push(createdOrder);
+    const order = await generateOrder(data.products, data.users);
+    data.orders.push(await order.save());
   }
 
   let user = await models.userRegister({
@@ -100,8 +93,8 @@ export default async () => {
     password: "valid123Password@",
     passwordConfirm: "valid123Password@",
   });
-  user = (await models.userEdit(user.id, { role: [User.ROLES.ADMIN] })) as UserDB;
 
+  user = (await models.userEdit(user.id, { role: [User.ROLES.ADMIN] })) as User;
   data.users.push(user);
 
   return data;
