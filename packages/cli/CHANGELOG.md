@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.26](https://github.com/Corejam/Corejam/compare/@corejam/cli@0.0.25...@corejam/cli@0.0.26) (2021-03-22)
+
+**Note:** Version bump only for package @corejam/cli
+
+
+
+
+
 ## [0.0.25](https://github.com/Corejam/Corejam/compare/@corejam/cli@0.0.24...@corejam/cli@0.0.25) (2021-03-08)
 
 **Note:** Version bump only for package @corejam/cli

@@ -1,6 +1,6 @@
 {
   "name": "@corejam/core-components",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "license": "MIT",
   "main": "web-components/index.cjs.js",
   "module": "web-components/custom-elements/index.js",
@@ -41,9 +41,9 @@
   "devDependencies": {
     "@apollo/client": "3.3.11",
     "@corejam/base": "0.0.14",
-    "@corejam/cli": "0.0.25",
-    "@corejam/rollup-plugin": "0.0.7",
-    "@corejam/run": "0.0.12",
+    "@corejam/cli": "0.0.26",
+    "@corejam/rollup-plugin": "0.0.8",
+    "@corejam/run": "0.0.13",
     "@stencil/core": "2.4.0",
     "@stencil/react-output-target": "0.0.9",
     "@stencil/store": "1.4.1",

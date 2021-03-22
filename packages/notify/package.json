@@ -1,6 +1,6 @@
 {
   "name": "@corejam/notify",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "license": "MIT",
   "description": "This package provides Email, SMS & Push notifications to your Corejam applications",
   "main": "dist/server/index.js",
@@ -15,7 +15,7 @@
   ],
   "devDependencies": {
     "@corejam/base": "0.0.14",
-    "@corejam/cli": "0.0.25",
+    "@corejam/cli": "0.0.26",
     "@types/faker": "5.1.7",
     "dotenv": "8.2.0",
     "faker": "5.4.0",
