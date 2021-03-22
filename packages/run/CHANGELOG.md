@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.13](https://github.com/corejam/corejam/compare/@corejam/run@0.0.12...@corejam/run@0.0.13) (2021-03-22)
+
+**Note:** Version bump only for package @corejam/run
+
+
+
+
+
 ## [0.0.12](https://github.com/corejam/corejam/compare/@corejam/run@0.0.11...@corejam/run@0.0.12) (2021-03-08)
 
 **Note:** Version bump only for package @corejam/run

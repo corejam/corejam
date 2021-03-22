@@ -1,6 +1,6 @@
 {
   "name": "@corejam/plugin-dershop",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "license": "MIT",
   "main": "dist/server/index.js",
   "module": "web-components/custom-elements/index.js",
@@ -46,7 +46,7 @@
     "app"
   ],
   "devDependencies": {
-    "@corejam/cli": "0.0.25",
+    "@corejam/cli": "0.0.26",
     "@stencil/react-output-target": "0.0.9",
     "@types/faker": "5.1.7",
     "args": "5.0.1",
@@ -58,12 +58,12 @@
   "dependencies": {
     "@alepop/stencil-env": "0.4.1",
     "@corejam/base": "0.0.14",
-    "@corejam/core-components": "0.0.28",
-    "@corejam/notify": "0.0.7",
-    "@corejam/plugin-auth": "0.0.28",
-    "@corejam/plugin-canvas": "0.0.10",
-    "@corejam/rollup-plugin": "0.0.7",
-    "@corejam/run": "0.0.12",
+    "@corejam/core-components": "0.0.29",
+    "@corejam/notify": "0.0.8",
+    "@corejam/plugin-auth": "0.0.29",
+    "@corejam/plugin-canvas": "0.0.11",
+    "@corejam/rollup-plugin": "0.0.8",
+    "@corejam/run": "0.0.13",
     "@stencil/core": "2.4.0",
     "@stencil/store": "1.4.1",
     "@xstate/fsm": "1.6.0",

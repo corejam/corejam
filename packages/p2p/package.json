@@ -1,6 +1,6 @@
 {
   "name": "@corejam/p2p",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "license": "MIT",
   "main": "web-components/index.cjs.js",
@@ -25,10 +25,10 @@
   ],
   "devDependencies": {
     "@corejam/base": "0.0.14",
-    "@corejam/cli": "0.0.25",
-    "@corejam/core-components": "0.0.28",
-    "@corejam/rollup-plugin": "0.0.7",
-    "@corejam/run": "0.0.12",
+    "@corejam/cli": "0.0.26",
+    "@corejam/core-components": "0.0.29",
+    "@corejam/rollup-plugin": "0.0.8",
+    "@corejam/run": "0.0.13",
     "@stencil/core": "2.4.0",
     "@stencil/react-output-target": "0.0.9",
     "@types/faker": "5.1.7",

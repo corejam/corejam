@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.8](https://github.com/corejam/corejam/compare/@corejam/p2p@0.0.7...@corejam/p2p@0.0.8) (2021-03-22)
+
+**Note:** Version bump only for package @corejam/p2p
+
+
+
+
+
 ## [0.0.7](https://github.com/corejam/corejam/compare/@corejam/p2p@0.0.6...@corejam/p2p@0.0.7) (2021-03-08)
 
 **Note:** Version bump only for package @corejam/p2p
