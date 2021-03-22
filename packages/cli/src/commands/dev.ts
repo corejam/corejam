@@ -18,7 +18,9 @@ export default async function run(options: any) {
 
     const logToConsole = options.l ? "inherit" : "ignore";
 
-    await jetpack.removeAsync(envRoot + "/.corejam");
+    //Refresh manifest & schema
+    await jetpack.removeAsync(envRoot + "/.corejam/manifest.json");
+    await jetpack.removeAsync(envRoot + "/.corejam/schema.graphql");
 
     if (await jetpack.existsAsync(envRoot + "/server")) {
       await copySchemaToDist();

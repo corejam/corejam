@@ -1,5 +1,5 @@
 import { coreState } from "@corejam/core-components";
-import { runState } from "@corejam/run";
+import { routerState, runState } from "@corejam/run";
 import { Component, h, Host } from "@stencil/core";
 import gql from "graphql-tag";
 import { PostCanvasGQL } from "../../../shared/graphql/Mutations";
@@ -39,7 +39,7 @@ export class CorejamDeploy {
           },
         ];
 
-        runState.router.push(`/${name}`);
+        routerState.router.push(`/${name}`);
       }
     }
   }

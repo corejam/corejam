@@ -10,14 +10,15 @@
   ],
   "scripts": {
     "build": "rollup --config rollup.config.js",
-    "clean": "rimraf dist",
-    "prepublish": "yarn clean && yarn build"
+    "clean": "rimraf dist"
   },
   "devDependencies": {
     "fs-jetpack": "4.1.0",
-    "rollup": "2.40.0",
+    "rollup": "2.41.2",
     "rollup-plugin-typescript2": "0.30.0",
     "shx": "0.3.3",
-    "tslib": "2.1.0"
+    "tslib": "2.1.0",
+    "@rollup/plugin-replace": "^2.4.1",
+    "dotenv": "^8.2.0"
   }
 }

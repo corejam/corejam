@@ -1,15 +1,14 @@
 import { Component, Fragment, h } from "@stencil/core";
 
 @Component({
-  tag: "auth-layout",
+  tag: "canvas-app",
 })
-export class AuthLayout {
+export class CanvasApp {
   render() {
     return (
       <Fragment>
         <corejam-ui-base></corejam-ui-base>
-        <auth-header></auth-header>
-        <slot></slot>
+        <corejam-app></corejam-app>
       </Fragment>
     );
   }

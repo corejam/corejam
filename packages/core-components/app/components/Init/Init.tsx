@@ -1,20 +1,22 @@
-import { runSet } from "@corejam/run";
+import { setPatchedRouter } from "@corejam/run";
 import { Component, h, Host, Prop, Watch } from "@stencil/core";
 
 @Component({
   tag: "corejam-init",
 })
 export class Init {
-  @Prop({ reflect: false }) router = null;
+  @Prop() router = null;
 
   async componentWillLoad() {
-    if (!this.router) return;
-    runSet("router", this.router);
+    return new Promise((res) => {
+      setPatchedRouter(this.router);
+      return res(true);
+    });
   }
 
   @Watch("router")
-  newRouter(newval) {
-    runSet("router", newval);
+  newRouter(router) {
+    setPatchedRouter(router);
   }
 
   render() {

@@ -33,8 +33,6 @@ export const packageJson = (mono = false) => `{
     "@corejam/run": "${mono ? require("../../../run/package.json").version : "latest"}",
     "@corejam/rollup-plugin": "${mono ? require("../../../rollup-plugin/package.json").version : "latest"}",
     "faker": "5.1.0",
-    "dotenv": "8.2.0",
-    "@rollup/plugin-replace": "2.3.4",
     "@stencil/react-output-target": "0.0.9",
     "@stencil/core": "2.4.0",
     "rollup-plugin-node-polyfills": "0.2.1"

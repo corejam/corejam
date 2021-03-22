@@ -1,6 +1,4 @@
-require("dotenv").config();
 import corejam from "@corejam/rollup-plugin";
-import replace from "@rollup/plugin-replace";
 import { Config } from "@stencil/core";
 import { reactOutputTarget } from "@stencil/react-output-target";
 import fs from "fs";
@@ -16,19 +14,11 @@ const config: Config = {
     port: 3001,
   },
   outputTargets: [],
-  plugins: [
-    replace({
-      "process.env.API_ORIGIN": JSON.stringify(process.env.API_ORIGIN),
-    }),
-  ],
+  plugins: corejam(),
   rollupPlugins: {
     after: [nodePolyfills()],
   },
 };
-
-if (process.env.NODE_ENV !== "production") {
-  config.plugins.push(corejam());
-}
 
 if (targets.includes("dist")) {
   config.outputTargets.push({

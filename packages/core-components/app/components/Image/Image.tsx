@@ -1,4 +1,4 @@
-import { Build, Component, Element, h, Host, Prop, State } from "@stencil/core";
+import { Build, Component, Element, h, Prop, State } from "@stencil/core";
 
 @Component({
   tag: "corejam-image",
@@ -21,11 +21,7 @@ export class Image {
   componentDidLoad() {
     if (Build.isBrowser && this.lazy) this.setupObserver();
   }
-  async componentWillLoad() {
-    await this.computeStyles();
-  }
-
-  async computeStyles() {
+  async componentWillRender() {
     const hash = await (await import("../../utils/style")).calculateStyles(this);
     this.hash = hash;
   }
@@ -52,15 +48,9 @@ export class Image {
     }
   };
 
-  _relevantProps = ["w", "maxWidth", "h", "maxH", "fit", "rounded"];
-
   render() {
     const srcProps = {};
     this.lazy ? (srcProps["data-src"] = this.src) : (srcProps["src"] = this.src);
-    return (
-      <Host as="image" alt={this.alt}>
-        <img {...srcProps} alt={this.alt} class={this.hash} />
-      </Host>
-    );
+    return <img {...srcProps} alt={this.alt} class={this.hash} />;
   }
 }

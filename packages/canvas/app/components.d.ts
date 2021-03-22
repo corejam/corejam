@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Dragger } from "./components/corejam-canvas/canvas.machine";
 export namespace Components {
-    interface CanvasLayout {
+    interface CanvasApp {
     }
     interface CorejamBuilder {
         "demo": boolean;
@@ -29,11 +29,11 @@ export namespace Components {
     }
 }
 declare global {
-    interface HTMLCanvasLayoutElement extends Components.CanvasLayout, HTMLStencilElement {
+    interface HTMLCanvasAppElement extends Components.CanvasApp, HTMLStencilElement {
     }
-    var HTMLCanvasLayoutElement: {
-        prototype: HTMLCanvasLayoutElement;
-        new (): HTMLCanvasLayoutElement;
+    var HTMLCanvasAppElement: {
+        prototype: HTMLCanvasAppElement;
+        new (): HTMLCanvasAppElement;
     };
     interface HTMLCorejamBuilderElement extends Components.CorejamBuilder, HTMLStencilElement {
     }
@@ -78,7 +78,7 @@ declare global {
         new (): HTMLRouteIndexElement;
     };
     interface HTMLElementTagNameMap {
-        "canvas-layout": HTMLCanvasLayoutElement;
+        "canvas-app": HTMLCanvasAppElement;
         "corejam-builder": HTMLCorejamBuilderElement;
         "corejam-canvas": HTMLCorejamCanvasElement;
         "corejam-debugger": HTMLCorejamDebuggerElement;
@@ -89,7 +89,7 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface CanvasLayout {
+    interface CanvasApp {
     }
     interface CorejamBuilder {
         "demo"?: boolean;
@@ -110,7 +110,7 @@ declare namespace LocalJSX {
     interface RouteIndex {
     }
     interface IntrinsicElements {
-        "canvas-layout": CanvasLayout;
+        "canvas-app": CanvasApp;
         "corejam-builder": CorejamBuilder;
         "corejam-canvas": CorejamCanvas;
         "corejam-debugger": CorejamDebugger;
@@ -124,7 +124,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "canvas-layout": LocalJSX.CanvasLayout & JSXBase.HTMLAttributes<HTMLCanvasLayoutElement>;
+            "canvas-app": LocalJSX.CanvasApp & JSXBase.HTMLAttributes<HTMLCanvasAppElement>;
             "corejam-builder": LocalJSX.CorejamBuilder & JSXBase.HTMLAttributes<HTMLCorejamBuilderElement>;
             "corejam-canvas": LocalJSX.CorejamCanvas & JSXBase.HTMLAttributes<HTMLCorejamCanvasElement>;
             "corejam-debugger": LocalJSX.CorejamDebugger & JSXBase.HTMLAttributes<HTMLCorejamDebuggerElement>;

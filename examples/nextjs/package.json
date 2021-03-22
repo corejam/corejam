@@ -18,11 +18,11 @@
   "license": "MIT",
   "dependencies": {
     "@corejam/plugin-dershop": "0.0.28",
-    "apollo-server-micro": "2.21.0",
+    "apollo-server-micro": "2.21.1",
     "cheerio": "1.0.0-rc.5",
     "micro": "9.3.4",
     "micro-cors": "0.1.1",
-    "next": "10.0.7",
+    "next": "10.0.9",
     "react": "17.0.1",
     "react-dom": "17.0.1"
   },
