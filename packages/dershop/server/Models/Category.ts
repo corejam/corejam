@@ -6,7 +6,7 @@ export class Category extends SeoModel {
   collection = "categories";
 
   @Corejam({ relation: Product })
-  products?: Product;
+  products?: Product[];
 
   @Corejam()
   name: string = "";

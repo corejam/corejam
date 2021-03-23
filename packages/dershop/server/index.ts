@@ -1,13 +1,15 @@
 import loggedIn from "./Listener/loggedIn";
-import { resolvers } from "./resolvers";
+import { getPluginContext, resolvers } from "./resolvers";
 
 const pluginProperties = {
   resolvers,
+  context: getPluginContext,
   routes: [],
   listens: [{ event: "loggedIn", callback: loggedIn }],
   emits: ["orderCompleted"],
   schemas: ["dershop"],
 };
 
-export { getPluginContext } from "./resolvers";
+console.log(pluginProperties.resolvers);
+
 export default pluginProperties;

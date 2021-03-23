@@ -70,8 +70,8 @@ export async function generateCategory({
   active = true,
   name = commerce.department(),
   description = lorem.paragraph(),
-  dateCreated = date.past(2).toISOString(),
-  dateUpdated = date.past(1).toISOString(),
+  dateCreated = date.past(2),
+  dateUpdated = date.past(1),
 } = {}): Promise<Category> {
   const category = new Category();
   return await category.assignData({

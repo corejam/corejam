@@ -20,6 +20,12 @@ export abstract class CoreModel {
   @Corejam({ unique: true })
   id!: ID;
 
+  @Corejam()
+  dateCreated: Date = new Date();
+
+  @Corejam()
+  dateUpdated: Date = new Date();
+
   /**
    * We generate the associated collections
    * from the model name

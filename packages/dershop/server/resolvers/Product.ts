@@ -1,5 +1,5 @@
 import Fuse from "fuse.js";
-import { ProductDB, ProductList } from "../../shared/types/Product";
+import { ProductList } from "../../shared/types/Product";
 import { Sidebar } from "../../shared/types/Sidebar";
 import { Product } from "../Models/Product";
 import { MergedServerContext } from "../types/PluginResolver";
@@ -74,7 +74,7 @@ export async function resolveProductListFromReferences(parent, { size, page = 1 
   }
 
   if (ctx.currentProductList) return ctx.currentProductList;
-  const resolvedProducts: ProductDB[] = [];
+  const resolvedProducts: Product[] = [];
 
   for await (const productRef of parent) {
     resolvedProducts.push(await ctx.models.productByID(productRef.id));
@@ -129,7 +129,7 @@ export default {
         const fuse = new Fuse(allProducts, searchOptions);
         const searchResponse = fuse.search(search);
 
-        let results: ProductDB[] = [];
+        let results: Product[] = [];
 
         results = searchResponse.map((searchResult: Fuse.FuseResult<any>) => searchResult.item);
 

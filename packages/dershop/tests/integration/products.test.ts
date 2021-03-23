@@ -41,7 +41,7 @@ describe("Products", () => {
     testID = insertedResponse.id;
   });
 
-  it("getProductById", async () => {
+  it.only("getProductById", async () => {
     //Test that we can retrieve the same values back
     const returnedProductById = await models.productByID(testID);
     expect(returnedProductById).toEqual(expect.objectContaining(testValues));
@@ -201,12 +201,10 @@ describe("Products", () => {
     const { mutate, query } = client;
 
     await models.productEditSEO(testID, generateSeo());
-    const generatedCat = generateCategory();
+    const category = await (await generateCategory()).save();
 
-    //@ts-ignore
-    generatedCat.products = [];
+    category.products = [];
 
-    const category = await models.categoryCreate(generatedCat);
     delete category.products;
 
     //Test that we can retrieve the same values back
