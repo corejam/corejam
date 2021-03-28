@@ -252,11 +252,8 @@ jobs:
           cd test
           yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin
           cp .env.sample .env
-          yarn static -l
-          pkill -f node
-          nohup yarn static:serve
-          cd /__w/corejam/corejam/test/cypress
-          cypress run --spec "./cypress/integration/generateApp/**/*"
+          yarn static
+          nohup yarn static:serve && cd /__w/corejam/corejam/test/cypress && cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
           CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
@@ -301,9 +298,8 @@ jobs:
           cd /github/home && /github/home/cli/dist/index.js createApp test
           cd test && yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin
           cp .env.sample .env
-          yarn static -l
-          nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
-          cypress run --spec "./cypress/integration/generateApp/**/*"
+          yarn static
+          nohup yarn static:serve && cd /__w/corejam/corejam/test/cypress && cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
           CYPRESS_CACHE_FOLDER: "/root/.cache/Cypress"
