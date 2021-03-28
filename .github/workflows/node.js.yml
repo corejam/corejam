@@ -79,10 +79,10 @@ jobs:
       - run: cd packages/notify && yarn corejam init && yarn test
       - run: |
           cd packages/auth && yarn corejam generateSchema
-          yarn test
-          echo "SECRET={$(COMMIT_ID=auth_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")}" >> $GITHUB_ENV
-          SECRET_KEY=${{env.SECRET}} DB_DRIVER=DB_FAUNA yarn test
+          export SECRET=$(COMMIT_ID=auth_$GITHUB_SHA node ./tests/bootstrap.js | grep 'secret'|cut -f2 -d ":")
+          SECRET_KEY=$SECRET DB_DRIVER=DB_FAUNA yarn test
         env: # Or as an environment variable
+          SECRET_KEY: ${{ secrets.SECRET }}
           GITHUB_SHA: ${{ github.sha }}
       - run: |
           cd packages/dershop && yarn corejam generateSchema
