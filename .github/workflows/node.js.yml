@@ -253,8 +253,7 @@ jobs:
           yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin
           cp .env.sample .env
           yarn static
-          kill -9 $(lsof -t -i:3001)
-          kill -9 $(lsof -t -i:3000)
+          npx kill-port --port 30001, 3000
           nohup yarn static:serve &
           cd /__w/corejam/corejam/test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
@@ -303,8 +302,7 @@ jobs:
           cd test && yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin
           cp .env.sample .env
           yarn static
-          kill -9 $(lsof -t -i:3001)
-          kill -9 $(lsof -t -i:3000)
+          npx kill-port --port 30001, 3000
           nohup yarn static:serve &
           cd /__w/corejam/corejam/test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
