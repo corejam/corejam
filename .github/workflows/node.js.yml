@@ -253,7 +253,9 @@ jobs:
           yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin
           cp .env.sample .env
           yarn static -l
-          nohup yarn static:serve & cd /__w/corejam/corejam/test/cypress
+          killall node
+          nohup yarn static:serve
+          cd /__w/corejam/corejam/test/cypress
           cypress run --spec "./cypress/integration/generateApp/**/*"
         env:
           CYPRESS_baseUrl: "http://localhost:3001"
