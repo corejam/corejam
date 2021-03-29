@@ -2,6 +2,7 @@
 
 import chokidar from "chokidar";
 import execa from "execa";
+import killPort from "kill-port";
 import sade from "sade";
 import runApi from "./commands/apiServer";
 import { bootstrap } from "./commands/bootstrap";
@@ -14,7 +15,6 @@ import { runWCTests } from "./commands/test";
 import { envRoot } from "./config";
 import { copySchemaToDist } from "./helpers/copy";
 import { killAll } from "./processes";
-
 const pkg = require("../package.json");
 const prog = sade("corejam");
 
@@ -116,7 +116,8 @@ prog
   .action(async () => {
     await corejamInit();
     runApi();
-    execa("serve", ["www", "-l", "3001"], { ...process.env, cwd: envRoot });
+    await killPort(3001);
+    execa("serve", ["www", "-l", "3001"], { env: { ...process.env }, cwd: envRoot });
     console.log("Serving under: http://localhost:3001");
   });
 
