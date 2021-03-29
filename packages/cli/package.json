@@ -65,7 +65,7 @@
     "@types/jest": "26.0.20",
     "@types/node": "14.14.34",
     "@types/sade": "1.7.2",
-    "apollo-server-testing": "2.21.0",
+    "apollo-server-testing": "2.22.1",
     "debug": "4.3.1",
     "faker": "5.4.0",
     "jest": "26.6.3",
