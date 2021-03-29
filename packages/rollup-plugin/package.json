@@ -13,7 +13,7 @@
     "clean": "rimraf dist"
   },
   "devDependencies": {
-    "@rollup/plugin-replace": "^2.4.1",
+    "@rollup/plugin-replace": "^2.4.2",
     "dotenv": "^8.2.0",
     "fs-jetpack": "4.1.0",
     "rollup": "2.41.2",
