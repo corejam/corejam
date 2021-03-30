@@ -68,7 +68,7 @@
   },
   "dependencies": {
     "@alepop/stencil-env": "0.4.1",
-    "@apollo/client": "3.3.11",
+    "@apollo/client": "3.3.13",
     "@corejam/base": "0.0.14",
     "@corejam/core-components": "0.0.29",
     "@corejam/notify": "0.0.8",
