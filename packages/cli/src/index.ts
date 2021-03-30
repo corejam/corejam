@@ -14,7 +14,6 @@ import { runWCTests } from "./commands/test";
 import { envRoot } from "./config";
 import { copySchemaToDist } from "./helpers/copy";
 import { killAll } from "./processes";
-
 const pkg = require("../package.json");
 const prog = sade("corejam");
 
@@ -116,7 +115,7 @@ prog
   .action(async () => {
     await corejamInit();
     runApi();
-    execa("serve", ["www", "-l", "3001"], { ...process.env, cwd: envRoot });
+    execa("serve", ["www", "-l", "3001"], { env: { ...process.env }, cwd: envRoot });
     console.log("Serving under: http://localhost:3001");
   });
 
