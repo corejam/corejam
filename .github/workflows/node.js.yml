@@ -251,6 +251,7 @@ jobs:
           cd /github/home && corejam createApp test
           cd test
           yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin
+          yarn
           cp .env.sample .env
           yarn static
           nohup yarn static:serve &
@@ -299,6 +300,7 @@ jobs:
           cd /github/home && cp -r $CLI_PATH . && cd cli && yarn link @corejam/base --ignore-scripts && yarn --ignore-scripts
           cd /github/home && /github/home/cli/dist/index.js createApp test
           cd test && yarn link @corejam/base @corejam/cli @corejam/core-components @corejam/run @corejam/rollup-plugin
+          yarn
           cp .env.sample .env
           yarn static
           nohup yarn static:serve &
