@@ -3,7 +3,6 @@ import chokidar from "chokidar";
 import execa from "execa";
 import jetpack from "fs-jetpack";
 import { isYarn } from "is-npm";
-import kill from "kill-port";
 import ora from "ora";
 import { envRoot } from "../config";
 import { copySchemaToDist } from "../helpers/copy";
@@ -65,8 +64,6 @@ export default async function run(options: any) {
     }
 
     bootSpinner.text = "Booting stencil...";
-
-    await kill(3001);
 
     const args = ["build", "--dev", "--watch", "--serve"];
     const additionalEnv: { targets: string } = { targets: "" };
