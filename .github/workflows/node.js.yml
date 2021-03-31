@@ -22,7 +22,18 @@ jobs:
         uses: styfle/cancel-workflow-action@0.6.0
         with:
           access_token: ${{ github.token }}
-      - uses: actions/checkout@v2
+      - name: Get PR git sha
+        id: gitRef
+        run: |
+          if [ "${{ github.event_name }}" == 'pull_request_target' ]; then
+            echo "::set-output name=sha::${{ github.event.pull_request.head.sha }}"
+          else
+            echo "::set-output name=sha::${{ github.sha }}"
+          fi
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.gitRef.outputs.sha }}
       - name: Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v2
@@ -50,7 +61,18 @@ jobs:
       image: "corejam/ci:node14.0.0.2"
     needs: build
     steps:
-      - uses: actions/checkout@v2
+      - name: Get PR git sha
+        id: gitRef
+        run: |
+          if [ "${{ github.event_name }}" == 'pull_request_target' ]; then
+            echo "::set-output name=sha::${{ github.event.pull_request.head.sha }}"
+          else
+            echo "::set-output name=sha::${{ github.sha }}"
+          fi
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.gitRef.outputs.sha }}
       - uses: actions/download-artifact@v2
         with:
           name: dist
@@ -69,7 +91,18 @@ jobs:
       image: "corejam/ci:node14.0.0.2"
     needs: build
     steps:
-      - uses: actions/checkout@v2
+      - name: Get PR git sha
+        id: gitRef
+        run: |
+          if [ "${{ github.event_name }}" == 'pull_request_target' ]; then
+            echo "::set-output name=sha::${{ github.event.pull_request.head.sha }}"
+          else
+            echo "::set-output name=sha::${{ github.sha }}"
+          fi
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.gitRef.outputs.sha }}
       - uses: actions/download-artifact@v2
         with:
           name: dist
@@ -104,7 +137,18 @@ jobs:
       options: --ipc=host
     needs: build
     steps:
-      - uses: actions/checkout@v2
+      - name: Get PR git sha
+        id: gitRef
+        run: |
+          if [ "${{ github.event_name }}" == 'pull_request_target' ]; then
+            echo "::set-output name=sha::${{ github.event.pull_request.head.sha }}"
+          else
+            echo "::set-output name=sha::${{ github.sha }}"
+          fi
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.gitRef.outputs.sha }}
         with:
           path: ""
       - uses: actions/download-artifact@v2
@@ -143,7 +187,18 @@ jobs:
       options: --ipc=host
     needs: build
     steps:
-      - uses: actions/checkout@v2
+      - name: Get PR git sha
+        id: gitRef
+        run: |
+          if [ "${{ github.event_name }}" == 'pull_request_target' ]; then
+            echo "::set-output name=sha::${{ github.event.pull_request.head.sha }}"
+          else
+            echo "::set-output name=sha::${{ github.sha }}"
+          fi
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.gitRef.outputs.sha }}
         with:
           path: ""
       - uses: actions/download-artifact@v2
@@ -183,7 +238,18 @@ jobs:
       options: --ipc=host
     needs: build
     steps:
-      - uses: actions/checkout@v2
+      - name: Get PR git sha
+        id: gitRef
+        run: |
+          if [ "${{ github.event_name }}" == 'pull_request_target' ]; then
+            echo "::set-output name=sha::${{ github.event.pull_request.head.sha }}"
+          else
+            echo "::set-output name=sha::${{ github.sha }}"
+          fi
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.gitRef.outputs.sha }}
         with:
           path: ""
       - uses: actions/download-artifact@v2
@@ -225,7 +291,18 @@ jobs:
       options: --ipc=host
     needs: build
     steps:
-      - uses: actions/checkout@v2
+      - name: Get PR git sha
+        id: gitRef
+        run: |
+          if [ "${{ github.event_name }}" == 'pull_request_target' ]; then
+            echo "::set-output name=sha::${{ github.event.pull_request.head.sha }}"
+          else
+            echo "::set-output name=sha::${{ github.sha }}"
+          fi
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.gitRef.outputs.sha }}
         with:
           path: ""
       - uses: actions/download-artifact@v2
@@ -274,7 +351,18 @@ jobs:
       options: --ipc=host
     needs: build
     steps:
-      - uses: actions/checkout@v2
+      - name: Get PR git sha
+        id: gitRef
+        run: |
+          if [ "${{ github.event_name }}" == 'pull_request_target' ]; then
+            echo "::set-output name=sha::${{ github.event.pull_request.head.sha }}"
+          else
+            echo "::set-output name=sha::${{ github.sha }}"
+          fi
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.gitRef.outputs.sha }}
         with:
           path: ""
       - uses: actions/download-artifact@v2
@@ -329,7 +417,18 @@ jobs:
       - cypress-generateApp-standalone
       - cypress-generateApp-standaloneCLI
     steps:
-      - uses: actions/checkout@v2
+      - name: Get PR git sha
+        id: gitRef
+        run: |
+          if [ "${{ github.event_name }}" == 'pull_request_target' ]; then
+            echo "::set-output name=sha::${{ github.event.pull_request.head.sha }}"
+          else
+            echo "::set-output name=sha::${{ github.sha }}"
+          fi
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.gitRef.outputs.sha }}
         with:
           path: ""
       - uses: actions/download-artifact@v2
