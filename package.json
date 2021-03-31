@@ -34,7 +34,7 @@
     "@typescript-eslint/parser": "4.16.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "args": "5.0.1",
-    "eslint": "7.22.0",
+    "eslint": "7.23.0",
     "eslint-plugin-import": "2.22.1",
     "husky": "6.0.0",
     "lerna": "4.0.0",
