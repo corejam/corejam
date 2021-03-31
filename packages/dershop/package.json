@@ -68,7 +68,7 @@
     "@stencil/store": "1.4.1",
     "@xstate/fsm": "1.6.0",
     "deep-parse-json": "1.0.1",
-    "faker": "5.4.0",
+    "faker": "5.5.2",
     "faunadb": "4.1.1",
     "fuse.js": "6.4.6",
     "graphql-tag": "2.11.0",
