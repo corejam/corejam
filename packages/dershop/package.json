@@ -48,7 +48,7 @@
   "devDependencies": {
     "@corejam/cli": "0.0.26",
     "@stencil/react-output-target": "0.0.9",
-    "@types/faker": "5.1.7",
+    "@types/faker": "5.5.0",
     "args": "5.0.1",
     "jest-date-mock": "1.0.8",
     "shx": "0.3.3",
