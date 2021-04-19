@@ -46,7 +46,7 @@
     "@stencil/store": "1.4.1",
     "aws-sdk": "2.875.0",
     "deep-parse-json": "1.0.1",
-    "faunadb": "4.1.1",
+    "faunadb": "4.2.0",
     "graphql-tag": "2.11.0",
     "rollup-plugin-node-polyfills": "0.2.1",
     "xstate": "4.16.2"

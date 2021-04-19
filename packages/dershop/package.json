@@ -69,7 +69,7 @@
     "@xstate/fsm": "1.6.0",
     "deep-parse-json": "1.0.1",
     "faker": "5.4.0",
-    "faunadb": "4.1.1",
+    "faunadb": "4.2.0",
     "fuse.js": "6.4.6",
     "graphql-tag": "2.11.0",
     "rollup-plugin-node-polyfills": "0.2.1",
