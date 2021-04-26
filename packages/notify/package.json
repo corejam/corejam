@@ -16,7 +16,7 @@
   "devDependencies": {
     "@corejam/base": "0.0.14",
     "@corejam/cli": "0.0.26",
-    "@types/faker": "5.1.7",
+    "@types/faker": "5.5.3",
     "dotenv": "8.2.0",
     "faker": "5.4.0",
     "node-fetch": "2.6.1",
