@@ -71,7 +71,7 @@
     "faker": "5.4.0",
     "faunadb": "4.1.1",
     "fuse.js": "6.4.6",
-    "graphql-tag": "2.11.0",
+    "graphql-tag": "2.12.4",
     "rollup-plugin-node-polyfills": "0.2.1",
     "stencil-router-v2": "0.6.0",
     "xstate": "4.16.2"
