@@ -2359,10 +2359,10 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/faker@5.1.7":
-  version "5.1.7"
-  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-5.1.7.tgz#1c3f0655f6e912f5578ce40baa941ab8705fc0ef"
-  integrity sha512-ByseCEyhb+64fapaFR/yASUfAU+Ia4LpCnHhoNMQJFSIBvbtFoEZQB0elwrSF/idpKL5OZvmZhCCukGV8Zi22w==
+"@types/faker@5.5.4":
+  version "5.5.4"
+  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-5.5.4.tgz#0dd8fb8ece85db3a35f5d5dae4531e7e4d92beef"
+  integrity sha512-1XxsrH9DjjjhLdi0J4MoGXcrjAmbTn1HR4Jyxs0MQVyESo9p7+AkHIl3Nd3jsUnoNzRCB8iFX/V9PLIPo73IeA==
 
 "@types/fs-capacitor@*":
   version "2.0.0"
