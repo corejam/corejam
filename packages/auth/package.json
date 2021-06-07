@@ -74,7 +74,7 @@
     "@corejam/notify": "0.0.8",
     "@corejam/rollup-plugin": "0.0.8",
     "@corejam/run": "0.0.13",
-    "@stencil/core": "2.4.0",
+    "@stencil/core": "2.6.0",
     "@stencil/store": "1.4.1",
     "bcryptjs": "2.4.3",
     "faker": "5.4.0",

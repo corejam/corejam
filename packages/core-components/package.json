@@ -44,7 +44,7 @@
     "@corejam/cli": "0.0.26",
     "@corejam/rollup-plugin": "0.0.8",
     "@corejam/run": "0.0.13",
-    "@stencil/core": "2.4.0",
+    "@stencil/core": "2.6.0",
     "@stencil/react-output-target": "0.0.9",
     "@stencil/store": "1.4.1",
     "@types/faker": "5.1.7",
