@@ -47,7 +47,7 @@
     "aws-sdk": "2.875.0",
     "deep-parse-json": "1.0.1",
     "faunadb": "4.1.1",
-    "graphql-tag": "2.11.0",
+    "graphql-tag": "2.12.5",
     "rollup-plugin-node-polyfills": "0.2.1",
     "xstate": "4.16.2"
   },
