@@ -47,7 +47,7 @@
     "@corejam/cli": "0.0.26",
     "@stencil/react-output-target": "0.0.9",
     "@types/bcryptjs": "2.4.2",
-    "@types/faker": "5.1.7",
+    "@types/faker": "5.5.7",
     "@types/jsonwebtoken": "8.5.0",
     "args": "5.0.1",
     "shx": "0.3.3",
