@@ -18,7 +18,7 @@
   "license": "MIT",
   "dependencies": {
     "@corejam/plugin-dershop": "0.0.29",
-    "apollo-server-micro": "2.22.2",
+    "apollo-server-micro": "3.0.1",
     "cheerio": "1.0.0-rc.5",
     "micro": "9.3.4",
     "micro-cors": "0.1.1",
